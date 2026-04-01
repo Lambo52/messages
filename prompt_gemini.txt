@@ -1,0 +1,11 @@
+
+CHAT
+
+ti do in input una chat di 1 anno all'interno di un gruppo whatsapp, la chat comprende scambi su diversi problemi tra dipendenti dell'azienda e l'azienda di supporto, mi puoi estrarre i problemi che vedi, con eventuale soluzione se presente? inoltre dimmi anche la data in cui si è verificato il problema; mi serve per indicizzare tutto in un rag, la chat è questa:
+
+--------------------------------------------------------------------
+
+DEEP RESEARCH
+
+ti do in allegato una chat di 1 anno all'interno di un gruppo whatsapp, la chat comprende scambi su diversi problemi tra dipendenti dell'azienda e l'azienda di supporto, mi puoi estrarre i problemi che vedi, con eventuale soluzione se presente? inoltre dimmi anche la data in cui si è verificato il problema; mi serve per indicizzare tutto in un rag, basati soltanto sulla chat per estrarre i problemi 
+
