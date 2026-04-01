@@ -1,9 +1,9 @@
-1	-	29/12/21 escluso		
+1	-	29/12/21 escluso	176406 token	
 
-2	-	22/12/22 escluso		
+2	-	22/12/22 escluso	87272 token
 
-3	-	27/12/23 escluso		
+3	-	27/12/23 escluso	105429 token	
 
-4	-	20/12/24 escluso		
+4	-	20/12/24 escluso	148689 token	
 
-5	-	tutti gli altri messaggi	
+5	-	gli altri		78403 token	
