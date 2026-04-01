@@ -1,9 +1,13 @@
-1	-	29/12/21 escluso	176406 token	
+1	-	29/12/21 escluso	176406 token	+ 629 file allegati (poco meno di 1k token ad immagine)
 
-2	-	22/12/22 escluso	87272 token
+2	-	22/12/22 escluso	87272 token	+ circa 77 immagini
 
-3	-	27/12/23 escluso	105429 token	
+3	-	27/12/23 escluso	105429 token	+ circa 93 immagini
 
-4	-	20/12/24 escluso	148689 token	
+4	-	20/12/24 escluso	148689 token	+ circa 132 immagini
 
-5	-	gli altri		78403 token	
+5	-	gli altri		78403 token	+ circa 69 immagini
+
+
+in media 1 immagine = 1138p
+costo di base 85 token a immagine + 4x170 = 765 token
