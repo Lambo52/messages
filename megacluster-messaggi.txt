@@ -1,12 +1,12 @@
-1	-	29/12/21 escluso	176406 token	+ 629 file allegati (poco meno di 1k token ad immagine)
+1	-	29/12/21 escluso	176406 token	+ 629 foto			- 55 problemi
 
-2	-	22/12/22 escluso	87272 token	+ circa 77 immagini
+2	-	22/12/22 escluso	87272 token	+ 141 foto		 	- 45 problemi
 
-3	-	27/12/23 escluso	105429 token	+ circa 93 immagini
+3	-	27/12/23 escluso	105429 token	+ 262 foto e 5 video		- 57 problemi
 
-4	-	20/12/24 escluso	148689 token	+ circa 132 immagini
+4	-	20/12/24 escluso	148689 token	+ 338 foto e 13 video		- 57 problemi
 
-5	-	gli altri		78403 token	+ circa 69 immagini
+5	-	gli altri		78403 token	+ 158 foto e 17 video		- 34 problemi
 
 
 in media 1 immagine = 1138p
