@@ -24,4 +24,76 @@ data singola se il problema è singolo o lista di date se ci sono più problemi 
 mi raccomando il documento che mi fornisci deve avere i problemi ad elenco puntato, esattamente come i documenti che ti ho passato
 
 
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 --------------------------
+PROMPT DI CLAUDIO
+--------------------------
+
+Sei un analista tecnico specializzato in sistemi di warehouse management. Ti fornisco un file contenente conversazioni WhatsApp esportate, relative a comunicazioni operative e di supporto tecnico su un sistema WMS chiamato WAMAS.
+Il tuo compito è analizzare il file per produrre un elenco cronologico dei problemi tecnici e operativi emersi nelle conversazioni.
+Per ogni problema trovato, restituisci una voce strutturata così:
+• [DATA e ORA] — [TITOLO BREVE DEL PROBLEMA]
+
+Descrizione: cosa è successo, quali sistemi/funzionalità erano coinvolti e quale era l'impatto operativo
+Causa identificata: se emersa dalla conversazione
+Soluzione / Workaround: cosa è stato fatto per risolvere, anche parzialmente. Se non è stata trovata una soluzione definitiva, indicalo esplicitamente.
+Note: eventuali azioni di follow-up richieste, ticket aperti, migliorie segnalate
+Regole
+Includi solo problemi concreti (tecnici, operativi, di configurazione, di performance). Ignora conversazioni di routine senza problemi.
+Se un problema si sviluppa in più momenti della stessa giornata, trattalo come una singola voce con la data/ora di prima segnalazione.
+Usa un linguaggio tecnico ma chiaro, sintetico.
+Ordina tutto in ordine cronologico crescente.
+Per eseguire questa ricerca basati ESCLUSIVAMENTE  sul file che ti ho dato in input
+
+
+
+-------------------------------------
+PROMPT DI CLAUDIO POST 5 DOCUMENTI
+-------------------------------------
+
+Ti fornisco 5 file, uno per ogni anno, contenenti ciascuno un elenco cronologico di problemi tecnici e operativi relativi al sistema WMS WAMAS.
+Il tuo compito è produrre un unico documento consolidato, seguendo queste istruzioni:
+
+Fase 1 — Unificazione
+Unisci i problemi dei 5 file in un unico elenco cronologico, mantenendo per ogni voce la struttura originale:
+
+[DATA e ORA] — [TITOLO BREVE DEL PROBLEMA]
+
+Descrizione
+Causa identificata
+Soluzione / Workaround
+Note
+
+
+
+
+Fase 2 — Deduplicazione e raggruppamento
+Identifica i problemi ricorrenti o molto simili tra anni diversi (stessa causa, stesso sistema coinvolto, stessa tipologia di soluzione) e raggruppali in una voce unificata, strutturata così:
+
+[TITOLO DEL PROBLEMA RICORRENTE]
+
+Occorrenze: elenco delle date in cui il problema si è verificato
+Descrizione generale: sintesi comune del problema e del suo impatto operativo
+Causa: causa ricorrente identificata
+Soluzione / Workaround consolidato: cosa veniva fatto ogni volta per risolvere
+Frequenza: quante volte si è verificato e in quali anni
+Note: eventuali evoluzioni del problema nel tempo, se la soluzione è cambiata tra un'occorrenza e l'altra, se è mai stata trovata una soluzione definitiva
+
+
+
+
+Fase 3 — Struttura dell'output
+Organizza il documento finale in due sezioni:
+Sezione A — Problemi ricorrenti (raggruppati)
+I problemi che si sono ripetuti nel tempo, ordinati per frequenza decrescente (dal più frequente al meno frequente).
+Sezione B — Problemi singoli (cronologico)
+I problemi che si sono verificati una sola volta, in ordine cronologico crescente, raggruppati per anno.
+
+Regole generali
+
+Due problemi sono "simili" se condividono almeno due di questi tre elementi: stesso sistema/componente coinvolto, stessa causa, stessa soluzione.
+Se hai dubbi sul raggruppamento, mantieni le voci separate e aggiungi una nota "Possibile correlazione con: [titolo altro problema]".
+Usa un linguaggio tecnico ma chiaro e sintetico.
+Non perdere nessuna informazione rilevante presente nei file originali.
