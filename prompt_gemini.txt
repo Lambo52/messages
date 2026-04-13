@@ -25,10 +25,11 @@ mi raccomando il documento che mi fornisci deve avere i problemi ad elenco punta
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-
+---------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------
 
 --------------------------
-PROMPT DI CLAUDIO
+PROMPT DI CLAUDIO PRE 5 DOCUMENTI
 --------------------------
 
 Sei un analista tecnico specializzato in sistemi di warehouse management. Ti fornisco un file contenente conversazioni WhatsApp esportate, relative a comunicazioni operative e di supporto tecnico su un sistema WMS chiamato WAMAS.
@@ -70,7 +71,7 @@ Note
 
 
 Fase 2 — Deduplicazione e raggruppamento
-Identifica i problemi ricorrenti o molto simili tra anni diversi (stessa causa, stesso sistema coinvolto, stessa tipologia di soluzione) e raggruppali in una voce unificata, strutturata così:
+Identifica i problemi ricorrenti o molto simili (stessa causa, stesso sistema coinvolto, stessa tipologia di soluzione) e raggruppali in una voce unificata, strutturata così:
 
 [TITOLO DEL PROBLEMA RICORRENTE]
 
