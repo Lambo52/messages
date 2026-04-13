@@ -1,12 +1,12 @@
-1	-	29/12/21 escluso	176406 token	+ 629 foto			- 55 problemi
+1	-	29/12/21 escluso	176406 token	+ 629 foto		tot 657.591 token	- 55 problemi individuati senza immagini
 
-2	-	22/12/22 escluso	87272 token	+ 141 foto		 	- 45 problemi
+2	-	22/12/22 escluso	87272 token	+ 141 foto		tot 195.137 		- 45 problemi
 
-3	-	27/12/23 escluso	105429 token	+ 262 foto e 5 video		- 57 problemi
+3	-	27/12/23 escluso	105429 token	+ 262 foto e 5 video	tot 305.859 + video	- 57 problemi
 
-4	-	20/12/24 escluso	148689 token	+ 338 foto e 13 video		- 57 problemi
+4	-	20/12/24 escluso	148689 token	+ 338 foto e 13 video	tot 407.259 + video	- 57 problemi
 
-5	-	gli altri		78403 token	+ 158 foto e 17 video		- 34 problemi
+5	-	gli altri		78403 token	+ 158 foto e 17 video	tot 199.275 + video	- 34 problemi
 
 
 in media 1 immagine = 1138p

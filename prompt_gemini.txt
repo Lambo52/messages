@@ -1,5 +1,5 @@
 
-DEEP RESEARCH
+DEEP RESEARCH GEMINI:
 
 ti do in allegato una chat di 1 anno all'interno di un gruppo whatsapp, la chat comprende scambi su diversi problemi tra dipendenti dell'azienda e l'azienda di supporto, mi puoi estrarre i problemi che vedi, con eventuale soluzione se presente? inoltre dimmi anche la data in cui si è verificato il problema; mi serve per indicizzare tutto in un rag, basati soltanto sulla chat per estrarre i problemi 
 
@@ -12,6 +12,16 @@ va bene però avrei bisogno più ad elenco puntato, la tabella che hai fatto va 
 ok, però io volevo solo gli elenchi puntati, ordinati per data, se fuori dagli elenchi puntati sono presenti dati da inserire dentro agli elenchi puntati fai pure, puoi ripetere le cose tra un elenco puntato ed un altro
 
 
-GIUDICE ------------------
+-------------------------- poi trasformati i singoli file in pdf, e dati in input a gemini con questo prompt:
 
-come vedi ti ho dato in input un file di testo che contiene tutti i messaggi di un gruppo tra azienda e fornitori, ho chiesto ad un llm di estrarre i singoli problemi e metterli in un elenco puntato, puoi verificare se i problemi sono stati estratti in modo corretto? ci sono tutti? ci sono problemi in più? quelli presenti omettono qualcosa o presentano informazioni in più?
+
+dati i documenti in input, e basandoti esclusivamente su di essi, come vedi contengono un elenco puntato con data e altri campi relativi ai problemi che ci sono stati, mi individui i problemi pressoché duplicati? ovvero quelli che hanno stessa causa radice e stessa risoluzione?
+
+l'output desiderato è:
+
+data singola se il problema è singolo o lista di date se ci sono più problemi che soddisfano la condizione di prima, gli altri punti dell'elenco puntato rimangono quelli
+
+mi raccomando il documento che mi fornisci deve avere i problemi ad elenco puntato, esattamente come i documenti che ti ho passato
+
+
+--------------------------
