@@ -1,0 +1,1 @@
+Il 28/09/21 alle 16:56, Mihai Soceanu ha segnalato che a causa di crash e reset del sistema EMS, un ordine è andato perso. Company Employee 18 aveva inizialmente riferito che tutto sembrava corretto, ma Mihai ha spiegato che era necessario rispedire l'ordine. Il problema è stato risolto con Mihai che ha controllato gli altri ordini e ha confermato che gli altri sembravano ok.

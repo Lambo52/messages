@@ -1,0 +1,1 @@
+Il 22/09/21 alle 11:21, Mihai Soceanu ha segnalato un problema con AGV22. Successivamente, alle 11:43, ha segnalato un problema con AGV8 e AGV10 che non ricevevano missioni. Il problema con AGV8 è stato risolto da Company Employee 18, mentre AGV10 era in una stazione di ricarica. Inoltre, alle 11:44, è stato segnalato che alcuni AGV avevano un livello di batteria basso (15%).

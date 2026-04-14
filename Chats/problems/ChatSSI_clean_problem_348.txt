@@ -1,0 +1,1 @@
+Il 10/12/21 alle ore 17:49, Milo Barozzi ha segnalato un problema relativo ai robot AGV (Automated Guided Vehicles) che erano fermi a causa dell'uscita in S48. Ha chiesto se ci fosse un manutentore disponibile per intervenire la mattina stessa. Questo messaggio indica un malfunzionamento dei robot AGV che richiede un intervento tecnico immediato.

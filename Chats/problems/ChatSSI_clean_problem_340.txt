@@ -1,0 +1,1 @@
+Il 19/11/21 alle 11:38, Daniele MMOperations segnala un problema alla picking station 5, dove non è possibile rilasciare l'UDC. Successivamente, alle 11:40, conferma che il problema è sparito. Non è stata identificata la causa specifica né la risoluzione, ma il problema sembra essere stato risolto rapidamente.

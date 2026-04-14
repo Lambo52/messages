@@ -1,0 +1,1 @@
+Il 29/10/21 alle 15:44, Milo Barozzi segnala che la stazione di prelievo #5 è ancora bloccata. Aveva già inviato un ticket alla Hotline alle 14:48. Il tecnico di supporto 16 ha sbloccato la stazione e spiega che il problema sembra essere dovuto ad un intervento manuale da parte di una persona che ha annullato il TPO per il pallet, mentre l'AGV aveva già salvato la missione.

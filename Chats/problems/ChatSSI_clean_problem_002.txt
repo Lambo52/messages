@@ -1,0 +1,1 @@
+Il 24/06/21 alle 09:40, Tai Pham ha segnalato che l'AGV 3 è bloccato dall'AGV 6. Successivamente ha aggiunto che anche gli AGV 2, 8 e 14 sono bloccati dallo stesso AGV 6. Mihai Soceanu ha confermato la situazione. La causa sembra essere un malfunzionamento dell'AGV 6 che impedisce il movimento degli altri AGV. Non è stata ancora fornita una risoluzione nei messaggi analizzati.

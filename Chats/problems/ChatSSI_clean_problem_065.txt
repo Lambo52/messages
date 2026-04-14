@@ -1,0 +1,1 @@
+AGV7 si trova in errore e blocca la stazione 5. Mihai Soceanu ha segnalato il problema alle 09:04 del 14/07/21, specificando che l'AGV7 doveva prendere un pallet da RPF01C0531. L'AGV7 è in errore da almeno 15 minuti (dato che alle 09:19 Mihai menziona che il pallet da RPF01C0531 era stato assegnato all'AGV4 dopo 30 minuti).

@@ -1,0 +1,1 @@
+27/07/21, 10:17 - Il pick station #1 è bloccato perché non ha pallet vuoti per soddisfare l'ordine di prelievo. Questo è un problema noto (D145 da 20.07). La causa è un vecchio richiesta vuota rimasta nel sistema che ha fatto sì che MFS non assegnasse correttamente le risorse. La risoluzione è stata implementata con un fix allegato a D145.

@@ -1,0 +1,1 @@
+23/04/24, 13:49 - Benedetta Zini ha segnalato un problema con la HA stack dal lato Rocla. Il problema riguarda un malfunzionamento o un'incidenza tecnica nella gestione della HA (High Availability) stack. Benedetta ha indicato che Rocla sta effettuando il controllo del problema. Al momento non è stata identificata una causa specifica né una risoluzione.

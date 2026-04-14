@@ -1,0 +1,1 @@
+18/10/21, 15:35 - Nicola Bernardi ha segnalato un problema con il pallet su CU300 che è bloccato senza errori visibili, con il flag 'ATTIVO SU MFS' anomalo su MF014. Mihai Soceanu ha verificato e ha riscontrato che l'ordine era corrotto nel PLC, risolvendo il problema ricreando l'ordine nel PLC.

@@ -1,0 +1,1 @@
+22/07/22, 19:00 - Problema di accesso a Lightouse: l'utente Milo Barozzi ha segnalato un errore di login al sistema Lightouse con messaggio "login failed". Il problema è stato risolto dopo alcuni minuti grazie all'intervento di Razvan Voicu, che ha riportato che "Everything should be fine". Successivamente, l'accesso è risultato funzionante.

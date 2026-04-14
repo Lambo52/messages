@@ -1,0 +1,1 @@
+Il 30/12/21 alle 13:38, Nicola Bernardi ha segnalato un problema con SRM01. Il sistema Lighthouse mostra che SRM01 è in posizione 'home', ma il carrello è in uno stato funzionale corretto. Questo indica una discrepanza tra la posizione visualizzata e lo stato reale del sistema. Non è stata identificata una causa specifica né una risoluzione nei messaggi forniti.

@@ -1,0 +1,1 @@
+Il 24/09/21 alle 17:22, Nicola Bernardi ha segnalato un problema con l'SRM08, dove un pallet (58093462) non si muoveva dalle forche, bloccando tutte le ordini delle stazioni di picking. Mihai Soceanu ha risposto che il problema era dovuto al fatto che non riusciva a trovare il target in S48. Successivamente, alle 17:33, il problema sembra essere stato risolto.

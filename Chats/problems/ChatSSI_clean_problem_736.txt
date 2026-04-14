@@ -1,0 +1,1 @@
+Il 01/08/24 alle 18:32, Benedetta Zini ha segnalato un problema con un cumulo di pallet vuoti (DA) in HBW1. Specificamente, c'è un TPO in stato 'NEW' con il messaggio 'WAIT FOR ROUTE NOT FOUND'. Questo è l'ultimo cumulo di pallet DA all'interno di HBW1. È stato allegato un file immagine (IMG-20240801-WA0005.jpg) per fornire ulteriori dettagli. La causa non è ancora identificata.

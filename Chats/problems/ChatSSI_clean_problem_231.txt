@@ -1,0 +1,1 @@
+20/09/21, 10:12 - Segnalato da Daniele MMOperations: Problema alla stazione di picking numero 10. Un PLT si trova nel buffer ma non viene assegnato alle stazioni S01 e S02 libere, causando il blocco della PS. Il problema è stato risolto autonomamente dopo un atteso tempo aggiuntivo.

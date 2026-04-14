@@ -1,0 +1,1 @@
+13/07/21, 06:35 - Giacomo Trivieri, Lavoro: Segnalazione di un problema alla stazione di picking cu203 con il pallet 59049259. Non è possibile creare un pellet logico, solo eliminarlo. Il tecnico Support Technician 13 ha verificato che non esiste un TPO in Wamas e suggerisce di crearlo, ma l'utente non riesce a farlo. Il tecnico ha promesso di verificare con il team WMS.

@@ -1,0 +1,1 @@
+Il 28 febbraio alle ore 20:02, Daniele MMOperations ha segnalato che non era possibile aprire l'applicazione Lighthouse sul PC. Il problema sembra essere stato risolto poco dopo, alle ore 20:08, quando Daniele ha confermato che ora funziona. Non è stata specificata la causa del problema.

@@ -1,0 +1,1 @@
+Problema di comunicazione tra Wamas e As400 segnalato da Stefano Dall'Asta, Lavoro il 14/03/22 alle 06:39. Il problema riguarda la stazione DI004. La causa non è specificata, ma il problema è stato risolto da Razvan Voicu, che ha confermato che ora tutto funziona correttamente.

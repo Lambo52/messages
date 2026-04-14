@@ -1,0 +1,1 @@
+Il 22/07/22 alle 19:29 è stato segnalato un problema con pallet fantasma (ghost pallet) sui sistemi SLF*2851 e SLF*071. Milo Barozzi ha riferito l'incidenza e ha richiesto supporto per SLF*071. Successivamente, è stato confermato che il problema era stato risolto per SLF*2851 e SLF*071, grazie all'intervento di Razvan Voicu che ha riportato il pallet 65830909 a 'back to life'.

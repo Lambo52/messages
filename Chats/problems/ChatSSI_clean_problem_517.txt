@@ -1,0 +1,1 @@
+Il 26/05/23 alle ore 09:35, Razvan Voicu ha segnalato un problema su SRM02 relativo a un pallet (51448222) che era stato spostato manualmente. Il problema è stato risolto sincronizzando l'SRM con lo stato corrente, permettendo al sistema di riprendere il funzionamento.

@@ -1,0 +1,1 @@
+21/09/21, 17:12 - Mihai Soceanu ha segnalato che non è possibile rilasciare il buffer OG (OBD#257842). Ha chiesto un'idea sul motivo. Successivamente ha allegato un'immagine e ha chiesto di controllare AGV 3 e 27. Il problema sembra riguardare un malfunzionamento del buffer OG, probabilmente legato a un errore software o hardware nei sistemi di gestione AGV.

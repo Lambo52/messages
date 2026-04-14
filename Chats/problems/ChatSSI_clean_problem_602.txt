@@ -1,0 +1,1 @@
+Il 10/01/24 alle ore 09:11, Adrian Cindea ha segnalato un problema relativo al valore massimo accettato (65353) che era molto più piccolo rispetto al valore effettivo di 104.000 Kg. Questo indica un limite di sistema che non permette di gestire carichi superiori a 65353. Non è stata identificata una causa specifica né una risoluzione nel testo fornito.

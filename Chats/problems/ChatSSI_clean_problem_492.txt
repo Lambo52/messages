@@ -1,0 +1,1 @@
+02/03/23, 14:29 - Nicola Bernardi ha segnalato un problema di comunicazione tra Wamas e PLC che ha portato un sistema a essere in bypass da 4 mesi. Il problema riguarda un sistema di conveyor, sensori e labeler che sono funzionanti, ma uno di essi è in bypass a causa di un'issue di comunicazione. Non è stata menzionata una risoluzione.

@@ -1,0 +1,1 @@
+23/04/24, 13:36 - Segnalazione di un stack H inaspettato alla stazione di pick 7 (TEMP2048). Benedetta Zini aveva precedentemente richiesto di non infeedare stack H, ma l'operatore ha infeadato comunque uno stack H. Adrian Cindea e Razvan Voicu hanno tentato di annullare la richiesta e di gestire manualmente lo stack errato (ID 60785241 su TPSF01C1941).

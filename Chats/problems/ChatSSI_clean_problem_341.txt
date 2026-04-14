@@ -1,0 +1,1 @@
+Il 19/11/21 alle 12:19, Daniele MMOperations segnala un problema con l'UDC 60602971, dove non è possibile creare il TPO necessario per restituire il PLT nel buffer. Il problema sembra essere legato a un malfunzionamento del sistema che impedisce l'esecuzione di questa operazione. Il messaggio 5905 descrive chiaramente la situazione, indicando la necessità di intervento tecnico.

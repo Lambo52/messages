@@ -1,0 +1,1 @@
+17/09/21, 13:01 - Mihai Soceanu ha segnalato che l'AGV 7 non riesce a consegnare alla stazione 7, posizione 1. La causa non è immediatamente identificabile dai messaggi, ma è in corso un'indagine. Non è menzionata una risoluzione.

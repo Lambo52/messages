@@ -1,0 +1,1 @@
+28/06/21, 09:04 - Mihai Soceanu ha segnalato un problema con il codice 70149472 alla posizione HRA05X108Y01Z21. SRM non riesce a recuperare l'oggetto. Mihai chiede se il problema è riparabile.

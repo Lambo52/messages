@@ -1,0 +1,1 @@
+08/10/21, 10:55 - Stefano Dall'Asta, Lavoro ha segnalato che l'unità logica (LU) 60643124 non viene prelevata da oltre 30 minuti. Il problema riguarda un ritardo nella gestione dell'unità logica da parte del sistema, causando un blocco operativo. Non è stata identificata la causa specifica né una risoluzione nei messaggi forniti.

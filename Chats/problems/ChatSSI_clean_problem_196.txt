@@ -1,0 +1,1 @@
+Il problema riguarda l'AGV02, segnalato da Mihai Soceanu il 13/09/21 alle 20:33. Sintomo: qualcosa non funziona correttamente con AGV02. Non sono disponibili informazioni sulla causa specifica né sulla risoluzione in questi messaggi.

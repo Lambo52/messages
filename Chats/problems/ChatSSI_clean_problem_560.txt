@@ -1,0 +1,1 @@
+Il 04/12/23 alle ore 09:33, Benedetta Zini ha segnalato che gli ordini non cambiano il loro stato da 'approval in progress' a 'release for picking'. Questo problema riguarda più di 200 ordini. La causa potrebbe essere un blocco nei jobs, come chiesto da Benedetta. Non è immediatamente visibile una risoluzione nei messaggi forniti.

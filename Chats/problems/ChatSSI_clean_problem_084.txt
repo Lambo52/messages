@@ -1,0 +1,1 @@
+Problema riscontrato il 26/07/21 intorno alle 08:22, segnalato da Razvan Voicu. Il problema riguarda la connessione alla rete all'interno del magazzino Atlas, con impossibilità di connettersi al desktop remoto abituale. La causa inizialmente non era chiara, ma dopo il riavvio della VPN la connessione è tornata a funzionare. Il problema è stato risolto con il riavvio della VPN.

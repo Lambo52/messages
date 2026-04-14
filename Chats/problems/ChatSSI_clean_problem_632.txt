@@ -1,0 +1,1 @@
+12/04/24, 14:42 - Chiara Lodesani, Lavoro ha segnalato che la quantità sottolineata in un ordine non era corretta (dovrebbe essere 17 SC invece di 1). Il problema è stato risolto con l'intervento del tecnico di supporto, che ha modificato la quantità nel pick order per poter chiudere l'ordine. Il problema è stato risolto entro la stessa giornata.

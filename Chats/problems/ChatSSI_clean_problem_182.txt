@@ -1,0 +1,1 @@
+07/09/21, 10:37 - Il tecnico di supporto ha segnalato un problema con l'AGV #6 che perde frequentemente la navigazione. Ha richiesto di controllare il sensore di navigazione. Il problema non è risolto nei messaggi forniti.

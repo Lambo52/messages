@@ -1,0 +1,1 @@
+Il 17/06/24 alle 14:58, Benedetta Zini ha segnalato che dopo il deploy non riescono a visualizzare gli utenti, mostrando solo HBW03 e HBW10. Gli utenti sono comunque loggati. Sono state condivise schermate per evidenziare il problema. Adrian Cindea ha risposto che aveva attivato gli utenti sulla stazione e ha suggerito di verificare al prossimo login.

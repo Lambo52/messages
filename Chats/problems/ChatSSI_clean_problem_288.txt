@@ -1,0 +1,1 @@
+Il 07/10/21 alle 16:09, Nicola Bernardi ha segnalato un blocco persistente di un pallet in una posizione specifica, accompagnato da un'immagine allegata (IMG-20211007-WA0023.jpg). Ha inoltre tentato un reset su MF210 senza successo. Il problema è stato risolto successivamente da Mihai Soceanu, che ha eseguito interventi tecnici per sbloccare la situazione.

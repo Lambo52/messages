@@ -1,0 +1,1 @@
+Il 01/10/21 alle 12:06, Mihai Soceanu ha segnalato un problema con il destacker, dove i pallet D e H dovevano essere rimossi manualmente. Questo problema è stato risolto con l'intervento di Nicola Bernardi, che ha fornito assistenza e ha confermato che tutto era ok entro le 12:29.

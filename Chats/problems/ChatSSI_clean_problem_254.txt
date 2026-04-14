@@ -1,0 +1,1 @@
+27/09/21, 14:44 - Milo Barozzi ha segnalato un problema con la stazione di prelievo #1 che non riceve pallet vuoti. La causa potrebbe essere che il sistema non invia pallet F invece di U, nonostante i pallet F siano compatibili con U. Il problema è stato risolto dopo che il tecnico ha riscontrato un problema con il tempo di recupero degli AGV.

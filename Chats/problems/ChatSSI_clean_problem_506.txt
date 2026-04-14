@@ -1,0 +1,1 @@
+Il 19 aprile 2023 alle 15:23, Benedetta Zini ha segnalato un problema relativo a picchi di utilizzo della memoria dell'applicazione WAMASAPP, che si verificano ogni mattina da lunedì. L'utilizzo della memoria è iniziato ad aumentare alle 03:30. Non è stata identificata una causa specifica né una risoluzione nei messaggi forniti.

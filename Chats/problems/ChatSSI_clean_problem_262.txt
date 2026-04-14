@@ -1,0 +1,1 @@
+28/09/21, 14:54 - Daniele MMOperations ha segnalato che i PLT (pallet) vuoti richiedono molto tempo. Successivamente, alle 15:03, Mihai Soceanu ha confermato che stavano lavorando su un aggiornamento prioritario per risolvere il problema. Il problema sembra riguardare un ritardo nella gestione dei pallet vuoti all'interno del sistema.

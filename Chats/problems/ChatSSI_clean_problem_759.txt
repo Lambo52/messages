@@ -1,0 +1,1 @@
+Il problema è stato segnalato il 10/10/24 alle ore 05:29 da Andrea Brunetti. Il problema riguarda un blocco persistente nel sistema di picking station, che si è verificato alle ore 04:25 e non è stato risolto. Non sono presenti errori visibili nel lighthouse, ma la situazione rimane bloccata. Non è stata ancora identificata la causa specifica né la risoluzione.

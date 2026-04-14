@@ -1,0 +1,1 @@
+23/07/24, 17:25 - Ticket 01376234: Problema con ordini (es. ADBATLATL000034281 e ADBATLATL000035256) che non vengono processati correttamente. L'utente Chiara Lodesani ha riferito che annullare e ricreare gli ordini non risolve il problema. Successivamente, i tecnici hanno ipotizzato un problema legato agli item con FOG 'GRANDILASTRE' o alla categoria 'goods'.

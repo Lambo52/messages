@@ -1,0 +1,1 @@
+Il 15/12/21 alle 11:47, Stefano Dall'Asta segnala che il sistema sta crashando dopo circa 5 secondi. Il problema è stato risolto da Razvan Voicu modificando l'UDC per annullare la quantità da scaricare, permettendo così al sistema di funzionare correttamente. Il problema è stato risolto entro il 15/12/21 alle 16:48.

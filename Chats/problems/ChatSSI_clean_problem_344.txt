@@ -1,0 +1,1 @@
+Il 25/11/21 alle 21:54, Mihai Soceanu segnala che il sistema EMS è entrato in errore (messaggi 6013-6014). La descrizione dell'errore include un allegato (IMG-20211126-WA0000.jpg). Successivamente, alle 22:10 Mihai conferma che tutto sembra essere tornato alla normalità (messaggio 6018).

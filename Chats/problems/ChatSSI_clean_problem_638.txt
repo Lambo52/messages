@@ -1,0 +1,1 @@
+17/04/24, 13:35 - Benedetta Zini ha segnalato che Rocla ha avuto problemi durante l'aggiornamento, impedendo il test del destacker nel pomeriggio. Non è specificata la causa esatta del problema né la risoluzione.

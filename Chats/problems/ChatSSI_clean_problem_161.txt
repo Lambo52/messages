@@ -1,0 +1,1 @@
+Il 27/08/21 alle ore 08:12, Mihai Soceanu ha segnalato un problema con la 'foiling line 1', specificando che l'infeed non funziona correttamente. Successivamente, alle ore 08:37, ha allegato un'immagine per fornire ulteriori dettagli. Il problema è stato risolto da Milo Barozzi alle ore 08:48, che ha comunicato il completamento del ripristino alle ore 08:53.

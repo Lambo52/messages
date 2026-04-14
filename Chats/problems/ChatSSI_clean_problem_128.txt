@@ -1,0 +1,1 @@
+09/08/21, 09:31 - Problema segnalato da Mihai Soceanu riguardo al pallet 60478874. Hive aveva perso l'ordine, causando un malfunzionamento. Mihai ha risolto forzando il reinvio dell'ordine a Hive tramite MFS. Il problema è stato risolto.

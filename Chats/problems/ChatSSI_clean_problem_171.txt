@@ -1,0 +1,1 @@
+Il 01/09/21 alle 08:40, Milo Barozzi segnala un problema con la stazione di prelievo #8. Il problema è riconducibile a un'errata configurazione dei dati master. Milo Barozzi corregge i dati master e chiede di annullare la richiesta per il pallet vuoto 9 o modificarla in un pallet F. Il tecnico di supporto (Support Technician 16) conferma di aver eseguito l'azione richiesta.

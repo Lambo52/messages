@@ -1,0 +1,1 @@
+Il 11/02/22 alle ore 06:38, Stefano Dall'Asta segnala un problema di connessione tra il sistema Wamas e l'AS400. Questo problema persiste e viene menzionato nuovamente il 21/02/22 alle ore 06:43. La causa potrebbe essere legata al deploy effettuato precedentemente. Il problema è stato risolto da Razvan Voicu il 21/02/22 alle ore 08:18.

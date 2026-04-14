@@ -1,0 +1,6 @@
+Problema: Messaggi non processati e rifiutati
+- Data/ora: 11/12/23, 9:32 AM
+- Coinvolto: Cindea Adrian
+- Sintomo: 20 messaggi non sono stati processati dal giorno precedente (16:38) e sono stati rifiutati. Inizialmente tutti i messaggi erano rifiutati a causa di un problema di lunghezza (18 caratteri in meno). Successivamente, il problema si è focalizzato su alcuni messaggi specifici (messaggi 03) con un errore relativo alla quantità dell'unit load (LU '71870403') che superava la quantità disponibile sull'IBD (Inbound Delivery).
+- Causa: Probabilmente un errore di dati (gargage) o un processamento manuale dell'IBD senza la corretta notifica dell'unit load.
+- Risoluzione parziale: Dopo il deploy, solo i messaggi 03 con problemi sono stati rifiutati, mentre gli altri (es. #14) sono stati processati correttamente. Si sta monitorando la situazione per verificare se i 20 messaggi non processati vengono riesaminati oggi.

@@ -1,0 +1,1 @@
+27/12/23, 12:05 - Benedetta Zini segnala la presenza di bolle rosse (probabilmente errori o allarmi) associate a LDF01C0522_RIGHT. Non riesce a rimuoverle nonostante i tentativi di reset. Il problema viene risolto successivamente, come confermato da Benedetta alle 12:24 con il messaggio 'IT WORKS!'.

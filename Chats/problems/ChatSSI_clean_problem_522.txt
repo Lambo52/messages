@@ -1,0 +1,17 @@
+Data: 20/06/23, ore 15:25
+Problema segnalato da Nicola Bernardi e Razvan Voicu riguardante un malfunzionamento del sistema di movimentazione pallet.
+
+Sintomo: 
+- Il sistema non ha mosso pallet dal punto 401
+- Il pallet posto su 403 è scomparso, spostandosi a 404 dove è stato preso da un AGV
+- Sembra che due pallet siano stati posizionati prima, uno su 402 e uno su 403
+- Razvan Voicu ha constatato che qualcosa non funziona correttamente
+- PLC (Programmable Logic Controller) deve intervenire per verificare il problema
+
+Causa: 
+- Non è chiara, ma sembra che il problema sia fuori dal controllo di Wamas
+
+Risoluzione: 
+- Non ancora implementata
+- Razvan Voicu ha informato Gerald Roitner del problema
+- Si attende l'intervento di PLC per risolvere l'incidente

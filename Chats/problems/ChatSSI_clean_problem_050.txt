@@ -1,0 +1,1 @@
+Il 08/07/21 alle 11:08 circa, è stato segnalato un problema con l'AGV01 che si trovava bloccato all'uscita del WW da oltre 30 minuti. Il problema è stato risolto dopo che il tecnico ha cancellato il secondo target non raggiungibile del pallet (CU04) e ha rinfrescato il pallet dal database in MF200. La causa iniziale era un target aggiuntivo non necessario nel TPO del pallet.

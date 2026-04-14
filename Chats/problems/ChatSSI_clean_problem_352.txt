@@ -1,0 +1,1 @@
+22/12/21, 12:45 - AGVs sono stati disattivati come parte di un piano di deploy programmato per le 13:00. I tecnici hanno seguito una serie di passaggi per completare gli ordini pendenti e riattivare i AGVs dopo il deploy. Il problema è stato risolto entro le 13:18 con il sistema tornato alla normalità.

@@ -1,0 +1,1 @@
+25/06/23, 17:20 - Problema con gli ordini per pallets. Il tecnico di supporto ha segnalato che c'erano alcuni problemi con gli ordini per pallets, ma essi si sono resettati automaticamente. Benedetta Zini ha confermato che ora funziona correttamente. La causa sembra essere un problema occasionale che si verifica dopo un riavvio, ma si è risolto da solo.

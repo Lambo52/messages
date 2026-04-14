@@ -1,0 +1,1 @@
+27/08/21, 06:20 - Il sistema AGV è bloccato e non va a prendere i pallets alle stazioni di prelievo. Si sospetta che il problema sia dovuto al deploy effettuato il giorno precedente, potenzialmente causato da un malfunzionamento della comunicazione tra MFS e Rocla o da un trasporto bloccato che impedisce gli altri. La richiesta di risoluzione è urgente. Segnalato da Milo Barozzi.

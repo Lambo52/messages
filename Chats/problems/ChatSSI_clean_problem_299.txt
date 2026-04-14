@@ -1,0 +1,1 @@
+13/10/21, 19:33 - Daniele MMOperations segnala un problema con l'UDC 58991745. Viene allegata un'immagine che mostra un errore, ma Daniele indica di non riuscire a risolverlo. Il problema sembra riguardare un errore specifico nell'UDC, ma non sono disponibili ulteriori dettagli sulla causa o la risoluzione nei messaggi successivi.

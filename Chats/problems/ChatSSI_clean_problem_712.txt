@@ -1,0 +1,1 @@
+Il 20/06/24 alle 12:54, Nicola Bernardi ha segnalato un problema tecnico (ticket 01369898) e ha fornecato un codice (60701729) e un'immagine. Il tecnico di supporto ha risolto il problema entro le 14:14 dello stesso giorno, dichiarando che il problema è stato fissato, anche se hanno inviato l'unità logica (LU) a NOK come precauzione.

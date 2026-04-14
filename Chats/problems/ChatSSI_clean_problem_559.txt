@@ -1,0 +1,1 @@
+Problema riscontrato il 04/12/23 alle ore 09:27 segnalato da Benedetta Zini. Ordini non cambiano stato da 'approval in progress' a 'release for picking'. Sono presenti oltre 200 ordini in questo stato. Esempio: ADBATLATL000077111. La causa potrebbe essere legata ad un'elevata quantità di dati (riferimento a CC15 issue).

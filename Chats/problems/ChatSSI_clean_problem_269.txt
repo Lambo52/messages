@@ -1,0 +1,1 @@
+30/09/21, 18:42 - Milo Barozzi ha segnalato che 'Lighthouse is not visible'. Successivamente, il tecnico di supporto Flaviu ha risposto che il servizio era fermo e che è stato risolto. La causa del problema era che il servizio era stato arrestato, e la risoluzione è che il sistema è tornato online.

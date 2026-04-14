@@ -1,0 +1,1 @@
+Problema di comunicazione tra WAMAS e AS400 segnalato da Stefano Dall'Asta il 14/03/22 alle 06:39. L'utente ha indicato che il problema riguarda il sistema DI004. Il problema è stato risolto grazie all'intervento di Razvan Voicu, che ha confermato il completamento dell'azione correttiva alle 06:42.

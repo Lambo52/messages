@@ -1,0 +1,1 @@
+Il problema principale riguarda l'errore 'errore di esecuzione programma' su SRM08, segnalato da Giacomo Trivieri il 12/07/21 alle 10:02. L'utente chiede se sia necessario aprire un ticket per questa anomalia. Non è immediatamente evidente la causa specifica dell'errore, né una risoluzione chiara nei messaggi forniti.

@@ -1,0 +1,1 @@
+08/09/21, 12:09 - Il sistema SRM09 ha attivato la luce d'errore. Milo Barozzi ha confermato l'errore dal pannello del cabinet ma il sistema non si è mosso. Dopo un'interazione con Razvan Voicu, è emerso che il sistema era in stato manuale. Una volta passato in automatico, il sistema ha ripreso a funzionare correttamente.

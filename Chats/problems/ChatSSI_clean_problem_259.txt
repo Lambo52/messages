@@ -1,0 +1,1 @@
+28/09/21, 12:07 - Milo Barozzi ha segnalato che l'ordine 5th in coda in OG025 sembra essere 'eseguibile' ma non viene assegnato. Questo indica un malfunzionamento nel sistema di assegnazione degli ordini. Il problema è stato risolto autonomamente senza intervento esterno.

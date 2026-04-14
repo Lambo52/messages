@@ -1,0 +1,1 @@
+Il 02/06/22 alle ore 07:15, Razvan Voicu ha iniziato un deploy del sistema. Stefano Dall'Asta ha confermato l'avvio del deploy e ha richiesto di essere informato quando sarebbe stato possibile accedere nuovamente al sistema. Il deploy è stato completato alle ore 07:53, come confermato da Razvan Voicu. Questo indica un intervento di manutenzione programmato sul sistema.

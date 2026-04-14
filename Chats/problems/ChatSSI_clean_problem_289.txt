@@ -1,0 +1,1 @@
+Il 07/10/21 alle 16:10, Nicola Bernardi ha segnalato un problema con il reset del sistema MF210 che non funzionava. Mihai Soceanu ha confermato di averlo verificato. Successivamente, alle 21:05, Nicola ha segnalato che gli EMS non stavano prendendo i pallets. Mihai ha risposto che stava risolvendo il problema e alle 21:09 ha comunicato che il sistema era tornato alla normalità.

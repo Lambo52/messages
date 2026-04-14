@@ -1,0 +1,1 @@
+Il 12/05/25 alle 13:01, Benedetta Zini ha segnalato che l'AGV con ID 53029100 era bloccato vicino all'etichettatrice dell'area di foiling. L'AGV aveva un SOC-ID rotto e un TPO in stato di errore. Dopo una discussione con il tecnico di supporto, l'AGV si è spostato e il problema sembrava risolto. La causa potrebbe essere correlata allo stato 'broken' in MF266.

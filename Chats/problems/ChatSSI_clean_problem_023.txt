@@ -1,0 +1,1 @@
+28/06/21, 12:28 - Segnalazione di Davide Montanari: Non vengono creati TO per l'oggetto di stock A4OS DE4S nel magazzino WH502. Sintomo: 8 LUm disponibili ma solo 2 stock object in SH1. Causa: Non specificata. Risoluzione: Non visibile nei messaggi forniti.

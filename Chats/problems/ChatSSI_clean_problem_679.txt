@@ -1,0 +1,1 @@
+Il 23/04/24 alle 14:00 circa, Adrian Cindea ha segnalato un problema con il sistema 'foiling', indicando che era 'busy'. Successivamente, Benedetta Zini ha confermato che 'foiling is empty' e hanno iniziato un aggiornamento dell'AGV. Il problema sembra riguardare l'aggiornamento dell'AGV e l'attivazione di HA (High Availability) per 'foiling'.

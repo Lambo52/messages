@@ -1,0 +1,1 @@
+Il 04/10/21 alle 14:00 circa, Mihai Soceanu segnala un problema fisico con il destacker, che è vuoto e non permette l'ingresso del pallet successivo. Nicola Bernardi chiede se è possibile posizionare logicamente e fisicamente il pallet dietro, e Mihai conferma di poter provare. Il problema sembra richiedere l'intervento del PLC, ma non è chiaro se sia già stato risolto.

@@ -1,0 +1,1 @@
+Il 21/01/22 alle 19:40, Stefano Dall'Asta segnala che tutti i terminali sono bloccati con il messaggio 'CONNECTION TIME OUT'. È stata contattata la hot line. Il problema sembra essere stato risolto poiché alle 20:07 Razvan Voicu comunica che i terminali hanno ripreso a funzionare.

@@ -1,0 +1,1 @@
+19/03/24, 10:52 - Chiara Lodesani, Lavoro: Non è possibile assegnare un utente con tipo di terminale 'Desktop' alla stazione. L'utente mmop115, che è connesso alla stazione HBW07, non può essere assegnato. Questo problema è stato identificato come un'anomalia software che richiede un'analisi ulteriore e potrebbe necessitare di un deployment per essere risolto.

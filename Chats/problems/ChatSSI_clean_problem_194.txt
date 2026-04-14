@@ -1,0 +1,1 @@
+13/09/21, 12:39 - Milo Barozzi ha segnalato un problema con l'unità CU299 che non si muoveva, mostrando un messaggio 'NO READ'. Mihai Soceanu ha iniziato a controllare i log. Successivamente, l'unità si è mossa, ma non è chiara la causa precisa. Non è stata aperta una richiesta di ticket.

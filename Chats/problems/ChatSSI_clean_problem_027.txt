@@ -1,0 +1,1 @@
+Il 29/06/21 alle 15:04, Davide Montanari segnala un problema con gli AGV 'slf*011' e 'slf*071' che hanno temperature anomale. Il problema è risolto entro le 15:31 dello stesso giorno, come comunicato dallo stesso utente.

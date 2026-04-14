@@ -1,0 +1,1 @@
+Il 27/07/24 alle 19:41, Tommaso Guizzardi ha segnalato che il sistema sembra molto lento e le AGV non stanno prendendo le missioni. Questo indica un malfunzionamento del sistema di gestione delle missioni AGV, con potenziali problemi di performance o di assegnazione delle missioni. Non è stata identificata una causa specifica né una risoluzione nei messaggi successivi.

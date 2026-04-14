@@ -1,0 +1,1 @@
+Il 31/03/23 alle 17:38, Chiara Lodesani ha segnalato un alto utilizzo della CPU e un accumulo di record da archiviare. Adrian Cindea ha risposto che l'archiviazione era completata alle 18:49 e che tutto sembrava tornato alla normalità. Il problema sembra essere stato risolto con l'archiviazione dei dati.

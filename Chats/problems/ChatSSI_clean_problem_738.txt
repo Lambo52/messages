@@ -1,0 +1,1 @@
+Il 02/08/24 alle 15:21, Benedetta Zini ha segnalato che la pick station #2 era bloccata dal DAF 04. Successivamente, ha confermato che il blocco era avvenuto dopo aver annullato TEMP5590. Il problema sembra essere stato risolto con l'intervento di Razvan Voicu, che ha inviato una mail per comunicare l'azione intrapresa.

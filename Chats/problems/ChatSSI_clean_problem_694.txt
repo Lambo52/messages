@@ -1,0 +1,1 @@
+Il 14/05/24 alle 07:17, Nicola Bernardi ha segnalato un problema con il sistema. Il tecnico di supporto ha identificato che un messaggio era rimasto bloccato nella coda per 'mfs pal', impedendo l'avvio di altri 'tpo'. Il problema è stato risolto entro le 07:45 dello stesso giorno, quando Nicola ha confermato che tutti i sistemi erano nuovamente operativi.

@@ -1,0 +1,1 @@
+Il 13/02/23 alle ore 06:44, Stefano Dall'Asta ha segnalato un problema di comunicazione tra Wamas e AS400. Alexandru Catarau ha risposto che avrebbe risolto il problema al più presto. Successivamente, Stefano ha confermato che il problema sembrava risolto. Il problema riguarda la comunicazione tra i due sistemi, con un'interruzione che è stata rapidamente risolta.

@@ -1,0 +1,1 @@
+16/07/24, 15:03 - Problema segnalato da Chiara Lodesani: un LU (52545615) su BP12 D02 non ha un TPO (Transport Order). Il problema persiste nonostante i tentativi di risoluzione. Il tecnico ha cancellato il TPO in Wamas e rimosso l'ordine dalla piscina AGV, ma identifica la causa principale nel modo in cui vengono creati i TPO. Il problema è urgente e richiede ulteriore analisi.

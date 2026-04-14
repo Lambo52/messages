@@ -1,0 +1,1 @@
+25/06/21, 14:49 - Il problema iniziale riguarda un errore con l'articolo 23 che entra in stato 'waiting wamas'. L'utente ha pulito tutti i sensori, ma l'errore persiste. Successivamente, il 25/06/21, 20:48, si segnala un problema con l'AGV 7 che non è nel sistema, causando il blocco di altre AGV che vedono la sua presenza 'fantasma'. Questo problema non è risolto.

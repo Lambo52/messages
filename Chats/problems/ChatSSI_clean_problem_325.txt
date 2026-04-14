@@ -1,0 +1,1 @@
+Il 26/10/21 alle 14:07, Mihai Soceanu ha segnalato un problema con l'AGV25, indicando che c'è un errore ('is in error smth') e che il problema potrebbe essere correlato al 'lock problem in the morning'. Non è stata identificata una causa specifica né una risoluzione completa nei messaggi forniti.

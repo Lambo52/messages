@@ -1,0 +1,1 @@
+Il 18/10/21 alle 15:35, Nicola Bernardi ha segnalato un problema con un pallet bloccato sull'unità CU300 senza errori visibili, con la bandiera 'ATTIVO SU MFS' attiva su MF014. Mihai Soceanu ha risposto che l'ordine era corrotto nel PLC e ha deciso di ricrearlo. Il problema è stato risolto con successo.

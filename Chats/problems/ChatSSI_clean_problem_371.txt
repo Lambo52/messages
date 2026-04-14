@@ -1,0 +1,1 @@
+Il 10 febbraio 2022 alle ore 20:34, Razvan Voicu ha disattivato il parametro AGV impostandolo a 'true'. Andrea Brunetti ha segnalato che alcune AGV avevano comunque ordini pendenti. Dopo una breve attesa, Razvan Voicu ha completato il deploy, reimpostato il parametro a 'false', avviato i servizi e confermato che tutto era 'Green'.

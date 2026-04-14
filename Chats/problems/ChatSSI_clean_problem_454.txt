@@ -1,0 +1,1 @@
+Il 19/10/22 alle 19:32, Mihai Soceanu ha segnalato un problema con l'SRM 2. Milo Barozzi si è posizionato davanti all'SRM 2 e ha effettuato un reset tramite il pulsante blu, ripristinando il funzionamento. Successivamente, Mihai ha menzionato che lo stesso problema non si è risolto per l'SRM 1. La risoluzione per l'SRM 2 è stata confermata, ma il problema persiste per l'SRM 1.

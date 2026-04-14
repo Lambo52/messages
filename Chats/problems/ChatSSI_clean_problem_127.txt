@@ -1,0 +1,1 @@
+Il problema principale riguarda il pallet 60478874 che non riusciva a uscire da S46. Milo Barozzi ha segnalato l'incidente il 09/08/21 alle 08:58. Il problema era dovuto al fatto che Hive aveva perso l'ordine associato al pallet. Mihai Soceanu ha risolto il problema forzando il riinvio dell'ordine a Hive tramite MFS. La risoluzione è avvenuta alle 09:31.

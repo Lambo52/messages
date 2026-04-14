@@ -1,0 +1,1 @@
+Problema riscontrato il 14/03/22 intorno alle 09:00, segnalato da Milo Barozzi. L'accesso al sistema era rifiutato, probabilmente a causa di un cambio di credenziali (password o utente). Alexandru Catarau ha confermato di aver modificato la password e ha lavorato per risolvere l'accesso. Il problema sembra essere stato risolto con l'assistenza di Alexandru Catarau.

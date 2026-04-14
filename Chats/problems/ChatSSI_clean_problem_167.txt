@@ -1,0 +1,1 @@
+30/08/21, 15:03 - Milo Barozzi ha segnalato che l'ordine OBD0000237561 non è stato completato a causa di vecchi bug ("nuclear waste"). Ha richiesto a @Support Technician 21 di forzare lo stato a 100% completato. Razvan Voicu ha confermato di aver eseguito l'azione. Questo problema riguarda un'anomalia software relativa alla gestione degli ordini.

@@ -1,0 +1,1 @@
+04/10/21, 07:39 - Company Employee 18 ha segnalato che alcuni pallet non tornano in hb01. L'UDC 60763632 è bloccato sulla stazione di picking 9. Mihai Soceanu ha risposto che il sistema EMS non riesce a prelevare il pallet, con un errore STORAGE_SIGNAL_MISSING. Si sospetta un problema fisico con i sensori. Mihai ha tentato di forzare nuovamente l'ordine per risolvere l'incidente.

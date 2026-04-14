@@ -1,0 +1,1 @@
+Il 21/10/21 alle 16:51, Milo Barozzi segnala un problema con il sistema lp47 alla stazione di picking #4. Il sistema mostra un dialogo anomalo che persiste anche dopo aver premuto OK, riavviato il PC e il WAMAS. La stazione di picking #4 è completamente bloccata. Milo chiede urgentemente supporto per risolvere l'incidente.

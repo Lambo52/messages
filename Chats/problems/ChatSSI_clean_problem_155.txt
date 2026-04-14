@@ -1,0 +1,1 @@
+26/08/21, 14:33 - Il tecnico di supporto ha richiesto di fermare un veicolo AGV (n. 21) perché la data/ora del sistema era errata. Nicola Bernardi ha confermato di averlo verificato e ha seguito le istruzioni per resettare il sistema (spegnimento e rimozione della batteria). Il problema è stato risolto entro le 15:00.

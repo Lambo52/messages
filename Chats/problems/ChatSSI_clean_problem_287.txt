@@ -1,0 +1,1 @@
+Il 07/10/21 alle 15:36, Stefano Dall'Asta segnala che la LU 58855571 è in attesa di essere prelevata da 30 minuti. Mihai Soceanu risponde che è stato assegnato l'AGV 27. Il problema sembra essere risolto con l'assegnazione dell'AGV.

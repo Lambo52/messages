@@ -1,0 +1,1 @@
+20/10/21, 13:41 - Nicola Bernardi ha segnalato un problema con il SRM08, allegando immagini. Ha dichiarato che il pallet è bloccato. Mihai Soceanu ha risposto che stava controllando. Successivamente, Nicola ha confermato che aveva provato tutto senza successo. Il problema sembra riguardare un'operazione di gestione del pallet in un sistema logistico.

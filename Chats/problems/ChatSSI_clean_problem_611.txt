@@ -1,0 +1,1 @@
+Il 22/01/24 alle ore 23:38, Giuseppe Romano segnala un problema con la catena di trasloco (catenary) che presentava l'errore 'anomaly P1 assignment without data'. Questo problema interessava sia l'output che l'input, nonché alcune stazioni di picking e un'altra catena F01. Il problema è stato risolto entro le 21:15, permettendo il ripristino delle operazioni normali.
