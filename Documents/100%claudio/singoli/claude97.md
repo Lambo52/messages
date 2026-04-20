@@ -1,0 +1,2 @@
+[17/10/2023, 12:30] — Deploy con multipli problemi critici, rollback
+Descrizione: Labeler senza dati, crash terminali per colonna DB rinominata, parametri non visibili. Causa identificata: Configurazione stampante mancante, rinomina colonna senza aggiornamento client. Soluzione / Workaround: Rollback. Note: Problemi post-rollback nelle ore notturne (F01 in errore, picking station bloccate, pallet con doppio stock).

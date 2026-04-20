@@ -1,0 +1,2 @@
+[14/07/2021, 14:40] — Bug D142: Pick Order marcato "Finalized" con picking activity ancora attiva
+Descrizione: La finalizzazione di una singola picking activity causa la marcatura "Finalized" dell'intero PO, anche con altre attività attive. Causa identificata: Bug nella logica di finalizzazione del PO. Soluzione / Workaround: Rimozione manuale del flag "Finalized" da parte di SSI. Note: Issue D142 aperta con priorità.

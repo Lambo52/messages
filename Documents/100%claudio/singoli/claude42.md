@@ -1,0 +1,2 @@
+[26/07/2021, 08:51] — Bug: deadlock al passaggio picking→unpicking (PS3, PS9)
+Descrizione: Commutando da "picking" a "unpicking" senza prima stoppare, WAMAS invia prematuramente pallet per l'unpicking creando deadlock. Causa identificata: Bug: il cambio di processo forza la rimozione del pallet corrente anche se il picking non è completato. Soluzione / Workaround: Tornare in modalità picking, selezionare "Stop", rimandare manualmente i pallet, poi riattivare l'unpicking. Note: Fix in sviluppo. Istruire operatori a non passare direttamente da picking a unpicking.

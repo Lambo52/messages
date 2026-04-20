@@ -1,0 +1,2 @@
+[22/12/2022, 17:23] — Blocco totale area automatica (x2 episodi in 20 minuti)
+Descrizione: Area automatica bloccata due volte in 20 minuti. CPU nella norma. Causa identificata: Due LU con ordini inventario completati ma non eliminabili per ordini di consolidamento pendenti (vecchi 2+ mesi). Tentativo ripetuto di eliminazione ha causato riavvio rapido MFS. Soluzione / Workaround: Eliminazione dei 2 ordini di consolidamento obsoleti. Note: WAMAS permetteva di creare ordini inventario su LU con ordine di consolidamento attivo — segnalato come anomalo.

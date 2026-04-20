@@ -1,0 +1,2 @@
+[09/08/2021, 08:30] — F destacker: conflitto stack/destack simultaneo
+Descrizione: Pallet 59815102 bloccato sotto lo stack del destacker F per conflitto tra stacking e destacking simultanei. Blocco produttivo dalla 07:09. Causa identificata: MFS non gestisce correttamente il caso di stacking/destacking simultanei sullo stesso destacker. Soluzione / Workaround: Spostamento fisico + cancellazione/ricreazione dell'ordine. Intervento ~1,5 ore. Note: Mihai in discussione con PLC per prevenire il caso.

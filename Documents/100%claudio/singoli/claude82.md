@@ -1,0 +1,2 @@
+[06/02/2023, 09:54] — Impossibilità accesso a viste/funzioni DB post-deploy
+Descrizione: Utenti senza accesso a viste specifiche del DB (OgStockData, PRJITEMSTACKINGINFO, loadaid, ecc.). Causa identificata: Script rigenerazione grant non incluso nella procedura di deploy. Soluzione / Workaround: Esecuzione manuale dello script mancante. Accesso ripristinato in ~15 minuti. Note: Gap nella procedura di deploy da correggere.

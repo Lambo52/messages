@@ -1,0 +1,2 @@
+[10/05/2022, 07:39] — Nuovo bottone "CancelRequestEMS" non funziona senza procedura corretta
+Descrizione: Il bottone non funzionava per mancata applicazione della procedura in 4 step. Causa identificata: Procedura non seguita correttamente. Soluzione / Workaround: Documentata la procedura: 1) refresh+reset, 2) replan route+refresh+reset, 3) cancel step MF266+refresh+reset, 4) CancelRequestEMS. Note: —

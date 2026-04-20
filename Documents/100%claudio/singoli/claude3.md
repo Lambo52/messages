@@ -1,0 +1,7 @@
+Comunicazione WAMAS ↔ AS400 interrotta (DI004 / MqSender / MqReceiver)
+Occorrenze: 11/02/2022, 21/02/2022, 04/04/2022, 13/02/2023, 17/10/2023, 21/12/2023, 27/08/2024, 14/04/2025
+Descrizione generale: La comunicazione tra WAMAS e il sistema host AS400 si interrompe. I messaggi restano in coda in DI004 in stato "Converted" senza essere inviati. I record (#24, #25, #30) non vengono trasmessi all'host. Il caricamento camion si blocca, i totem non stampano documenti, e si crea disallineamento inventariale tra i due sistemi.
+Causa: (1) Stop/start del sender worker dopo aggiunta di nuove code messaging. (2) Problemi introdotti da deploy che interrompono il flusso di comunicazione. (3) MqSender/MqReceiver che non si avviano correttamente dopo riavvio WAMAS. (4) Interruzioni del database durante backup notturni o operazioni IT (proxy machine). (5) Flag di configurazione impostato erroneamente su false (caso record #30, aprile 2025).
+Soluzione / Workaround consolidato: (1) Riavvio di MqSender e MqReceiver. (2) Riprocessamento manuale dei messaggi bloccati. (3) Stop/start del sender worker. (4) Verifica e correzione dei flag di configurazione.
+Frequenza: 8 occorrenze documentate tra 2022 e 2025.
+Note: Il problema del dicembre 2023 è stato causato da una proxy machine lasciata attiva durante il backup notturno, che congelava il DB per ~15 secondi disconnettendo il MqSender. La proxy machine è stata rimossa permanentemente. Nel 2025 il problema si è manifestato per un flag di configurazione erroneamente disabilitato.

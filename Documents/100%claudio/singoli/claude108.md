@@ -1,0 +1,2 @@
+[28/12/2023, 08:57] — mqReceiver non legge messaggi da AS400 / Truck loading bloccato
+Descrizione: 124 messaggi in coda. Caricamento camion bloccato. Causa identificata: mqReceiver non partito correttamente; necessario riavviare anche mqSender. Soluzione / Workaround: Riavvio mqSender e mqReceiver. Sistema ripreso alle 09:48. Note: L'utente non ha permessi per riavviare autonomamente (solo SE015, non SE038).

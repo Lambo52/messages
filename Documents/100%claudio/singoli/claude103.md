@@ -1,0 +1,2 @@
+[20/12/2023, 10:13] — F02 manual mode, MFS crash, Lighthouse down, problemi DB
+Descrizione: Consolidazione DB da parte dell'IT ha causato perdita connessione WAMAS (~15 secondi). MFS crash. Lighthouse offline. Causa identificata: Operazioni di consolidazione DB con WAMAS attivo non compatibili. Soluzione / Workaround: Restart completo WAMAS e Lighthouse. Pianificate operazioni future solo con WAMAS spento. Note: Secondo blocco lo stesso pomeriggio per stessa causa.

@@ -1,0 +1,2 @@
+[27/09/2023, 09:17] — Picking order insufficienti, job assegnazione PO lento
+Descrizione: Job di assegnazione PO ogni 17 minuti invece che ogni minuto. 4.9M righe non archiviate. Causa identificata: (1) PPLU con stock insufficiente per location bloccata. (2) NOK Foiling in "LU check". (3) Archiviazione ferma dal 10/09/2022 per mancanza spazio tablespace. Soluzione / Workaround: Trigger manuale worker. NOK Foiling in stop 30 min. Archiviazione manuale (~11 ore). Note: Necessità urgente di History Server.

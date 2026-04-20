@@ -1,0 +1,2 @@
+[07/10/2024, 13:06] — Post-deploy: pallet inattivi, messaggio totem corto, accesso DB
+Descrizione: 3 problemi post-deploy: pallet inattivi, messaggio #36 da 90 invece di 143 caratteri, tabelle DB non accessibili. Causa identificata: Pallet normali post-deploy. Messaggio corto lato fornitore totem. Struttura tabella "load" modificata. Soluzione / Workaround: Restart ordini MFS. Patch fornitore. Script ripristino 944 tabelle. Note: Policy concordata per avviso anticipato su modifiche struttura tabelle.

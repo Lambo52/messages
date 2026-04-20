@@ -1,0 +1,2 @@
+[04/04/2022, 07:47] — Comunicazione WAMAS-AS400 KO + trasporti manuali bloccati → rollback
+Descrizione: Comunicazione AS400 interrotta. Trasporti manuali e automatici non funzionanti. Milo assente per malattia. Causa identificata: Problema introdotto dal deploy precedente. Soluzione / Workaround: Rollback con procedura AGVDisable. Sistema ripristinato entro le 10:50. Note: Problema wood error identificato come concorrente.

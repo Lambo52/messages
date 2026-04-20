@@ -1,0 +1,2 @@
+[28/07/2025, 14:02] — EMS non disponibile per MFS dopo apertura safety door (test workaround)
+Descrizione: Bit emergency stop door inviato da EMS a MFS nonostante intervento Pentanova. Causa identificata: EMS controlla la porta; il bit viene inviato indipendentemente da Lighthouse. Soluzione / Workaround: Forzamento flag emergency stop a zero nel messaggio TT1636. Note: Possibile correlazione con: EMS problemi safety door (A22). Workaround attivo fino a fine lavori agosto.

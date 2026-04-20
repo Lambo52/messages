@@ -1,0 +1,2 @@
+[02/03/2023, 12:18] — Errori ricorrenti su location specifica + labeler in bypass da 4 mesi
+Descrizione: Location con errori ricorrenti (10+ volte in un giorno). Labeler in bypass da 4 mesi per problema comunicazione WAMAS↔PLC. Causa identificata: Probabile problema fisico su scanner/conveyor/labeler. Il labeler in bypass causa errori a cascata. Soluzione / Workaround: Verifica fisica richiesta. Note: Labeler in bypass da 4 mesi senza risoluzione — issue pendente critica.

@@ -1,0 +1,2 @@
+[09/08/2021, 13:55] — Tutte le stazioni bloccate: nessuna empty pallet request + VPN irraggiungibile
+Descrizione: 12 stazioni senza pallet vuoti. VPN SSI interrotta per cambio parametri. Causa identificata: Doppio problema: PS7 bloccata (OG525 non genera richieste) + VPN interrotta per cambio parametri mal comunicato. Soluzione / Workaround: VPN ripristinata. PS7 bloccata temporaneamente. TeamViewer come fallback. Note: Coordinare meglio comunicazioni su cambi infrastruttura.

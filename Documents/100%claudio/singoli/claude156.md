@@ -1,0 +1,2 @@
+[13/01/2025, 14:33] — WAMAS crea TPO replenishment da S60 invece che da S10/S11
+Descrizione: Replenishment HBW da San Lorenzo anche con stock disponibile nelle aree manuali. Causa identificata: Job "Optimum LU" valuta per FOG: differenti FOG per stesso item/batch causano replenishment errati. Soluzione / Workaround: Fix in lavorazione (rimozione FOG dal criterio di calcolo). Note: Problema strutturale legato all'implementazione per FOG.

@@ -1,0 +1,2 @@
+[13/11/2023, 13:42] — Pallet fermi, terminali mobili crash post-deploy (colonna DB rinominata)
+Descrizione: Stesso problema della rinomina colonna piceweight → pieceweigth. Causa identificata: Stazioni non aggiornate con ultima versione client WAMAS. Soluzione / Workaround: Aggiornamento client su tutte le stazioni. Note: Problema ricorrente (già ottobre). Proposto meccanismo di verifica automatica versione client.

@@ -1,0 +1,2 @@
+[09/09/2021, 17:28] — 151 stack D con TPO tutti verso SLF bloccata
+Descrizione: Tutti i 151 stack di pallet D in HBW1 hanno TPO verso una location bloccata. Il destacker D è vuoto. Causa identificata: SLF02C4091 bloccata; MFS ha generato TPO verso di essa per tutti gli stack anziché fermarsi al primo fallimento. Soluzione / Workaround: Cancellazione tutte le TPO + sblocco PSF02C4111. Note: Correlazione con problema crane dello stesso mattino.

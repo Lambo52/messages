@@ -1,0 +1,2 @@
+[14/07/2021, 10:40] — Bug: pulsante "Full Pallet"/"Box Full" non funziona con OBD line in stato "New"
+Descrizione: Con Crane 8 down, una linea OBD in stato "New" impedisce il funzionamento del pulsante "Full Pallet" / "Box Full". Causa identificata: Bug: il pulsante non verifica se la linea è completabile. Soluzione / Workaround: Finalizzazione manuale della riga bloccata da SSI. Note: Ticket aperto. Necessita fix del codice.
