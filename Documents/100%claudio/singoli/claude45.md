@@ -1,2 +1,5 @@
-[03/08/2021, 08:17] — Spontaneous TPO da area manuale completamente non funzionanti
-Descrizione: Tutti i TPO spontanei dall'area manuale falliscono. Oltre 600 pallet al giorno devono essere spostati manualmente. Causa identificata: Fix JIRA IT1400016-3590 non copriva il caso di LU interi con articoli automatici in area manuale. Soluzione / Workaround: TPO creati temporaneamente dall'ufficio. Fix in sviluppo. Note: Situazione operativa critica.
+### [15/03/22 08:16] — Utente bloccato su station 12
+**Descrizione:** Utente da sloggare/riloggare sulla station 12 per sbloccare il dialog di picking.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Relog utente; stazione funzionante.  
+**Note:** Possibile correlazione con: pick station/utenze.

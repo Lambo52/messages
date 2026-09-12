@@ -1,2 +1,7 @@
-[24/06/2021, 09:37] — AGV 6 in errore: blocco a cascata di 4 AGV
-Descrizione: AGV 6 va in errore mentre è allocato al ritiro del pallet 59042837. Gli AGV 2, 3, 8 e 14 restano bloccati in attesa che la via si liberi. Causa identificata: Guasto/errore hardware su AGV 6. Soluzione / Workaround: Intervento SSI su AGV 6. Risolto dall'intervento tecnico. Note: Prima segnalazione documentata nel gruppo. Evidenzia la dipendenza a cascata nella flotta AGV.
+## Anno 2021
+
+### [25/06/2021 08:01] — Interruzione alimentazione, 8 stacker crane in errore, E-stop foiling
+**Descrizione:** Tutti gli stacker crane in errore, foiling in E-stop, nessun E-stop premuto manualmente.  
+**Causa identificata:** Due guasti su una fase dell’alimentazione con spike di tensione; cogenerazione non intervenuta; inverter SRM autoprotetti.  
+**Soluzione / Workaround:** Reset macchine e verifica con produzione.  
+**Note:** F01 e EMS meno impattati; evento elettrico esterno.

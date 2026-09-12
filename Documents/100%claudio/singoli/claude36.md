@@ -1,2 +1,5 @@
-[28/06/2021, 10:37] — OBD non approvato: pallet con errori da location NOK
-Descrizione: OBD0000209024 non viene approvato perché un pallet associato ha errori non risolti, residuo di un vecchio bug. Causa identificata: Pallet mosso in precedenza da location NOK senza risolvere gli errori (bug pre-fix). Soluzione / Workaround: Correzione degli errori sul pallet → OBD approvato automaticamente. Note: Controllare sempre gli errori sui pallet prima di spostarli da location NOK.
+### [21/10/2021 16:51] — Pick Station 4: dialog bloccato, “unknown error”
+**Descrizione:** Dialog pick station 4 bloccato anche dopo OK/reboot PC/WAMAS.  
+**Causa identificata:** Non specificata chiaramente.  
+**Soluzione / Workaround:** Intervento SSI.  
+**Note:** Possibile correlazione con: problemi stazione/pick order.

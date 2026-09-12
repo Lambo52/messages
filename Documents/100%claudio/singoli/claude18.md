@@ -1,7 +1,21 @@
-Lighthouse down / non funzionante / anomalie visive
-Occorrenze: 29/12/2021, 21/07/2022, 22/07/2022 (post-riavvio), 29/01/2024, 13/12/2023, 20/12/2023
-Descrizione generale: Lighthouse non è accessibile (login failed) o non mostra i pallet. Il sistema è "cieco" sullo stato dell'impianto. In alcuni casi le anomalie sono solo visive (cache del browser).
-Causa: (1) Problemi generali del sistema (crash WAMAS, riavvio VM). (2) Cache del browser non aggiornata. (3) WAMAS tentava di eliminare un LU con attività di picking ancora attiva (race condition).
-Soluzione / Workaround consolidato: Restart di Lighthouse. Pulizia cache browser. In un caso classificato come "one in a lifetime" race condition.
-Frequenza: 6 occorrenze documentate tra 2021 e 2024.
-Note: Il team raccomanda di fare sempre clear cache come prima azione in caso di anomalie visive su Lighthouse.
+## 18. Pending events / eventi non consumati / messaggi stuck
+
+**Occorrenze principali:**  
+2023: 17/10, 18/10, 28/12  
+2024: 11/01, 16/01, 06/02, 14/10  
+2025: 07/03, 29/04, 26/06  
+
+**Descrizione generale:**  
+Pending event bloccano SRM, crane, foiling, pick station o code; TU/LU inesistenti; eventi non consumati dopo errori o finalizzazioni; messaggi stuck che fermano MFS/device.
+
+**Causa ricorrente:**  
+Eventi residui dopo errori; LU cancellate con vincoli DB; TPO/PO finalizzati in modo incoerente; messaggi PLC/MFS non consumati.
+
+**Soluzione / Workaround consolidato:**  
+Eliminazione pending event; scollegamento LU; cancellazione messaggi stuck; reset; fix software; analisi log.
+
+**Frequenza:**  
+Media: circa 10-11 occorrenze.
+
+**Note:**  
+La soluzione immediata è quasi sempre manuale. Più volte è stata richiesta analisi root cause per evitare il ripetersi.

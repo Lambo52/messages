@@ -1,2 +1,5 @@
-[25/06/2021, 15:54] — ART 23 ricorrente "Waiting WAMAS"
-Descrizione: ART 23 entra ripetutamente in errore "waiting WAMAS". Il sensore è stato pulito ma il problema persiste. Causa identificata: Non identificata chiaramente. Soluzione / Workaround: Non risolta. SSI non disponibile al momento. Note: Richiesto follow-up lunedì mattina.
+### [13/08/2021 13:55] — Change clamp: test non riuscito
+**Descrizione:** Test cambio clamp su pick station HBW12; TPO per due LU non creati.  
+**Causa identificata:** Possibile necessità di pallet D senza SO.  
+**Soluzione / Workaround:** Risolto autonomamente.  
+**Note:** Episodio di test.

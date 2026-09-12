@@ -1,7 +1,19 @@
-Blocco TPO area mobile / DcMobile worker crash
-Occorrenze: 17/04/2024 (x2), 16/07/2024, 10/07/2024
-Descrizione generale: Tutti i TPO tramite terminale mobile smettono di funzionare. Gli utenti vengono espulsi dall'applicazione mobile. Area foiling, loading, QC bloccate. Il DcMobile worker processa transport order non più esistenti, causando crash a cascata.
-Causa: (1) DcMobile worker che elabora TO già terminati. (2) LU dell'area automatica che blocca la messaging queue del mobile (DCMobile). (3) Root cause non sempre determinata.
-Soluzione / Workaround consolidato: Riavvio del DcMobile worker. Spostamento fisico della LU bloccante. Auto-ripristino in alcuni casi.
-Frequenza: 4 occorrenze documentate nel 2024.
-Note: Il problema del 17/04/2024 si è ripresentato due volte nello stesso giorno, richiedendo doppio riavvio del DcMobile.
+## 25. Dati corrotti / pallet corrotti / crash controller
+
+**Occorrenze principali:**  
+2021: 12/10, 18/10, 21/10, 22/10  
+
+**Descrizione generale:**  
+UDC/pallet con dati corrotti non risolvibili con procedure standard; SRM controller crashato; tipi pallet errati; ordini PLC corrotti.
+
+**Causa ricorrente:**  
+Dati corrotti da interventi manuali o anomalie pregresse; record incoerenti su DB/PLC.
+
+**Soluzione / Workaround consolidato:**  
+Fix dati a livello sviluppatore/DB; ricreazione ordini; pulizia dati; intervento specializzato.
+
+**Frequenza:**  
+Bassa: 4 occorrenze concentrate nel 2021.
+
+**Note:**  
+Sebbene poco frequenti, hanno avuto impatto elevato e hanno richiesto interventi non standard.

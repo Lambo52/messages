@@ -1,2 +1,5 @@
-[04/05/2023, 10:46] — Problema SRM (generico)
-Descrizione: Problema generico sull'SRM. Causa identificata: Non documentata. Soluzione / Workaround: Risolto da Razvan. Note: —
+### [27/07/24, 19:41] — Sistema lento, AGV non prendono missioni
+**Descrizione:** Sistema molto lento e AGV non prendono missioni.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non indicata.  
+**Note:** Possibile correlazione con: performance DB/AGV.

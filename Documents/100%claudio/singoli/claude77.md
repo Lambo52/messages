@@ -1,2 +1,5 @@
-[19/10/2022, 19:05] — Blocco totale per intervento PLC non controllato (SRM con forche sospese)
-Descrizione: Tecnico PLC Austria esegue interventi non controllati, causando spegnimento con SRM in movimento. SRM 3/4/5/6 con problemi handshake, ghost pallets, conveyor in errore. Causa identificata: Spegnimento non controllato durante il funzionamento da parte del tecnico PLC. Soluzione / Workaround: Recovery progressiva con reset da pulpit, timeout PLC, movimentazione manuale. Sistema ripristinato entro le 21:47. Note: Il tecnico aveva lasciato il sito prima del completamento. Annunciata analisi interna.
+### [22/01/24, 21:52] — Anomalia PCOD assignment without data su catenary traslo
+**Descrizione:** Catenary del traslo in input/output in errore “anomaly PCOD assignment without data”.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Ripristino operatività.  
+**Note:** Ticket chiuso. Possibile correlazione con: mismatch/pending events.

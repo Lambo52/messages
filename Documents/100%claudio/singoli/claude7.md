@@ -1,7 +1,22 @@
-OBD bloccati in "release in progress" / "approval in progress"
-Occorrenze: 16/09/2022, 20/04/2023, 10/05/2023, 19/05/2023, 04/12/2023, 30/04/2024, 29/04/2025
-Descrizione generale: Decine o centinaia di OBD restano bloccati in stato "release in progress" o "approval in progress" per ore. Il processo di release impiega 40+ minuti invece dei normali 5-40 secondi. Impossibile processare release ordini e post-picking. Impatto operativo critico su spedizioni.
-Causa: Job di release OBD che si blocca per: (1) query lente su tabelle enormi (OG002/OG025 con alto retention time). (2) Errori JdbcResourceBusyException / ORA-00054 per risorse DB bloccate. (3) Cambio del piano di esecuzione Oracle post-gather stats. (4) Volume crescente di dati "garbage" nelle tabelle.
-Soluzione / Workaround consolidato: (1) Esecuzione gather statistics DB. (2) Forzamento del piano di esecuzione Oracle. (3) Riavvio istanza Oracle nei casi più gravi. (4) Aggiunta di log diagnostici sul punto di blocco del job.
-Frequenza: 7 occorrenze documentate tra 2022 e 2025.
-Note: Strettamente correlato al problema A1 (CPU WAMASDB elevata) e A6 (archiviazione bloccata). La soluzione definitiva richiederebbe il History Server e una gestione strutturale della crescita dei dati.
+## 7. SRM / crane: blocchi, sensori, forche, manual handling, alignment
+
+**Occorrenze principali:**  
+2021: 25/06, 28/06, 01/07, 09/07, 14/07, 19/07, 03/08, 14/09, 15/09, 27/09, 28/10, 03/12, 29/12  
+2023: 04/05, 26/05  
+2024: 14/10, 14/11  
+2025: 07/03, 07/07, 26/06  
+
+**Descrizione generale:**  
+Crane/SRM bloccati, errori di allineamento, forche che non completano prelievo/deposito, sensori disallineati, pallet su forche, crane che vede conveyor pieni ma vuoti, manual handling non resettato, mismatch tra MFS e device controller.
+
+**Causa ricorrente:**  
+Sensori/alignment; interventi manuali; dati corrotti; disallineamento PLC/MFS; pallet fisici/logici non coerenti; manutenzione non correttamente resettata.
+
+**Soluzione / Workaround consolidato:**  
+Reset crane/SRM; MF210/manual handling reset; verifica sensori; intervento manutenzione; sincronizzazione SRM; fix dati; spostamento manuale pallet; coinvolgimento PLC.
+
+**Frequenza:**  
+Alta: circa 22 occorrenze, soprattutto 2021 e poi ricorrenze sparse.
+
+**Note:**  
+Molti episodi sono stati innescati da interventi manuali o restart. Alcuni crane specifici sono comparsi più volte, ad esempio crane 3, 8, 10.

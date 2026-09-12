@@ -1,2 +1,0 @@
-[15/01/2025, 10:28] — Optimum LU calcolato per FOG invece che per item/batch
-Descrizione: Fino a N×6 TPO per stesso item/batch (uno per ogni FOG distinto). Causa identificata: Implementazione basata su 3 criteri (item, batch, FOG) invece di 2. Soluzione / Workaround: Fix in test: calcolo basato su item/batch con priorità stock aree manuali. Note: Alternativa configurativa: unificare FOG per goods category.

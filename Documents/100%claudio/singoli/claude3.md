@@ -1,7 +1,23 @@
-Comunicazione WAMAS ↔ AS400 interrotta (DI004 / MqSender / MqReceiver)
-Occorrenze: 11/02/2022, 21/02/2022, 04/04/2022, 13/02/2023, 17/10/2023, 21/12/2023, 27/08/2024, 14/04/2025
-Descrizione generale: La comunicazione tra WAMAS e il sistema host AS400 si interrompe. I messaggi restano in coda in DI004 in stato "Converted" senza essere inviati. I record (#24, #25, #30) non vengono trasmessi all'host. Il caricamento camion si blocca, i totem non stampano documenti, e si crea disallineamento inventariale tra i due sistemi.
-Causa: (1) Stop/start del sender worker dopo aggiunta di nuove code messaging. (2) Problemi introdotti da deploy che interrompono il flusso di comunicazione. (3) MqSender/MqReceiver che non si avviano correttamente dopo riavvio WAMAS. (4) Interruzioni del database durante backup notturni o operazioni IT (proxy machine). (5) Flag di configurazione impostato erroneamente su false (caso record #30, aprile 2025).
-Soluzione / Workaround consolidato: (1) Riavvio di MqSender e MqReceiver. (2) Riprocessamento manuale dei messaggi bloccati. (3) Stop/start del sender worker. (4) Verifica e correzione dei flag di configurazione.
-Frequenza: 8 occorrenze documentate tra 2022 e 2025.
-Note: Il problema del dicembre 2023 è stato causato da una proxy machine lasciata attiva durante il backup notturno, che congelava il DB per ~15 secondi disconnettendo il MqSender. La proxy machine è stata rimossa permanentemente. Nel 2025 il problema si è manifestato per un flag di configurazione erroneamente disabilitato.
+## 3. Disallineamento fisico/logico pallet, ghost pallet, occupation without transport order
+
+**Occorrenze principali:**  
+2021: 28/06, 29/06, 02/07, 12/07, 19/07, 23/08, 10/08, 11/08, 16/09, 22/09, 29/09, 03/08, 27/07, 26/10, 30/12  
+2022: 05/01, 21/01, 06/04, 18/01  
+2023: 22/01, 28/02, 20/06  
+2024: 14/11, 18/10  
+2025: 28/01, 26/06  
+
+**Descrizione generale:**  
+Pallet fisicamente presenti ma logicamente assenti o posizionati altrove; pallet logici senza pallet fisico; ghost pallet; occupation senza transport order; Lighthouse e WAMAS non allineati; conveyor o SRM che vedono occupato dove non c’è pallet o viceversa. Impatto: pallet bloccati, crane/AGV fermi, pick station in attesa.
+
+**Causa ricorrente:**  
+Disallineamento tra WAMAS, MFS, PLC e sensori; interventi manuali; restart PLC/MFS; messaggi o annunci PLC persi; occupazioni residue; dati corrotti; mismatch dopo riavvii.
+
+**Soluzione / Workaround consolidato:**  
+Rebooking posizione; cancellazione occupazioni errate con CTOP; refresh/reset; book to lost and found/black hole; cancellazione ghost/temp; reset MFS; verifica sensori; intervento PLC quando necessario.
+
+**Frequenza:**  
+Alta: circa 25-27 occorrenze, tutti gli anni.
+
+**Note:**  
+Problema strutturale e ricorrente. Spesso risolto manualmente. Non risulta una soluzione definitiva unica; molte occorrenze dipendono da eventi diversi ma con stessa sintomatologia.

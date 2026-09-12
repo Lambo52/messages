@@ -1,2 +1,0 @@
-[28/12/2023, 15:02] — Labeler in "Notify" / Blocco totale F01 con desync WAMAS-MFS
-Descrizione: Desync WAMAS/MFS: MFS con barcode reale, WAMAS con TEMP. Causa identificata: Loading aid AF con TPO verso HBW01 (non consentito) aveva generato lo stato anomalo. Soluzione / Workaround: Eliminazione pending event + pallet TEMP e LU dal sistema. Note: Problema ricorrente. Root cause operativa documentata.

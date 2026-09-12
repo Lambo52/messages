@@ -1,2 +1,5 @@
-[13/11/2023, 13:42] — Pallet fermi, terminali mobili crash post-deploy (colonna DB rinominata)
-Descrizione: Stesso problema della rinomina colonna piceweight → pieceweigth. Causa identificata: Stazioni non aggiornate con ultima versione client WAMAS. Soluzione / Workaround: Aggiornamento client su tutte le stazioni. Note: Problema ricorrente (già ottobre). Proposto meccanismo di verifica automatica versione client.
+### [07/11/24, 08:31] — Pallet su TPS SRM con TPO cancellato
+**Descrizione:** Pallet su TPS per SRM; TPO verso station cancellato.  
+**Causa identificata:** TPO cancellato.  
+**Soluzione / Workaround:** Nuovo TPO per storage; problema risolto.  
+**Note:** Verificare altri casi. Possibile correlazione con: TPO/SRM.

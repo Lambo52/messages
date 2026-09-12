@@ -1,2 +1,5 @@
-[28/10/2022, 15:54] — Tutte le pick station in "loading..." (MS Access su WAMASAPP)
-Descrizione: Tutte le pick station in "loading..." con tempi di 20-30 secondi. Causa identificata: Processo MS Access su WAMASAPP che consumava CPU/RAM. Soluzione / Workaround: Terminazione del processo MS Access. Note: —
+### [06/02/24, 09:01] — Empty pallet request / WAMAS cerca spazio per ordine con pallet in HBW
+**Descrizione:** AGV portano empty pallet; WAMAS tenta di liberare spazio per ordine con tutti pallet già in HBW.  
+**Causa identificata:** Empty pallet request per pick order con pallet in source locations.  
+**Soluzione / Workaround:** Analisi del flusso.  
+**Note:** Verificare logica empty request.

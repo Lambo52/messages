@@ -1,541 +1,1362 @@
-________________________________________
-CPU WAMASDB elevata / Blocco totale sistema per sovraccarico database Oracle
-Occorrenze: 05/05/2022, 01/07/2022, 20/07/2022, 22/07/2022, 08/08/2022, 16/09/2022, 20/04/2023, 10/05/2023, 12/05/2023, 19/05/2023, 04/12/2023, 30/04/2024, 29/04/2025, 07/05/2025
-Descrizione generale: La CPU del server WAMASDB sale oltre il 90-99%, rendendo WAMAS inutilizzabile su desktop e terminali mobili. Le aree automatica e manuale si bloccano. Gli OBD restano in stato "release in progress" o "approval in progress" per ore. I terminali mobili vengono espulsi. In alcuni casi il sistema richiede riavvio completo della VM o dell'istanza Oracle.
-Causa: Molteplici fattori convergenti: (1) Tabelle di protocollo/logging (activityprotocol, change data, OG002/OG025) che crescono a dismisura (fino a 161 milioni di righe per activityprotocol) per retention time eccessivo (fino a 865 giorni invece dei 4 mesi raccomandati). (2) Job di archiviazione bloccati o insufficienti. (3) Sessioni zombie non terminate dopo deploy o riavvii. (4) Oracle che cambia autonomamente il proprio execution plan dopo gather stats, impattando le query di produzione. (5) Errore Oracle ORA-00600 (KGL-heap-size-exceeded) per Library Cache Object troppo grande per la SGA (22/07/2022). (6) Sessioni DB inattive di utenti su picking station che causano lock a cascata.
-Soluzione / Workaround consolidato: (1) Esecuzione manuale di gather statistics per forzare ricalcolo del piano di esecuzione Oracle. (2) Terminazione di sessioni zombie o inattive. (3) Riavvio istanza Oracle e/o VM WAMASDB nei casi più gravi. (4) Sblocco manuale dei job di archiviazione. (5) Aggiunta temporanea di spazio al tablespace. (6) Riduzione progressiva del retention period.
-Frequenza: 14 occorrenze documentate tra 2022 e 2025.
-Note: Problema strutturale mai risolto definitivamente. Fin dal 2022 è stata proposta la creazione di un History Server per separare dati di produzione da dati storici, ma al 2025 il progetto era ancora in ritardo. La necessità di eseguire gather stats periodiche (giornaliere o settimanali) è stata ribadita più volte senza implementazione automatica stabile. Il forzamento dell'execution plan Oracle è stato necessario ripetutamente. La tabella activityprotocol è stata identificata come principale responsabile del degrado prestazionale.
-________________________________________
-Terminali mobili bloccati / lenti / disconnessi
-Occorrenze: 04/08/2021, 07/08/2021, 30/12/2021, 21/01/2022, 05/02/2022, 16/01/2025, 20/01/2025, 21/01/2025, 22/01/2025, 27/01/2025, 31/01/2025, 03/02/2025, 18/07/2024, 24/07/2024
-Descrizione generale: I terminali mobili RF mostrano errori "CONNECTION TIME OUT" o "Retry connection request", espellono gli utenti, o diventano estremamente lenti su tutti i flussi (discharge, picking manuale, TPO). L'area manuale risulta completamente bloccata, con impossibilità di movimentare pallet.
-Causa: Cause multiple: (1) Deploy tardivi o non comunicati che lasciano sessioni WAMAS non allineate. (2) Modifiche parametri rete/VPN (Vodafone, infrastruttura WiFi magazzino). (3) Cache mobile non aggiornata dopo deploy. (4) Query di discharge che includono location non necessarie (es. San Lorenzo post-migrazione 01/2025), aumentando drasticamente i tempi di risposta. (5) Carico elevato su database server. (6) Problemi di connettività WiFi in aree specifiche del magazzino.
-Soluzione / Workaround consolidato: (1) Disconnessione forzata delle sessioni WAMAS attive da parte di SSI. (2) Riavvio del DC Mobile Worker. (3) Riavvio dei terminali. (4) Fix delle query lente (esclusione location non necessarie). (5) Verifica infrastruttura WiFi.
-Frequenza: 14+ occorrenze documentate tra 2021 e 2025. Particolarmente concentrato nel periodo gennaio-febbraio 2025 dopo la migrazione dati San Lorenzo.
-Note: Nel 2025 il problema si è intensificato dopo l'aggiunta delle location San Lorenzo, che causava rallentamento sistematico delle query di discharge. Il fix richiedeva deploy ma veniva temporaneamente gestito con riavvio del mobile worker. Il problema di rete WiFi è stato segnalato più volte come causa indipendente da WAMAS.
-________________________________________
-Comunicazione WAMAS ↔ AS400 interrotta (DI004 / MqSender / MqReceiver)
-Occorrenze: 11/02/2022, 21/02/2022, 04/04/2022, 13/02/2023, 17/10/2023, 21/12/2023, 27/08/2024, 14/04/2025
-Descrizione generale: La comunicazione tra WAMAS e il sistema host AS400 si interrompe. I messaggi restano in coda in DI004 in stato "Converted" senza essere inviati. I record (#24, #25, #30) non vengono trasmessi all'host. Il caricamento camion si blocca, i totem non stampano documenti, e si crea disallineamento inventariale tra i due sistemi.
-Causa: (1) Stop/start del sender worker dopo aggiunta di nuove code messaging. (2) Problemi introdotti da deploy che interrompono il flusso di comunicazione. (3) MqSender/MqReceiver che non si avviano correttamente dopo riavvio WAMAS. (4) Interruzioni del database durante backup notturni o operazioni IT (proxy machine). (5) Flag di configurazione impostato erroneamente su false (caso record #30, aprile 2025).
-Soluzione / Workaround consolidato: (1) Riavvio di MqSender e MqReceiver. (2) Riprocessamento manuale dei messaggi bloccati. (3) Stop/start del sender worker. (4) Verifica e correzione dei flag di configurazione.
-Frequenza: 8 occorrenze documentate tra 2022 e 2025.
-Note: Il problema del dicembre 2023 è stato causato da una proxy machine lasciata attiva durante il backup notturno, che congelava il DB per ~15 secondi disconnettendo il MqSender. La proxy machine è stata rimossa permanentemente. Nel 2025 il problema si è manifestato per un flag di configurazione erroneamente disabilitato.
-________________________________________
-Deploy con regressioni / necessità di rollback
-Occorrenze: 26/11/2021 (K69→A88), 02/05/2022 (K76), 09/05/2022 (K76 revert), 23/09/2022 (CR04), 17/10/2023 (multipli problemi), 23/10/2023 (discharge bug), 28/08/2023 (labeler + picking manuale), 29/08/2023 (rollback), 12/02/2024 (pack difettoso), 07/10/2024 (totem + DB), 20/01/2025 (MFS loading), 23/06/2025 (barcode + stock search), 21/07/2025 (etichette sovrapposte), 07/07/2025 (record A5)
-Descrizione generale: I deploy introducono regressioni che bloccano funzionalità critiche: labeler senza dati di stampa, terminali mobili in crash per colonne DB rinominate, parametri mancanti, view Oracle non ricreate, contatori non aggiornati, pacchetti difettosi, configurazioni stampanti non incluse. In molti casi è necessario un rollback alla versione precedente, con perdita delle nuove funzionalità e ulteriori rischi di disallineamento.
-Causa: (1) Configurazioni (stampanti, parametri, view) non incluse nel pacchetto di deploy. (2) Rinomina colonne DB senza aggiornamento di tutti i client. (3) Regressioni da patch (es. K69 che introduce A88, K76 con comportamento inatteso). (4) Script di rigenerazione grant incompleti. (5) Errori manuali nei contatori. (6) Test insufficienti con dati di produzione reali.
-Soluzione / Workaround consolidato: Rollback alla versione stabile precedente. Correzione manuale dei problemi specifici (contatori, view, grant, configurazioni). Deploy correttivo urgente nelle ore successive.
-Frequenza: 14+ occorrenze documentate tra 2021 e 2025.
-Note: Problema sistemico nel processo di deploy. Ripetutamente segnalata la necessità di: (1) checklist di deploy più rigorosa, (2) suddivisione dei pacchetti in pack più piccoli, (3) verifica automatica della versione client pre-utilizzo, (4) test con dati di produzione reali prima del rilascio. La configurazione delle stampanti Foiling è stata dimenticata almeno 2 volte (agosto e ottobre 2023).
-________________________________________
-Coda mfsPalQueue / mfArea bloccata — blocco totale TPO
-Occorrenze: 25/01/2024, 14/05/2024, 20/06/2024, 11/07/2024, 28/12/2023, 29/04/2025
-Descrizione generale: Un messaggio si blocca nella coda mfsPalQueue o mfArea, impedendo l'avvio di qualsiasi nuovo TPO. Tutte le picking station si fermano, le sorgenti non possono lasciare le stazioni, l'area automatica e manuale si bloccano completamente.
-Causa: (1) Interruzioni della connessione al database (JdbcConnectionException) causate da brevi operazioni IT sul DB. (2) Messaggi con problemi che bloccano la coda di elaborazione. (3) Root cause spesso non determinata con precisione.
-Soluzione / Workaround consolidato: Sblocco manuale della coda da parte del supporto SSI. In alcuni casi auto-ripristino notturno.
-Frequenza: 6 occorrenze documentate tra 2023 e 2025.
-Note: In almeno 2 casi il blocco è avvenuto durante la notte e si è risolto autonomamente. La causa radice strutturale non è mai stata completamente identificata. Workaround da implementare per evitare l'interruzione della comunicazione WMS-MFS è stato incluso in deploy successivi.
-________________________________________
-Job di archiviazione bloccato / tablespace DB pieno
-Occorrenze: 01/02/2022, 11/11/2022, 23/02/2023, 29/03/2023, 27/09/2023, 08/04/2024, 29/01/2025
-Descrizione generale: I job di archiviazione si bloccano o non riescono a completare per mancanza di spazio nel tablespace. Le tabelle di protocollo crescono a milioni di righe (5.9M activityprotocol nel 2022, 4.9M nel 2023, 3.8M nel 2025). Il station assignment worker va in timeout sulle tabelle enormi, causando assegnazioni mancate alle stazioni di picking.
-Causa: (1) Retention time eccessivo (fino a 865 giorni). (2) Job di archiviazione che si bloccano in stato "locked" per errori. (3) Tablespace Users/DB quasi pieno per volume dati. (4) Mancanza del History Server per separare dati storici da produttivi.
-Soluzione / Workaround consolidato: (1) Sblocco manuale dei job di archiviazione (SE024/SE026). (2) Aggiunta temporanea di spazio al tablespace. (3) Riduzione progressiva del retention period. (4) Esecuzione manuale dell'archiviazione (stimata 10-14 ore per milioni di righe).
-Frequenza: 7 occorrenze documentate tra 2022 e 2025.
-Note: La necessità di un History Server è stata segnalata fin dal settembre 2022 come soluzione definitiva, ma al 2025 non era ancora implementato. La riduzione del retention period doveva essere graduale (5 giorni alla volta) per evitare sovraccarico. Il problema è strutturale e legato alla crescita costante dei dati nel DB di produzione.
-________________________________________
-OBD bloccati in "release in progress" / "approval in progress"
-Occorrenze: 16/09/2022, 20/04/2023, 10/05/2023, 19/05/2023, 04/12/2023, 30/04/2024, 29/04/2025
-Descrizione generale: Decine o centinaia di OBD restano bloccati in stato "release in progress" o "approval in progress" per ore. Il processo di release impiega 40+ minuti invece dei normali 5-40 secondi. Impossibile processare release ordini e post-picking. Impatto operativo critico su spedizioni.
-Causa: Job di release OBD che si blocca per: (1) query lente su tabelle enormi (OG002/OG025 con alto retention time). (2) Errori JdbcResourceBusyException / ORA-00054 per risorse DB bloccate. (3) Cambio del piano di esecuzione Oracle post-gather stats. (4) Volume crescente di dati "garbage" nelle tabelle.
-Soluzione / Workaround consolidato: (1) Esecuzione gather statistics DB. (2) Forzamento del piano di esecuzione Oracle. (3) Riavvio istanza Oracle nei casi più gravi. (4) Aggiunta di log diagnostici sul punto di blocco del job.
-Frequenza: 7 occorrenze documentate tra 2022 e 2025.
-Note: Strettamente correlato al problema A1 (CPU WAMASDB elevata) e A6 (archiviazione bloccata). La soluzione definitiva richiederebbe il History Server e una gestione strutturale della crescita dei dati.
-________________________________________
-Blocco area automatica per pending event / TPO bloccato in coda
-Occorrenze: 06/02/2024, 28/12/2023, 11/01/2024, 16/01/2024, 14/10/2024, 29/04/2025, 26/06/2025
-Descrizione generale: Un pending event o un TPO bloccato in una coda (SRM, MFS, o area automatica) impedisce il progresso di tutti gli altri TPO. L'area automatica si ferma, le picking station si bloccano, i crane non si muovono.
-Causa: (1) Pending event per LU/TU inesistenti nel sistema. (2) Violazioni di database quando MFS tenta di eliminare LU ancora connesse a ordini attivi. (3) TPO con source=destination (creati erroneamente) che bloccano la coda. (4) Pallet con dati corrotti che causano crash del controller SRM.
-Soluzione / Workaround consolidato: Eliminazione manuale dei pending event o dei TPO bloccanti da parte del supporto SSI. Cancellazione delle connessioni LU-ordine residue. Sblocco della coda.
-Frequenza: 7 occorrenze documentate tra 2023 e 2025.
-Note: Il problema delle LU fantasma da destacker (ticket 01339505) è stato segnalato come ricorrente quotidiano nel gennaio 2024, richiedendo eliminazione manuale dei pending event ogni giorno.
-________________________________________
-AGV bloccati / non in sistema dopo riavvio o deploy
-Occorrenze: 25/06/2021 (AGV 7), 27/07/2021, 27/08/2021, 10/08/2021, 27/12/2023, 02/01/2024, 07/02/2024, 22/04/2024, 28/04/2025
-Descrizione generale: Dopo riavvii del sistema, deploy o problemi specifici, gli AGV risultano "NOT IN SYSTEM", non ricevono missioni, o restano bloccati. In alcuni casi tutti gli AGV sono fermi contemporaneamente. In altri, un singolo AGV fuori sistema blocca gli altri per "ghost presence".
-Causa: (1) Servizi Rocla non riavviati correttamente o rimasti in modalità manuale. (2) Porta di comunicazione HIVE→Rocla bloccata (50032, 50011). (3) Bug nel comportamento GTP inspection order durante cancellazione TPO (A58). (4) Refresh MFS/WMS interrotto da Transport problematico. (5) Power outage sui server.
-Soluzione / Workaround consolidato: (1) Riavvio dei servizi Rocla e impostazione modalità automatica. (2) Riavvio del server AGV. (3) Sincronizzazione manuale MFS tramite MF210 dopo power outage. (4) Cancellazione dei Transport problematici.
-Frequenza: 9 occorrenze documentate tra 2021 e 2025.
-Note: Dopo il primo episodio del 27/12/2023, è stata data indicazione di assicurarsi che i servizi Rocla siano attivi e in modalità automatica prima di ogni riavvio. La sincronizzazione manuale MFS-device controller è necessaria dopo ogni power outage.
-________________________________________
-Memoria WAMASAPP critica / spike di utilizzo
-Occorrenze: 19/10/2021, 27/06/2022, 19/07/2022, 29/08/2022, 19/04/2023
-Descrizione generale: La memoria fisica disponibile su WAMASAPP scende sotto il 4% (soglia warning critico), o sale al 50%+ dopo deploy. I terminali mobili mostrano dialoghi inaccessibili, le pick station rallentano, i pallet si fermano per secondi tra un conveyor e l'altro.
-Causa: (1) Script di pulizia memoria non funzionante. (2) Firefox con Lighthouse aperto che consuma RAM. (3) Picchi di avvio post-deploy. (4) Processi non necessari attivi.
-Soluzione / Workaround consolidato: Chiusura dei processi non necessari (Firefox, MS Access). Riabilitazione manuale del DB constraint e riavvio servizi replenishment/reporting. Attesa del rientro progressivo post-deploy.
-Frequenza: 5 occorrenze documentate tra 2021 e 2023.
-Note: Il problema si è presentato con minore frequenza dopo il 2023, probabilmente per migliore gestione dei processi attivi sulla macchina.
-________________________________________
-Inventory block su LU / Issue D223 ricorrente
-Occorrenze: 29/11/2021 (D189), 01/06/2023, 22/06/2023, 26/04/2023
-Descrizione generale: Uno stock object ha il flag "block for inventory" attivo, impedendo la creazione di TPO e bloccando le picking station. Il TPO di ritorno automatico in HBW non viene creato. L'operatore non può proseguire.
-Causa: Flag "block for inventory" applicato a livello di stock object (non di LU) senza causa chiara. Bug recidivante (D189, poi D223).
-Soluzione / Workaround consolidato: Rimozione manuale dell'inventory block da parte del supporto SSI.
-Frequenza: 4 occorrenze documentate tra 2021 e 2023.
-Note: Issue classificata come ricorrente (D223). La causa dell'applicazione automatica del flag non è mai stata completamente determinata.
-________________________________________
-Pallet D / forche ART: tolleranza insufficiente, pallet trascinati o caduti
-Occorrenze: 30/06/2021, 06/07/2021, 24/08/2021
-Descrizione generale: Le forche degli ART toccano i baselegs dei pallet D durante il deposito, trascinandoli fuori posizione o facendoli cadere dal conveyor. La copertura inferiore delle forche di ART-21 collassa per viti troncate dalla protezione del conveyor.
-Causa: Tolleranza insufficiente tra la piastra frontale del conveyor e le forche degli ART quando i pallet D sono stretti. La piastra frontale non è tagliata abbastanza in basso.
-Soluzione / Workaround consolidato: Proposto taglio della piastra frontale del conveyor di ~3 mm nei punti di ingresso delle forche (smerigliatura). Cambio software parametri forche sconsigliato perché interessa altri AGV.
-Frequenza: 3 occorrenze documentate nel 2021.
-Note: Problema strutturale. La riduzione del runner laterale non era praticabile per standard di produzione. La soluzione meccanica (taglio piastra) è stata discussa ma la pianificazione con manutenzione non è stata confermata nei log.
-________________________________________
-WAIT FOR CAPACITY ZONE SLAVING — deadlock Wunderwuzzi
-Occorrenze: 27/07/2021, 06/08/2021
-Descrizione generale: Tutti i pallet destinati alla zona SLAVING (ingresso Wunderwuzzi) mostrano "WAIT FOR CAPACITY ZONE SLAVING" anche con la zona fisicamente libera. 4-9 stazioni su 12 impattate.
-Causa: TPO per pallet non esistenti (create per intervento manuale errato o inviate erroneamente) che occupavano capacità logica della zona SLAVING.
-Soluzione / Workaround consolidato: Eliminazione delle TPO fantasma da parte di SSI. Capacità zona SLAVING aumentata a 2. Fix pianificato per prossimo build: pallet in NOK con MD occupato → bufferizzazione automatica in S46.
-Frequenza: 2 occorrenze documentate nel 2021 (segnalato come ripetuto anche successivamente).
-Note: Il Wunderwuzzi è il punto centrale di smistamento; un blocco qui paralizza l'intera automazione.
-________________________________________
-Issue N44: LU con TPO ma senza missione su Cway / AGV non consegna
-Occorrenze: 10/07/2024, 16/07/2024, 08/01/2025, 24/07/2025
-Descrizione generale: Una LU ha un TPO attivo in WAMAS ma nessuna missione corrispondente su Cway. La LU rimane bloccata per ore sulla stazione o nella posizione di partenza. Le picking station si bloccano in attesa.
-Causa: (1) Il sistema genera 2 richieste AGV per lo stesso pallet; quando l'AGV riceve la prima, la seconda viene eliminata. (2) Ordini HIVE presenti ma non trasmessi a Rocla (issue lato Rocla). (3) Empty request residue dai test CR che occupano slot nella sequenza.
-Soluzione / Workaround consolidato: Cancellazione del TPO e ricreazione, forzando le missioni HIVE. Cancellazione ordini HIVE vecchi. Riavvio pick station.
-Frequenza: 4 occorrenze documentate tra 2024 e 2025. Classificata come issue ricorrente (N44).
-Note: Root cause parzialmente identificata. Nel luglio 2025 trovati 6 ordini HIVE vecchi (da aprile) mai trasmessi a Rocla. Operatori informati di segnalare tempestivamente mancate consegne.
-________________________________________
-Issue A138: Doppio TPO verso destacker già occupato
-Occorrenze: 09/01/2025, 10/01/2025, 28/05/2025
-Descrizione generale: WAMAS crea un TPO per un secondo stack verso il destacker mentre il primo stack è ancora in transito. L'AGV arriva con il secondo stack su una posizione già occupata.
-Causa: Finestra temporale in cui MFS non vede il TPO attivo per lo stack master mentre quello per la sub-LU è in creazione. Se il job di replenishment gira in quel momento, genera un secondo TPO verso un destacker già pieno.
-Soluzione / Workaround consolidato: Rilascio manuale dell'ATX con il secondo stack. Proposta di aumentare l'intervallo del job a 5-10 minuti come misura temporanea.
-Frequenza: 3 occorrenze documentate nel 2025. Issue A138 ancora aperta.
-Note: Il caso si applica sia a stack DA che AF. Fix strutturale necessario ma non ancora implementato al luglio 2025.
-________________________________________
-Issue A186: Empty LU request in loop / PO con priorità alta senza empty request
-Occorrenze: 11/09/2024, 23/10/2024
-Descrizione generale: Non appena un AGV deposita un pallet vuoto alla pick station, WAMAS crea un TPO verso S46 e genera una nuova empty request in loop. La stazione è bloccata in un ciclo infinito.
-Causa: Una PO con priorità alta non ha né empty request né TPO per le sorgenti, ma viene trattata come la prima da eseguire. In altro caso, una gru si è bloccata causando l'uscita del pallet sorgente senza cancellazione dell'empty LU request del negative picking.
-Soluzione / Workaround consolidato: Finalizzazione manuale della PO problematica. Cancellazione manuale dell'empty LU request residua.
-Frequenza: 2 occorrenze documentate nel 2024. Classificata come ricorrente (A186).
-Note: Analisi in corso su priorità di esecuzione PO nel codice. Mancanza implementativa nel software per la gestione delle empty request dopo disconnessione gru.
-________________________________________
-Labeler Foiling "no printing data" / Stampante irraggiungibile post-deploy
-Occorrenze: 16/11/2021, 24/02/2022, 28/08/2023, 17/10/2023, 04/12/2023, 27/12/2023
-Descrizione generale: I labeler mostrano "no printing data" o il print server risulta irraggiungibile. L'area Foiling e le uscite si bloccano. I pallet in transito generano errori a cascata ("print server unreachable or specified printer does not exist"). In un caso il sistema appariva "come un albero di Natale" per gli errori.
-Causa: (1) Configurazione stampante non inclusa nel pacchetto di deploy (TT08PC028_LEFT e RIGHT). (2) IP statico della stampante modificato. (3) Stampante fisicamente irraggiungibile. (4) Il servizio di stampa genera blocchi a catena sul sistema.
-Soluzione / Workaround consolidato: (1) Aggiunta manuale della configurazione stampante mancante. (2) Reset del labeler. (3) Blocco temporaneo della corsia. (4) Spegnimento stampanti Foiling problematiche.
-Frequenza: 6 occorrenze documentate tra 2021 e 2023.
-Note: La configurazione delle stampanti Foiling è stata dimenticata in almeno 2 deploy successivi (agosto e ottobre 2023), segnalata come gap nel processo di packaging del deploy. Proposto monitoraggio IP delle stampanti critiche.
-________________________________________
-Lighthouse down / non funzionante / anomalie visive
-Occorrenze: 29/12/2021, 21/07/2022, 22/07/2022 (post-riavvio), 29/01/2024, 13/12/2023, 20/12/2023
-Descrizione generale: Lighthouse non è accessibile (login failed) o non mostra i pallet. Il sistema è "cieco" sullo stato dell'impianto. In alcuni casi le anomalie sono solo visive (cache del browser).
-Causa: (1) Problemi generali del sistema (crash WAMAS, riavvio VM). (2) Cache del browser non aggiornata. (3) WAMAS tentava di eliminare un LU con attività di picking ancora attiva (race condition).
-Soluzione / Workaround consolidato: Restart di Lighthouse. Pulizia cache browser. In un caso classificato come "one in a lifetime" race condition.
-Frequenza: 6 occorrenze documentate tra 2021 e 2024.
-Note: Il team raccomanda di fare sempre clear cache come prima azione in caso di anomalie visive su Lighthouse.
-________________________________________
-Ghost pallets / Disallineamento posizione fisica-logica
-Occorrenze: 25/06/2021 (AGV 7 ghost presence), 28/06/2021 (CU042/CU044 mismatch), 29/06/2021 (destacker D), 06/04/2022, 01/07/2022 (post-riavvio VM), 22/07/2022 (post-riavvio), 28/02/2023, 19/10/2022 (post-spegnimento non controllato), 07/03/2023
-Descrizione generale: I pallet risultano in posizioni logiche diverse da quelle fisiche. WAMAS e il conveyor vedono il pallet su location differenti. Si creano occupancy multiple incoerenti. Ghost pallets appaiono sulle infeed o su SLF. Gli AGV si bloccano incapaci di completare le missioni.
-Causa: (1) Interventi manuali senza aggiornamento del sistema logico. (2) Spegnimenti non controllati dell'impianto con SRM in movimento. (3) Riavvii VM che lasciano stati inconsistenti. (4) Pallet spinto fisicamente in avanti troppo velocemente.
-Soluzione / Workaround consolidato: (1) Eliminazione occupancy incoerenti da CTOP. (2) Restart mfsPal per allineare i dati. (3) Posizionamento manuale su location corretta + reset conveyor. (4) Correzione manuale di tutte le posizioni fisico/logiche dopo ogni riavvio.
-Frequenza: 9+ occorrenze documentate tra 2021 e 2023.
-Note: Necessaria sincronizzazione fisica-logica dopo ogni intervento manuale sull'area. L'uso della tab "Details" in LH è stato raccomandato per verificare la posizione esatta del pallet. Problema ricorrente dopo ogni riavvio VM o deploy.
-________________________________________
-Blocco pick station per picking order / PO activity residua non eliminata
-Occorrenze: 22/01/2023, 26/02/2024, 22/07/2024, 13/09/2024, 29/12/2023
-Descrizione generale: Le pick station si bloccano perché un picking order o una PO activity rimane attiva/connessa a una LU che non dovrebbe più essere associata. Il sistema non riesce a proseguire con nuovi ordini.
-Causa: (1) Perdita dell'ordine a livello PLC durante riavvio. (2) LU con PO activity non eliminata dopo completamento (bug A168). (3) Interruzioni DB che causano perdita/corruzione di dati relativi a pick order. (4) Sequenze anomale con "report as full" che perdono la shipment LU.
-Soluzione / Workaround consolidato: Finalizzazione manuale della PO. Disconnessione della LU dall'ordine. Release source LU per forzare la creazione del TO. Prenotazione su lost&found.
-Frequenza: 5 occurrenze documentate tra 2023 e 2024.
-Note: Fix pianificato dal team SSI per il caso A168. Il "report as full" è stato identificato come fonte di anomalie nella gestione della shipment LU.
-________________________________________
-Anomaly P1 assignment without data — Blocco notturno produzione
-Occorrenze: 22/01/2024, 18/04/2024
-Descrizione generale: Le catenarie del traslo (input e output), alcune picking station e F01 entrano in errore "anomaly P1 assignment without data", tipicamente durante la notte. La produzione si ferma completamente.
-Causa: Non investigata in dettaglio; il sistema si auto-ripristina dopo un certo periodo.
-Soluzione / Workaround consolidato: Auto-ripristino senza intervento specifico.
-Frequenza: 2 occorrenze documentate nel 2024. Segnalato come problema ricorrente.
-Note: —
-________________________________________
-EMS (monorail) si ferma / problemi con safety door e loop
-Occorrenze: 31/07/2021 (stop a mezzanotte venerdì, 2 occorrenze), 21/01/2022, 11/02/2022, 30/06/2025, 28/07/2025
-Descrizione generale: Il sistema monorail EMS si ferma o diventa non disponibile. Tutte le picking station collegate si bloccano. L'apertura della safety door di un singolo loop blocca tutti i veicoli su tutti i loop.
-Causa: (1) Pattern di stop a mezzanotte del venerdì (possibile "controlled stop" per evacuazione antincendio, porta aperta). (2) EMS configurato come un unico device controller in MFS: l'apertura di una door invia emergency stop a tutto l'EMS. (3) Problemi specifici ai veicoli (EMS VE006).
-Soluzione / Workaround consolidato: Stop/start EMS + impulso manuale su veicolo. Per il problema safety door: forzamento del flag emergency stop a zero nel messaggio TT1636 (workaround temporaneo per lavori agosto 2025). Soluzione definitiva: split EMS in 3 device controller separati (CR necessaria, issue G02 aperta dal 28/01/2022).
-Frequenza: 6 occorrenze documentate tra 2021 e 2025.
-Note: L'issue G02 (split EMS) è stata aperta nel gennaio 2022 ma al luglio 2025 non era ancora implementata. Il workaround con forzamento del flag è stato confermato accettabile per il periodo dei lavori di agosto 2025 ma non risolve il problema strutturale.
-________________________________________
-Empty pallet request errate / in eccesso / tipo incompatibile
-Occorrenze: 30/07/2021, 06/08/2021 (D151), 06/02/2024, 22/03/2024, 28/03/2024, 20/03/2025
-Descrizione generale: WAMAS genera empty pallet request errate: tipo di pallet non ammissibile (E invece di F), empty request in loop per ordini già serviti, 3 empty request per 2 destinazioni disponibili, request residue dai test CR. Le stazioni si bloccano in attesa di pallet vuoti che non arrivano o in loop.
-Causa: (1) Configurazione MD500 che non copre casi di "negative picking line" seguito da "normal picking". (2) Reservation non cancellate su ordini già serviti. (3) Esecuzione contemporanea di empty request quando disponibile solo uno slot. (4) Empty request "zombie" rimaste dai test CR.
-Soluzione / Workaround consolidato: Modifica manuale del tipo empty request. Cancellazione delle empty request in eccesso o obsolete. Verifica assenza di residui su tutte le stazioni dopo test CR.
-Frequenza: 6 occorrenze documentate tra 2021 e 2025.
-Note: La gestione dei residui dei test CR deve essere più accurata. Empty request obsolete risalenti fino al 2021 sono state trovate nel sistema nel febbraio 2024.
-________________________________________
-SRM (Stacker Crane) bloccato per problemi vari
-Occorrenze: 04/01/2022 (SRM01 Fine Positioning Error), 14/09/2021 (SRM1 manual handling), 15/09/2021 (SRM08 infeed), 22/10/2021 (SRM3 dati corrotti), 26/05/2023 (SRM02 desync), 14/10/2024 (SRM4 pending event), 14/11/2024 (SRM01 sensore), 07/11/2024 (SRM2 TPO cancellato), 26/06/2025 (SRM03 x2), 07/07/2025 (SRM03 terza volta)
-Descrizione generale: I crane (SRM) si bloccano per cause diverse: errori di posizionamento fine, stato "manual handling" non resettabile, pallet sulle forche che blocca l'infeed, dati corrotti, desincronizzazione dopo spostamento manuale, pending event bloccati, sensori in errore, pallet logicamente presenti ma fisicamente assenti.
-Causa: Molteplici: errori hardware/sensori, stati logici inconsistenti, pending event bloccati, dati corrotti, interventi manuali senza aggiornamento logico.
-Soluzione / Workaround consolidato: Reset da MFS (MF210, spesso non accessibile alla manutenzione). Cancellazione pending event. Movimentazione manuale pallet. Resume TPO. Fix manuale tramite MFS.
-Frequenza: 10+ occorrenze documentate tra 2021 e 2025.
-Note: MF210 deve essere reso accessibile alla manutenzione ("magic button"). SRM03 (Crane 3) ha avuto 3 blocchi nella stessa settimana nel luglio 2025 prima che il fix strutturale venisse incluso nel deploy.
-________________________________________
-Blocco TPO area mobile / DcMobile worker crash
-Occorrenze: 17/04/2024 (x2), 16/07/2024, 10/07/2024
-Descrizione generale: Tutti i TPO tramite terminale mobile smettono di funzionare. Gli utenti vengono espulsi dall'applicazione mobile. Area foiling, loading, QC bloccate. Il DcMobile worker processa transport order non più esistenti, causando crash a cascata.
-Causa: (1) DcMobile worker che elabora TO già terminati. (2) LU dell'area automatica che blocca la messaging queue del mobile (DCMobile). (3) Root cause non sempre determinata.
-Soluzione / Workaround consolidato: Riavvio del DcMobile worker. Spostamento fisico della LU bloccante. Auto-ripristino in alcuni casi.
-Frequenza: 4 occorrenze documentate nel 2024.
-Note: Il problema del 17/04/2024 si è ripresentato due volte nello stesso giorno, richiedendo doppio riavvio del DcMobile.
-________________________________________
-Errore quantità anomala da operatore / Crash sistema calcolo peso
-Occorrenze: 10/01/2024, 12/01/2024
-Descrizione generale: L'operatore (stesso utente lp65) conferma quantità impossibili durante l'inventario (5.135 SC e 6.153 pezzi invece di 0). Il peso calcolato supera la soglia massima (~65.353 unità / ~104.000 kg), causando crash del sistema di calcolo peso MFS.
-Causa: Errore dell'operatore (possibilmente errore di scansione). Il sistema non aveva protezione contro valori impossibili.
-Soluzione / Workaround consolidato: Auto-ripristino del sistema. Contatto con l'operatore. Proposta protezione software: non consentire conferma di quantità > 2x pallet piena.
-Frequenza: 2 occorrenze documentate nel gennaio 2024 (stesso operatore).
-Note: La protezione software è stata proposta ma richiedeva modifiche estese al sistema. Si è deciso di affrontare il problema con l'operatore.
-________________________________________
-Negative picking / Deadlock spazio insufficiente (D159)
-Occorrenze: 22/10/2024, 23/10/2024 (correlato)
-Descrizione generale: Pick station bloccata in deadlock: la PO necessita di un pallet per negative picking ma tutte le location source e buffer sono piene, impedendo l'assegnazione.
-Causa: Problema di sequenza: il sistema esegue prima i pallet HBW1 (sequence 0) riempiendo la stazione, ma non riesce poi a inserire l'empty LU (sequence 1) perché non c'è spazio. Si manifesta quando ci sono più di 4 sorgenti LU in una PO con negative picking.
-Soluzione / Workaround consolidato: Finalizzazione manuale della PO del negative picking.
-Frequenza: 2 occorrenze documentate nell'ottobre 2024.
-Note: Fix pianificato con simulazione locale. Problema aggravato dall'errore del supporto che aveva bloccato una buffer location durante l'intervento.
-________________________________________
-Interventi manuali errati da utenti non autorizzati / non formati
-Occorrenze: 24/06/2021 (TPO manuale errata blocca WW), 07/07/2021 (finalizzazione TPO in zona automatizzata), 03/09/2021 (pulsante MF266), 17/07/2024 (sblocco location FH0412), 18/10/2024 (TPO source=destination), 24/10/2024 (consolidazione LU buffer/non-buffer)
-Descrizione generale: Utenti non autorizzati o non formati eseguono operazioni che bloccano il sistema: creazione manuale di TPO in zone automatizzate, pressione accidentale di pulsanti in MF266, sblocco di location che devono rimanere bloccate, creazione di TPO con source=destination, consolidazione stock tra LU in buffer e non in buffer.
-Causa: Mancanza di restrizioni nell'interfaccia utente. Pulsanti accessibili a profili non autorizzati. Assenza di validazione (es. source≠destination). Mancanza di formazione operativa.
-Soluzione / Workaround consolidato: Risoluzione manuale caso per caso. Rimozione di pulsanti dall'interfaccia. Blocco di location con note esplicative. Comunicazioni agli shift leader. Formazione operatori.
-Frequenza: 6 occorrenze documentate tra 2021 e 2024.
-Note: Problema operativo ricorrente. SSI ha avvertito reiteratamente gli utenti di non finalizzare TPO in zona automatizzata. Richiesta rimozione di pulsanti critici dall'interfaccia utente standard.
-________________________________________
-Problema NullPointerException / broken boxes (A176)
-Occorrenze: 12/06/2024, 26/08/2024, 17/06/2024 (correlato)
-Descrizione generale: Errore NullPointerException durante la finalizzazione di una linea OBD quando il flag "broken boxes" è attivo. Il sistema va in crash al click su "Finalizza".
-Causa: Bug nel codice A176: la funzione prjCheckIfIsBrokenBoxesLD ha una condizione nulla non gestita. Check errato nella logica di finalizzazione dell'OBD.
-Soluzione / Workaround consolidato: Rimozione temporanea del flag "broken boxes" per consentire la finalizzazione.
-Frequenza: 3 occorrenze documentate nel 2024.
-Note: Fix previsto al deploy successivo. Correlato anche a problemi con "pieces from HOST" come feature separata.
-________________________________________
-[24/06/2021, 09:37] — AGV 6 in errore: blocco a cascata di 4 AGV
-Descrizione: AGV 6 va in errore mentre è allocato al ritiro del pallet 59042837. Gli AGV 2, 3, 8 e 14 restano bloccati in attesa che la via si liberi. Causa identificata: Guasto/errore hardware su AGV 6. Soluzione / Workaround: Intervento SSI su AGV 6. Risolto dall'intervento tecnico. Note: Prima segnalazione documentata nel gruppo. Evidenzia la dipendenza a cascata nella flotta AGV.
-[24/06/2021, 14:15] — Errore "Wait for Storage Failed" su MF200
-Descrizione: Errore generico su MF200, non documentato nella guida di troubleshooting. Causa identificata: L'errore è ritenuto "case-by-case" e troppo ampio per una soluzione standard. Soluzione / Workaround: Nessuna soluzione definitiva. SSI indica di aprire ticket per ciascun caso specifico. Note: Richiesta esplicita di aggiornamento della guida di troubleshooting.
-[24/06/2021, 17:57] — Bug D122: "Release Source/Dest LU" non invia empty pallet in S46
-Descrizione: Pallet vuoti rilasciati dal picking tramite "Release Source LU" / "Release Destination LU" non vengono instradati verso S46. Tre pallet coinvolti, intervento manuale di oltre 40 minuti per il terzo caso. Causa identificata: Bug di sistema, variante su tipo F (già segnalato su tipo D come D122, JIRA IT1400016-3675). Soluzione / Workaround: Creazione manuale di TO verso S46 specificando area strategica "sS46". Intervento WAMAS di Mihai Soceanu. Note: Nuova istanza del bug su tipo F. Il sistema deve verificare che il pallet sia realmente vuoto prima del rilascio.
-[25/06/2021, 08:01] — Interruzione energia monofase: E-Stop foiling + stacker cranes down
-Descrizione: Due guasti su una singola fase dell'alimentazione elettrica a 15 minuti di distanza, causando picco di tensione. Foiling F02 in E-Stop, 8 crane in errore/down. Causa identificata: Guasto su singola fase dell'alimentazione elettrica esterna + spike di tensione. Il sistema Profinet ha attivato E-Stop di sicurezza sulle macchine di foiling. Soluzione / Workaround: Reset degli stacker cranes (ciclo Automatico Off/On + "routine di ascensione"). Crane 1 temporaneamente ridotto al 70% di velocità. Note: F01 e EMS su circuiti più robusti, non interessati.
-[25/06/2021, 15:54] — ART 23 ricorrente "Waiting WAMAS"
-Descrizione: ART 23 entra ripetutamente in errore "waiting WAMAS". Il sensore è stato pulito ma il problema persiste. Causa identificata: Non identificata chiaramente. Soluzione / Workaround: Non risolta. SSI non disponibile al momento. Note: Richiesto follow-up lunedì mattina.
-[28/06/2021, 06:56] — BP02/03/04/06 bloccate per ~30 minuti
-Descrizione: Quattro stazioni di picking bloccate contemporaneamente per oltre mezz'ora. Causa identificata: Correlata ai problemi di conveyor/occupancy (CU042/CU044 mismatch). Soluzione / Workaround: Risolto in parallelo con la fix su CU044. Note: —
-[28/06/2021, 10:37] — OBD non approvato: pallet con errori da location NOK
-Descrizione: OBD0000209024 non viene approvato perché un pallet associato ha errori non risolti, residuo di un vecchio bug. Causa identificata: Pallet mosso in precedenza da location NOK senza risolvere gli errori (bug pre-fix). Soluzione / Workaround: Correzione degli errori sul pallet → OBD approvato automaticamente. Note: Controllare sempre gli errori sui pallet prima di spostarli da location NOK.
-[02/07/2021, 06:04] — Solo 2 stazioni picking attive su ~12 (200 ordini attivi)
-Descrizione: Solo PS3 e PS9 operativi su 12 stazioni. Circa 200 ordini attivi. Causa identificata: Le stazioni non ricevevano pallet perché mancavano ordini assegnati (pochi PPLU validi in OG025). Anomalia di posizionamento in area IG corretta. Soluzione / Workaround: Update in MF14 + verifica ordine conveyor in MF266 + refresh/reset in MF200. Note: Problema ordini assegnati risolto senza intervento tecnico.
-[05/07/2021, 14:38] — EMS trolley 7: errore ER112 da cavo segnale rotto (VAHLE)
-Descrizione: EMS trolley 7 in errore e offline, causando blocco delle stazioni collegate. Errore ER112 relativo al sistema VAHLE. Causa identificata: Cavo segnale rotto e disconnesso sul trolley (cavo di segnale del "conductor rail gripper"). Soluzione / Workaround: Cavo riparato dalla manutenzione. Note: —
-[14/07/2021, 10:40] — Bug: pulsante "Full Pallet"/"Box Full" non funziona con OBD line in stato "New"
-Descrizione: Con Crane 8 down, una linea OBD in stato "New" impedisce il funzionamento del pulsante "Full Pallet" / "Box Full". Causa identificata: Bug: il pulsante non verifica se la linea è completabile. Soluzione / Workaround: Finalizzazione manuale della riga bloccata da SSI. Note: Ticket aperto. Necessita fix del codice.
-[14/07/2021, 14:40] — Bug D142: Pick Order marcato "Finalized" con picking activity ancora attiva
-Descrizione: La finalizzazione di una singola picking activity causa la marcatura "Finalized" dell'intero PO, anche con altre attività attive. Causa identificata: Bug nella logica di finalizzazione del PO. Soluzione / Workaround: Rimozione manuale del flag "Finalized" da parte di SSI. Note: Issue D142 aperta con priorità.
-[15/07/2021, 10:57] — WH502: visualizzazione limitata a 1000 item dopo deploy (issue F74)
-Descrizione: Dopo deploy, la visualizzazione in WH502 è limitata a 1000 articoli e non è più personalizzabile. Causa identificata: Regressione introdotta dall'ultimo deploy. Soluzione / Workaround: Necessario fix del codice. Note: Ticket F74 aperto.
-[26/07/2021, 08:51] — Bug: deadlock al passaggio picking→unpicking (PS3, PS9)
-Descrizione: Commutando da "picking" a "unpicking" senza prima stoppare, WAMAS invia prematuramente pallet per l'unpicking creando deadlock. Causa identificata: Bug: il cambio di processo forza la rimozione del pallet corrente anche se il picking non è completato. Soluzione / Workaround: Tornare in modalità picking, selezionare "Stop", rimandare manualmente i pallet, poi riattivare l'unpicking. Note: Fix in sviluppo. Istruire operatori a non passare direttamente da picking a unpicking.
-[27/07/2021, 06:20] — Blocco totale impianto: "Wait until job available"
-Descrizione: All'apertura turno, tutte le stazioni mostrano "Wait until job available". Intero impianto fermo (12 operatori pagati senza produrre). 31 ordini attivi. Causa identificata: Il refresh tra MFS e WMS interrotto da un Transport problematico + TPO in S48 non "Active for MFS" (residuo deploy del giorno precedente). Soluzione / Workaround: Hotfix alle 09:00. MFS riavviato. TPO recuperate con suspend + resume. Note: Issue D145 identificata e fix pianificato.
-[27/07/2021, 11:40] — SLAVING zone deadlock: 9 stazioni impattate
-Descrizione: 9 stazioni su 12 impattate per "WAIT FOR CAPACITY ZONE SLAVING" con zona fisicamente libera. Causa identificata: Due TPO per pallet non esistenti occupavano capacità logica della zona SLAVING. Soluzione / Workaround: SSI elimina le due TPO fantasma. Note: Possibile correlazione con: WAIT FOR CAPACITY ZONE SLAVING (A13).
-[03/08/2021, 08:17] — Spontaneous TPO da area manuale completamente non funzionanti
-Descrizione: Tutti i TPO spontanei dall'area manuale falliscono. Oltre 600 pallet al giorno devono essere spostati manualmente. Causa identificata: Fix JIRA IT1400016-3590 non copriva il caso di LU interi con articoli automatici in area manuale. Soluzione / Workaround: TPO creati temporaneamente dall'ufficio. Fix in sviluppo. Note: Situazione operativa critica.
-[09/08/2021, 08:30] — F destacker: conflitto stack/destack simultaneo
-Descrizione: Pallet 59815102 bloccato sotto lo stack del destacker F per conflitto tra stacking e destacking simultanei. Blocco produttivo dalla 07:09. Causa identificata: MFS non gestisce correttamente il caso di stacking/destacking simultanei sullo stesso destacker. Soluzione / Workaround: Spostamento fisico + cancellazione/ricreazione dell'ordine. Intervento ~1,5 ore. Note: Mihai in discussione con PLC per prevenire il caso.
-[09/08/2021, 13:55] — Tutte le stazioni bloccate: nessuna empty pallet request + VPN irraggiungibile
-Descrizione: 12 stazioni senza pallet vuoti. VPN SSI interrotta per cambio parametri. Causa identificata: Doppio problema: PS7 bloccata (OG525 non genera richieste) + VPN interrotta per cambio parametri mal comunicato. Soluzione / Workaround: VPN ripristinata. PS7 bloccata temporaneamente. TeamViewer come fallback. Note: Coordinare meglio comunicazioni su cambi infrastruttura.
-[13/08/2021, 18:35] — EMS infeed "WAIT FOR STORAGE FAIL" (tolleranza peso pilastri)
-Descrizione: Tutti gli EMS transitano verso l'infeed senza prendere il pallet. Blocco produttivo. Causa identificata: Controllo peso sui pilastri HBW con tolleranza al 20%: troppo stringente. Soluzione / Workaround: Tolleranza aumentata dal 20% al 30%. Note: Da verificare nell'ambito del documento W34.
-[23/08/2021, 18:05] — Stampa LU label (RM019): errore per utenti specifici
-Descrizione: Utenti "Manutenzione" e "Responsabile EXT" non riescono a stampare etichette LU da RM019. Causa identificata: Diritti incompleti (accesso al dialog successivo mancante). Soluzione / Workaround: Completamento configurazione permessi + restart desktop. Note: Modifica permanente confermata.
-[09/09/2021, 17:28] — 151 stack D con TPO tutti verso SLF bloccata
-Descrizione: Tutti i 151 stack di pallet D in HBW1 hanno TPO verso una location bloccata. Il destacker D è vuoto. Causa identificata: SLF02C4091 bloccata; MFS ha generato TPO verso di essa per tutti gli stack anziché fermarsi al primo fallimento. Soluzione / Workaround: Cancellazione tutte le TPO + sblocco PSF02C4111. Note: Correlazione con problema crane dello stesso mattino.
-[25/11/2021, 07:55] — PS7 bloccata con "unknown error" per ore
-Descrizione: PS7 bloccata dalla sera precedente. 1,5 ore di produzione perse. Causa identificata: Documentata nel ticket di risposta SSI. Soluzione / Workaround: Sblocco stazione da parte del supporto. Note: Problema di risposta helpdesk in orari non standard evidenziato da Milo.
-________________________________________
-[05/01/2022, 20:35] — MFS spento / "occupation without transport order"
-Descrizione: MFS spento per un certo periodo. Numerose segnalazioni "occupation without transport order". Pallet bloccati sui conveyors. Causa identificata: Ipotizzato problema di rete dati. Soluzione / Workaround: Mihai ha riportato il sistema on track entro le 22:13. Note: Pallet bloccati fino al giorno successivo.
-[07/01/2022, 12:04] — Infeed line SRM07 bloccata ("wait for routing lock MFS")
-Descrizione: Linea di infeed SRM07 bloccata con messaggio "wait for routing lock MFS". Causa identificata: Non esplicitata. Soluzione / Workaround: Non documentata. Note: Problema rimasto aperto nel log.
-[12/01/2022, 18:50] — TPO allocazione manuale bloccante / RF terminal non responsivo
-Descrizione: TPO in allocazione manuale blocca il terminale RF. Impossibilità di movimentare pallet interi alla vigilia di un giorno ad alto volume. Causa identificata: Fix precedente del TPO spontaneo aveva generato effetti collaterali. Soluzione / Workaround: Restart previo allineamento parametri. Sistema ripristinato entro le 21:56. Note: Problema stampante su LDF01C0522_LEFT come causa concorrente.
-[26/01/2022, 09:39] — Stazione 2: pick order non rilavorabile (flag "finalized")
-Descrizione: Pick order non rielaborabile per flag "finalized" non rimosso. Causa identificata: Flag non correttamente resettato. Soluzione / Workaround: Razvan ha rimosso il flag manualmente. Note: —
-[04/02/2022, 13:51] — Pick station 12: crash WAMAS durante picking (loop errore)
-Descrizione: L'utente viene espulso con errore ogni volta che apre WAMAS alla pick station 12. Causa identificata: Non esplicitata nei log. Soluzione / Workaround: Reconnessione risolutiva dopo analisi log. Note: —
-[07/02/2022, 07:45] — RED ALARM: sole 2 pick station operative
-Descrizione: Soltanto 2 picking station funzionanti a inizio turno. Area automatizzata quasi ferma. Causa identificata: Non esplicitata. Soluzione / Workaround: Risolto da Support Technician 23 entro le 09:37. Note: —
-[15/02/2022, 17:13] — RED ALARM: TPO non creati per pallet in area automatizzata
-Descrizione: Nessun TPO generato per i pallet nell'area automatizzata. Impatto bloccante. Causa identificata: Non esplicitata. Soluzione / Workaround: Non documentata. Note: Segnalazione rimasta senza risposta documentata.
-[01/03/2022, 12:54] — Errore inverter su conveyor (problema PLC)
-Descrizione: Lighthouse segnala problema inverter su conveyor. Causa identificata: Problema meccanico/PLC. Soluzione / Workaround: Reindirizzato al team PLC. Note: Fuori ambito MFS.
-[14/03/2022, 09:00] — Cambio password SSI4atl non comunicato
-Descrizione: Password modificata senza preavviso. Nessuno riusciva ad accedere. Causa identificata: Password cambiata da Alexandru senza notifica. Soluzione / Workaround: Password comunicata entro breve tempo. Note: Necessità di processo di comunicazione per cambi credenziali.
-[28/03/2022, 07:14] — Location S26 bloccata / TPO spontanei non funzionanti post-deploy
-Descrizione: TPO spontanei non funzionavano perché la location di default era bloccata. Causa identificata: Location di destinazione configurata come default in stato bloccato. Soluzione / Workaround: Razvan ha sbloccato la location. Note: —
-[04/04/2022, 07:47] — Comunicazione WAMAS-AS400 KO + trasporti manuali bloccati → rollback
-Descrizione: Comunicazione AS400 interrotta. Trasporti manuali e automatici non funzionanti. Milo assente per malattia. Causa identificata: Problema introdotto dal deploy precedente. Soluzione / Workaround: Rollback con procedura AGVDisable. Sistema ripristinato entro le 10:50. Note: Problema wood error identificato come concorrente.
-[05/04/2022, 07:37] — Ogni pallet da linea foiling bloccato + tutte le pick station bloccate
-Descrizione: Ogni pallet in uscita dalla foiling veniva bloccato e richiedeva ricreazione manuale TO. Causa identificata: Residuo del problema del giorno precedente (LU 60598768 con TPO verso S04 MAV). Soluzione / Workaround: Cancellazione del TPO problematico. Sistema ripreso alle 08:10. Note: —
-[05/04/2022, 10:05] — TOs manuali richiedono sistematicamente suspend+resume
-Descrizione: ~22 LU con TO che richiedevano suspend+resume per funzionare. Causa identificata: Mobile worker da riavviare. Soluzione / Workaround: Riavvio del mobile worker. Note: Correlato ai residui del deploy del 04/04.
-[06/04/2022, 16:57] — Ghost pallets su Lighthouse alle infeed CU001/CU007
-Descrizione: Ghost pallet creato su Lighthouse all'inserimento di un pallet. TEMP in MF266. Causa identificata: Correlato ai problemi dei giorni precedenti. Soluzione / Workaround: Suspend+resume sulle LU problematiche. Riavvio worker. Note: Root cause inviata a CSS per analisi.
-[26/04/2022, 11:46] — Area automatica bloccata da LU 60440210 con TPO verso S04 MAV
-Descrizione: LU bloccava la coda di elaborazione. SOC-ID in stato "complete". Causa identificata: LU bloccava la coda; problema ripresentatosi 30 minuti dopo. Soluzione / Workaround: Cancellazione e ricreazione del TPO. Note: Root cause inviata a CSS.
-[02/05/2022] — Deploy CR43: problemi visualizzazione Bucket TO
-Descrizione: Visualizzazione errata del totale LU nel Bucket TO. Utenti espulsi dal terminale all'ultimo TPO. Causa identificata: Bug nel conteggio LU. Problema di logout legato a K76. Soluzione / Workaround: Deploy correttivo del 09/05 con revert di K76. Note: Un mese di instabilità legata al patch K76.
-[10/05/2022, 07:39] — Nuovo bottone "CancelRequestEMS" non funziona senza procedura corretta
-Descrizione: Il bottone non funzionava per mancata applicazione della procedura in 4 step. Causa identificata: Procedura non seguita correttamente. Soluzione / Workaround: Documentata la procedura: 1) refresh+reset, 2) replan route+refresh+reset, 3) cancel step MF266+refresh+reset, 4) CancelRequestEMS. Note: —
-[10/05/2022, 09:07] — Bug N30: priorità su CU379/384/388 non funzionante
-Descrizione: Il pallet più anziano non veniva prioritizzato. Causa identificata: Bug nel codice per la gestione di più conveyor per i Retrieval Points. Soluzione / Workaround: Rollback del fix N30 (16 minuti downtime). Bug aggiuntivi N31 e N33 scoperti. Note: —
-[10/05/2022, 11:12] — Slaved pallets: TPO non funzionanti post-deploy
-Descrizione: TPO per pallet "slaved" richiedevano suspend+resume. Causa identificata: Cache mobile non aggiornata. Soluzione / Workaround: Riavvio del mobile. Note: —
-[19/05/2022, 11:37] — Source pallets instradati a Wunderwuzzi invece di HBW1
-Descrizione: Tutti i source pallets dalle picking station venivano indirizzati a Wunderwuzzi anziché HBW1. Causa identificata: HBW1 pieno (nessuna location disponibile dopo controllo pillar). Soluzione / Workaround: Cancellazione manuale dei TPO di replenishment. Note: Segnalato come potenziale bug: il sistema dovrebbe auto-proteggersi e instradare a QC. HBW1 non ampliabile prima del 2024.
-[30/05/2022, 09:22] — CC015 non registra movimenti dalle 06:01
-Descrizione: Nessun dato registrato in CC015. Operatori "ciechi" sul sistema. Causa identificata: Root cause non determinata. Soluzione / Workaround: Risolto implicitamente alle ~10:00. Note: —
-[30/05/2022, 10:14] — OBD con items "missing" nonostante stock presente
-Descrizione: 41 OBD di tipo "supermarket" con items mancanti pur avendo materiale disponibile. Causa identificata: WAMAS riservava WholeLU senza generare picking activities. Soluzione / Workaround: Ticket aperto. Note: —
-[07/06/2022, 13:18] — Post-deploy: "StoCompAssemblage couldn't be created" in IG511
-Descrizione: Errore alla identificazione pallet in IG511 dopo deploy. Causa identificata: Contatori WAMAS non aggiornati durante il deploy (errore manuale SSI). Soluzione / Workaround: Correzione manuale contatori. Proposta aggiunta alla checklist deploy. Note: —
-[24/06/2022, 14:34] — WAMAS DB SQL inaccessibile per eccesso sessioni concorrenti
-Descrizione: Raggiunto limite 10 sessioni concorrenti per utente atlas_prod_cust. Causa identificata: Molti PC con stessa connessione aperta. Soluzione / Workaround: Chiusura sessioni dal lato DB. Discussione su server history/BI. Note: Limite sessioni di 10 concordato per performance. Richiesta incremento a 15.
-[27/06/2022, 09:13] — Blocco totale area automatica: ghost pallets, TPO senza occupazione
-Descrizione: Tutti gli AGV fermi. Cway vuoto. Ghost pallets sulle infeed foiling. Causa identificata: Stack AF con messaggio problema che bloccava la coda. Soluzione / Workaround: Sblocco manuale della coda. Note: Memoria WAMASAPP bassa (<4%) in parallelo.
-[04/07/2022, 09:26] — LU su SLF01C0071 non si muove (H59)
-Descrizione: LU con TO attivo non si movimentava. In attesa di PLC announce. Causa identificata: Annuncio del carrellista non pervenuto al PLC. Soluzione / Workaround: Cancellazione TU request per ricreazione. Note: Il rollback del 01/07 aveva rimosso il patch H59.
-[19/10/2022, 19:05] — Blocco totale per intervento PLC non controllato (SRM con forche sospese)
-Descrizione: Tecnico PLC Austria esegue interventi non controllati, causando spegnimento con SRM in movimento. SRM 3/4/5/6 con problemi handshake, ghost pallets, conveyor in errore. Causa identificata: Spegnimento non controllato durante il funzionamento da parte del tecnico PLC. Soluzione / Workaround: Recovery progressiva con reset da pulpit, timeout PLC, movimentazione manuale. Sistema ripristinato entro le 21:47. Note: Il tecnico aveva lasciato il sito prima del completamento. Annunciata analisi interna.
-[28/10/2022, 15:54] — Tutte le pick station in "loading..." (MS Access su WAMASAPP)
-Descrizione: Tutte le pick station in "loading..." con tempi di 20-30 secondi. Causa identificata: Processo MS Access su WAMASAPP che consumava CPU/RAM. Soluzione / Workaround: Terminazione del processo MS Access. Note: —
-[09/11/2022, 15:16] — Errore inverter 164M01 / anomalie Lighthouse su HBW
-Descrizione: Lighthouse con anomalie HBW. Errore frequency inverter 164M01. Causa identificata: Fault inverter. Reindirizzato al team PLC. Soluzione / Workaround: Manutenzione interna. Errori scomparsi alle 15:25. Note: —
-[11/12/2022, 18:51] — Deploy serale senza anomalie
-Descrizione: Deploy eseguito correttamente. Causa identificata: N/A. Soluzione / Workaround: N/A. Note: Raro caso di deploy senza problemi documentati.
-________________________________________
-[22/12/2022, 17:23] — Blocco totale area automatica (x2 episodi in 20 minuti)
-Descrizione: Area automatica bloccata due volte in 20 minuti. CPU nella norma. Causa identificata: Due LU con ordini inventario completati ma non eliminabili per ordini di consolidamento pendenti (vecchi 2+ mesi). Tentativo ripetuto di eliminazione ha causato riavvio rapido MFS. Soluzione / Workaround: Eliminazione dei 2 ordini di consolidamento obsoleti. Note: WAMAS permetteva di creare ordini inventario su LU con ordine di consolidamento attivo — segnalato come anomalo.
-[06/02/2023, 09:54] — Impossibilità accesso a viste/funzioni DB post-deploy
-Descrizione: Utenti senza accesso a viste specifiche del DB (OgStockData, PRJITEMSTACKINGINFO, loadaid, ecc.). Causa identificata: Script rigenerazione grant non incluso nella procedura di deploy. Soluzione / Workaround: Esecuzione manuale dello script mancante. Accesso ripristinato in ~15 minuti. Note: Gap nella procedura di deploy da correggere.
-[01/03/2023, 09:05] — AGV fermi (mattino, non correlato a problema precedente)
-Descrizione: AGV non operativi al mattino. Causa identificata: Non correlato al problema del giorno precedente (dettagli da Alexandru). Soluzione / Workaround: AGV ripristinati alle 11:02. Note: —
-[02/03/2023, 12:18] — Errori ricorrenti su location specifica + labeler in bypass da 4 mesi
-Descrizione: Location con errori ricorrenti (10+ volte in un giorno). Labeler in bypass da 4 mesi per problema comunicazione WAMAS↔PLC. Causa identificata: Probabile problema fisico su scanner/conveyor/labeler. Il labeler in bypass causa errori a cascata. Soluzione / Workaround: Verifica fisica richiesta. Note: Labeler in bypass da 4 mesi senza risoluzione — issue pendente critica.
-[07/03/2023, 11:01] — DB spike, pallet logicamente su location errata, sessione DB bloccata
-Descrizione: Due pallet sulla stessa location CU118. WAMAS lento. Problemi anche in area manuale. Causa identificata: Sessione DB inattiva dell'utente clodesani su picking station #4 causava lock a cascata. Inventory orders creati in triplice copia dallo stesso Demand. Soluzione / Workaround: Terminazione sessione DB. Annullamento inventory orders anomali. Note: Bug WAMAS: creazione multipla di Inventory Orders dallo stesso Demand.
-[10/03/2023, 12:33] — OBD senza avanzamento verso OG039 (nuovo loading aid AI)
-Descrizione: OBD bloccati in OG025 senza procedere per loading aid AI non configurato. Causa identificata: Loading aid AI non incluso nei loading aid consentiti in MD043. Soluzione / Workaround: Setting aggiunto in MD043. Note: —
-[21/03/2023, 09:22] — Work station #01 bloccata per ordine picking terminato attivo
-Descrizione: WS #01 bloccata. Ordine di picking attivo già terminato. Causa identificata: Non specificata. Soluzione / Workaround: Ticket aperto via email. Nessuna conferma di risoluzione. Note: —
-[12/04/2023, 12:26] — Blocco area automatica + pick station (auto-recovery)
-Descrizione: Area automatica bloccata, poi auto-ripristinata. Causa identificata: Non identificata. Soluzione / Workaround: Auto-recovery senza intervento. Note: —
-[04/05/2023, 10:46] — Problema SRM (generico)
-Descrizione: Problema generico sull'SRM. Causa identificata: Non documentata. Soluzione / Workaround: Risolto da Razvan. Note: —
-[20/06/2023, 11:45] — Stacker pallet AF vuoti bloccato da oltre un giorno
-Descrizione: PLC riportava occupancy=1 su stacker location 403 mentre fisicamente vuota. Causa identificata: Disallineamento PLC-fisico. Fuori dalla gestione WAMAS. Soluzione / Workaround: Tentativo di sblocco inserendo pallet reale. Parzialmente funzionante. Note: Richiesto intervento PLC per ispezione fisica.
-[22/06/2023, 10:26] — Quantità pianificate/consegnate disallineate su OBD
-Descrizione: Due linee OBD con quantità planned/delivered disallineate impedivano chiusura CT. Causa identificata: Non specificata. Soluzione / Workaround: Allineamento manuale delle quantità. Note: —
-[24/07/2023, 11:55] — Problema area automatica e manuale prima del deploy
-Descrizione: Problema in area automatica (auto-risolto) e successivo problema manuale. Causa identificata: Non specificata. Soluzione / Workaround: Restart "allione" (non full deploy). Note: —
-[27/07/2023, 03:48] — Tutte le stazioni picking non funzionanti (dead man switch)
-Descrizione: Premendo il dead man switch, il pallet sorgente non veniva inviato a EMS. Causa identificata: Non esplicitata. Soluzione / Workaround: Dopo intervento di Razvan, stazioni ripristinate. Note: —
-[26/09/2023, 05:08] — AGV 11 fermo davanti a picking station 1
-Descrizione: AGV 11 bloccato. Causa identificata: Non specificata. Soluzione / Workaround: Sblocco crane 3 ha risolto. Note: —
-[06/09/2023, 17:46] — "Red bubbles", bug divisione per zero (CR02)
-Descrizione: Numerose red bubbles. Pallet non in movimento. Reset inefficace. Causa identificata: Stock object con quantità = 0 causava divisione per zero nella logica CR02. Soluzione / Workaround: Eliminazione stock object con qty 0. Note: Ticket aperto per fixare il caso stock con qty 0.
-[27/09/2023, 09:17] — Picking order insufficienti, job assegnazione PO lento
-Descrizione: Job di assegnazione PO ogni 17 minuti invece che ogni minuto. 4.9M righe non archiviate. Causa identificata: (1) PPLU con stock insufficiente per location bloccata. (2) NOK Foiling in "LU check". (3) Archiviazione ferma dal 10/09/2022 per mancanza spazio tablespace. Soluzione / Workaround: Trigger manuale worker. NOK Foiling in stop 30 min. Archiviazione manuale (~11 ore). Note: Necessità urgente di History Server.
-[17/10/2023, 12:30] — Deploy con multipli problemi critici, rollback
-Descrizione: Labeler senza dati, crash terminali per colonna DB rinominata, parametri non visibili. Causa identificata: Configurazione stampante mancante, rinomina colonna senza aggiornamento client. Soluzione / Workaround: Rollback. Note: Problemi post-rollback nelle ore notturne (F01 in errore, picking station bloccate, pallet con doppio stock).
-[03/11/2023, 17:33] — LU mancanti (ticket 01326570)
-Descrizione: Alcuni LU non presenti nel sistema. Causa identificata: Non specificata. Soluzione / Workaround: Aggiunta manuale dei LU. Note: —
-[13/11/2023, 13:42] — Pallet fermi, terminali mobili crash post-deploy (colonna DB rinominata)
-Descrizione: Stesso problema della rinomina colonna piceweight → pieceweigth. Causa identificata: Stazioni non aggiornate con ultima versione client WAMAS. Soluzione / Workaround: Aggiornamento client su tutte le stazioni. Note: Problema ricorrente (già ottobre). Proposto meccanismo di verifica automatica versione client.
-[29/11/2023, 12:04] — WS #3 bloccata durante test D158 (negative picking)
-Descrizione: Patch D158 non completamente funzionante. Operatore non avvisato di premere "release". Causa identificata: Mancava messaggio informativo all'operatore. Soluzione / Workaround: Rilascio manuale guidato da Adrian. Note: Fix per messaggio informativo pianificato.
-[13/12/2023, 09:33] — Anomalie peso CR02: scale vs master data, piece weight = 0
-Descrizione: Tre misurazioni diverse per lo stesso pallet. Piece weight diventato 0 dopo inventory. Causa identificata: Comportamento CR02 corretto logicamente. Possibile problema fisico alla bilancia. Soluzione / Workaround: Nessun intervento software. Verifica fisica bilancia. Note: —
-[07/12/2023, 09:45] — 1.201 messaggi record #03 in errore post-deploy
-Descrizione: 1.201 messaggi di tipo record #03 in errore in DI002. Causa identificata: Modifica lunghezza messaggio (+18 caratteri) applicata erroneamente anche al record #03. Soluzione / Workaround: Script per aggiungere 18 spazi e resettare a NEW. Eseguito più volte. Note: Fix definitivo nel deploy successivo.
-[20/12/2023, 10:13] — F02 manual mode, MFS crash, Lighthouse down, problemi DB
-Descrizione: Consolidazione DB da parte dell'IT ha causato perdita connessione WAMAS (~15 secondi). MFS crash. Lighthouse offline. Causa identificata: Operazioni di consolidazione DB con WAMAS attivo non compatibili. Soluzione / Workaround: Restart completo WAMAS e Lighthouse. Pianificate operazioni future solo con WAMAS spento. Note: Secondo blocco lo stesso pomeriggio per stessa causa.
-________________________________________
-[27/12/2023, 12:05] — Red Bubbles F01 / Fault LDF01C0522_RIGHT prima dello shutdown
-Descrizione: Fault sul labeler prima dello shutdown pianificato. Causa identificata: Fault labeler/printer. Soluzione / Workaround: Reset manuale. Red bubbles spariti dopo ~20 minuti. Note: —
-[27/12/2023, 15:42] — App Server lento dopo migrazione su server temporaneo
-Descrizione: MFS impiega 10-15 min invece di 1-2 min al caricamento. Causa identificata: VM su host temporaneo con prestazioni inferiori. Soluzione / Workaround: Attesa. Ritorno al server originale pianificato per 02/01. Note: —
-[27/12/2023, 17:39] — AGV in I/O Blocking in zona Wuzzi
-Descrizione: AGV bloccato in zona wuzzi. Causa identificata: Non determinata. Soluzione / Workaround: Risolto tramite supporto Rocla nel corso della serata. Note: —
-[27/12/2023, 18:24] — Picking station sources bloccate
-Descrizione: Pallet alle picking station non tornano indietro. Causa identificata: Non specificata. Soluzione / Workaround: Risolto autonomamente ~18:59. Note: —
-[28/12/2023, 08:57] — mqReceiver non legge messaggi da AS400 / Truck loading bloccato
-Descrizione: 124 messaggi in coda. Caricamento camion bloccato. Causa identificata: mqReceiver non partito correttamente; necessario riavviare anche mqSender. Soluzione / Workaround: Riavvio mqSender e mqReceiver. Sistema ripreso alle 09:48. Note: L'utente non ha permessi per riavviare autonomamente (solo SE015, non SE038).
-[28/12/2023, 12:38] — LU 59046657 non scaricabile (flag partOfAnActiveOrder)
-Descrizione: LU non può essere scaricata per flag partOfAnActiveOrder=true. Causa identificata: Caso legacy pre-CR "redirect shipLU in HBW1 if S46 full". Soluzione / Workaround: Spostamento manuale in area buffer appropriata. Note: Comportamento da specifica.
-[28/12/2023, 15:02] — Labeler in "Notify" / Blocco totale F01 con desync WAMAS-MFS
-Descrizione: Desync WAMAS/MFS: MFS con barcode reale, WAMAS con TEMP. Causa identificata: Loading aid AF con TPO verso HBW01 (non consentito) aveva generato lo stato anomalo. Soluzione / Workaround: Eliminazione pending event + pallet TEMP e LU dal sistema. Note: Problema ricorrente. Root cause operativa documentata.
-[05/01/2024, 17:53] — Parametro CSIA02 errato su LU causa "missing items"
-Descrizione: Disallineamento parametro CSIA tra stock e requisiti ordine. Causa identificata: Causa origine non investigata. Soluzione / Workaround: Modifica campi direttamente sull'ordine dal supporto SSI. Note: L'utente non ha permessi per modificare stock via dialog CSIA.
-[08/01/2024, 17:52] — OBD in "Loading in progress" + doppi ordini inventario
-Descrizione: ShipmentLU bloccate. 3 inventory order per stesso LU. Causa identificata: Flag loading state errato. Causa inventory order duplicati non specificata. Soluzione / Workaround: Modifica manuale loading state. Eliminazione inventory order duplicati. Note: Record eliminati prima di poter analizzare la causa.
-[15/01/2024, 08:57] — Barcode cambiato su pallet causa desync
-Descrizione: Modifica barcode su pallet causa stato anomalo. Causa identificata: Barcode cambiato; problema già presente prima della modifica. Soluzione / Workaround: Risolto dal team SSI. Note: —
-[19/01/2024, 09:38] — Quantità consegnata errata su ordine
-Descrizione: 520 invece di 500 SC. Caricamento camion bloccato. Causa identificata: Sotto investigazione. Soluzione / Workaround: Correzione manuale delle quantità. Note: —
-[19/01/2024, 17:57] — Errore chiusura camion (IllegalStateException)
-Descrizione: Impossibile chiudere il carico. Errore Java IllegalStateException. Causa identificata: Non specificata. Soluzione / Workaround: Chiusura manuale del primo carico. Annullamento del secondo. Note: —
-[14/02/2024, 12:29] — Stale reservations/ticket per LU con OBD archiviati
-Descrizione: 12 ticket "zombie" con OBD archiviati risalenti fino a settembre 2023. Causa identificata: Correlato agli incidenti del 27/12/2023 (transazioni incomplete). Soluzione / Workaround: Cancellazione di tutti e 12 i ticket. Note: —
-[19/02/2024, 14:57] — Stale empty LU requests (alcune dal 2021)
-Descrizione: 7+ empty LU request obsolete, alcune risalenti al 2021. Causa identificata: Accumulo storico. Soluzione / Workaround: Cancellazione di tutti i record obsoleti. Note: Pulizia ordinaria del database.
-[12/02/2024, 14:43] — Loading aid H marcata come "Discontinued"
-Descrizione: Loading aid H non visibile nella lista. Impossibile creare nuovi LU di tipo H. Causa identificata: Un utente aveva modificato per errore il flag "discontinued". Soluzione / Workaround: Reimpostazione flag a "active". Note: Modifica errata confermata da "view changes".
-[29/02/2024, 12:09] — OBD pickingRelease crash
-Descrizione: OBD non cambia stato; pickingRelease crash perché sistema vede l'OBD come già completato. Causa identificata: Anomalia nell'OBD/articolo/LU (flag wholeLU coinvolto). Soluzione / Workaround: Cancellazione e reimportazione dell'ordine senza flag wholeLU. Note: "We messed up completely this OBD" (Razvan).
-[05/03/2024, 15:33] — Distribuzione non uniforme pallets su corsie camion
-Descrizione: WAMAS indirizza molti pallets verso corsia L3 (lenta) invece di distribuire uniformemente. Causa identificata: Non anomalia sistemica confermata; ritardi ma distribuzione finale corretta. Soluzione / Workaround: Monitoraggio con query DB. Note: —
-[19/03/2024, 08:52] — Post-deploy: TPO senza missione AGV / double empty requests
-Descrizione: Pallet restano alle stazioni per ore senza missioni. Sistema lento. Causa identificata: Pallet con PO cancellata dall'AGV pool. Le doppie empty request erano comportamento atteso della CR Report as Full. Soluzione / Workaround: TPO resettato manualmente. Bug CR "Allocate User" identificato. Note: —
-[21/03/2024] — CR Allocate User: Bug condizione assegnazione PPLU
-Descrizione: Con nessun utente assegnato, il sistema assegnava anche PPLU allocati alla stazione sbagliata. Causa identificata: Condizione errata nel codice. Soluzione / Workaround: Fix implementato e testato. Deploy 25/03. Note: Workaround: creare utenti con doppi permessi Desktop+Mobile.
-[12/04/2024, 11:22] — PO con quantità consegnata errata (1 invece di 17 SC)
-Descrizione: Quantità consegnata = 1 invece di 17. Causa identificata: Non specificata. Soluzione / Workaround: Correzione manuale. Note: —
-[17/04/2024, 10:33] — Crane 3: TEMP7275 fantasma su MF210
-Descrizione: Forca 2 fisicamente vuota con TEMP logicamente associata. Causa identificata: Non specificata. Soluzione / Workaround: Eliminazione TEMP dal sistema. Note: —
-[17/04/2024, 15:59] — Stack HA/DA non creabili: cubature non configurate
-Descrizione: Errore cubature per nuovi loading aid HA e DA. Causa identificata: Cubature non configurate in S02 MAV. Soluzione / Workaround: Aggiunta cubature mancanti. Note: Parte del progetto introduzione loading aid DA e HA.
-[18/04/2024, 11:29] — B_DA invece di B_D: cubature identiche causano ambiguità
-Descrizione: Pallet D classificati come DA per priorità alfabetica ("B_DA" precede "B_D_"). Causa identificata: Cubature B_D e B_DA con stesse dimensioni. Soluzione / Workaround: Modifica cubatura B_DA di 1 mm (1519x775 vs 1520x775). Correzione DB. Note: Problema strutturale legato all'introduzione dei nuovi tipi.
-[18/04/2024, 14:40] — Stack DA/HA: MFS invia tipo "B" al PLC
-Descrizione: PLC riceve tipo "B" invece del tipo slaved "DA", causando NOK. Causa identificata: Dati non visibili da MFS senza riavvio. Soluzione / Workaround: Riavvio MFS (AGV fermati 3-5 minuti). Note: Impossibile fare restart MFS durante alta operatività.
-[19/04/2024, 09:51] — DA Destacker: AGV deposita in location HA (Rocla mapping error)
-Descrizione: AGV deposita in location sbagliata per errore conversione Rocla. Causa identificata: Mapping HIVE→Rocla errato per le nuove location. Soluzione / Workaround: Rocla ha corretto il mapping. Note: Telegramma HIVE verificato corretto.
-[22/04/2024, 13:13] — Post-deploy HA/DA: AGV offline per porta 50032 bloccata
-Descrizione: HIVE non comunica con Rocla. Tutti gli AGV offline. Causa identificata: Porta 50032 bloccata su server Rocla. Soluzione / Workaround: Riavvio del server AGV Rocla. Note: Verificare configurazione porta nel firewall.
-[22/04/2024, 16:21] — DA/HA: Cranes non riconoscono nuovi SOC ID (303, 304)
-Descrizione: PLC dei cranes non aveva ricevuto aggiornamento per nuovi tipi HA/DA. Causa identificata: Mancato deploy PLC cranes. Soluzione / Workaround: Destacker bloccati preventivamente. Deploy PLC pianificato. Note: Impossibile testare storage automatico in HBW1.
-[29/04/2024, 08:29] — H e D stacks senza TPO: nessuna location compartimento disponibile
-Descrizione: Impossibile creare TPO per stacks H/D. Pick station extra-size bloccate. Causa identificata: Tutti i compartimenti ATLAS_HBW1_2X_1550 occupati o prenotati. Soluzione / Workaround: Cancellazione TPO in eccesso. Stack creati manualmente. Note: 2000 location disponibili, ma specifiche per pallet grande dimensione esaurite.
-[11/06/2024, 10:05] — CR Q21: LU non scaricabili (non in area buffer)
-Descrizione: LU in location non valida per discharge. Causa identificata: Requisito area buffer dimenticato. Soluzione / Workaround: Spostamento LU in area valida. Test superato. Note: —
-[12/06/2024, 09:22] — HA/DA storage: MFS routing su corsia sbagliata
-Descrizione: MFS tenta di inviare stack HA su corsia 4 invece di corsia 1. Causa identificata: Non specificata. Soluzione / Workaround: Reindirizzamento manuale EMS. Stack stoccato correttamente. Note: —
-[12/06/2024, 14:35] — Errore discharge con "broken boxes" (IllegalStateException)
-Descrizione: Errore alla finalizzazione OBD con flag broken boxes attivo. Causa identificata: Check errato nella logica (bug A176 confermato). Soluzione / Workaround: Rimozione temporanea flag broken boxes. Note: Possibile correlazione con: A176 broken boxes (A29).
-[17/06/2024, 12:30] — Deploy: utenti non visibili + DA non attivo
-Descrizione: Utenti non visibili nelle stazioni. Parametro DA destacker disattivato. Causa identificata: Flag attivazione utenti non impostato. MD500 da aggiornare. Soluzione / Workaround: Attivazione manuale utenti. Aggiornamento MD500. Note: —
-[20/06/2024, 12:30] — LU su CU*126 senza corrispondenza
-Descrizione: WAMAS ha creato pallet senza corrispondenza logica. Causa identificata: Non specificata. Soluzione / Workaround: LU inviata in NOK. Note: —
-[01/07/2024, 17:14] — Pick station #3 EXPRESS_COURIER / utente assente
-Descrizione: PO non avviabile per tipo stazione errato, poi bloccata su utente assente. Causa identificata: Tipo stazione EXPRESS_COURIER + assegnazione fissa utente. Soluzione / Workaround: Tentativo di riassegnazione. Rinviato all'indomani. Note: —
-[11/07/2024, 12:12] — Pallet AF in HBW1 / MFS crash / Parametro aggiunto
-Descrizione: Pallet AF vuoto inviato in HBW1 causa crash MFS. Causa identificata: AF erroneamente classificato come disponibile per negative picking. Soluzione / Workaround: Parametro MFS aggiunto per evitare crash. Note: AF non deve essere usato per negative picking.
-[12/07/2024, 10:11] — Pallets D e H classificati come DA e HA in HBW1 (A177)
-Descrizione: 5+5 pallets con tipo errato. Causa identificata: Bug A177, residuo dei test nuovi loading aid. Soluzione / Workaround: Correzione manuale nel DB. Patch A177 da deployare. Note: —
-[17/07/2024, 11:12] — Blocco AGV per location FH0412 sbloccata
-Descrizione: Utente plcreparto5 ha sbloccato location di bypass AGV. HIVE non la conosce. Causa identificata: Sblocco manuale di location che deve rimanere bloccata. Soluzione / Workaround: Riblocco location con note esplicative. Note: Possibile correlazione con: Interventi manuali errati (A28).
-[19/07/2024, 10:49] — Pick station #4: pallet HA incompatibile con sorgenti tipo Z
-Descrizione: Incompatibilità tra tipo Z (sorgente) e HA (destinazione). Causa identificata: Mancanza configurazione per LU empty HA da picking station. Soluzione / Workaround: Modifica temporanea tipo HA → AF. Note: —
-[23/07/2024, 17:25] — Ordini con goods category "GRANDILASTRE" non rilasciabili
-Descrizione: Ordini con FOG "GRANDILASTRE" non rilasciabili per picking. Causa identificata: Correlato al FOG nel codice. Sotto analisi. Soluzione / Workaround: Ticket in hold. Note: —
-[26/08/2024, 23:00] — Blocco Baia 11 + Fault motore ASI module
-Descrizione: Baia 11 bloccata per ore. Problema fisico cavo/plug ASI module su motore. Causa identificata: Problema elettrico PLC (cavo ASI). Soluzione / Workaround: Restart mfsPal + fix PLC (sostituzione/riparazione plug). Note: —
-[07/10/2024, 13:06] — Post-deploy: pallet inattivi, messaggio totem corto, accesso DB
-Descrizione: 3 problemi post-deploy: pallet inattivi, messaggio #36 da 90 invece di 143 caratteri, tabelle DB non accessibili. Causa identificata: Pallet normali post-deploy. Messaggio corto lato fornitore totem. Struttura tabella "load" modificata. Soluzione / Workaround: Restart ordini MFS. Patch fornitore. Script ripristino 944 tabelle. Note: Policy concordata per avviso anticipato su modifiche struttura tabelle.
-[10/10/2024, 05:24] — Picking station extra-size senza ordini
-Descrizione: Stazioni extra-size senza pallet. HBW07 in modalità GTP Inventory. Causa identificata: Stock insufficiente + modalità stazione errata. Soluzione / Workaround: Cambio modalità HBW07 a Picking. Stock in caricamento. Note: Non un bug sistemico.
-[24/10/2024, 10:16] — A195: Buffer quantity raddoppiata su più OBD
-Descrizione: Buffer quantity doppia (es. 6 invece di 3). Causa identificata: Consolidazione stock da LU buffered a LU non-buffered non decrementa contatore. Soluzione / Workaround: Correzione manuale valori buffer quantity. Note: Fix da sviluppare: impedire consolidazione tra LU buffered e non-buffered.
-[07/11/2024, 09:21] — SRM 2 bloccata: TPO cancellato / LU stranded
-Descrizione: LU bloccata su SRM 2 dopo cancellazione TPO. Causa identificata: TPO cancellato senza creazione TPO alternativo. Soluzione / Workaround: Nuovo TPO di stoccaggio. Note: —
-[19/12/2024, 18:16] — Stazioni inventario BP03/BP04 bloccate
-Descrizione: LU ricevono TPO di stoccaggio invece di TPO verso stazioni inventario. Causa identificata: Sotto investigazione al momento della fine della conversazione. Soluzione / Workaround: Non risolto nella sessione. Note: —
-________________________________________
-[20/12/2024, 08:40] — Pulizia righe inventario SM009
-Descrizione: Richiesta rimozione righe residue dall'inventario. Causa identificata: Dati residui. Soluzione / Workaround: Impostazione righe su "delete". Note: —
-[20/12/2024, 09:05] — Ordini inventario generati da sS22 anziché dallo storage
-Descrizione: Ordini inventario su LU con TPO verso storage ancora attivi. Causa identificata: LU con TPO attivi verso storage. Soluzione / Workaround: Completare prima i TPO, poi generare inventario. Note: —
-[20/12/2024, 09:44] — Inventario bloccato: storage block impedisce uscita LU da HBW
-Descrizione: Storage block su HBW04 (incidente fisico crane) impediva uscita LU per inventario. Causa identificata: Il sistema non distingue il tipo di blocco ai fini del movimento. Soluzione / Workaround: Fix pianificato per deploy anno successivo. Nessun workaround possibile. Note: Il blocco HBW04 era permanente per crane danneggiato.
-[20/12/2024, 10:28] — Interruzione connessione al server (problema di rete)
-Descrizione: Supporto remoto bloccato. Causa identificata: Problema di rete lato cliente. Soluzione / Workaround: Risolto dall'IT del cliente. Note: —
-[10/01/2025, 10:41] — MAV2 exit freezing temporaneo
-Descrizione: Uscita MAV2 congelata per minuti. Causa identificata: Non determinata. Soluzione / Workaround: Auto-ripristino. Note: —
-[11/01/2025, 08:03] — Stop completo area automatica per migrazione dati
-Descrizione: Area automatica fermata per importazione dati e allineamento stock. Causa identificata: Operazione pianificata. Soluzione / Workaround: Dati importati da database. WAMAS riavviato. Note: —
-[13/01/2025, 11:13] — LU da S60 instradati verso S04 MAV invece di S95/S97
-Descrizione: LU outgoing goods da San Lorenzo verso destinazione errata. Causa identificata: Configurazione OG Area Assignment per San Lorenzo non definita. Soluzione / Workaround: Configurazione aggiunta senza deploy. Note: Fix di configurazione puro.
-[13/01/2025, 12:35] — WAMAS crea TPO REPLENISHMENT per pallet OG da San Lorenzo
-Descrizione: Pallet interi passavano per HBW invece di andare direttamente all'OG buffer. Causa identificata: Stessa causa: OG Area Assignment non configurata per San Lorenzo. Soluzione / Workaround: Risolto con stessa configurazione del problema precedente. Note: —
-[13/01/2025, 14:33] — WAMAS crea TPO replenishment da S60 invece che da S10/S11
-Descrizione: Replenishment HBW da San Lorenzo anche con stock disponibile nelle aree manuali. Causa identificata: Job "Optimum LU" valuta per FOG: differenti FOG per stesso item/batch causano replenishment errati. Soluzione / Workaround: Fix in lavorazione (rimozione FOG dal criterio di calcolo). Note: Problema strutturale legato all'implementazione per FOG.
-[13/01/2025, 17:39] — Nessun TPO replenishment per PPLU con qualità C non ammessa in HBW
-Descrizione: Articolo con qualità C bloccato per HBW; nessun TPO generato. Causa identificata: Qualità C non ammessa in HBW; job Optimum LU non generava TPO. Soluzione / Workaround: TPO manuale come workaround temporaneo. Note: Necessita soluzione strutturale.
-[15/01/2025, 10:28] — Optimum LU calcolato per FOG invece che per item/batch
-Descrizione: Fino a N×6 TPO per stesso item/batch (uno per ogni FOG distinto). Causa identificata: Implementazione basata su 3 criteri (item, batch, FOG) invece di 2. Soluzione / Workaround: Fix in test: calcolo basato su item/batch con priorità stock aree manuali. Note: Alternativa configurativa: unificare FOG per goods category.
-[16/01/2025, 15:12] — WAMAS non crea TPO da area IG San Lorenzo verso S6*
-Descrizione: Stack info F/H non definiti per articoli coinvolti. Causa identificata: Errore di configurazione ripetuto dal cliente. Soluzione / Workaround: Correzione configurazione. Note: —
-[23/01/2025, 17:24] — Tre anomalie sistemiche post-migrazione dati (11/01)
-Descrizione: (1) Terminali lenti 2 volte/giorno. (2) PPLU→PO lento con priorità 9. (3) Crash cambio priorità ordini. Causa identificata: Query discharge con location San Lorenzo (punto 1 confermato). Soluzione / Workaround: Riavvio worker + kill sessioni. Fix pronto per deploy 27/01. Note: —
-[27/01/2025, 10:33] — Errore "location non è staging area" durante deposit in S97
-Descrizione: Operatori non riescono a depositare in S97 CAMION0. Causa identificata: Flusso errato operatore. S97 CAMION0 è buffer location, non staging. Soluzione / Workaround: Auto-risolto. Deposit confermata funzionante. Note: —
-[27/01/2025, 10:52] — Terminal non stampava shipping label
-Descrizione: Problema di stampa. Causa identificata: Non determinata. Soluzione / Workaround: Rientrato spontaneamente. Note: —
-[28/01/2025, 15:11] — Issue N45: LU bloccata su conveyor (PLC issue)
-Descrizione: LU in due posizioni contemporaneamente (fork position duplicata). Causa identificata: Problema PLC: posizione fisica non aggiornata. Soluzione / Workaround: Gestione manuale posizione. Note: —
-[29/01/2025, 15:39] — Job confronto stock bloccato immediatamente
-Descrizione: Job si bloccava entro 10 secondi dall'avvio. Causa identificata: Sospettato problema credenziali (non confermato). Soluzione / Workaround: Procedura: sbloccare in SE024, impostare nuovi valori, schedulare. Note: —
-[10/02/2025, 11:51] — Tutti i TPO in status NEW invece di ACTIVE
-Descrizione: Blocco completo area automatica. Caso analogo al 18/10/2024. Causa identificata: Problema comunicazione WMS-MFS (issue molto vecchia e rara). Soluzione / Workaround: Sblocco manuale. Workaround per comunicazione WMS-MFS incluso nel deploy. Note: Fix causa radice pianificato.
-[13/01/2025 / 17/02/2025] — Configurazione location IN-PRONTI-VIAZZA incompleta
-Descrizione: Location non configurate come staging area; deposit spontaneo impossibile. Causa identificata: Errata indicazione del tipo di location dal cliente. Soluzione / Workaround: Fix nel deploy del 24/03. Note: —
-[20/03/2025, 15:49] — BP12 con un solo target location per circa una settimana
-Descrizione: Empty request obsoleta dal 15/03 bloccava secondo slot. Causa identificata: Empty request residua. Soluzione / Workaround: Cancellazione tramite ACX GUI. Note: —
-[14/04/2025, 16:02] — WAMAS non invia record 30: disallineamento inventario
-Descrizione: Record 30 non inviati per ~7 ore. Disallineamento inventario su vari articoli. Causa identificata: Flag "send stockadj" / "OutSpm Prj30Ack" impostato su false. Soluzione / Workaround: Reimpostazione flag + riprocessamento difference confirmations. Note: —
-[15/04/2025, 01:29] — 29 ordini in "wait for capacity zone foil" senza missioni AGV
-Descrizione: Setup AGV "SetUp2" attivo impediva movimenti verso area foiling. Causa identificata: Configurazione AGV operativa errata per turno notturno. Soluzione / Workaround: Rilascio manuale pallet uno per uno. Note: Problema di configurazione operativa, non di sistema.
-[28/04/2025, 07:34] — WAMAS down: power outage su server
-Descrizione: WAMAS non raggiungibile. AGV offline. SRM09-12 non disponibili. Causa identificata: Power outage. SRM messi in stato non disponibile per evitare perdita telegram. Soluzione / Workaround: Sincronizzazione manuale MFS (MF210). Riavvio Rocla. Comunicazione HIVE-Rocla ripristinata. Note: Sincronizzazione manuale necessaria dopo power outage.
-[05/02/2025, 23:35] — Pallet con quantità anomala su BP11 S04
-Descrizione: LU con 5.297 unità ma fisicamente vuota. Causa identificata: Disallineamento logico-fisico. Soluzione / Workaround: Eliminazione completa LU dal sistema. Note: —
-[12/05/2025, 13:01] — LU bloccata vicino labeler foiling con SOC-ID "broken"
-Descrizione: SOC-ID in stato broken, TPO in errore. Causa identificata: Stato "broken" su MF266. Soluzione / Workaround: LU si è mossa autonomamente. Note: —
-[03/06/2025, 10:11] — Issue H67: errore "TPO has been cancelled contemporarily"
-Descrizione: Errore durante prelievo singola LU in auto-allocation. Causa identificata: Eccezione nei log, causa non trovata. Soluzione / Workaround: Gestione manuale (conferma TPO, stampa etichetta, movimento LU). Note: Ticket 01433501.
-[23/06/2025, 14:00] — Ricerca stock su terminal mobile causa disconnect utente
-Descrizione: Utente disconnesso usando "search for stock" su terminal non-rugged. Causa identificata: Selezione oggetto stock non avveniva automaticamente su non-rugged. Soluzione / Workaround: Parziale: funziona su rugged. Workaround: selezionare item prima di F7. Note: Fix completo nel deploy successivo.
-[07/07/2025, 16:01] — Record A5: errore "post-elaboration error" per ordini multi-OBD
-Descrizione: 3 messaggi record A5 in errore. Campo Rif Cl non riportato sull'etichetta. Causa identificata: Query non gestiva ordini con più di un OBD. Mappatura campo errata. Soluzione / Workaround: Fix per ordini multi-OBD. Fix etichetta in lavorazione. Note: —
-[21/07/2025, 13:34] — Testo sovrapposto sull'etichetta post-deploy
-Descrizione: Font aumentata ma spazio insufficiente per valori lunghi (20 caratteri vs 15 allocati). Causa identificata: Test con valori brevi; produzione aveva valori più lunghi. Soluzione / Workaround: Riduzione larghezza font. Deploy urgente. Note: —
-[23/07/2025, 08:56] — AGV 28 (nuovo) non in HIVE
-Descrizione: Nuovo AGV 28 non riceveva S-message dall'host. Causa identificata: Mancato riavvio HIVE dopo aggiunta AGV. Soluzione / Workaround: Procedura: agvDisable=true → esecuzione ordini → riavvio HIVE → agvDisable=false. Note: AGV 28 operativo in giornata. CR da chiudere a metà agosto.
-[28/07/2025, 14:02] — EMS non disponibile per MFS dopo apertura safety door (test workaround)
-Descrizione: Bit emergency stop door inviato da EMS a MFS nonostante intervento Pentanova. Causa identificata: EMS controlla la porta; il bit viene inviato indipendentemente da Lighthouse. Soluzione / Workaround: Forzamento flag emergency stop a zero nel messaggio TT1636. Note: Possibile correlazione con: EMS problemi safety door (A22). Workaround attivo fino a fine lavori agosto.
-________________________________________
 
+
+## 1. Deploy / patch / rollback con regressione o configurazione mancante
+
+**Occorrenze principali:**  
+2021: 27/07, 04/08, 11/08, 27/08, 26/11  
+2022: 31/01, 01/02, 04/04, 02/05, 09/05, 23/05, 01/07, 23/09  
+2023: 06/02, 01/08, 28/08, 29/08, 17/10, 23/10, 13/11, 04/12, 07/12  
+2024: 12/02, 19/03, 22/04, 17/06, 07/10  
+2025: 20/01, 24/03  
+
+**Descrizione generale:**  
+Dopo un deploy o una patch si sono verificati blocchi funzionali, regressioni, mancanza di configurazioni, permessi non allineati, client non aggiornati, problemi a stampanti, labeler, mobile terminal, TPO, OBD, comunicazioni host o DB. L’impatto operativo è stato spesso elevato: stazioni ferme, area automatica rallentata o bloccata, utenti espulsi, necessitá di rollback.
+
+**Causa ricorrente:**  
+Pack di deploy incompleti o con bug; script di grants/migrazione non eseguiti o obsoleti; parametri non visibili o non migrati; versioni client non aggiornate; modifiche DB non allineate; configurazioni locali perse.
+
+**Soluzione / Workaround consolidato:**  
+Rollback alla versione precedente; restart servizi/istanza; esecuzione script di grants; ripristino configurazioni stampanti/parametri/permessi; aggiornamento PC/client; fix successivo con nuovo deploy.
+
+**Frequenza:**  
+Molto alta: circa 30+ occorrenze, tutti gli anni.
+
+**Note:**  
+È una delle cause trasversali più rilevanti. Spesso il deploy ha introdotto o rivelato problemi di permessi, master data, stampanti, mobile terminal, DB e comunicazioni. In più occasioni è stato necessario rollback in giornata o deploy correttivo serale.
+
+---
+
+## 2. Gestione stack / destacker / loading aid speciali D-F-H-U-DA-HA
+
+**Occorrenze principali:**  
+2021: 29/06, 09/08, 09/09, 27/09, 04/10, 11/10  
+2024: 17/04, 18/04, 19/04, 22/04, 23/04, 24/04, 29/04, 12/06, 17/06, 19/06, 12/07, 15/07  
+2025: 09/01, 10/01, 28/05  
+
+**Descrizione generale:**  
+Problemi legati a stack di pallet, destacker, loading aid D/F/H/U e soprattutto DA/HA: stack non riconosciuti, cubature errate, TPO verso stacker già occupati, AGV che depositano stack in location errate, empty request incoerenti, MFS o PLC non aggiornati, incompatibilità tra loading aid e stazione/flusso.
+
+**Causa ricorrente:**  
+Configurazione cubature errata o mancante; mapping location errato lato Rocla/MFS; PLC crane non aggiornato; finestra temporale in cui il destacker risulta libero mentre una stack è già in transito; loading aid non correttamente abilitati; parametri di replenishment o slaving errati.
+
+**Soluzione / Workaround consolidato:**  
+Correzione cubature; allineamento mapping Rocla; aggiornamento PLC crane; restart MFS; rilascio manuale ATX/stack; cancellazione empty request/TPO errati; aumento intervallo job per evitare creazione TPO duplicati; modifica configurazioni MD/FW; fix software pianificati.
+
+**Frequenza:**  
+Alta: circa 25-30 occorrenze, con picco nel 2024 e ricorrenze nel 2025.
+
+**Note:**  
+Nel 2024 il tema DA/HA è stato uno dei più impattanti. Nel 2025 è stata individuata con maggiore precisione la root cause sulla creazione della seconda stack verso stacker occupato, ma spesso il fix definitivo è rimasto pianificato o parziale.
+
+---
+
+## 3. Disallineamento fisico/logico pallet, ghost pallet, occupation without transport order
+
+**Occorrenze principali:**  
+2021: 28/06, 29/06, 02/07, 12/07, 19/07, 23/08, 10/08, 11/08, 16/09, 22/09, 29/09, 03/08, 27/07, 26/10, 30/12  
+2022: 05/01, 21/01, 06/04, 18/01  
+2023: 22/01, 28/02, 20/06  
+2024: 14/11, 18/10  
+2025: 28/01, 26/06  
+
+**Descrizione generale:**  
+Pallet fisicamente presenti ma logicamente assenti o posizionati altrove; pallet logici senza pallet fisico; ghost pallet; occupation senza transport order; Lighthouse e WAMAS non allineati; conveyor o SRM che vedono occupato dove non c’è pallet o viceversa. Impatto: pallet bloccati, crane/AGV fermi, pick station in attesa.
+
+**Causa ricorrente:**  
+Disallineamento tra WAMAS, MFS, PLC e sensori; interventi manuali; restart PLC/MFS; messaggi o annunci PLC persi; occupazioni residue; dati corrotti; mismatch dopo riavvii.
+
+**Soluzione / Workaround consolidato:**  
+Rebooking posizione; cancellazione occupazioni errate con CTOP; refresh/reset; book to lost and found/black hole; cancellazione ghost/temp; reset MFS; verifica sensori; intervento PLC quando necessario.
+
+**Frequenza:**  
+Alta: circa 25-27 occorrenze, tutti gli anni.
+
+**Note:**  
+Problema strutturale e ricorrente. Spesso risolto manualmente. Non risulta una soluzione definitiva unica; molte occorrenze dipendono da eventi diversi ma con stessa sintomatologia.
+
+---
+
+## 4. Performance DB / CPU WAMASDB / lentezza applicativa / execution plan
+
+**Occorrenze principali:**  
+2022: 05/05, 20/07, 22/07, 25/07, 08/08, 16/09, 29/09, 22/12  
+2023: 29/03, 31/03, 20/04, 10/05, 12/05, 19/05, 30/08, 04/12, 07/12, 08/12  
+2024: 30/04, 08/04, 12/04  
+2025: 22/01, 23/01, 27/01, 29/04, 07/05  
+
+**Descrizione generale:**  
+CPU WAMASDB alta o oltre 90-96%, WAMAS lento, desktop inutilizzabile, ordini in “release in progress” o “approval in progress”, query in timeout, sessioni bloccate, tablespaces pieni, mobile terminal lenti. Impatto operativo: rallentamento generale o blocco potenziale.
+
+**Causa ricorrente:**  
+Tabelle enormi, retention troppo lunga, activity protocol/archiving non dimensionati, execution plan Oracle cambiati, statistiche non aggiornate, sessioni/session lock, carichi da query massive, tablespaces quasi pieni.
+
+**Soluzione / Workaround consolidato:**  
+Kill sessioni; restart DB/istanza; gather statistics; forzare execution plan; aggiungere datafile; ridurre retention; cleanup/truncate pianificati; rollback se causato da deploy; monitoraggio DBA.
+
+**Frequenza:**  
+Alta: circa 25-27 occorrenze, soprattutto 2022-2025.
+
+**Note:**  
+Fortemente correlato con archiving e tabelle di protocollo. Più volte è stato citato il bisogno di un history server o di una politica di retention più corta.
+
+---
+
+## 5. TPO bloccati, non creati, non attivi, senza missione Cway
+
+**Occorrenze principali:**  
+2021: 13/07, 03/08, 03/09, 17/09, 27/08  
+2022: 07/01, 04/04, 05/04, 10/05, 26/04, 27/06, 01/07, 04/07  
+2023: 23/02, 09/05, 29/08  
+2024: 19/03, 16/07, 18/10, 01/08  
+2025: 08/01, 10/02, 24/07, 26/07  
+
+**Descrizione generale:**  
+Transport order creati ma non eseguiti, TPO in stato NEW invece di ACTIVE, TPO senza missione su Cway, “wait for routing lock MFS”, TPO manuali non funzionanti, utenti mobile che vedono “no transport order”, pallet fermi nonostante ordine.
+
+**Causa ricorrente:**  
+Mobile worker/cache; comunicazione WMS-MFS; route non trovata; modifiche manuali; DB lento; problemi post-deploy; code bloccate; ordini Hive/Rocla non consumati.
+
+**Soluzione / Workaround consolidato:**  
+Restart mobile/DcMobile worker; suspend+resume TPO; cancellazione e ricreazione TPO; reset/refresh; restart MFS; fix software; rollback; pulizia ordini Hive/Cway.
+
+**Frequenza:**  
+Alta: circa 25 occorrenze, tutti gli anni.
+
+**Note:**  
+Spesso compare dopo deploy, riavvii, interventi manuali o congestione DB. La soluzione è stata frequentemente il workaround, mentre la root cause ha richiesto analisi specifiche.
+
+---
+
+## 6. OBD / discharge / finalizzazione / quantità disallineate / carico truck
+
+**Occorrenze principali:**  
+2021: 02/07, 19/10, 15/12  
+2022: 30/05, 16/09  
+2023: 22/06, 14/09, 23/10, 08/11, 28/12  
+2024: 08/01, 19/01, 29/02, 12/04, 12/06, 13/06, 26/08, 24/10  
+2025: 30/05, 03/07, 04/06  
+
+**Descrizione generale:**  
+OBD che non cambiano stato, discharge bloccati o errati, quantità planned/delivered/loaded non allineate, finalizzazioni manuali necessarie, errori Java durante finalize/discharge, broken boxes, load/truck non chiudibili.
+
+**Causa ricorrente:**  
+Quantità errate; bug su broken boxes; stati OBD incoerenti; flag di loading/wholeLU; consolidamento stock da buffer a non buffer; azioni manuali; ordini splittati; mancata finalizzazione di linee.
+
+**Soluzione / Workaround consolidato:**  
+Correzione manuale quantità; finalizzazione manuale OBD/linee; rimozione flag broken boxes; ricreazione/reimport OBD; rilascio/relink LU; modifica stato loading; workaround su discharge.
+
+**Frequenza:**  
+Alta: circa 22 occorrenze, tutti gli anni.
+
+**Note:**  
+Il problema è trasversale: comprende sia bug applicativi sia errori operativi. Più volte è stato necessario intervenire manualmente sugli stati ordine.
+
+---
+
+## 7. SRM / crane: blocchi, sensori, forche, manual handling, alignment
+
+**Occorrenze principali:**  
+2021: 25/06, 28/06, 01/07, 09/07, 14/07, 19/07, 03/08, 14/09, 15/09, 27/09, 28/10, 03/12, 29/12  
+2023: 04/05, 26/05  
+2024: 14/10, 14/11  
+2025: 07/03, 07/07, 26/06  
+
+**Descrizione generale:**  
+Crane/SRM bloccati, errori di allineamento, forche che non completano prelievo/deposito, sensori disallineati, pallet su forche, crane che vede conveyor pieni ma vuoti, manual handling non resettato, mismatch tra MFS e device controller.
+
+**Causa ricorrente:**  
+Sensori/alignment; interventi manuali; dati corrotti; disallineamento PLC/MFS; pallet fisici/logici non coerenti; manutenzione non correttamente resettata.
+
+**Soluzione / Workaround consolidato:**  
+Reset crane/SRM; MF210/manual handling reset; verifica sensori; intervento manutenzione; sincronizzazione SRM; fix dati; spostamento manuale pallet; coinvolgimento PLC.
+
+**Frequenza:**  
+Alta: circa 22 occorrenze, soprattutto 2021 e poi ricorrenze sparse.
+
+**Note:**  
+Molti episodi sono stati innescati da interventi manuali o restart. Alcuni crane specifici sono comparsi più volte, ad esempio crane 3, 8, 10.
+
+---
+
+## 8. AGV / ART / Rocla / Hive: offline, mancate missioni, deadlock, conferme errate
+
+**Occorrenze principali:**  
+2021: 24/06, 25/06, 28/06, 30/06, 08/07, 14/07, 27/08, 03/09, 07/09, 14/09, 24/09, 29/09, 22/10, 28/10  
+2024: 02/01, 07/02, 22/04, 27/07  
+2025: 28/04, 23/07  
+
+**Descrizione generale:**  
+AGV fermi, offline, in errore, non assegnati, deadlock a catena, missioni create ma non eseguite, veicoli fantasma, mancate conferme di pick/deposit, problemi dopo reboot Rocla/Hive.
+
+**Causa ricorrente:**  
+Comunicazione WMS-Rocla/Hive; porte bloccate; servizi Rocla non avviati; scanner sporchi; navigazione; errori di flotta; restart VM; interventi manuali; mancata conferma missione.
+
+**Soluzione / Workaround consolidato:**  
+Restart AGV/Rocla/Hive; rilascio porta; agvDisable/enable; pulizia scanner; rimozione AGV dal sistema; riassegnazione manuale missione; riavvio servizi; intervento fornitore Rocla.
+
+**Frequenza:**  
+Alta: circa 20 occorrenze, tutti gli anni con maggiore densità nel 2021.
+
+**Note:**  
+Nel 2024-2025 molti casi sono legati a riavvii server, porte di comunicazione, integrazione Hive/Rocla. Nel 2021 erano frequenti deadlock e problemi di flotta.
+
+---
+
+## 9. Empty LU request / empty pallet request duplicate, residue o non cancellate
+
+**Occorrenze principali:**  
+2021: 24/06, 12/07, 29/07, 30/07, 09/08, 27/09  
+2024: 06/02, 19/03, 22/03, 28/03, 22/04, 23/04, 10/07, 01/10, 22/10, 23/10, 30/10  
+2025: 20/03  
+
+**Descrizione generale:**  
+Richieste di pallet vuoto mancanti, duplicate, residue o non cancellate; pick station bloccate in attesa di empty pallet; loop AGV; empty request che occupano destination; richieste generate con tipo loading aid errato.
+
+**Causa ricorrente:**  
+Empty request non cancellata dopo fine PO/test; duplicate richieste per stesso PO; priorità di esecuzione; conflitti tra location; configurazione station/DA/HA; mancata assegnazione LU.
+
+**Soluzione / Workaround consolidato:**  
+Cancellazione manuale empty request; finalizzazione PO; riavvio stazione; nuova richiesta pallet vuoto; correzione configurazione; rimozione manuale pallet; fix software pianificati.
+
+**Frequenza:**  
+Alta: circa 19-20 occorrenze, soprattutto 2024.
+
+**Note:**  
+Nel 2024 è stato uno dei principali motivi di blocco pick station, spesso legato a test CR, DA/HA o empty request residue.
+
+---
+
+## 10. Comunicazione WAMAS ↔ AS400 / Host / MQ / record interfaccia
+
+**Occorrenze principali:**  
+2021: 02/07  
+2022: 11/02, 21/02, 14/03, 04/04  
+2023: 13/02, 23/02, 30/08, 07/12, 11/12, 20/12, 21/12, 28/12  
+2024: 27/08, 07/10  
+2025: 14/04, 07/07  
+
+**Descrizione generale:**  
+Comunicazione assente o instabile tra WAMAS e AS400/Host; messaggi/record bloccati, in errore o non inviati; record 03, 14/15, 24/25, 30, 36, A5; outbound messages non in Finished; check-in message rifiutato; disallineamento dati.
+
+**Causa ricorrente:**  
+MqSender/MqReceiver non avviati o da resettare; messaggi con lunghezza non conforme; migrazioni DB; proxy/backup; flag di invio disattivati; problemi IT/AS400; deploy.
+
+**Soluzione / Workaround consolidato:**  
+Restart/reset MQ sender/receiver; script per correggere lunghezza messaggi; riattivazione flag; patch; risincronizzazione; intervento IT/host; reinvio manuale dove necessario.
+
+**Frequenza:**  
+Alta: circa 19 occorrenze, tutti gli anni.
+
+**Note:**  
+La causa esatta cambia, ma la famiglia è stabile: interfaccia WAMAS-Host/AS400 e code messaggi. Più episodi critici hanno richiesto intervento urgente.
+
+---
+
+## 11. Terminali mobile / rete / WiFi / lentezza / utenti espulsi
+
+**Occorrenze principali:**  
+2021: 04/08, 07/08, 15/12, 30/12  
+2022: 21/01  
+2023: 13/11, 04/12  
+2024: 18/07, 24/07  
+2025: 16/01, 20/01, 22/01, 27/01, 28/01, 31/01, 03/02  
+
+**Descrizione generale:**  
+Terminali mobili lenti, bloccati, disconnessi, con timeout, utenti espulsi da WAMAS, errori di rete durante discharge, impossibilità di connettersi al server. Impatto: operatori manuali/carrellisti fermi.
+
+**Causa ricorrente:**  
+Problemi rete/WiFi/internet; carico DB; worker mobile da riavviare; deploy; configuration change; sessioni appese; problemi infrastrutturali esterni.
+
+**Soluzione / Workaround consolidato:**  
+Restart terminal/mobile worker; kill sessioni; verifica rete/WiFi; rollback/fix dopo deploy; riavvio DC Mobile; contatto IT/call center quando esterno.
+
+**Frequenza:**  
+Alta: circa 19 occorrenze, tutti gli anni; molto frequente nel 2025.
+
+**Note:**  
+Nel 2025 la lentezza mobile è stata spesso collegata a query discharge/location Azienda e carico DB, con workaround temporaneo di restart worker.
+
+---
+
+## 12. Spazio insufficiente / location piene / wait for storage failed / capacity zone
+
+**Occorrenze principali:**  
+2021: 24/06, 02/07, 26/07, 08/09, 25/08, 09/09, 15/09, 17/09  
+2022: 19/05  
+2024: 29/04, 08/08, 22/10  
+2025: 15/04  
+
+**Descrizione generale:**  
+Pallet non stoccabili per mancanza spazio; zone piene; “wait for storage failed”; HBW senza location idonee; capacity zone in errore; deadlock tra buffer, empty pallet e source full.
+
+**Causa ricorrente:**  
+Aisle/location pieni; loading aid non compatibili; spazio HBW esaurito; routing specializzato; saturazione buffer; empty LU non inviata; mancanze di configurazione.
+
+**Soluzione / Workaround consolidato:**  
+Forzare altro aisle; liberare location; cancellare TPO; finalizzare PO; creare TPO manuali; inviare pallet a zone alternative; sblocco capacity; monitoraggio saturazione.
+
+**Frequenza:**  
+Media-alta: circa 15 occorrenze.
+
+**Note:**  
+Problema operativo ricorrente, spesso aggravato da saturazione fisica e logica. In alcuni casi è stata proposta una miglioria/CR per protezione automatica.
+
+---
+
+## 13. Interventi manuali non coordinati
+
+**Occorrenze principali:**  
+2021: 24/06, 07/07, 09/07, 15/07, 03/08, 23/08, 29/09, 01/10, 29/10  
+2022: 04/07  
+2024: 18/10, 22/10  
+2025: 04/06  
+
+**Descrizione generale:**  
+TPO finalizzati/cancellati manualmente, pallet rimossi fisicamente, booking manuali, modifiche a transport order, buffer bloccati da operatori, utenti office che intervengono in area automatica. Impatto: flussi bloccati, ghost pallet, pick station ferme.
+
+**Causa ricorrente:**  
+Azioni manuali non coerenti con il flusso automatico; mancata conoscenza degli effetti lato WAMAS/MFS; interventi eseguiti senza coordinamento.
+
+**Soluzione / Workaround consolidato:**  
+Cancellazione/ricreazione TPO; rebooking; lost and found; rimozione blocchi; reset; formazione/attenzione operativa.
+
+**Frequenza:**  
+Media-alta: circa 14 occorrenze.
+
+**Note:**  
+Più volte è stato esplicitamente raccomandato di non finalizzare manualmente TPO in area automatica. È una causa organizzativa ricorrente.
+
+---
+
+## 14. MFS down / code bloccate / mfsPalQueue / blocchi area automatica
+
+**Occorrenze principali:**  
+2022: 05/01, 21/01, 27/06  
+2023: 28/02, 12/04, 13/12, 20/12  
+2024: 26/01, 14/05, 11/07  
+2025: 20/01, 28/04, 29/04  
+
+**Descrizione generale:**  
+MFS non disponibile o apparentemente spento; code mfsPal/mfArea bloccate; area automatica ferma; messaggi in coda che bloccano TPO; necessità di restart o sincronizzazione manuale dopo outage.
+
+**Causa ricorrente:**  
+Messaggi/pending event bloccati; problemi di avvio MFS; perdita comunicazione con device controller; DB/network; restart non coordinati; queue sature.
+
+**Soluzione / Workaround consolidato:**  
+Restart MFS; pulizia code/pending; sincronizzazione manuale device controller; reset ordini; riavvio servizi; intervento coordinato con PLC/Rocla.
+
+**Frequenza:**  
+Media-alta: circa 14 occorrenze.
+
+**Note:**  
+Spesso correlato a riavvii, deploy, outage o pending event. L’impatto è elevato perché blocca l’area automatizzata.
+
+---
+
+## 15. Stampanti / labeler / label / barcode / printing service
+
+**Occorrenze principali:**  
+2021: 01/10, 16/09  
+2022: 12/01, 24/02  
+2023: 02/03, 28/08, 17/10, 04/12, 28/12  
+2025: 12/05, 23/06, 21/07  
+
+**Descrizione generale:**  
+Stampanti non responsive, “no printing data”, labeler in bypass/unreachable, etichette capovolte, campi tagliati, barcode non scansionabile, layout errati, printing service che blocca conveyor.
+
+**Causa ricorrente:**  
+Configurazione stampante mancante/dopo deploy; printing service in errore; template/layout errati; IP/stampante non raggiungibile; larghezza barcode/font errati.
+
+**Soluzione / Workaround consolidato:**  
+Ripristino configurazione; restart/bypass stampante; fix template; riduzione barcode/font; test reprint; correzione printing service.
+
+**Frequenza:**  
+Media: circa 13 occorrenze.
+
+**Note:**  
+Molti episodi sono comparsi dopo deploy o modifiche template. In alcuni casi la stampante guasta bloccava flussi di uscita/foiling.
+
+---
+
+## 16. Inventory block / inventory order / GTP Inventory
+
+**Occorrenze principali:**  
+2021: 29/11  
+2022: 22/12  
+2023: 07/03, 26/04, 01/06, 22/06  
+2024: 08/01, 10/10, 19/12  
+2025: 08/03  
+
+**Descrizione generale:**  
+LU o stock object bloccati da inventory block; inventory order duplicati; workstation che non ripartono; stazioni impostate erroneamente in GTP Inventory; ordini inventory creati su LU con TPO storage.
+
+**Causa ricorrente:**  
+Flag inventory residui; ordini inventory duplicati; station kind errato; creazione inventory da area non idonea; constraint DB.
+
+**Soluzione / Workaround consolidato:**  
+Rimozione inventory block; cancellazione righe/order inventory; correzione station kind; completamento TPO; creazione inventory solo da storage.
+
+**Frequenza:**  
+Media: circa 12 occorrenze.
+
+**Note:**  
+Il problema è ricorrente soprattutto su LU/source bloccate. In più casi è bastato rimuovere il flag, ma sono servite anche regole operative più precise.
+
+---
+
+## 17. Lighthouse / red bubbles / red alarm / monitoraggio impianto
+
+**Occorrenze principali:**  
+2021: 30/09  
+2022: 21/01, 15/02, 02/03, 21/07  
+2023: 28/02, 04/12, 13/12, 14/12  
+2025: 16/04  
+
+**Descrizione generale:**  
+Lighthouse non funzionante o non visibile; red bubbles numerose; red alarm senza dettaglio immediato; team “cieco” sullo stato impianto; errori automatici visibili solo in Lighthouse.
+
+**Causa ricorrente:**  
+Servizio Lighthouse fermo; errori area automatica; crash collegati a MFS/stampanti; problemi browser/servizi; pending/ghost.
+
+**Soluzione / Workaround consolidato:**  
+Restart Lighthouse/servizio; pulizia browser; verifica errori MFS; risoluzione cause sottostanti; monitoraggio.
+
+**Frequenza:**  
+Media: circa 11 occorrenze.
+
+**Note:**  
+Spesso è un sintomo più che una causa. Tuttavia l’indisponibilità di Lighthouse ha impattato fortemente il supporto operativo.
+
+---
+
+## 18. Pending events / eventi non consumati / messaggi stuck
+
+**Occorrenze principali:**  
+2023: 17/10, 18/10, 28/12  
+2024: 11/01, 16/01, 06/02, 14/10  
+2025: 07/03, 29/04, 26/06  
+
+**Descrizione generale:**  
+Pending event bloccano SRM, crane, foiling, pick station o code; TU/LU inesistenti; eventi non consumati dopo errori o finalizzazioni; messaggi stuck che fermano MFS/device.
+
+**Causa ricorrente:**  
+Eventi residui dopo errori; LU cancellate con vincoli DB; TPO/PO finalizzati in modo incoerente; messaggi PLC/MFS non consumati.
+
+**Soluzione / Workaround consolidato:**  
+Eliminazione pending event; scollegamento LU; cancellazione messaggi stuck; reset; fix software; analisi log.
+
+**Frequenza:**  
+Media: circa 10-11 occorrenze.
+
+**Note:**  
+La soluzione immediata è quasi sempre manuale. Più volte è stata richiesta analisi root cause per evitare il ripetersi.
+
+---
+
+## 19. Permessi / utenti / profili / diritti di accesso
+
+**Occorrenze principali:**  
+2021: 23/08, 22/12  
+2022: 23/09  
+2023: 06/02, 01/08  
+2024: 22/01, 19/03, 21/03, 17/06, 18/09, 24/09  
+
+**Descrizione generale:**  
+Utenti senza accesso a dialog/tabelle; profili non abilitati; utenti non visibili dopo deploy; impossibilità di assegnare utente Desktop; differenze tra utenti; permessi insufficienti dopo migrazioni/deploy.
+
+**Causa ricorrente:**  
+Grants non generati dopo deploy; ruoli mancanti; configurazione stazione/utente errata; bug su assegnazione utente; profili non aggiornati.
+
+**Soluzione / Workaround consolidato:**  
+Assegnazione grants; attivazione utente su stazione; correzione ruolo; workaround con utente mobile locked; fix software; verifica permessi.
+
+**Frequenza:**  
+Media: circa 11 occorrenze.
+
+**Note:**  
+Ricorre spesso dopo deploy o modifiche DB. È un punto debole della procedura di rilascio.
+
+---
+
+## 20. PLC / sensori / conveyor / inverter / safety / contour
+
+**Occorrenze principali:**  
+2021: 18/10  
+2022: 18/01, 01/03, 09/11  
+2023: 20/06  
+2024: 27/08, 14/11  
+2025: 28/01, 30/06, 28/07  
+
+**Descrizione generale:**  
+Fault inverter, sensori occupati/manipolati, contour error, safety door che bloccano EMS/area, PLC non allineato, location sbloccate non esistenti, ASi/moduli motore in errore.
+
+**Causa ricorrente:**  
+PLC/sensori; safety signal; moduli ASi; sblocchi non coordinati; mismatch tra PLC e WAMAS/MFS; parametri di sicurezza.
+
+**Soluzione / Workaround consolidato:**  
+Intervento PLC/manutenzione; reset; verifica sensori; blocco location non fisiche; workaround su emergency status; coordinamento PLC-WAMAS.
+
+**Frequenza:**  
+Media: circa 10-11 occorrenze.
+
+**Note:**  
+Nel 2025 il tema safety door/loop EMS ha richiesto workaround specifici in attesa di soluzione strutturale.
+
+---
+
+## 21. Archiving / activity protocol / retention / tabelle enormi
+
+**Occorrenze principali:**  
+2022: 01/02, 11/11  
+2023: 29/03, 31/03, 28/09, 04/12, 08/12  
+2024: 08/04, 12/04  
+2025: 29/01  
+
+**Descrizione generale:**  
+Job di archiving bloccato; activity protocol con milioni di righe; DB pieno; rallentamenti; ordini non archiviati; necessità di ridurre retention o eseguire truncate.
+
+**Causa ricorrente:**  
+Retention troppo lunga; job locked; volumi non previsti; tabelle protocollo enormi; mancanza history server.
+
+**Soluzione / Workaround consolidato:**  
+Sblocco job; riduzione retention; cleanup/truncate; rischedulazione; monitoraggio; pianificazione history server.
+
+**Frequenza:**  
+Media: circa 10 occorrenze.
+
+**Note:**  
+Strettamente correlato al gruppo performance DB. Più volte è stato raccomandato di non tagliare dati storici senza controllo e di predisporre archiviazione adeguata.
+
+---
+
+## 22. Configurazione flussi / FOG / optimum LU / replenishment / OG area / transport area
+
+**Occorrenze principali:**  
+2021: 28/06, 15/12  
+2023: 10/03, 15/03  
+2025: 13/01, 14/01, 15/01, 16/01, 03/02, 17/02  
+
+**Descrizione generale:**  
+TPO o replenishment creati verso aree errate; optimum LU basato su FOG invece di item/batch; shipping LU verso MAV invece di aree corrette; transport area/location staging non configurate; loading aid non abilitati.
+
+**Causa ricorrente:**  
+Configurazione OG area/transport area; logica optimum legata a FOG; master data loading aid mancante; location non staging; assegnazione area Azienda non definita.
+
+**Soluzione / Workaround consolidato:**  
+Configurazione OG area assignment; modifica transport area; rimozione FOG dal calcolo optimum; fix configurazioni; TPO manuali temporanei; test locale.
+
+**Frequenza:**  
+Media: circa 10-12 occorrenze, con picco nel 2025.
+
+**Note:**  
+Nel 2025 è stato affrontato organicamente il tema optimum LU/replenishment da Azienda, proponendo logiche basate su item/batch e replenishment prioritario da aree manuali.
+
+---
+
+## 23. EMS / monorail / loop / safety door
+
+**Occorrenze principali:**  
+2021: 05/07, 09/07, 31/07, 13/08, 04/10, 07/10, 08/10  
+2022: 21/01  
+2025: 30/06, 28/07  
+
+**Descrizione generale:**  
+EMS in errore, loop fermi, veicoli che non prelevano, trolley in emergency, gap sensor, safety door che blocca tutti i veicoli, problemi di alimentazione/comunicazione EMS.
+
+**Causa ricorrente:**  
+Hardware EMS/sensori; cavi; safety door; EMS visto come singolo device controller; messaggi emergency stop; problemi fornitore.
+
+**Soluzione / Workaround consolidato:**  
+Manutenzione hardware; reset; workaround su emergency status; door sensor configurato; intervento hotline; split EMS in più device proposto ma non sempre realizzato.
+
+**Frequenza:**  
+Media: circa 10 occorrenze.
+
+**Note:**  
+Nel 2025 il problema safety door/loop3 è stato trattato con workaround temporaneo per consentire test/produzione, in attesa di soluzione strutturale.
+
+---
+
+## 24. Memoria / RAM / memory spike su WAMASAPP
+
+**Occorrenze principali:**  
+2021: 19/10  
+2022: 27/06, 19/07  
+2023: 19/04  
+2024: 29/08  
+
+**Descrizione generale:**  
+Memoria WAMASAPP quasi esaurita, warning SNMP, picchi notturni/matutini, servizi da riavviare, Lighthouse/mobile down.
+
+**Causa ricorrente:**  
+Processi/script anomali; restart applicativi; Firefox/Lighthouse; startup post-deploy; memory leak non confermato.
+
+**Soluzione / Workaround consolidato:**  
+Chiusura processi; restart servizi; monitoraggio; disabilitazione script problematici.
+
+**Frequenza:**  
+Media-bassa: circa 5 occorrenze.
+
+**Note:**  
+Non sempre è stata trovata root cause definitiva; in alcuni casi il problema è rientrato dopo riavvio.
+
+---
+
+## 25. Dati corrotti / pallet corrotti / crash controller
+
+**Occorrenze principali:**  
+2021: 12/10, 18/10, 21/10, 22/10  
+
+**Descrizione generale:**  
+UDC/pallet con dati corrotti non risolvibili con procedure standard; SRM controller crashato; tipi pallet errati; ordini PLC corrotti.
+
+**Causa ricorrente:**  
+Dati corrotti da interventi manuali o anomalie pregresse; record incoerenti su DB/PLC.
+
+**Soluzione / Workaround consolidato:**  
+Fix dati a livello sviluppatore/DB; ricreazione ordini; pulizia dati; intervento specializzato.
+
+**Frequenza:**  
+Bassa: 4 occorrenze concentrate nel 2021.
+
+**Note:**  
+Sebbene poco frequenti, hanno avuto impatto elevato e hanno richiesto interventi non standard.
+
+---
+
+## 26. Pallet D / baseleg / meccanica pallet/conveyor
+
+**Occorrenze principali:**  
+2021: 30/06, 06/07, 07/07, 24/08  
+
+**Descrizione generale:**  
+Pallet D con baseleg troppo larghi o fuori tolleranza; forche che toccano baseleg; rischio caduta; piastra frontale conveyor troppo bassa; coperture forche AGV danneggiate.
+
+**Causa ricorrente:**  
+Tolleranze pallet; geometria forche/conveyor; piastra frontale non tagliata; urti meccanici.
+
+**Soluzione / Workaround consolidato:**  
+Rimozione pallet; verifica provenienza; proposta taglio piastra; riparazione meccanica; discussione su modifiche non sempre adottate per costi.
+
+**Frequenza:**  
+Bassa: 4 occorrenze.
+
+**Note:**  
+Problema più meccanico che applicativo; impattava comunque affidabilità AGV/conveyor.
+
+---
+
+## 27. Distribuzione pallet su corsie LCOD
+
+**Occorrenze:**  
+2024: 05/03, 06/03, 08/03  
+
+**Descrizione generale:**  
+WAMAS indirizzava pallet verso corsie LCOD lente invece di distribuirli sulle corsie più rapide; capacità disponibile non sfruttata correttamente; shipment LU instradate in modo non ottimale.
+
+**Causa ricorrente:**  
+Logica di distribuzione/capacità corsie; verifica mapping location-lane; comportamento variabile.
+
+**Soluzione / Workaround consolidato:**  
+Analisi log/query DB; verifica capacità; monitoraggio; raccolta screenshot.
+
+**Frequenza:**  
+Bassa: 3 occorrenze, tutte nel 2024.
+
+**Note:**  
+Alla fine di alcune verifiche WAMAS è risultato lavorare correttamente, ma il comportamento percepito era problematico.
+
+---
+
+## 28. Errori di input operatore su quantità/peso
+
+**Occorrenze:**  
+2024: 10/01, 12/01  
+
+**Descrizione generale:**  
+Quantità errate inserite su pallet/pick; peso calcolato troppo alto; WAMAS si bloccava durante il calcolo peso per MFS.
+
+**Causa ricorrente:**  
+Errore operatore; mancanza protezioni su input anomali.
+
+**Soluzione / Workaround consolidato:**  
+Analisi SMCOD/OGCOD; confronto con operatore e shift leader; spiegazione crash; proposta protezione.
+
+**Frequenza:**  
+Bassa: 2 occorrenze ravvicinate.
+
+**Note:**  
+Più che un guasto software, era un rischio operativo da input validation.
+
+---
+
+## 29. VPN / supporto remoto / accesso esterno
+
+**Occorrenze:**  
+2021: 09/08  
+2022: 08/08  
+
+**Descrizione generale:**  
+VPN non funzionante; supporto remoto SSI impossibile; cambio parametri VPN non comunicato; VPN Austria bloccante.
+
+**Causa ricorrente:**  
+Configurazione VPN; problemi infrastrutturali; sicurezza/remoting.
+
+**Soluzione / Workaround consolidato:**  
+TeamViewer; videoconferenza/guida; verifica VPN; intervento alternativo.
+
+**Frequenza:**  
+Bassa: 2 occorrenze.
+
+**Note:**  
+Impatto indiretto ma significativo sui tempi di risoluzione.
+
+---
+
+## Anno 2021
+
+### [25/06/2021 08:01] — Interruzione alimentazione, 8 stacker crane in errore, E-stop foiling
+**Descrizione:** Tutti gli stacker crane in errore, foiling in E-stop, nessun E-stop premuto manualmente.  
+**Causa identificata:** Due guasti su una fase dell’alimentazione con spike di tensione; cogenerazione non intervenuta; inverter SRM autoprotetti.  
+**Soluzione / Workaround:** Reset macchine e verifica con produzione.  
+**Note:** F01 e EMS meno impattati; evento elettrico esterno.
+
+---
+
+### [24/07/2021 07:50] — Ingresso MAV bloccato
+**Descrizione:** Ingresso MAV bloccato con rullo senza pallet.  
+**Causa identificata:** Non specificata.  
+**Soluzione / Workaround:** Risolto dal team Atlas.  
+**Note:** Episodio isolato.
+
+---
+
+### [03/08/2021 14:51] — Calo performance dopo blocco monorail
+**Descrizione:** Produzione ridotta di 100-200 order line rispetto alla settimana precedente; stesso personale e nessun deploy.  
+**Causa identificata:** Sospetto residuo nel sistema, TPO in errore pendenti, CPU WAMASAPP più alta.  
+**Soluzione / Workaround:** Non risolto; richiesta investigazione.  
+**Note:** Possibile correlazione con: Performance DB / TPO bloccati.
+
+---
+
+### [09/08/2021 14:38] — VPN non funzionante, SSI non può connettersi
+**Descrizione:** Supporto remoto impossibile.  
+**Causa identificata:** Cambio parametri VPN non comunicato efficacemente.  
+**Soluzione / Workaround:** Installato TeamViewer su PC in impianto.  
+**Note:** Possibile correlazione con: VPN/supporto remoto.
+
+---
+
+### [13/08/2021 13:55] — Change clamp: test non riuscito
+**Descrizione:** Test cambio clamp su pick station HBW12; TPO per due LU non creati.  
+**Causa identificata:** Possibile necessità di pallet D senza SO.  
+**Soluzione / Workaround:** Risolto autonomamente.  
+**Note:** Episodio di test.
+
+---
+
+### [12/10/2021 20:30] — Circa 100 TPO creati verso QC inaspettatamente
+**Descrizione:** Creati ~100 TPO verso QC; pallet da non rimuovere.  
+**Causa identificata:** Non specificata.  
+**Soluzione / Workaround:** Non rimuovere pallet; verifica al mattino.  
+**Note:** Possibile correlazione con: TPO bloccati/non creati.
+
+---
+
+### [21/10/2021 16:51] — Pick Station 4: dialog bloccato, “unknown error”
+**Descrizione:** Dialog pick station 4 bloccato anche dopo OK/reboot PC/WAMAS.  
+**Causa identificata:** Non specificata chiaramente.  
+**Soluzione / Workaround:** Intervento SSI.  
+**Note:** Possibile correlazione con: problemi stazione/pick order.
+
+---
+
+### [21/12/2021 09:07] — Pick Station 4: show stopper
+**Descrizione:** Pick station 4 con problema show stopper.  
+**Causa identificata:** Non specificata nella conversazione.  
+**Soluzione / Workaround:** Risolto parzialmente in autonomia; ticket inviato.  
+**Note:** Episodio critico ma non dettagliato.
+
+---
+
+### [22/12/2021 13:55] — Carrellisti non possono entrare in WAMAS
+**Descrizione:** Forklift drivers non riescono ad accedere a WAMAS.  
+**Causa identificata:** Problema operatore telefonico.  
+**Soluzione / Workaround:** Verifica.  
+**Note:** Possibile correlazione con: permessi/utenze.
+
+---
+
+## Anno 2022
+
+### [04/01/22 09:39] — COD in errore su Lighthouse / Fine Positioning Error
+**Descrizione:** COD in errore su Lighthouse ma non visibile; Fine Positioning Error; valore cinematico lifting ridotto manualmente.  
+**Causa identificata:** Non emersa con chiarezza.  
+**Soluzione / Workaround:** Riduzione manuale del valore cinematico; il sistema ha poi funzionato.  
+**Note:** Possibile correlazione con: Lighthouse/red bubbles.
+
+---
+
+### [12/01/22 18:50] — TPO in manual allocation: errore e blocco terminale RF
+**Descrizione:** In manual allocation, dopo pick di una LU, uscendo per stampare etichette l’utente riceveva errore e il terminale RF richiedeva reboot.  
+**Causa identificata:** Non chiara; sospetto legame con interventi TPO spontanei.  
+**Soluzione / Workaround:** Pianificato restart sistema; test TPO dopo restart; esito non confermato.  
+**Note:** Situazione critica per volume spedizioni.
+
+---
+
+### [05/02/22 15:09] — “Unknown error have occurred” su aree manuali/picking
+**Descrizione:** Entrando in picking in tutte le aree manuali gli utenti ricevevano “unknown error”; rischio blocco decine di persone.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata in chat.  
+**Note:** Richiesta fix ASAP.
+
+---
+
+### [07/02/22 07:45] — Solo 2 picking station attive / Red Alarm area automatizzata
+**Descrizione:** Solo 2 stazioni funzionanti; red alarm in area automatizzata; problema anche su pick station #2.  
+**Causa identificata:** Non chiara.  
+**Soluzione / Workaround:** Ripristinate tutte le stazioni; pick station #2 fixata; confermato 100% working.  
+**Note:** Ticket aperto. Possibile correlazione con: stazione/assignment.
+
+---
+
+### [12/02/22 07:20] — Pallet in errore su COD D01
+**Descrizione:** Pallet con errore su COD D01.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Immagine allegata.
+
+---
+
+### [10/03/22 12:46] — Problema ricorrente segnalato con immagini
+**Descrizione:** “Hi guys we have again this issue!” con immagini; natura precisa non dettagliata.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Probabile recidiva di issue precedente.
+
+---
+
+### [15/03/22 08:16] — Utente bloccato su station 12
+**Descrizione:** Utente da sloggare/riloggare sulla station 12 per sbloccare il dialog di picking.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Relog utente; stazione funzionante.  
+**Note:** Possibile correlazione con: pick station/utenze.
+
+---
+
+### [28/03/22 07:14] — Spontaneous TPO non funziona per location bloccata
+**Descrizione:** Location bloccata impediva il corretto funzionamento dei TPO spontanei.  
+**Causa identificata:** Location bloccata.  
+**Soluzione / Workaround:** Sbloccata; tutto ok.  
+**Note:** Possibile correlazione con: TPO/configurazione location.
+
+---
+
+### [04/04/22 13:03] — Wood error su LU
+**Descrizione:** Errore “wood error” su LU; flusso speciale richiedeva LU vuota su NOK location per swap; in alcuni casi il flusso non riusciva.  
+**Causa identificata:** Flusso wood_gap/clearance_wood; verifica su LU/temp.  
+**Soluzione / Workaround:** Workaround suspend+resume TPO; cambio nome errore; nessuna soluzione definitiva immediata.  
+**Note:** Analisi in corso.
+
+---
+
+### [13/04/22 08:52] — Pick station #12 bloccata per issue COD
+**Descrizione:** Issue COD marcata “need to be checked live”; picking station #12 bloccata.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Persona ha preso in carico.  
+**Note:** Ticket COD.
+
+---
+
+### [15/04/22 17:25] — Pick station #9 bloccata per issue COD
+**Descrizione:** Stessa issue COD; picking station #9 bloccata; richiesta log live.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Ticket COD.
+
+---
+
+### [10/05/22 09:07] — Priorità COD non applicata
+**Descrizione:** Sistema non assegnava priorità ai pallet da alcune linee; slaved pallets non working.  
+**Causa identificata:** Bug; aggiornamento necessario per altri conveyors e slaved pallets.  
+**Soluzione / Workaround:** Bug preso internamente; patch futura.  
+**Note:** Richiesta patch urgente.
+
+---
+
+### [30/05/22 09:22] — COD non registra movimenti dalle 06:00
+**Descrizione:** Nessun dato registrato in COD dalle 06:00; sistema “cieco”.  
+**Causa identificata:** Sospetta dimensione tabella COD; non confermata.  
+**Soluzione / Workaround:** Verificato che COD registrava; ticket aperto.  
+**Note:** Richiesta esplicita di non tagliare dati storici. Possibile correlazione con: performance DB.
+
+---
+
+### [02/06/22 08:58] — Picking station 3 e 4 in manutenzione
+**Descrizione:** Manutenzione su picking station 3 e 4; richiesto di non usarle o inviare pallet.  
+**Causa identificata:** Manutenzione.  
+**Soluzione / Workaround:** Usare station 1 e 2; fix in corso.  
+**Note:** Comunicazione operativa.
+
+---
+
+### [02/06/22 10:03] — MFS restart pianificato
+**Descrizione:** Necessario MFS restart in 10 minuti; richiesto stop inserimento pallet.  
+**Causa identificata:** Manutenzione/restart programmato.  
+**Soluzione / Workaround:** Restart MFS.  
+**Note:** Comunicazione operativa.
+
+---
+
+### [07/06/22 13:18] — Post-deploy: StoCompAssemblage non creato / counters DB / unpicking station 9
+**Descrizione:** Errore “StoCompAssemblage couldn’t be created”; problemi su rilascio OG buffer e pick station #9 in unpicking mode.  
+**Causa identificata:** Counter in WAMAS non aggiornati correttamente per errore utente.  
+**Soluzione / Workaround:** Fix; riavvio WAMAS alle pick station; ripristinato.  
+**Note:** Patch incluse nel deploy. Possibile correlazione con: deploy.
+
+---
+
+### [24/06/22 14:34] — Accesso SQL WAMAS DB bloccato per troppe sessioni
+**Descrizione:** Accesso SQL al DB WAMAS non funzionava; troppe sessioni; limite 10 connessioni.  
+**Causa identificata:** Limite connessioni e sessioni multiple.  
+**Soluzione / Workaround:** Chiusura/kill sessione; accesso ripristinato.  
+**Note:** Discussione su copia dati/archivio/history server. Possibile correlazione con: performance DB.
+
+---
+
+### [19/10/22 19:05] — Plant stopped dopo intervento PLC / errori HBW-SRM
+**Descrizione:** Impianto fermo; Lighthouse pieno di errori; SRM con forks in posizione intermedia; mancato handshake SRM-PLC; mismatch fisico/logico.  
+**Causa identificata:** Intervento non controllato del tecnico PLC; handshake PLC/SRM.  
+**Soluzione / Workaround:** Reset da pult, CTOP, modalità manuale, cancellazione TPO, spostamenti manuali e rebook; ripristinato.  
+**Note:** Follow-up e reclami su intervento PLC.
+
+---
+
+### [28/10/22 15:54] — Pick station in “loading...” / processo Msaccess
+**Descrizione:** Tutte le pick station bloccate in dialog “loading...”; necessario logout utente.  
+**Causa identificata:** Processo Msaccess su WAMASAPP.  
+**Soluzione / Workaround:** Chiuso processo; loading tornato normale.  
+**Note:** Ticket chiuso.
+
+---
+
+## Anno 2023
+
+### [10/03/23 12:33] — Nuovo loading aid AI non utilizzabile
+**Descrizione:** OBD in stato active 15% senza avanzamento; nuovo loading aid AI non utilizzabile.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Nessuna definitiva nel file.  
+**Note:** Richiesta uso ASAP. Possibile correlazione con: configurazione loading aid.
+
+---
+
+### [24/07/23 11:55] — Problema automatic/manual area, restart e alias mancanti
+**Descrizione:** Problema in automatic area auto-risolto; problema in manual area; eseguito restart; nuove location senza alias.  
+**Causa identificata:** Alias non aggiunti dopo restart/deploy.  
+**Soluzione / Workaround:** Restart allineamento; alias aggiunti in seconda fase.  
+**Note:** Possibile correlazione con: deploy/configurazione location.
+
+---
+
+### [27/07/23 03:48] — Picking station non funzionanti, dead man switch e UdC
+**Descrizione:** Tutte le picking station non funzionanti; pulsante dead man switch non fa uscire UdC verso EMS.  
+**Causa identificata:** Non esplicitata; dialogo stazione senza errore evidente.  
+**Soluzione / Workaround:** Verifica e ripristino; tutte le stazioni ripristinate.  
+**Note:** Ticket chiuso.
+
+---
+
+### [02/08/23 09:16] — Picking station 2 bloccata dopo deploy
+**Descrizione:** Picking station 2 ancora bloccata dopo deploy.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Ripristinata e funzionante.  
+**Note:** Possibile correlazione con: deploy.
+
+---
+
+### [26/09/23 05:08] — AGV 11 davanti a pick station 1, crane 3 da sbloccare
+**Descrizione:** AGV 11 fermo davanti a pick station 1; necessità sblocco crane 3.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Sbloccato crane 3; operatività ripristinata.  
+**Note:** Possibile correlazione con: AGV/SRM.
+
+---
+
+### [18/10/23 11:26] — Inspection orders non creati e assign user in errore
+**Descrizione:** Inspection orders in stato new senza release; “assign user” genera errore; pick station #2 in Inspection GTP.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Verifiche successive; ticket.  
+**Note:** Necessario test e chiarimenti.
+
+---
+
+### [23/10/23 14:23] — F01 error, infeed line blocking e garbage data
+**Descrizione:** F01 con errori e red bubbles; pallet bloccati su infeed line; possibile “garbage data”.  
+**Causa identificata:** Errore/garbage data in area; fix necessario con deploy.  
+**Soluzione / Workaround:** Temporaneo ripristino; uso solo seconda linea infeed; deploy fix previsto.  
+**Note:** Possibile correlazione con: pending events/MFS.
+
+---
+
+### [23/10/23 16:18] — Discharge LU in errore, rollback, workstation 09 bloccata e patch issue
+**Descrizione:** Errore su discharge quantità; rollback eseguito; workstation 09 bloccata durante test; patch con issue.  
+**Causa identificata:** Problema discharge/patch; non dettagliata completamente.  
+**Soluzione / Workaround:** Rollback; sblocco workstation; test successivo ok.  
+**Note:** Possibile correlazione con: deploy/OBD discharge.
+
+---
+
+### [28/11/23 17:01] — Test CR 7 damaged source LU: pick #4 bloccata
+**Descrizione:** Durante test CR 7, WAMAS non crea TPO per pallet target e non crea empty request; stazione bloccata.  
+**Causa identificata:** Errore funzionale nella gestione damaged source LU/replacement.  
+**Soluzione / Workaround:** Sbloccata stazione; gestione manuale empty; verifica codice.  
+**Note:** Possibile correlazione con: empty request/TPO.
+
+---
+
+### [29/11/23 12:04] — Work station #3 bloccata test negative picking
+**Descrizione:** Work station #3 bloccata durante test; negative picking funziona solo parzialmente; operatore non informato di rilasciare LU.  
+**Causa identificata:** Missing specification/implementation; necessaria pressione release per fare spazio.  
+**Soluzione / Workaround:** Rilascio pallet, empty in stazione; test parziale; aggiustamenti necessari.  
+**Note:** Fix da completare.
+
+---
+
+### [05/12/23 08:11] — Workaround COD creazione LU e stock
+**Descrizione:** Problema su COD; necessario creare LU senza stock e poi aggiungere stock.  
+**Causa identificata:** Issue fixed internally.  
+**Soluzione / Workaround:** Workaround operativo; fix interno.  
+**Note:** Deploy fix programmato.
+
+---
+
+### [13/12/23 09:33] — Peso reale, scala e piece weight zero
+**Descrizione:** LU con weight for picking diverso tra picking e foiling; dopo inventory piece weight zero e uso master data.  
+**Causa identificata:** Scala con valori anomali; piece weight a 0 per stock mix/discharge; possibile errore scala o intervento umano.  
+**Soluzione / Workaround:** Analisi logica; verifica pesate; nessuna soluzione definitiva.  
+**Note:** Chiarimenti su inventory e peso master data.
+
+---
+
+### [18/12/23 15:06] — PO già picked ma finalizzato manualmente
+**Descrizione:** PO già picked ma rimasto attivo; finalizzato manualmente perché WAMAS non lo puliva.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Finalizzazione manuale.  
+**Note:** Possibile correlazione con: OBD/finalizzazione.
+
+---
+
+### [20/12/23 10:13] — F02 manuale, MFS connection fault, restart completo
+**Descrizione:** F02 in manual mode; MFS receive connection fault; necessario restart completo WAMAS; Lighthouse down; errore connessione DB; Totem non stampa loading list.  
+**Causa identificata:** IT stava lavorando su DB/server; connessione DB interrotta; messaggi persi nel restart.  
+**Soluzione / Workaround:** Restart servizi; reset MqReceiver; stampa manuale; sistema ripristinato.  
+**Note:** IT avrebbe eseguito altra operazione DB; WAMAS sensibile a freeze DB.
+
+---
+
+### [27/12/23 11:44] — Shutdown/start WAMAS, red bubbles, AGV non connessi/Rocla
+**Descrizione:** Durante spegnimento/riaccensione: red bubbles; AGV non connessi; Rocla services spenti e modalità manuale; picking source bloccate.  
+**Causa identificata:** Servizi Rocla spenti dopo cambio server; reset MFS/AGV.  
+**Soluzione / Workaround:** Rocla riattivato servizi e automatico; MFS caricato; stazioni ripristinate.  
+**Note:** Problema previsto per cambio server successivo.
+
+---
+
+## Anno 2024
+
+### [05/01/24, 17:55] — Disallineamento stock su LU / CSIA02 e missing items
+**Descrizione:** Valori di stock su LU diversi da quelli richiesti dall’ordine; campo CSIA02 differente causa “missing items”.  
+**Causa identificata:** Disallineamento tra stock richiesto e stock presente sulle LU.  
+**Soluzione / Workaround:** Modifica campi csia sull’ordine e rilascio nuovamente l’ordine; stock non modificato.  
+**Note:** Possibile ricorrenza. Possibile correlazione con: OBD/stock.
+
+---
+
+### [10/01/24, 08:57] — Blocco WAMAS per quantità errata e peso eccessivo
+**Descrizione:** Pezzi con quantità errata; WAMAS si blocca durante calcolo peso per MFS.  
+**Causa identificata:** Peso troppo alto rispetto al massimo accettato; possibile errore operatore.  
+**Soluzione / Workaround:** Analisi; spiegazione crash per weight computation.  
+**Note:** Valutare protezione input. Possibile correlazione con: errori input operatore.
+
+---
+
+### [12/01/24, 08:52] — Quantità elevata su pallet / errore operatore
+**Descrizione:** Ripetizione caso quantità anomala; WAMAS affetto da peso oltre soglia.  
+**Causa identificata:** Stesso utente/stessa pick station; probabile input manuale errato.  
+**Soluzione / Workaround:** Confronto con operatore e shift leader.  
+**Note:** Valutare protezione su conferma quantità.
+
+---
+
+### [15/01/24, 08:57] — Barcode pallet modificato
+**Descrizione:** Issue mattutina su ticket; qualcuno ha cambiato barcode del pallet.  
+**Causa identificata:** Barcode modificato; problema già presente prima della sostituzione lettore.  
+**Soluzione / Workaround:** Problema risolto; feedback successivo.  
+**Note:** Monitorare.
+
+---
+
+### [22/01/24, 21:52] — Anomalia PCOD assignment without data su catenary traslo
+**Descrizione:** Catenary del traslo in input/output in errore “anomaly PCOD assignment without data”.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Ripristino operatività.  
+**Note:** Ticket chiuso. Possibile correlazione con: mismatch/pending events.
+
+---
+
+### [06/02/24, 09:01] — Empty pallet request / WAMAS cerca spazio per ordine con pallet in HBW
+**Descrizione:** AGV portano empty pallet; WAMAS tenta di liberare spazio per ordine con tutti pallet già in HBW.  
+**Causa identificata:** Empty pallet request per pick order con pallet in source locations.  
+**Soluzione / Workaround:** Analisi del flusso.  
+**Note:** Verificare logica empty request.
+
+---
+
+### [14/02/24, 12:28] — LU riservati con PPLU/picking archiviati, ordini non rilasciati
+**Descrizione:** Numerosi LU riservati ma con PPLU/picking order archiviati; ordini non rilasciati.  
+**Causa identificata:** Non trovata; presenti casi vecchi.  
+**Soluzione / Workaround:** Cancellazione ticket/riserve vecchie.  
+**Note:** Root cause non chiara.
+
+---
+
+### [26/02/24, 16:30] — PO activity non cancellata impedisce creazione TEMP per stack
+**Descrizione:** Pallet non può diventare TEMP per essere aggiunto allo stack.  
+**Causa identificata:** PO activity per il pallet non cancellata.  
+**Soluzione / Workaround:** Fix previsto; pallet identificato nei pending events.  
+**Note:** Possibile correlazione con: TPO/TEMP.
+
+---
+
+### [17/04/24, 10:33] — Crane con TEMP su fork ma vuota
+**Descrizione:** Crane vuota su fork ma MFS mostra TEMP; necessario cancellare.  
+**Causa identificata:** Non chiara.  
+**Soluzione / Workaround:** Intervento e ritorno normale.  
+**Note:** Ticket chiuso. Possibile correlazione con: mismatch/SRM.
+
+---
+
+### [17/04/24, 11:22] — TPO crash/kick mobile in loading/manual/QC/foiling
+**Descrizione:** Operatori espulsi dal dialog WAMAS durante TPO; TPO spontanei danno “no TPO planned”.  
+**Causa identificata:** DcMobile worker processava transport order inesistenti.  
+**Soluzione / Workaround:** Restart DcMobile worker; TPO ripristinati.  
+**Note:** Possibile correlazione con: TPO/mobile worker.
+
+---
+
+### [18/04/24, 02:17] — Anomalia pCOD assignment without data
+**Descrizione:** Sistema fermo per errore “anomaly pCOD assignment without data”.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Ripristino automatico.  
+**Note:** Ticket chiuso.
+
+---
+
+### [20/06/24, 12:30] — LU creato su CU* errato
+**Descrizione:** WAMAS crea LU su CU* errato; problema segnalato con screenshot.  
+**Causa identificata:** In verifica.  
+**Soluzione / Workaround:** LU inviato a NOK per sicurezza.  
+**Note:** Ticket aperto. Possibile correlazione con: mismatch.
+
+---
+
+### [10/07/24, 09:21] — Mobile terminal “no transport order” su pallet con TPO
+**Descrizione:** Utente mobile tenta di movimentare pallet con TPO ma WAMAS risponde “no transport order”.  
+**Causa identificata:** Non chiara; problema rientrato.  
+**Soluzione / Workaround:** Monitoraggio.  
+**Note:** Possibile correlazione con: TPO/mobile.
+
+---
+
+### [11/07/24, 12:12] — AF pallet inviato in HBW e usato per negative picking, crash MFS
+**Descrizione:** Empty AF inviato in HBW e usato per negative picking; MFS crasha.  
+**Causa identificata:** Errore su negative picking con AF; parametro mancante.  
+**Soluzione / Workaround:** Aggiunto parametro per evitare crash MFS.  
+**Note:** AF non dovrebbe andare in HBW né essere usato per negative picking.
+
+---
+
+### [19/07/24, 10:29] — Incompatibilità HA/Z a pick station
+**Descrizione:** In pick station presente HA ma source Z; WAMAS non permette cambio target per incompatibilità.  
+**Causa identificata:** HA non compatibile con Z.  
+**Soluzione / Workaround:** Modifica HA in AF logicamente, richiesta F, cambio load aid.  
+**Note:** Investigare comportamento. Possibile correlazione con: DA/HA/config.
+
+---
+
+### [23/07/24, 17:25] — Ordini in errore, possibile legame goods category GRANDILASTRE
+**Descrizione:** Cancellazione/ricreazione ordini non risolve; problema sembra legato a goods category.  
+**Causa identificata:** Sotto investigazione; possibile bug su FOG/goods category.  
+**Soluzione / Workaround:** Test con OBD singoli; analisi codice.  
+**Note:** Follow-up.
+
+---
+
+### [27/07/24, 19:41] — Sistema lento, AGV non prendono missioni
+**Descrizione:** Sistema molto lento e AGV non prendono missioni.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non indicata.  
+**Note:** Possibile correlazione con: performance DB/AGV.
+
+---
+
+### [31/07/24, 20:29] — Cross docking/stock object su station
+**Descrizione:** PO assegnato con pallet in station; stock object non collegato a ordine.  
+**Causa identificata:** Sotto investigazione.  
+**Soluzione / Workaround:** Analisi log.  
+**Note:** Root cause non chiara.
+
+---
+
+### [02/08/24, 15:21] — Pick station bloccata da DAF/TEMP
+**Descrizione:** Pick station bloccata da DAF; cancellando TEMP la stazione riparte.  
+**Causa identificata:** DAF/TEMP bloccante.  
+**Soluzione / Workaround:** Cancellazione TEMP.  
+**Note:** Email inviata. Possibile correlazione con: TEMP/mismatch.
+
+---
+
+### [05/08/24, 10:04] — Issue NCOD ricorrente
+**Descrizione:** Problema ricorrente NCOD; inviata email con spiegazione.  
+**Causa identificata:** In analisi.  
+**Soluzione / Workaround:** Documentazione e follow-up.  
+**Note:** Monitorare.
+
+---
+
+### [10/09/24, 12:33] — Link KCOD locked / mobile “could not load all LUs”
+**Descrizione:** Link KCOD bloccato; su mobile non è possibile caricare tutte le LU senza scan shipping LU.  
+**Causa identificata:** Metodo richiede shipment LU; flusso utente non compatibile.  
+**Soluzione / Workaround:** Analisi flusso mobile.  
+**Note:** Verificare esempio live.
+
+---
+
+### [13/09/24, 10:09] — “could not load all LUs” e shipment LU perso blocca stazione
+**Descrizione:** Loading non carica tutte le LUs; shipment LU perso blocca stazione.  
+**Causa identificata:** Shipment LU perso durante report as full.  
+**Soluzione / Workaround:** Finalizzazione PO e release OBD; stazione riparte.  
+**Note:** Analizzare report as full.
+
+---
+
+### [25/09/24, 15:07] — TPO in errore per source locations bloccate
+**Descrizione:** TPO cambiati in errore perché source locations bloccate.  
+**Causa identificata:** Locazioni bloccate non considerate.  
+**Soluzione / Workaround:** Verifica locazioni.  
+**Note:** Controllare blocchi. Possibile correlazione con: TPO/location.
+
+---
+
+### [05/10/24, 11:50] — Ordine finito con linea attiva e HA senza TPO
+**Descrizione:** Ordine apparentemente finito ma con linea attiva; HA in destination senza transport order.  
+**Causa identificata:** Possibile attesa altro picking order.  
+**Soluzione / Workaround:** Continuare flusso e verificare.  
+**Note:** Monitorare.
+
+---
+
+### [18/10/24, 10:22] — F pallet instradato in HBW errato dopo NOK foiling
+**Descrizione:** Pallet F da NOK foiling inviato a HBW errato invece del corretto.  
+**Causa identificata:** Possibile modifica manuale destinazione o errore durante queue bloccata.  
+**Soluzione / Workaround:** Analisi log; ticket.  
+**Note:** Verificare flusso release LU da NOK.
+
+---
+
+### [28/10/24, 18:43] — Operatore non conferma picking
+**Descrizione:** Operatore non riesce a confermare picking; workstation bloccata.  
+**Causa identificata:** LU da rilasciare e login stazione.  
+**Soluzione / Workaround:** Release LU e retry login; problema rientrato.  
+**Note:** Monitorare.
+
+---
+
+### [07/11/24, 08:31] — Pallet su TPS SRM con TPO cancellato
+**Descrizione:** Pallet su TPS per SRM; TPO verso station cancellato.  
+**Causa identificata:** TPO cancellato.  
+**Soluzione / Workaround:** Nuovo TPO per storage; problema risolto.  
+**Note:** Verificare altri casi. Possibile correlazione con: TPO/SRM.
+
+---
+
+### [20/12/24, 10:22] — Network issue e storage block impediscono inventory
+**Descrizione:** Problemi di rete lato IT; storage block impedisce inventory.  
+**Causa identificata:** Network issue e storage block non compatibile con inventory.  
+**Soluzione / Workaround:** Ripristino rete; fix previsto con deploy successivo.  
+**Note:** Preparare patch. Possibile correlazione con: inventory/network.
+
+---
+
+## Anno 2025
+
+### [10/01/25 09:43] — Exit COD freezing
+**Descrizione:** Exit COD si blocca per alcuni minuti e riprende da solo; poi si ripresenta issue correlata a stack/destacker.  
+**Causa identificata:** Investigazione in corso; possibile finestra temporale senza TPO per destacker.  
+**Soluzione / Workaround:** Investigazione; ipotesi aumento intervallo job.  
+**Note:** Possibile correlazione con: DA/HA/stack.
+
+---
+
+### [17/01/25 08:09] — Load marcato totem non chiudibile
+**Descrizione:** Load con draft OBD e OBD normale non chiudibile perché marcata totem.  
+**Causa identificata:** Mix di OBD normali e draft nella stessa load.  
+**Soluzione / Workaround:** Cambiato load type a normal, rimosso draft OBD via explorer e chiusa load.  
+**Note:** Root cause del mix non chiarita.
+
+---
+
+### [21/01/25 09:03] — Discharge lento e suggerimento location Azienda
+**Descrizione:** Discharge molto lento; WAMAS suggerisce location Azienda invece di location corrette.  
+**Causa identificata:** Query discharge include location Azienda, rallentando il processo.  
+**Soluzione / Workaround:** Analisi; fix richiede deploy.  
+**Note:** Possibile correlazione con: mobile lenti/performance DB.
+
+---
+
+### [05/02/25 23:35] — Pallet con quantità 5.297 ma vuoto
+**Descrizione:** Pallet con quantità elevata risultava vuoto; bloccava picking bay.  
+**Causa identificata:** Disallineamento quantità/LU.  
+**Soluzione / Workaround:** Eliminata intera LU; picking bay riparte.  
+**Note:** Ticket chiuso. Possibile correlazione con: mismatch/dati.
+
+---
+
+### [20/02/25 10:12] — Load con consignment pendenti non modificabili
+**Descrizione:** Impossibile spostare consignment per pending action sulla load.  
+**Causa identificata:** Pending action sulla load.  
+**Soluzione / Workaround:** Rimosse consignment; cancellate pending action e load draft.  
+**Note:** Risolto manualmente.
+
+---
+
+### [11/03/25 12:26] — Ordine bloccato in shipping planning
+**Descrizione:** Ordine urgente non finalizzato; impossibile fare documenti; stato in shipping planning.  
+**Causa identificata:** Effetto collaterale di split; stato non cambiato a finished.  
+**Soluzione / Workaround:** Cambiato planning stage e recalc state.  
+**Note:** Verificare comportamento crossdocking.
+
+---
+
+### [12/05/25 13:01] — COD bloccato vicino labeler foiling con SOC-ID broken
+**Descrizione:** LU bloccata vicino labeler foiling, SOC-ID broken, TPO in errore.  
+**Causa identificata:** Stato broken.  
+**Soluzione / Workaround:** Rilasciato conveyor; LU si muove.  
+**Note:** Verifica successiva. Possibile correlazione con: TPO/conveyor.
+
+---
+
+### [03/06/25 10:10] — Errore “TPO has been cancelled contemporarily” su picking LU
+**Descrizione:** Durante picking e uscita da auto-allocation, errore TPO cancellato contemporaneamente.  
+**Causa identificata:** Eccezione nei log; root cause non trovata.  
+**Soluzione / Workaround:** Conferma manuale TPO, stampa label, movimento manuale.  
+**Note:** Monitorare persistenza.
+
+---
+
+### [24/06/25 08:57] — Follow-up barcode e search stock dopo modifica
+**Descrizione:** Dopo cambio larghezza barcode, scanning funziona; search stock funziona solo per alcuni terminali.  
+**Causa identificata:** Selezione stock non automatica su alcuni terminali; bug applicativo.  
+**Soluzione / Workaround:** Barcode risolto; search stock da investigare e fixare in deploy successivo.  
+**Note:** Possibile correlazione con: label/barcode/mobile.

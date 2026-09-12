@@ -1,7 +1,23 @@
-Issue A186: Empty LU request in loop / PO con priorità alta senza empty request
-Occorrenze: 11/09/2024, 23/10/2024
-Descrizione generale: Non appena un AGV deposita un pallet vuoto alla pick station, WAMAS crea un TPO verso S46 e genera una nuova empty request in loop. La stazione è bloccata in un ciclo infinito.
-Causa: Una PO con priorità alta non ha né empty request né TPO per le sorgenti, ma viene trattata come la prima da eseguire. In altro caso, una gru si è bloccata causando l'uscita del pallet sorgente senza cancellazione dell'empty LU request del negative picking.
-Soluzione / Workaround consolidato: Finalizzazione manuale della PO problematica. Cancellazione manuale dell'empty LU request residua.
-Frequenza: 2 occorrenze documentate nel 2024. Classificata come ricorrente (A186).
-Note: Analisi in corso su priorità di esecuzione PO nel codice. Mancanza implementativa nel software per la gestione delle empty request dopo disconnessione gru.
+## 16. Inventory block / inventory order / GTP Inventory
+
+**Occorrenze principali:**  
+2021: 29/11  
+2022: 22/12  
+2023: 07/03, 26/04, 01/06, 22/06  
+2024: 08/01, 10/10, 19/12  
+2025: 08/03  
+
+**Descrizione generale:**  
+LU o stock object bloccati da inventory block; inventory order duplicati; workstation che non ripartono; stazioni impostate erroneamente in GTP Inventory; ordini inventory creati su LU con TPO storage.
+
+**Causa ricorrente:**  
+Flag inventory residui; ordini inventory duplicati; station kind errato; creazione inventory da area non idonea; constraint DB.
+
+**Soluzione / Workaround consolidato:**  
+Rimozione inventory block; cancellazione righe/order inventory; correzione station kind; completamento TPO; creazione inventory solo da storage.
+
+**Frequenza:**  
+Media: circa 12 occorrenze.
+
+**Note:**  
+Il problema è ricorrente soprattutto su LU/source bloccate. In più casi è bastato rimuovere il flag, ma sono servite anche regole operative più precise.

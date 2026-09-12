@@ -1,2 +1,5 @@
-[09/11/2022, 15:16] — Errore inverter 164M01 / anomalie Lighthouse su HBW
-Descrizione: Lighthouse con anomalie HBW. Errore frequency inverter 164M01. Causa identificata: Fault inverter. Reindirizzato al team PLC. Soluzione / Workaround: Manutenzione interna. Errori scomparsi alle 15:25. Note: —
+### [14/02/24, 12:28] — LU riservati con PPLU/picking archiviati, ordini non rilasciati
+**Descrizione:** Numerosi LU riservati ma con PPLU/picking order archiviati; ordini non rilasciati.  
+**Causa identificata:** Non trovata; presenti casi vecchi.  
+**Soluzione / Workaround:** Cancellazione ticket/riserve vecchie.  
+**Note:** Root cause non chiara.

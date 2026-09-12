@@ -1,2 +1,5 @@
-[24/06/2022, 14:34] — WAMAS DB SQL inaccessibile per eccesso sessioni concorrenti
-Descrizione: Raggiunto limite 10 sessioni concorrenti per utente atlas_prod_cust. Causa identificata: Molti PC con stessa connessione aperta. Soluzione / Workaround: Chiusura sessioni dal lato DB. Discussione su server history/BI. Note: Limite sessioni di 10 concordato per performance. Richiesta incremento a 15.
+### [10/01/24, 08:57] — Blocco WAMAS per quantità errata e peso eccessivo
+**Descrizione:** Pezzi con quantità errata; WAMAS si blocca durante calcolo peso per MFS.  
+**Causa identificata:** Peso troppo alto rispetto al massimo accettato; possibile errore operatore.  
+**Soluzione / Workaround:** Analisi; spiegazione crash per weight computation.  
+**Note:** Valutare protezione input. Possibile correlazione con: errori input operatore.

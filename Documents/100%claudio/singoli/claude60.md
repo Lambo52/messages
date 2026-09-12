@@ -1,2 +1,5 @@
-[14/03/2022, 09:00] — Cambio password SSI4atl non comunicato
-Descrizione: Password modificata senza preavviso. Nessuno riusciva ad accedere. Causa identificata: Password cambiata da Alexandru senza notifica. Soluzione / Workaround: Password comunicata entro breve tempo. Note: Necessità di processo di comunicazione per cambi credenziali.
+### [27/07/23 03:48] — Picking station non funzionanti, dead man switch e UdC
+**Descrizione:** Tutte le picking station non funzionanti; pulsante dead man switch non fa uscire UdC verso EMS.  
+**Causa identificata:** Non esplicitata; dialogo stazione senza errore evidente.  
+**Soluzione / Workaround:** Verifica e ripristino; tutte le stazioni ripristinate.  
+**Note:** Ticket chiuso.

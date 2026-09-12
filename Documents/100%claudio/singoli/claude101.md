@@ -1,2 +1,7 @@
-[13/12/2023, 09:33] — Anomalie peso CR02: scale vs master data, piece weight = 0
-Descrizione: Tre misurazioni diverse per lo stesso pallet. Piece weight diventato 0 dopo inventory. Causa identificata: Comportamento CR02 corretto logicamente. Possibile problema fisico alla bilancia. Soluzione / Workaround: Nessun intervento software. Verifica fisica bilancia. Note: —
+## Anno 2025
+
+### [10/01/25 09:43] — Exit COD freezing
+**Descrizione:** Exit COD si blocca per alcuni minuti e riprende da solo; poi si ripresenta issue correlata a stack/destacker.  
+**Causa identificata:** Investigazione in corso; possibile finestra temporale senza TPO per destacker.  
+**Soluzione / Workaround:** Investigazione; ipotesi aumento intervallo job.  
+**Note:** Possibile correlazione con: DA/HA/stack.

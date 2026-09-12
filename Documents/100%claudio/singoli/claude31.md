@@ -1,2 +1,5 @@
-[24/06/2021, 14:15] — Errore "Wait for Storage Failed" su MF200
-Descrizione: Errore generico su MF200, non documentato nella guida di troubleshooting. Causa identificata: L'errore è ritenuto "case-by-case" e troppo ampio per una soluzione standard. Soluzione / Workaround: Nessuna soluzione definitiva. SSI indica di aprire ticket per ciascun caso specifico. Note: Richiesta esplicita di aggiornamento della guida di troubleshooting.
+### [24/07/2021 07:50] — Ingresso MAV bloccato
+**Descrizione:** Ingresso MAV bloccato con rullo senza pallet.  
+**Causa identificata:** Non specificata.  
+**Soluzione / Workaround:** Risolto dal team Atlas.  
+**Note:** Episodio isolato.

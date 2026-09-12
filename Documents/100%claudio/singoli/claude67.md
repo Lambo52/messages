@@ -1,2 +1,5 @@
-[10/05/2022, 07:39] — Nuovo bottone "CancelRequestEMS" non funziona senza procedura corretta
-Descrizione: Il bottone non funzionava per mancata applicazione della procedura in 4 step. Causa identificata: Procedura non seguita correttamente. Soluzione / Workaround: Documentata la procedura: 1) refresh+reset, 2) replan route+refresh+reset, 3) cancel step MF266+refresh+reset, 4) CancelRequestEMS. Note: —
+### [29/11/23 12:04] — Work station #3 bloccata test negative picking
+**Descrizione:** Work station #3 bloccata durante test; negative picking funziona solo parzialmente; operatore non informato di rilasciare LU.  
+**Causa identificata:** Missing specification/implementation; necessaria pressione release per fare spazio.  
+**Soluzione / Workaround:** Rilascio pallet, empty in stazione; test parziale; aggiustamenti necessari.  
+**Note:** Fix da completare.

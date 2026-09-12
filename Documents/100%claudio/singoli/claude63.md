@@ -1,2 +1,5 @@
-[05/04/2022, 07:37] — Ogni pallet da linea foiling bloccato + tutte le pick station bloccate
-Descrizione: Ogni pallet in uscita dalla foiling veniva bloccato e richiedeva ricreazione manuale TO. Causa identificata: Residuo del problema del giorno precedente (LU 60598768 con TPO verso S04 MAV). Soluzione / Workaround: Cancellazione del TPO problematico. Sistema ripreso alle 08:10. Note: —
+### [18/10/23 11:26] — Inspection orders non creati e assign user in errore
+**Descrizione:** Inspection orders in stato new senza release; “assign user” genera errore; pick station #2 in Inspection GTP.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Verifiche successive; ticket.  
+**Note:** Necessario test e chiarimenti.

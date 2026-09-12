@@ -1,2 +1,5 @@
-[02/07/2021, 06:04] — Solo 2 stazioni picking attive su ~12 (200 ordini attivi)
-Descrizione: Solo PS3 e PS9 operativi su 12 stazioni. Circa 200 ordini attivi. Causa identificata: Le stazioni non ricevevano pallet perché mancavano ordini assegnati (pochi PPLU validi in OG025). Anomalia di posizionamento in area IG corretta. Soluzione / Workaround: Update in MF14 + verifica ordine conveyor in MF266 + refresh/reset in MF200. Note: Problema ordini assegnati risolto senza intervento tecnico.
+### [21/12/2021 09:07] — Pick Station 4: show stopper
+**Descrizione:** Pick station 4 con problema show stopper.  
+**Causa identificata:** Non specificata nella conversazione.  
+**Soluzione / Workaround:** Risolto parzialmente in autonomia; ticket inviato.  
+**Note:** Episodio critico ma non dettagliato.

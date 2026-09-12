@@ -1,0 +1,425 @@
+• [08/01/25 16:03] — Blocco COD per LU con TPO verso COD D* e nessuna missione su Cway  
+Descrizione: LU COD (pallet DA vuoto) presente su location COD con TPO verso COD D*, ma senza missione su Cway; il flusso COD risultava bloccato.  
+Causa identificata: Non chiarita completamente nella prima segnalazione; viene ipotizzato un problema ricorrente legato alla creazione TPO per una seconda stack quando la prima viene consegnata ad AGV.  
+Soluzione / Workaround: Riavvio della pick station 07; richiesto intervento/verifica ASAP.  
+Note: Il caso viene ripreso nei giorni successivi come issue ricorrente COD.
+
+-%- 
+• [09/01/25 16:29] — Issue ricorrente COD: TPO per 2ª stack creato su destacker pieno  
+Descrizione: WAMAS crea un TPO per una seconda stack mentre la prima stack è ancora in transito verso il destacker; il sistema considera il destacker vuoto e invia una nuova stack su uno stacker già occupato. Coinvolti LU master/sub, DAD, DA/HA, AGV e MFS.  
+Causa identificata: Finestra temporale in cui non esiste TPO per DA/HA destacker tra la fine del TPO del master LU e la creazione del TPO del sub LU; se il job gira in quel momento, viene creato un TPO extra.  
+Soluzione / Workaround: Rilascio manuale di ATX 02; indicato come mitigazione temporanea aumentare l’intervallo del job a 5–10 minuti fino a fix.  
+Note: Root cause individuata nella creazione della 2ª stack verso stacker pieno; necessario fix software.
+
+-%- 
+• [10/01/25 09:43] — Exit COD freezing e nuovo caso COD/AF  
+Descrizione: Exit COD si blocca per alcuni minuti e riprende da solo; poi si ripresenta l’issue COD del giorno precedente. Segnalato anche caso AF stack.  
+Causa identificata: Stessa finestra temporale senza TPO per destacker DA/HA; caso AF trattato come possibile variante.  
+Soluzione / Workaround: Investigazione in corso; ipotesi di aumentare intervallo job.  
+Note: AF risulta stoccato come stack standalone in COD, non come master LU.
+
+-%- 
+• [13/01/25 10:16] — Shipping LU da COD puntano COD MAV invece di COD/COD  
+Descrizione: LU di outcoming goods puntano COD MAV invece di COD/COD; impossibile stampare shipping label e packing list.  
+Causa identificata: Configurazione OG Area / assegnazione area OG per Azienda non definita.  
+Soluzione / Workaround: Configurazione OG area assignment in produzione per Azienda; nessun deploy, solo configurazione.  
+Note: Alcuni TPO già creati sono stati corretti manualmente.
+
+-%- 
+• [13/01/25 12:35] — TPO di replenishment per SLAVING locations su pallet interi da Azienda  
+Descrizione: WAMAS crea TPO di replenishment per SLAVING locations per pallet OG interi provenienti da Azienda; il TPO dovrebbe essere OG per COD/COD.  
+Causa identificata: Configurazione/calcolo area OG per Azienda.  
+Soluzione / Workaround: Test locale OK; configurazione OG area assignment in produzione.  
+Note: Richiesto fix rapido perché genera confusione tra operatori.
+
+-%- 
+• [13/01/25 14:28] — Replenishment da COD invece che da COD/COD  
+Descrizione: WAMAS crea TPO di replenishment da COD anche quando c’è disponibilità in COD/COD.  
+Causa identificata: Logica basata su FOG/optimum LU; in alcuni casi considera disponibile solo stock da COD.  
+Soluzione / Workaround: Investigazione; non riprodotto localmente, export DB per test.  
+Note: Collegato alla questione optimum LU per item/batch/FOG.
+
+-%- 
+• [13/01/25 17:39] — PPLU ATLAU8H senza TPO di replenishment  
+Descrizione: 15 box ATLAU8H in COD/COD senza TPO verso COD MAV; PPLU attivo dalle 14:59.  
+Causa identificata: Optimum LU bloccato da quality C, non ammessa in HBW; job optimum per FOG considera solo stock HBW e non conveyor.  
+Soluzione / Workaround: Creazione manuale TPO per il momento.  
+Note: Issue collegata a optimum LU e FOG.
+
+-%- 
+• [14/01/25 07:13] — Optimum LU, FOG e replenishment da Azienda  
+Descrizione: Optimum LU verso HBW bloccato per quality C; inoltre WAMAS considera replenishment necessario pur essendo presente stock in aree manuali, perché calcola per FOG e non per item/batch.  
+Causa identificata: Implementazione WAMAS basata su ITEM + BATCH + FOG; FOG diversi generano fabbisogni separati.  
+Soluzione / Workaround: Fix testato per escludere LU da Azienda se esistono LU in aree manuali; soluzione proposta: rimuovere FOG dal calcolo optimum, passando a item/batch e replenishment prima da aree manuali e poi da Azienda.  
+Note: Deploy da pianificare; casi shipment LU da gestire manualmente nel frattempo.
+
+-%- 
+• [14/01/25 10:04] — Transport type *OUT-RIF-SAL* da tAzienda a tVERSO-MAV/CAMION-MAV  
+Descrizione: Richiesto cambio transport type per *OUT-RIF-SAL*, attualmente “tAzienda”, in “*tVERSO-MAV*” / “CAMION-MAV”.  
+Causa identificata: Configurazione trasporto.  
+Soluzione / Workaround: Verifica in corso; richiesto se possibile senza deploy.  
+Note: Follow-up configurazione.
+
+-%- 
+• [15/01/25 10:28] — Optimum LU per item/batch/FOG e proposta cambio FOG  
+Descrizione: Discussione su WAMAS che crea 6 TPO per item/batch/FOG anche se fisicamente stesso item/batch in FOG diversi; possibile proliferazione TPO.  
+Causa identificata: Optimum LU calcolato su ITEM, BATCH e FOG.  
+Soluzione / Workaround: Soluzione implementata e testata per non considerare FOG; optimum basato su item/batch, replenishment prima da aree manuali e poi da Azienda.  
+Note: Deploy da definire; impatto su vecchie location e location Azienda.
+
+-%- 
+• [16/01/25 09:33] — Mobile terminal lenti dopo cambio transport area *OUT-RIF-SAL*  
+Descrizione: Terminali mobile più lenti; ipotizzata correlazione con cambio configurazione transport area per *OUT-RIF-SAL*.  
+Causa identificata: Configurazione location che impatta i terminali mobile; necessità di ricaricare dati.  
+Soluzione / Workaround: Restart DC Mobile Worker.  
+Note: Il restart ha ricaricato i dati e migliorato la situazione.
+
+-%- 
+• [16/01/25 15:12] — Mancata creazione TPO da Azienda IG a COD* per F/H e stack C1 non definiti  
+Descrizione: WAMAS non crea TPO da Azienda IG area verso COD*; item COD con stack info C1 non definito.  
+Causa identificata: Configurazioni mancanti F/H e stack info C1; stesso problema di dicembre.  
+Soluzione / Workaround: Fix configurazioni e verifica.  
+Note: Errore riconosciuto come dimenticanza di configurazione.
+
+-%- 
+• [17/01/25 08:09] — Load marcato totem non chiudibile  
+Descrizione: Load con draft OBD e OBD normale non poteva essere chiuso perché marcato come totem.  
+Causa identificata: Mix di OBD normali e draft nella stessa load; il normale non può essere rimosso come draft.  
+Soluzione / Workaround: Cambiato load type a normal, rimosso draft OBD via explorer e chiusa la load.  
+Note: Fix manuale; root cause del mix OBD non chiarita.
+
+-%- 
+• [20/01/25 12:20] — Mobile terminal lenti e possibile network issue  
+Descrizione: Terminali mobile lenti; errore di rete durante discharge.  
+Causa identificata: Sospetta issue di rete; da provare in area diversa.  
+Soluzione / Workaround: Test in altra area e successivo restart mobile worker.  
+Note: Dopo deploy verificare se persiste.
+
+-%- 
+• [20/01/25 13:32] — Deploy 20/01: MFS non carica LU da area automatica  
+Descrizione: Durante deploy MFS non caricava correttamente le LU dall’area automatica; sistema in ritardo, coda camion.  
+Causa identificata: MFS starting issue, non correlato alle modifiche del deploy.  
+Soluzione / Workaround: Vari tentativi di start; MFS alla fine ha caricato le LU.  
+Note: Fix previsto per deploy successivo.
+
+-%- 
+• [21/01/25 09:03] — Discharge lento e suggerimento location COD Azienda  
+Descrizione: Discharge molto lento anche in altra area; WAMAS suggerisce location COD (Azienda) invece di COD/COD.  
+Causa identificata: Query di ricerca location di discharge include location Azienda, rallentando il processo.  
+Soluzione / Workaround: Analisi in corso; fix richiede deploy.  
+Note: Collegato ai problemi di lentezza mobile.
+
+-%- 
+• [22/01/25 14:56] — Mobile terminal lenti e utenti espulsi da WAMAS  
+Descrizione: Terminali mobile molto lenti e utenti kickati fuori da WAMAS.  
+Causa identificata: Carico DB/latenza; in corso verifica su terminali e query.  
+Soluzione / Workaround: Restart worker e kill sessioni come mitigazione temporanea.  
+Note: La lentezza può ripresentarsi fino a deploy.
+
+-%- 
+• [23/01/25 17:24] — Comportamenti anomali dopo migrazione dati: lentezza, PPLU→PO priority 9, crash su cambio priorità  
+Descrizione: Mobile lenti più volte al giorno; WAMAS impiega molto a trasformare PPLU in PO con priorità 9; crash durante cambio priorità ordini.  
+Causa identificata: Query per ricerca location di discharge che considera location Azienda.  
+Soluzione / Workaround: Restart worker e kill sessioni; serve deploy.  
+Note: Problemi osservati dopo migrazione dell’11/01, prima produzione il 13/01.
+
+-%- 
+• [27/01/25 09:31] — Mobile lenti su tutti i flussi; stop TPO da Azienda a aree manuali  
+Descrizione: Terminali mobile lenti su tutti i flussi; carico DB generato anche da trasporti da Azienda verso aree manuali.  
+Causa identificata: TPO da Azienda verso aree manuali generano carico DB; fix discharge già preparato.  
+Soluzione / Workaround: Stop generazione TPO da Azienda a manuali; cambio schedulazione a ogni ora; deploy con fix in preparazione.  
+Note: Deadline deploy indicata entro il giorno successivo.
+
+-%- 
+• [27/01/25 10:33] — Errore “Deposit location COD CAMION0 is not a staging location”  
+Descrizione: Operatori non riescono a depositare LU in COD CAMION0; errore location non staging.  
+Causa identificata: COD CAMION0 non definita come staging/buffer area; comportamento anomalo rispetto alle attese.  
+Soluzione / Workaround: Test manuale riesce; verificare azione operatore; successivamente si chiarisce che COD* dovrebbe essere staging area.  
+Note: Collegato a configurazione location COD*.
+
+-%- 
+• [28/01/25 08:51] — Mobile terminal lenti; restart  
+Descrizione: Terminali mobile molto lenti in tutti i flussi.  
+Causa identificata: Non specificata; mitigazione temporanea tramite restart.  
+Soluzione / Workaround: Restart mobile terminal; verifica feedback utenti.  
+Note: Deploy da pianificare.
+
+-%- 
+• [28/01/25 15:11] — COD: 3 LU in due posti forca, possibile issue PLC  
+Descrizione: 3 LU in 2 posti forca; LU logicamente su COD ma fisicamente in altra posizione; possibile disallineamento PLC.  
+Causa identificata: Informazione PLC non aggiornata correttamente; sembra issue PLC.  
+Soluzione / Workaround: Verifica in corso; richiesto tipo errore per IT.  
+Note: Follow-up su logs e email.
+
+-%- 
+• [29/01/25 08:20] — Job di archiviazione bloccato per errore  
+Descrizione: Job di archiving dati di protocollo bloccato; necessari 4–5 ore o più per spostare dati da produzione ad archiving.  
+Causa identificata: Errore non specificato; job marcato locked e non riparte finché non sbloccato manualmente.  
+Soluzione / Workaround: Stop archiving protocollo, avvio archiving dati produttivi, reschedule activity protocol.  
+Note: Impatto su ordini in COD non archiviati; ritorno normale stimato alle 08:00.
+
+-%- 
+• [31/01/25 11:22] — Mobile terminal lenti; restart  
+Descrizione: Terminali mobile molto lenti su tutti i flussi.  
+Causa identificata: Non specificata.  
+Soluzione / Workaround: Restart mobile terminal; feedback migliore.  
+Note: Monitoraggio.
+
+-%- 
+• [03/02/25 14:42] — COD CA-PZV* con transport area diversa da COD CA-TET*  
+Descrizione: Location COD CA-PZV* avevano transport area diversa da COD CA-TET*.  
+Causa identificata: Configurazione errata/richiesta non allineata.  
+Soluzione / Workaround: Cambiata transport area in tCaricoTET.  
+Note: Verificare eventuali effetti sui terminali mobile.
+
+-%- 
+• [03/02/25 15:17] — Mobile terminal lenti dopo deploy; sospetto problema rete  
+Descrizione: Terminali mobile lenti in tutte le azioni; restart mobile.  
+Causa identificata: Successivamente confermato problema di connessione internet, non WAMAS; anche altre fabbriche gruppo interessate.  
+Soluzione / Workaround: Restart mobile; contattare call center per supporto rete.  
+Note: Nessun problema WAMAS.
+
+-%- 
+• [03/02/25 16:33] — Terminale mobile in Azienda bloccato su pagina printer  
+Descrizione: Terminale mobile in Azienda bloccato nella pagina di selezione printer; impossibile selezionare printer o scorrere.  
+Causa identificata: Non chiara; possibile stato terminale.  
+Soluzione / Workaround: Reset terminale e nuovo login; test su altro terminale OK.  
+Note: Verifica stampa label.
+
+-%- 
+• [05/02/25 23:35] — Pallet con quantità 5.297 ma vuoto su LUID COD  
+Descrizione: Pallet con quantità 5.297 su LU COD risultava vuoto; bloccava picking bay.  
+Causa identificata: Disallineamento quantità/LU.  
+Soluzione / Workaround: Eliminata intera LU; picking bay riparte.  
+Note: Ticket chiuso.
+
+-%- 
+• [10/02/25 11:51] — TPO in stato NEW invece di ACTIVE e blocco comunicazione WMS-MFS  
+Descrizione: Tutti i TPO in automatico in stato NEW invece di ACTIVE; mobile manuale non funzionanti; blocco sistema.  
+Causa identificata: Problema di comunicazione WMS-MFS; workaround per non interrompere comunicazione.  
+Soluzione / Workaround: Sistema sbloccato; workaround incluso nel next deploy; root cause non risolta subito.  
+Note: Stesso caso del 18/10/2024; issue rara ma blocca automazione.
+
+-%- 
+• [17/02/25 15:40] — Impossibile depositare da COD CAMION a nuove location COD*  
+Descrizione: Operatori non riescono a mettere pallet da COD CAMION alle nuove location; errore “COD* is not a buffer/staging location”.  
+Causa identificata: COD* configurate come staging, ma serve depositare sia OutRear sia OutSide con manuale e spontaneous; analisi source necessaria.  
+Soluzione / Workaround: Test manuale OK, spontaneous no; verifica source code e feedback.  
+Note: Possibile deploy per modifica location.
+
+-%- 
+• [20/02/25 10:12] — Load con consignment pendenti non modificabili  
+Descrizione: Impossibile spostare consignment per pending action sulla load.  
+Causa identificata: Pending action sulla load.  
+Soluzione / Workaround: Rimosse consignment; cancellate pending action e load draft.  
+Note: Risolto manualmente.
+
+-%- 
+• [07/03/25 07:34] — SRM in errore con assignment senza data P1  
+Descrizione: Tutte le linee in/out SRM in errore con assignment senza data P1; sistema poi OK.  
+Causa identificata: Errore su SRM4 per pallet COD; possibile pending event MFS non consumato.  
+Soluzione / Workaround: Sistema tornato OK; verifica logs WAMAS/MFS.  
+Note: Issue visibile solo su Lighthouse, non in WAMAS.
+
+-%- 
+• [08/03/25 09:56] — Inventory line cancellata per ordine COD  
+Descrizione: Eliminata inventory line per ordine COD; da investigare il motivo.  
+Causa identificata: Non emersa.  
+Soluzione / Workaround: Inventory line cancellata; investigazione prevista lunedì.  
+Note: Follow-up.
+
+-%- 
+• [11/03/25 12:26] — Ordine COD/COD bloccato in shipping planning  
+Descrizione: Ordine urgente non finalizzato, impossibile fare documenti; stato in shipping planning.  
+Causa identificata: Effetto collaterale di split: COD splittato da COD; stato non cambiato a finished.  
+Soluzione / Workaround: Cambiato planning stage da shipping planning a picking planning + recalc state.  
+Note: Verificare perché rimane in shipping planning per crossdocking.
+
+-%- 
+• [20/03/25 15:49] — Empty request blocca pick station e TPO verso COD D02/D01  
+Descrizione: LU COD ferma su AGV/COD D02; location D01 vuota ma WAMAS non libera/assegna; empty request vecchia blocca.  
+Causa identificata: Empty request vecchia risalente al 15/03 circa; pick #12 con una sola target location per una settimana.  
+Soluzione / Workaround: Cancellata empty request da ACX GUI; TPO riparte.  
+Note: Monitorare request COD e station block.
+
+-%- 
+• [24/03/25 14:48] — Patch location COD* non funzionante dopo deploy  
+Descrizione: Dopo deploy, test su location COD* fallisce; patch non attiva.  
+Causa identificata: Non specificata.  
+Soluzione / Workaround: Nuovo tentativo; successivamente funziona.  
+Note: Richiesto cambio tutte le location COD* a compartimento H3.
+
+-%- 
+• [14/04/25 16:02] — Record 30 non inviato a host: disallineamento stock WAMAS/host  
+Descrizione: WAMAS non invia record 30 all’host; differenze inventariali tra WAMAS e host.  
+Causa identificata: Flag “send stockadj” su false; difference confirmation create ma non convertite in Ack30.  
+Soluzione / Workaround: Flag riattivato; invio manuale/riprocessamento delle diff conf; rischio doppie quantità se inviate due volte.  
+Note: Da verificare tutte le diff conf tra 11:11:39 e 17:57:44; intervento manuale previsto.
+
+-%- 
+• [15/04/25 01:29] — Ordini in “wait for capacity zone foil” senza missioni AGV  
+Descrizione: 29 ordini vuoti verso foiling restano in wait for capacity zone foil; nessuna missione AGV; rallentamento picking.  
+Causa identificata: AGV in SetUp2: ARTs non possono portare LU da COD a foiling; TPO attivi da COD verso foiling bloccano TPO da pick station a foiling.  
+Soluzione / Workaround: Chiarito che non è wrong configuration AGV ma manual handling senza corretta configurazione; gestione manuale.  
+Note: Serve configurazione/gestione diversa per evitare blocchi.
+
+-%- 
+• [16/04/25 09:21] — Lighthouse bloccato; restart  
+Descrizione: Lighthouse non funzionante; restart eseguito.  
+Causa identificata: Non specificata.  
+Soluzione / Workaround: Restart Lighthouse.  
+Note: Ticket chiuso.
+
+-%- 
+• [28/04/25 07:19] — WAMAS down/connection issue, AGV offline, SRM non disponibili per MFS  
+Descrizione: WAMAS down, area automatica bloccata, AGV offline, Hive/Rocla non comunicano, SRM non disponibili per MFS, TPO in “route not found”.  
+Causa identificata: Power outage su un server; necessaria sincronizzazione manuale MFS-device controller; SRM non disponibili per MFS.  
+Soluzione / Workaround: Restart server/applicazione Rocla, avvio Hive, sync manuale, turn off/on SRM, reset manual handling; cancellazione TPO e gestione manuale pallet.  
+Note: Richiesto se evitabile la sync manuale; impatto forte su produzione.
+
+-%- 
+• [29/04/25 12:17] — Sistema lento: TPO lenti, DDT non chiudibili, pick plan lento  
+Descrizione: Creazione TPO in minuti, nessun messaggio pallet pronti a Host, 212 ordini in approvazione, utenti non chiudono DDT su COD.  
+Causa identificata: Oracle execution plan cambiato; gather statistics forza recompute.  
+Soluzione / Workaround: Gather statistics; chiusura DDT e release PPLU.  
+Note: Stesso tipo di issue già avuto mesi prima.
+
+-%- 
+• [29/04/25 16:12] — F01 completamente bloccato per pending event TPO  
+Descrizione: F01 bloccato; possibile blocco potenziale.  
+Causa identificata: Pending event per un TPO rimasto stuck.  
+Soluzione / Workaround: Sistema riavviato; analisi in corso.  
+Note: Trovato anche caso LP61 con fortuna?; richiesto fix per non crashare.
+
+-%- 
+• [07/05/25 18:37] — Pagine WAMAS bloccate, DB non responsivo, TPO bloccati  
+Descrizione: Pagine bloccate, timeout DB, impossibile disconnettere utente FD33, TPO e LU bloccati, ricerca stock non funzionante.  
+Causa identificata: Query di update TPO in attesa/timeout; possibile query atlas_cust su reportarchive ma non confermato.  
+Soluzione / Workaround: Kill sessioni >10 sec, restart mobile terminal FD33, disconnessione utenti; sistema torna normale.  
+Note: Root cause non determinata; possibile impatto report/query.
+
+-%- 
+• [12/05/25 13:01] — COD bloccato vicino labeler foiling con SOC-ID broken  
+Descrizione: LU COD bloccata vicino labeler foiling, SOC-ID broken, TPO in errore.  
+Causa identificata: Stato broken in COD.  
+Soluzione / Workaround: Rilasciato conveyor; LU si muove.  
+Note: Verifica successiva.
+
+-%- 
+• [12/05/25 14:41] — Label con campo Vett tagliato e layout packing list  
+Descrizione: Campo “Vett” tagliato sulla label; packing list non corretto.  
+Causa identificata: Layout/backfeed sequence della stampante; larghezza campo.  
+Soluzione / Workaround: Modificato template/backfeed; test reprint.  
+Note: Verificare label e packing list dopo modifica.
+
+-%- 
+• [28/05/25 14:46] — AGV con stack arriva su stacker già occupato  
+Descrizione: AGV con stack arriva a stacker già occupato; WAMAS invia una seconda stack mentre una è già in transito.  
+Causa identificata: WAMAS vede destacker S46A09X003Y01Z1 come vuoto e autorizza replenish; stack COD già partita verso COD.  
+Soluzione / Workaround: Rilascio manuale ATX 08.  
+Note: Stessa dinamica di issue ricorrente su destacker/stacker.
+
+-%- 
+• [30/05/25 15:58] — LU collegate a OBD scaricate e quantità non aggiornata  
+Descrizione: LU COD e COD collegate a OBD ma scaricate; spostamento non aggiorna quantità; difficoltà conferma load.  
+Causa identificata: Non chiara; ordine aggiornato dopo intervento.  
+Soluzione / Workaround: Spostata LU in COD PR2; aggiornato ordine; chiusura truck.  
+Note: Riproduzione in corso.
+
+-%- 
+• [03/06/25 10:10] — Errore “TPO has been cancelled contemporarily” su picking LU  
+Descrizione: Durante picking di una LU e uscita da auto-allocation, errore TPO cancellato contemporaneamente; LU su COD.  
+Causa identificata: Eccezione nei log; root cause non trovata.  
+Soluzione / Workaround: Conferma manuale TPO, stampa label, movimento manuale.  
+Note: Monitorare se issue persiste.
+
+-%- 
+• [04/06/25 10:17] — OBD splittato, load cancellata, LU non più esistenti  
+Descrizione: OBD splittato manualmente; quantità scaricate/caricate; load chiusa erroneamente/deleted; LU non più presenti.  
+Causa identificata: Azioni manuali utente su OBD/load; stato OBD finalizzato.  
+Soluzione / Workaround: Modificati stati OBD, riaperto truck, ricollegate LU all’OBD in og070; solo 70/140 box.  
+Note: Test per riprodurre il caso.
+
+-%- 
+• [23/06/25 13:16] — Barcode shipping label non scansionabile e ricerca stock mobile  
+Descrizione: Barcode non funzionante su mobile; ricerca stock non funziona se item non selezionato/highlighted; label PZV errata.  
+Causa identificata: Barcode non stampato completamente su alcuni printer; larghezza barre troppo alta; ricerca stock dipende da selectedStockObject.  
+Soluzione / Workaround: Ridotta larghezza barre da 6 a 5; rimosso PZV label; fix search stock parziale, bug ancora presente per alcuni terminali.  
+Note: Nuovo deploy necessario per completare fix search stock.
+
+-%- 
+• [24/06/25 08:57] — Follow-up barcode e search stock dopo modifica  
+Descrizione: Dopo cambio larghezza barcode, scanning funziona; search stock funziona solo per alcuni tipi di terminale.  
+Causa identificata: Selezione stock non automatica su alcuni terminali; bug applicativo.  
+Soluzione / Workaround: Barcode risolto; search stock da investigare e fixare in deploy successivo.  
+Note: Sistema non più bloccato.
+
+-%- 
+• [26/06/25 06:15] — SRM03 fermo: pallet logico/fisico e messaggi stuck  
+Descrizione: SRM03 fermo senza errore; WAMAS vedeva pallet COD non fisicamente presente; successivamente pallet fisico su crane con errore COD e pallet manualmente bookato da SRM03 a COD.  
+Causa identificata: Pallet slave/logico rimasto su SRM; messaggio pending stuck; manual booking ha lasciato pallet logico su SRM.  
+Soluzione / Workaround: Eliminato pending event/messaggio stuck; reset ordini; crane riparte.  
+Note: Analisi root cause in corso; ticket aperto.
+
+-%- 
+• [30/06/25 13:48] — Apertura safety door/loop3 blocca tutti i TPO EMS  
+Descrizione: Durante test per agosto con loop3 escluso, apertura safety door o spegnimento loop3 blocca pickup/deposit di tutti i veicoli EMS, non solo loop3.  
+Causa identificata: EMS visto come singolo device controller; apertura porta ferma l’intero EMS.  
+Soluzione / Workaround: Possibile workaround: ignorare status/errori da loop3 o fermare le 4 stazioni; soluzione strutturale richiede split EMS in 3 device con IP diversi o CR.  
+Note: Ticket aperto; issue nota dal 2022 “Switching off voltage on monorail maintenance track results in no-retrieve of all vehicles working in the loops”.
+
+-%- 
+• [03/07/25 10:09] — Quantità OBD errate e successiva modifica  
+Descrizione: Quantità OBD non allineate (released/planned/delivered/loaded); dopo correzione a 1120, quantità nuovamente diverse.  
+Causa identificata: Non chiara; modifiche manuali/ricalcoli.  
+Soluzione / Workaround: Modificate quantità a 1120, loaded quantity a 1120, staged a 0; secondo intervento correttivo.  
+Note: Verificare stabilità quantità ordine.
+
+-%- 
+• [07/07/25 09:11] — Crane 3 bloccato e 3 picking station ferme  
+Descrizione: Crane 3 locked, 3 picking station ferme, pallet sulle forche; issue ricorrente terza volta in una settimana.  
+Causa identificata: Errore visibile su MFS, non su WAMAS; pallet su crane.  
+Soluzione / Workaround: Intervento su SRM/MFS; crane riparte.  
+Note: Richiesto fix definitivo.
+
+-%- 
+• [07/07/25 16:01] — Record A5 in errore per OBD multipli e Rif Cl mancante  
+Descrizione: Messaggi A5 in post-elaboration error; WAMAS invia errore se trova più OBD per lo stesso ordine; campo Rif Cl non stampato su label.  
+Causa identificata: Implementazione A5 che considera errore più OBD per order; campo prjreferenceorderclient non riportato in label.  
+Soluzione / Workaround: Fix già predisposto per permettere più risultati; deploy necessario.  
+Note: Record A5 deve comportarsi come record 05; verificare label Rif Cl.
+
+-%- 
+• [21/07/25 13:54] — Label manual area con testo sovrapposto  
+Descrizione: Dopo deploy, label da area manuale presenta testo sovrapposto; localita troppo lunga rispetto allo spazio.  
+Causa identificata: Font aumentato e spazio insufficiente per localita/indirizzo; test fatti con dati corti.  
+Soluzione / Workaround: Ridotta larghezza font; preparato nuovo deploy per il giorno successivo.  
+Note: Verificare description, carrier, order height.
+
+-%- 
+• [23/07/25 08:56] — Nuovo AGV 28 non riceve S-message da Host  
+Descrizione: AGV 28 va a fetch pallet ma non riceve S-message dall’Host; non può continuare.  
+Causa identificata: HIVE restart non eseguito.  
+Soluzione / Workaround: agvDisable, execute orders, Hive restart, agvEnable; ART28 entra in Hive.  
+Note: Dopo test, AGV 28 funzionante; CR da chiudere a metà agosto.
+
+-%- 
+• [24/07/25 15:10] — COD waste bin con TPO ma senza missione Cway; ordini Hive vecchi  
+Descrizione: Waste bin COD ha TPO verso COD ma nessuna missione su Cway; inoltre presenti ordini Hive vecchi da aprile/22.07 senza log comunicazione Hive-Rocla.  
+Causa identificata: Ordine Hive non consumato/inviato a Rocla; possibile issue Rocla o ordine vecchio.  
+Soluzione / Workaround: Eliminato ordine Hive e reinviato automaticamente; assegnato ad AGV. Pulizia ordini Hive vecchi.  
+Note: Chiesto a Rocla verifica; monitorare missing Cway orders.
+
+-%- 
+• [26/07/25 00:30] — Pallet su conveyor *COD verso COD senza missione AGV  
+Descrizione: Pallet su conveyor *COD deve andare in COD ma non c’è missione AGV; location COD non occupate; fetching point 221/231 senza missione.  
+Causa identificata: Pallet delegato al conveyor e non ad AGV; non chiarita nel file.  
+Soluzione / Workaround: In attesa di verifica; normalmente refresh/reset sblocca.  
+Note: Segnalato per analisi.
+
+-%- 
+• [28/07/25 14:02] — EMS non disponibile dopo apertura safety door/loop3: workaround  
+Descrizione: Test “switching off voltage su parte monorail” causa no-retrieve veicoli; Pentanova rimuove messaggi ma WAMAS/MFS continua a vedere EMS non disponibile.  
+Causa identificata: Messaggio emergency stop/master control status da EMS; EMS visto come singolo device; apertura porta invia bit di emergency stop.  
+Soluzione / Workaround: Forzato emergency stop status a zero nel messaggio COD; door sensor configurato per riportare porta chiusa anche se fisicamente aperta; MFS torna disponibile.  
+Note: Workaround valido per agosto; da isolare solo porta FG3 e valutare rollback/soluzione definitiva.

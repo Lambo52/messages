@@ -1,2 +1,5 @@
-[24/06/2021, 17:57] — Bug D122: "Release Source/Dest LU" non invia empty pallet in S46
-Descrizione: Pallet vuoti rilasciati dal picking tramite "Release Source LU" / "Release Destination LU" non vengono instradati verso S46. Tre pallet coinvolti, intervento manuale di oltre 40 minuti per il terzo caso. Causa identificata: Bug di sistema, variante su tipo F (già segnalato su tipo D come D122, JIRA IT1400016-3675). Soluzione / Workaround: Creazione manuale di TO verso S46 specificando area strategica "sS46". Intervento WAMAS di Mihai Soceanu. Note: Nuova istanza del bug su tipo F. Il sistema deve verificare che il pallet sia realmente vuoto prima del rilascio.
+### [03/08/2021 14:51] — Calo performance dopo blocco monorail
+**Descrizione:** Produzione ridotta di 100-200 order line rispetto alla settimana precedente; stesso personale e nessun deploy.  
+**Causa identificata:** Sospetto residuo nel sistema, TPO in errore pendenti, CPU WAMASAPP più alta.  
+**Soluzione / Workaround:** Non risolto; richiesta investigazione.  
+**Note:** Possibile correlazione con: Performance DB / TPO bloccati.

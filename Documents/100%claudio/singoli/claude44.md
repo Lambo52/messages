@@ -1,2 +1,5 @@
-[27/07/2021, 11:40] — SLAVING zone deadlock: 9 stazioni impattate
-Descrizione: 9 stazioni su 12 impattate per "WAIT FOR CAPACITY ZONE SLAVING" con zona fisicamente libera. Causa identificata: Due TPO per pallet non esistenti occupavano capacità logica della zona SLAVING. Soluzione / Workaround: SSI elimina le due TPO fantasma. Note: Possibile correlazione con: WAIT FOR CAPACITY ZONE SLAVING (A13).
+### [10/03/22 12:46] — Problema ricorrente segnalato con immagini
+**Descrizione:** “Hi guys we have again this issue!” con immagini; natura precisa non dettagliata.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Probabile recidiva di issue precedente.

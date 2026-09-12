@@ -1,0 +1,1473 @@
+• [24/06/2021 09:37] — AGV 6 in errore, blocco a cascata AGV 2, 3, 8, 14
+
+**Descrizione:** AGV 6 è in errore e bloccato. Di conseguenza, AGV 2, 3, 8 e 14 risultano bloccati. I pallet non si muovono da diverso tempo. Impatto: fermo flusso pallet verso picking stations.
+**Causa identificata:** Errore su AGV 6 (non specificato nel dettaglio).
+**Soluzione / Workaround:** Richiesta di verifica urgente. AGV 6 sbloccato; il traffico accumulato ha ripreso a scorrere.
+**Note:** Segnalata la criticità del punto "Wuzzi" come collo di bottiglia centrale.
+
+-%-
+
+• [24/06/2021 14:15] — Errore "wait for storage failed" su MF200 non presente nella guida troubleshooting
+
+**Descrizione:** Il troubleshooting guide non contiene l'errore "wait for storage failed" su MF200. Il team di manutenzione non sa come risolverlo autonomamente. Impatto: pallet bloccati.
+**Causa identificata:** L'errore ha un range molto ampio che varia da caso a caso; non è documentato.
+**Soluzione / Workaround:** Indicata la necessità di investigare il singolo pallet. Se non risolvibile internamente, aprire ticket.
+**Note:** Si discute la policy di utilizzo del canale WhatsApp vs. apertura ticket formali.
+
+-%-
+
+• [24/06/2021 17:10] — Blocco fornitura pallet vuoti, nessuna picking station operativa
+
+**Descrizione:** Nessuna picking station lavora. In COD visibili 4 linee senza dati. Il destacker AF ha l'ultimo pallet e non vengono creati TPO per empty stacker. Impatto: fermo totale del picking.
+**Causa identificata:** Un intervento manuale (utente plcrepartol, LU-ID) ha eseguito un TPO manuale su uno stack vuoto, bloccando silenziosamente la sezione Wuzzi dalle 14:30.
+**Soluzione / Workaround:** Il problema si è risolto "aspettando" che il traffico accumulato defluisse. Nessun intervento tecnico diretto.
+**Note:** Evidenziata la criticità strutturale: se Wuzzi si blocca, l'intero impianto è fermo.
+
+-%-
+
+• [24/06/2021 17:57] — Bug: pallet vuoti non inviati a S46 dopo "release source/destination LU"
+
+**Descrizione:** Pallet vuoti rilasciati da picking station non vengono instradati a S46 come previsto. Il bug riguarda sia pallet D che F. Impatto: pallet vuoti occupano posizioni operative.
+**Causa identificata:** Bug noto come D122, già segnalato a CSS il 10/06. JIRA: IT1400016-3675.
+**Soluzione / Workaround:** Soluzione temporanea: cancellare il TPO corrente e inviare manualmente a S46. L'utente deve confermare al 100% che il pallet sia vuoto.
+**Note:** Bug già tracciato. Necessaria fix software.
+
+-%-
+
+• [24/06/2021 19:04] — Pallet vuoto rilasciato erroneamente da station 8, sistema non blocca l'errore
+
+**Descrizione:** Un pallet F vuoto è stato rilasciato dalla stazione 8 come empty ma non avrebbe dovuto. Il sistema dovrebbe rilevare e bloccare questo tipo di errore. Impatto: necessità di rimozione manuale.
+**Causa identificata:** Il sistema non verifica se il pallet è realmente vuoto al passaggio attraverso il controllo forma (shape control) presso Wunderwuzzi.
+**Soluzione / Workaround:** Rimozione manuale del pallet. Aperto ticket.
+**Note:** Richiesta di verifica automatica al passaggio su Wuzzi.
+
+-%-
+
+• [25/06/2021 08:01] — Interruzione alimentazione, 8 stacker crane in errore, E-stop foiling
+
+**Descrizione:** Tutti gli stacker crane in errore (spia rossa), foiling in E-stop. Nessun E-stop premuto manualmente. F01 e EMS regolari. Impatto: fermo impianto significativo.
+**Causa identificata:** Due guasti su una singola fase dell'alimentazione elettrica a distanza di 15 minuti, con spike di tensione. Il sistema di cogenerazione non è intervenuto (autoprotezione). Gli inverter degli SRM (più sensibili) si sono autoprotetti.
+**Soluzione / Workaround:** Reset di tutte le macchine. Verifica con la produzione.
+**Note:** F01 e EMS non affetti perché "più robusti". Safety device SSI funzionante.
+
+-%-
+
+• [25/06/2021 09:43] — Crane 1 velocità ridotta al 70%, brake test non superato
+
+**Descrizione:** Crane 1 opera al 70% della velocità per non aver superato il brake test. Impatto: riduzione performance.
+**Causa identificata:** Conseguenza dell'evento di alimentazione del mattino.
+**Soluzione / Workaround:** Eseguire Automatic Off → Automatic On → "rutine di ascensione". Se il warning persiste, contattare Helpdesk. Dopo reset, warning scomparso e velocità tornata al 100%.
+**Note:** Riferimento al manuale EXYZ, Capitolo 5.
+
+-%-
+
+• [25/06/2021 20:48] — AGV 7 "fantasma" nel sistema, blocca altri AGV
+
+**Descrizione:** AGV 7 non è nel sistema ma altri AGV lo vedono come presenza fisica e si bloccano durante le missioni. Troppi riavvii manuali necessari. Impatto: rallentamenti e blocchi frequenti AGV.
+**Causa identificata:** AGV 7 non tornerà nel sistema per un problema sconosciuto; gli altri AGV rilevano una "presenza fantasma".
+**Soluzione / Workaround:** Riavvio manuale degli AGV bloccati. Richiesta verifica per il lunedì successivo.
+**Note:** Problema ricorrente, legato anche agli ART.
+
+-%-
+
+• [28/06/2021 06:17] — Pallet COD fermo al 55% del TO, picking stations BP02-BP06 bloccate
+
+**Descrizione:** Pallet su COD con TO attivo al 55% non si muove. Normalmente il 55% indica completamento corretto. Le picking stations BP02, BP03, BP04, BP06 sono bloccate da ~30 minuti. Impatto: fermo picking.
+**Causa identificata:** Il pallet è fisicamente su COD ma logicamente su posizione diversa (COD pos 1 vs posizione reale). Disallineamento tra conveyor e WAMAS.
+**Soluzione / Workaround:** Cancellare occupazione errata con CTOP, spostare pallet logicamente da COD a COD (CU44), reset pult, riavvio MFS.
+**Note:** In LH, tab "Details" mostra la posizione esatta del pallet.
+
+-%-
+
+• [28/06/2021 09:04] — SRM non riesce a recuperare pallet da COD
+
+**Descrizione:** SRM segnala "cannot retrieve" dalla location COD. Impatto: pallet non disponibili per il picking.
+**Causa identificata:** Non specificata chiaramente; possibile disallineamento logico.
+**Soluzione / Workaround:** Invio pallet a QC per verifica.
+**Note:** Crane 1 operativo al 70%.
+
+-%-
+
+• [28/06/2021 11:33] — AGV fermi/bloccati, ART necessitano pulizia scanner
+
+**Descrizione:** Diversi AGV fermi. Un ART risulta bloccato. Impatto: rallentamento flusso.
+**Causa identificata:** Scanner degli ART sporchi.
+**Soluzione / Workaround:** Pulizia scanner.
+**Note:** —
+
+-%-
+
+• [28/06/2021 12:28] — Stock object non generano TO, discrepanza LU in SH1
+
+**Descrizione:** Per stock object A4OS DE4S non vengono creati TO. Per WH502 ci sono 8 LU ma solo 2 stock object in SH1. Impatto: ordini non evadibili.
+**Causa identificata:** In fase di verifica.
+**Soluzione / Workaround:** Verifica da parte del team SSI.
+**Note:** —
+
+-%-
+
+• [28/06/2021 14:31] — FOG errato: pallet manuali con item automatici
+
+**Descrizione:** Un FOG per pallet manuali contiene item automatici. Impatto: flusso non corretto.
+**Causa identificata:** Errore nella creazione del pallet (mancata corrispondenza item/FOG).
+**Soluzione / Workaround:** FOG aggiornato manualmente da SSI.
+**Note:** Richiesta attenzione nella creazione pallet.
+
+-%-
+
+• [29/06/2021 08:36] — Destacker D bloccato, pallet non si muove
+
+**Descrizione:** Destacker D bloccato con pallet che non parte. Impatto: pallet non disponibili.
+**Causa identificata:** Disallineamento tra posizione fisica (COD) e logica (COD). Il conveyor vede il pallet su 412, non su 411.
+**Soluzione / Workaround:** Spostare pallet da COD a COD. Successivamente, cancellare 2 pallet fantasma da WAMAS e pulire dati conveyor.
+**Note:** —
+
+-%-
+
+• [30/06/2021 10:55] — Gruppi AGV fermi, release button non premuto
+
+**Descrizione:** AGV fermi da tempo. Pick station 1 aspetta da oltre un'ora il rilascio della linea 1. Impatto: accumulo AGV.
+**Causa identificata:** Il TPO era stato creato da pick station source ma il pulsante di rilascio non era stato premuto.
+**Soluzione / Workaround:** Premuto il release button.
+**Note:** Ricordare di premere il pulsante di rilascio quando il TPO è creato da pick station source.
+
+-%-
+
+• [30/06/2021 12:10] — Pallet D caduto, forche toccano baseleg
+
+**Descrizione:** Un pallet D è stato trascinato fuori dalle forche. Impatto: rischio danneggiamento e blocco.
+**Causa identificata:** Le forche toccano il baseleg e trascinano il pallet. Pallet D troppo stretto rispetto ai baseleg.
+**Soluzione / Workaround:** Verifica provenienza del pallet. Discussione sulla possibilità di ridurre i bottom runner.
+**Note:** La larghezza dei pallet D non è standard; riduzione comporterebbe costi maggiori.
+
+-%-
+
+• [01/07/2021 07:25] — COD in "wait for picking approval", urgente per truck in arrivo
+
+**Descrizione:** Pallet COD bloccato in attesa di approvazione picking. Truck in arrivo alle 8. Impatto: rischio mancato carico.
+**Causa identificata:** Ordine non processato.
+**Soluzione / Workaround:** Ordine rilanciato. Pallet COD sbloccato.
+**Note:** —
+
+-%-
+
+• [01/07/2021 09:10] — COD non genera pallet pieni, errori su LU
+
+**Descrizione:** Il sistema non genera pallet pieni per un ordine. Impatto: ordine non completabile.
+**Causa identificata:** Pallet con errori (movimentati da NOK senza risolvere errori prima di una fix). Stock in manual area.
+**Soluzione / Workaround:** Risolvere errori sui pallet. Verificare in OG25 → PPLU → protocol. In SM023 verificare errori LU.
+**Note:** Procedura documentata per future occorrenze.
+
+-%-
+
+• [01/07/2021 12:23] — CU193/194 errore "error free time" / alignment timeout
+
+**Descrizione:** Errore di allineamento su COD per pallet B. SRM tenta il prelievo ma il conveyor dà errore. Impatto: SRM1 bloccato.
+**Causa identificata:** Posizione del pallet B non corretta / sensori non attivati correttamente.
+**Soluzione / Workaround:** Verifica sensori e posizione. Reset pult. Tentativo di riposizionamento manuale.
+**Note:** Posizione corretta per tipo B confermata.
+
+-%-
+
+• [01/07/2021 14:25] — Alignment issue SRM5, pallet senza codice e sensori mal posizionati
+
+**Descrizione:** SRM5 con problemi di allineamento su pallet F e B. Un pallet su forche senza codice in Lighthouse. Impatto: SRM5 operativo con problemi.
+**Causa identificata:** Pallet senza codice e sensore non in buona posizione.
+**Soluzione / Workaround:** Intervento manuale su SRM05. Pallet riposizionato.
+**Note:** —
+
+-%-
+
+• [02/07/2021 06:04] — Solo 2 picking station su 8 operative
+
+**Descrizione:** OG025 mostra ~200 ordini attivi ma solo pick station 3 e 9 lavorano. Impatto: grave riduzione capacità picking.
+**Causa identificata:** Chiamato helpdesk, aperto ticket. Verifica da parte SSI.
+**Soluzione / Workaround:** Intervento SSI per ripristino.
+**Note:** Ticket aperto.
+
+-%-
+
+• [02/07/2021 07:07] — Area IG: disallineamento tra LH e WAMAS
+
+**Descrizione:** LH e WAMAS mostrano posizionamenti diversi per i pallet nell'area IG. Impatto: pallet non movimentabili.
+**Causa identificata:** Posizione logica errata in WAMAS.
+**Soluzione / Workaround:** Aggiornata posizione in MF14, verificato conveyor in MF266, refresh da DB + reset order in MF200.
+**Note:** Procedura completa documentata.
+
+-%-
+
+• [02/07/2021 07:50] — Pallet non vanno a S48, zone piene
+
+**Descrizione:** Pallet bloccati con errore. Zone S48 piene. Impatto: pallet in attesa, truck in attesa.
+**Causa identificata:** Zone S48 00/01/02 piene di pallet; necessità di liberarle.
+**Soluzione / Workaround:** Attendere liberamento zone.
+**Note:** —
+
+-%-
+
+• [02/07/2021 10:58] — OBD cross docking: AS400 finito ma WAMAS no
+
+**Descrizione:** Per un ordine cross docking, AS400 lo riporta come finito (ACB) ma WAMAS no. Impatto: ordine non chiusocabile.
+**Causa identificata:** Disallineamento tra AS400 e WAMAS. Un utente (forklift driver) ha riportato l'OBD al 15%.
+**Soluzione / Workaround:** Verifica in corso. OBD di 2 mesi prima, log non disponibili.
+**Note:** Necessaria investigazione su cosa ha fatto l'utente.
+
+-%-
+
+• [05/07/2021 06:02] — Tutte le linee di infeed bloccate per pallet TEMP
+
+**Descrizione:** Tutte le infeed line sono bloccate per pallet TEMP non resettabili. Impatto: fermo infeed.
+**Causa identificata:** Cambio PC; "aggiornamento" non eseguito correttamente.
+**Soluzione / Workaround:** Dopo il cambio PC e alcuni minuti, il problema si è risolto.
+**Note:** L'aggiornamento parte automaticamente alla chiusura/riapertura di WAMAS.
+
+-%-
+
+• [05/07/2021 14:38] — EMS in errore, trolley in emergency
+
+**Descrizione:** EMS in errore, trolley non si riavvia. Errore "offline". Impatto: blocco flusso EMS.
+**Causa identificata:** Cavo di segnale rotto/disconnesso (posizione). ER112 relativo al sistema VAHLE / barcode reader.
+**Soluzione / Workaround:** Manutenzione chiamata per riparazione cavo.
+**Note:** Inviata foto del cavo rotto. Verifica del "conductor rail gripper".
+
+-%-
+
+• [06/07/2021 08:49] — Articolo ANXS non visibile in WH502
+
+**Descrizione:** Impossibile visualizzare l'articolo ANXS in WH502 per caricare il numero minimo LU. Impatto: blocco configurazione.
+**Causa identificata:** WH502 ha oltre 1000 item e la lista mostra solo 1000 risultati.
+**Soluzione / Workaround:** Personalizzare la ricerca per superare il limite di 1000.
+**Note:** Il warning iniziale sul limite non era stato notato.
+
+-%-
+
+• [06/07/2021 10:34] — Pallet D con baseleg troppo larghi, rischio caduta
+
+**Descrizione:** Un pallet D con baseleg di larghezza eccessiva rischia di cadere. Impatto: rischio sicurezza e blocchi.
+**Causa identificata:** Pallet D stretto con baseleg troppo larghi. Non tutti i pallet D sono così, ma quello specifico è fuori tolleranza.
+**Soluzione / Workaround:** Pallet rimosso. Discussione sulla riduzione dei bottom runner (non fattibile per costi).
+**Note:** —
+
+-%-
+
+• [06/07/2021 18:41] — Due pallet non escono nonostante WAMAS OK
+
+**Descrizione:** Due pallet con ordine corretto in WAMAS non si muovono. Impatto: pallet bloccati.
+**Causa identificata:** Ordine non inviato correttamente al PLC.
+**Soluzione / Workaround:** Cancellato lo step e resettato l'ordine. Pallet partito.
+**Note:** SSI verificherà come esporre la funzionalità in WAMAS.
+
+-%-
+
+• [07/07/2021 00:43] — Fermo generale: shuttle e MAV input bloccati
+
+**Descrizione:** Tutto fermo, shuttle bloccati, MAV input con pallet vuoti sopra. Impatto: fermo impianto notturno.
+**Causa identificata:** Possibile celebrazione (Italia-Euro 2020) con conseguente interruzione.
+**Soluzione / Workaround:** Riavvio sistema.
+**Note:** —
+
+-%-
+
+• [07/07/2021 11:00] — Piastra frontale conveyor troppo bassa, forche AGV non scendono
+
+**Descrizione:** Problema noto: la piastra frontale del conveyor impedisce alle forche di abbassarsi sufficientemente. Impatto: impossibilità di prelievo/consegna pallet.
+**Causa identificata:** Piastra frontale del conveyor non tagliata/abbassata.
+**Soluzione / Workaround:** Nessuna soluzione fino al taglio della piastra.
+**Note:** Richiesta di tagliare la piastra frontale.
+
+-%-
+
+• [07/07/2021 14:02] — Pick Station 3 bloccata: location piene ma nessun ordine disponibile
+
+**Descrizione:** Pick station 3 con tutte le location piene ma nessun ordine disponibile. Un pallet vuoto aspetta su una location libera. Impatto: stazione bloccata.
+**Causa identificata:** L'operatore non ha rilasciato una delle destinazioni. Il pallet vuoto aspetta il rilascio per continuare.
+**Soluzione / Workaround:** Verifica e rilascio della destinazione.
+**Note:** —
+
+-%-
+
+• [07/07/2021 14:35] — Utente office finalizza TPO manualmente, blocco picking station
+
+**Descrizione:** Un utente office ha finalizzato manualmente un TPO nella zona automatizzata, bloccando il flusso. Il TEMP associato resta in attesa. Impatto: pallet bloccati, pick station ferma.
+**Causa identificata:** Intervento manuale non corretto su TPO in zona automatizzata.
+**Soluzione / Workaround:** Pallet H rimosso manualmente, cancellato da sistema, book to "lost and found", cancel request da MF266.
+**Note:** Ripetuto invito a non finalizzare manualmente TPO in zona automatizzata.
+
+-%-
+
+• [08/07/2021 11:08] — AGV01 fermo da 30+ min, blocca uscita Ww
+
+**Descrizione:** AGV01 fermo da oltre 30 minuti, blocca l'uscita di Wunderwuzzi. Impatto: blocco flusso in uscita.
+**Causa identificata:** Pallet non in buona posizione.
+**Soluzione / Workaround:** Riposizionamento pallet.
+**Note:** —
+
+-%-
+
+• [08/07/2021 15:33] — TPO con 2 target, secondo irraggiungibile
+
+**Descrizione:** TPO con 2 target: HBW1 (OK) e COD (irraggiungibile da COD). Impatto: pallet bloccato.
+**Causa identificata:** Il secondo target era errato/eccezione.
+**Soluzione / Workaround:** Cancellato il secondo target, "refresh from DB" in MF200.
+**Note:** I TPO possono avere 1 o più target; questo caso è un'eccezione.
+
+-%-
+
+• [09/07/2021 06:57] — Pallet non più presenti fisicamente, crane in manual stop
+
+**Descrizione:** Pallet non più fisicamente presenti ma ancora nel sistema. Crane forzato in manual stop da MFS dopo intervento manuale. Impatto: crane non operativo.
+**Causa identificata:** Intervento manuale sul crane; MFS lo ha forzato in manual stop.
+**Soluzione / Workaround:** Reset crane da MFS. Verifica possibilità da WAMAS.
+**Note:** —
+
+-%-
+
+• [09/07/2021 11:40] — SRM10 forche colpiscono pallet dopo ingresso nelle tasche
+
+**Descrizione:** Le forche dello SRM10 colpiscono qualcosa dopo 2/3 dell'ingresso nelle fork pockets. Impatto: rischio danneggiamento, pallet pericoloso nel rack.
+**Causa identificata:** Ostruzione nelle tasche del pallet.
+**Soluzione / Workaround:** Pallet rimosso. Verifica causa.
+**Note:** Attenzione all'altezza/classe altezza se si aggiungono pallet.
+
+-%-
+
+• [09/07/2021 13:09] — EMS Loop3 bloccato con gap sensor
+
+**Descrizione:** EMS Loop3 bloccato dalle 12:30 con gap sensor. Pick station 10 coinvolta. Impatto: flusso EMS ridotto.
+**Causa identificata:** Fotocellula rotta a causa di un prelievo sbagliato nel traslo 5.
+**Soluzione / Workaround:** Intervento manutenzione.
+**Note:** —
+
+-%-
+
+• [12/07/2021 08:13] — Pallet ri-booked non visibile in Lighthouse, "data senza assignment"
+
+**Descrizione:** Pallet COD ri-booked da COD a COD non viene visto da Lighthouse. Errore "data senza assignment" su Surgent 2.3. Impatto: pallet non movimentabile.
+**Causa identificata:** Falsa occupazione su EMS_V12 che ri-booked il pallet sul veicolo.
+**Soluzione / Workaround:** Cancellare falsa occupazione con CTOP, ri-booked su COD pos 1, creare TPO.
+**Note:** —
+
+-%-
+
+• [12/07/2021 08:19] — EMS 12 "stato del carico non plausibile"
+
+**Descrizione:** Shuttle 12 in errore "stato del carico non plausibile". Procedure di routine non funzionano. Impatto: EMS 12 fuori servizio.
+**Causa identificata:** Non risolvibile con procedure standard. Possibile problema di comunicazione.
+**Soluzione / Workaround:** Aperto ticket urgente. Contattata hotline Eisenmann.
+**Note:** Veicolo in maintenance area.
+
+-%-
+
+• [12/07/2021 09:47] — Pick Station 4 bloccata, attesa pallet vuoto da 45 min
+
+**Descrizione:** BP04 D02 in attesa di pallet vuoto da 45 minuti. Impatto: stazione bloccata.
+**Causa identificata:** Pallet D non disponibile. Verifica in dialog OG525.
+**Soluzione / Workaround:** Verifica del dialog di richiesta pallet vuoti. Protocollo della richiesta.
+**Note:** Procedura documentata con screenshot.
+
+-%-
+
+• [12/07/2021 17:34] — LU con flag "loaded" non scaricabile, funzione "explore" mancante
+
+**Descrizione:** MasterLU di una hierarchicalLU caricata prima di una fix. Non è possibile scaricarla e la funzione "explore" non è disponibile. Impatto: LU bloccata.
+**Causa identificata:** Bug precedente alla fix.
+**Soluzione / Workaround:** Intervento SSI per rimuovere il flag.
+**Note:** Ripetuto il giorno 13/07.
+
+-%-
+
+• [13/07/2021 06:35] — Pallet COD senza TPO, impossibile crearlo
+
+**Descrizione:** Pallet COD su COD senza TPO. Tentativo di creazione TPO non riuscito. Impatto: pallet fermo.
+**Causa identificata:** Verifica con team WMS necessaria.
+**Soluzione / Workaround:** SSI verifica con team WMS.
+**Note:** —
+
+-%-
+
+• [13/07/2021 09:08] — Pick Station 7: pallet in loop, errori su LU
+
+**Descrizione:** BP07 D01 ha pallet vuoto non utilizzabile (no shipLU flag, no OBD). BP07 D02: pallet portato e ritirato in loop da AGV. Impatto: stazione inutilizzabile.
+**Causa identificata:** Pallet COD aveva un errore "not empty" del giorno prima. Qualcuno ha cancellato il TPO e il sistema lo ha inviato a S46 con l'errore. Tornato alla stazione, l'errore persisteva. La logica di "fare spazio" creava il loop.
+**Soluzione / Workaround:** Risolvere errore sul pallet. Pallet tornato funzionante.
+**Note:** Invito a non movimentare pallet con errori.
+
+-%-
+
+• [14/07/2021 08:34] — Crane 8 collisione con pallet, intervento hotline
+
+**Descrizione:** Crane 8 in collisione con la parte superiore del pallet durante il prelievo. 3 occorrenze dalla mattina. Impatto: crane 8 fuori servizio, diverse pick station in attesa.
+**Causa identificata:** Errore di posizionamento/prelievo del crane.
+**Soluzione / Workaround:** Chiamata hotline SSI.
+**Note:** —
+
+-%-
+
+• [14/07/2021 09:04] — AGV7 in errore blocca station 5, assignment non riassegnato
+
+**Descrizione:** AGV7 in errore, blocca stazione 5. Il pallet COD è assegnato ad AGV7 anche se in errore. Dopo 30 min riassegnato ad AGV4. Impatto: stazione 5 bloccata.
+**Causa identificata:** Il sistema non riassegna automaticamente l'AGV in caso di errore.
+**Soluzione / Workaround:** Riassegnazione manuale.
+**Note:** —
+
+-%-
+
+• [14/07/2021 10:30] — Pick Station 7 non conferma "full pallet", SRM8 bloccato
+
+**Descrizione:** Impossibile confermare "full pallet" alla stazione 7. SRM8 bloccato. Pick stations 3, 4, 6, 12 in attesa. Impatto: blocco multiplo.
+**Causa identificata:** Pallet in HBW08 (aisle con crane bloccato). Il pulsante "full pallet" non funziona se una linea dell'OBD è in stato "New".
+**Soluzione / Workaround:** Finalizzata la linea manualmente. "Full pallet" ha funzionato. Ticket aperto per la fix.
+**Note:** Bug: "Pallet full button not working if line in status New".
+
+-%-
+
+• [14/07/2021 14:01] — Pick station 3: picking activity finalizzata ma PO marcato "Finalized"
+
+**Descrizione:** Finalizzando una picking activity, l'intero Picking Order viene marcato come "Finalized" con attività ancora attiva. La stazione non può ricevere nuove deposit activity. Impatto: pick station bloccata.
+**Causa identificata:** Bug: la finalizzazione di una singola activity marca l'intero PO come finalized.
+**Soluzione / Workaround:** Rimosso il flag "Finalized" dal PO. Ticket aperto (Issue D142).
+**Note:** Testato e confermato il bug.
+
+-%-
+
+• [15/07/2021 10:42] — TPO cancellato, hierarchical LU splittata
+
+**Descrizione:** TPO cancellato da utente, hierarchical LU splittata. Pallet ricreato come B semplice. Impatto: dati inconsistiti.
+**Causa identificata:** Intervento manuale utente.
+**Soluzione / Workaround:** Verifica e correzione.
+**Note:** —
+
+-%-
+
+• [15/07/2021 12:05] — NOK blocca uscita Wunderwuzzi
+
+**Descrizione:** Pallet in NOK (dopo pick station source) blocca l'uscita del Wunderwuzzi. Impatto: flusso pallet bloccato.
+**Causa identificata:** Pallet in errore inviato a NOK non risolto.
+**Soluzione / Workaround:** Risoluzione pallet in NOK, postazione liberata.
+**Note:** Richiesta attenzione ai pallet NOK.
+
+-%-
+
+• [16/07/2021 09:06] — Pallet TEMP non consegnati a pick stations nonostante location libere
+
+**Descrizione:** TEMP7752 e TEMP7753 in S46 con TPO verso pick stations con location libere, ma non vengono recuperati. Impatto: stazioni in attesa.
+**Causa identificata:** Il TPO punta a una destinazione occupata (BP01 D01) mentre l'altra è libera. Possibile residuo del riavvio sistema.
+**Soluzione / Workaround:** Verifica SSI. Dopo riavvio, ordini ripresi.
+**Note:** Richiesta monitoraggio.
+
+-%-
+
+• [19/07/2021 08:25] — ART-24 con pallet fantasma su forche
+
+**Descrizione:** ART-24 ha un pallet fantasma (COD) sulle forche in WAMAS. Il materiale associato blocca il picking. Impatto: picking bloccato.
+**Causa identificata:** Errore dovuto al riavvio del sistema.
+**Soluzione / Workaround:** Pallet book to lost and found. Aggiornata posizione. Stock sincronizzato.
+**Note:** —
+
+-%-
+
+• [19/07/2021 17:30] — Crane 10 non riesce a depositare pallet
+
+**Descrizione:** Crane 10 riporta impossibilità di deposito. Sospetto sensore rotto. Impatto: crane 10 bloccato.
+**Causa identificata:** Sensore difettoso su conveyor 334.
+**Soluzione / Workaround:** Sensore riparato.
+**Note:** —
+
+-%-
+
+• [24/07/2021 07:50] — Ingresso MAV bloccato
+
+**Descrizione:** Ingresso MAV bloccato, rullo senza pallet. Impatto: flusso MAV fermo.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Già risolto dal team Atlas.
+**Note:** —
+
+-%-
+
+• [26/07/2021 08:47] — Pick Station 3 bloccata: switch picking→unpicking causa deadlock
+
+**Descrizione:** Passando da picking a unpicking, WAMAS non permette di finire l'ultimo ordine. Deadlock. Stazione senza pallet source e destination. Impatto: stazione 3 ferma.
+**Causa identificata:** Switch diretto da picking a unpicking senza passare per "Stop". Il sistema considera il pallet non adatto all'unpick e lo invia a S46.
+**Soluzione / Workaround:** Inviato pallet vuoto H alla destinazione. Workaround: passare sempre per "Stop" prima di unpick. Fix in sviluppo.
+**Note:** Ticket aperto. Workaround: Stop → ultimo pick → Unpick.
+
+-%-
+
+• [26/07/2021 11:02] — "Wait for capacity slave zone" senza pallet su CU125
+
+**Descrizione:** Pallet bloccati per errore "wait for capacity slave zone" ma CU125 è libero. Impatto: pallet non movimentabili.
+**Causa identificata:** Non chiara.
+**Soluzione / Workaround:** Verifica SSI.
+**Note:** —
+
+-%-
+
+• [27/07/2021 06:18] — Impianto bloccato: 31 ordini attivi ma nessuna stazione lavora
+
+**Descrizione:** 31 ordini attivi ma nessun ordine assegnato alle stazioni. AGV non consegnano pallet. Impatto: 12 operatori fermi.
+**Causa identificata:** Problema MFS → AGV mission delivery. Residuo del deploy del giorno prima.
+**Soluzione / Workaround:** Riavvio MFS. Deploy correttivo. Sospensione + resume TPO.
+**Note:** Deploy eseguito alle 09:00.
+
+-%-
+
+• [27/07/2021 08:23] — Pallet S48 non "Active for MFS"
+
+**Descrizione:** Tutti i pallet su S48 (00, 01, 02) non sono attivi per MFS. I carrellisti non possono prelevarli. Impatto: pallet non movimentabili.
+**Causa identificata:** Issue dovuta all'ultimo deploy.
+**Soluzione / Workaround:** Fix con nuovo deploy.
+**Note:** —
+
+-%-
+
+• [27/07/2021 11:40] — SLAVING zone bloccata da pallet fantasma
+
+**Descrizione:** Tutti i pallet diretti a SLAVING in "WAIT FOR CAPACITY ZONE SLAVING". 2 TPO per pallet inesistenti. 9 pick station su 12 influenzate. Impatto: blocco quasi totale del picking.
+**Causa identificata:** 2 TPO per pallet inesistenti (cancellati da intervento manuale) occupavano capacità.
+**Soluzione / Workaround:** Cancellati i TPO fantasma. Zona SLAVING ripristinata.
+**Note:** —
+
+-%-
+
+• [27/07/2021 12:12] — Monorail buffer: pallet non si muovono verso pick stations
+
+**Descrizione:** Tutti i pallet nei buffer monorail non si muovono verso le pick stations nonostante locations libere. Impatto: performance picking azzerata.
+**Causa identificata:** Residuo del riavvio sistema.
+**Soluzione / Workaround:** Fix da parte di Mihai.
+**Note:** Patch già applicata in precedenza.
+
+-%-
+
+• [27/07/2021 13:40] — Stazione 9 richiede pallet tipo 9 (non definito)
+
+**Descrizione:** La stazione 9 aspetta un pallet "tipo 9" che non esiste nel sistema. Impatto: stazione bloccata.
+**Causa identificata:** Item configurato con loading aid "9" (non definito). Manca aggiornamento da office.
+**Soluzione / Workaround:** Richiesta update item o modifica MD503 per compatibilità.
+**Note:** Loading aid 9 = "non definito".
+
+-%-
+
+• [29/07/2021 06:52] — Pick Station 7: pallet vuoto non arriva, "wait until work available"
+
+**Descrizione:** Pick station 7 in "wait until the work will be available" anche dopo riavvio. Impatto: stazione bloccata.
+**Causa identificata:** Richiesta pallet vuoto non assegnata.
+**Soluzione / Workaround:** Nuova richiesta pallet vuoto creata. Risolto anche autonomamente.
+**Note:** —
+
+-%-
+
+• [30/07/2021 09:49] — 15 veicoli EMS con pallet F vuoti, pick stations bloccate
+
+**Descrizione:** 15 veicoli EMS con pallet F vuoti. Tutte le pick stations in attesa di F bloccate. Impatto: fermo picking.
+**Causa identificata:** Non specificata chiaramente.
+**Soluzione / Workaround:** Verifica SSI.
+**Note:** —
+
+-%-
+
+• [31/07/2021 15:24] — Monorail completamente fermo a mezzanotte di venerdì
+
+**Descrizione:** Monorail completamente fermo esattamente 1 minuto dopo mezzanotte. Seconda occorrenza. Impatto: fermo impianto.
+**Causa identificata:** Sospetto problema EMS. F01+PO1 usciti da modo automatico.
+**Soluzione / Workaround:** Ticket aperto. Contatto Eisenmann. Verifica fisica.
+**Note:** Prio C assegnata erroneamente; richiesta Prio A.
+
+-%-
+
+• [03/08/2021 08:17] — Spontaneous TPO da manual area non funzionano
+
+**Descrizione:** Tutti i TPO spontaneous dalla manual area non funzionano. Impatto: 600+ pallet/giorno da movimentare manualmente da office.
+**Causa identificata:** Fix precedente (IT1400016-3590) non perfetta. LU con item automatici in zona manuale.
+**Soluzione / Workaround:** TPO creati da office in attesa di fix.
+**Note:** Fix in sviluppo. Impatto operativo molto elevato.
+
+-%-
+
+• [03/08/2021 09:36] — SRM7 infeed: fisicamente vuoto, logicamente occupato
+
+**Descrizione:** SRM7 infeed fisicamente vuoto ma logicamente occupato. Impatto: crane 7 non operativo.
+**Causa identificata:** Intervento manuale del giorno prima. Conveyor non ha cancellato i vecchi ordini.
+**Soluzione / Workaround:** MF266: cancel request per i pallet. Verifica occupazioni con CTOP.
+**Note:** —
+
+-%-
+
+• [03/08/2021 14:51] — Calo performance 150-200 order lines/settimana dopo blocco monorail
+
+**Descrizione:** Produzione ridotta di 100-200 linee rispetto alla settimana precedente. Stesso personale, nessun deploy. Impatto: performance ridotta.
+**Causa identificata:** Sospetto "residuo" nel sistema (TPO in errore pendenti, CPU WAMASAPP più alta).
+**Soluzione / Workaround:** Non risolto. Richiesta investigazione.
+**Note:** 3 CTOP rotti. Discussione in riunione giovedì.
+
+-%-
+
+• [04/08/2021 06:16] — 3-4 stazioni bloccate
+
+**Descrizione:** 3-4 picking stations bloccate. Impatto: riduzione capacità.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Stazioni ripristinate.
+**Note:** —
+
+-%-
+
+• [04/08/2021 07:57] — Terminali mobili bloccati, "Retry connection request"
+
+**Descrizione:** Terminali mobili bloccati con messaggio "Retry connection request". Ticket 537657 Prio B. Impatto: operatori mobili fermi.
+**Causa identificata:** Deploy errato della sera prima (chiuso alle 22:40 invece delle 21:10).
+**Soluzione / Workaround:** Spontaneous transport ripristinato.
+**Note:** Personale manual area non informato del deploy.
+
+-%-
+
+• [06/08/2021 15:31] — SLAVING bloccata, 4-5 pick stations ferme
+
+**Descrizione:** TEMP1061 blocca SLAVING dalle 15:02. Nessun pallet entra. 4-5 pick stations bloccate. Impatto: picking fermo.
+**Causa identificata:** TEMP1061 inviato erroneamente a SLF.
+**Soluzione / Workaround:** TEMP1061 rimandato allo stacker. Flusso ripristinato.
+**Note:** —
+
+-%-
+
+• [06/08/2021 17:24] — Pick Station 1 bloccata: pallet E non ammesso come destination LU
+
+**Descrizione:** OG525 ha assegnato un pallet E alla pick station, ma E non è un LA ammesso come destination LU. Impatto: stazione 1 bloccata dalle 13:00.
+**Causa identificata:** Issue D151. OG525 alloca pallet E ma non è compatibile. MD500 sembra corretto.
+**Soluzione / Workaround:** Aggiunta configurazione in MD500. Modificato a F. Inviato pallet F.
+**Note:** Discussione su compatibilità negative picking.
+
+-%-
+
+• [07/08/2021 11:39] — Rete Vodafone down, tutti i terminali fermi
+
+**Descrizione:** Tutti i terminali mobili caduti per problema di rete Vodafone. Impatto: operatori mobili completamente bloccati.
+**Causa identificata:** Problema rete Vodafone (non WAMAS).
+**Soluzione / Workaround:** Disconnesse tutte le sessioni WAMAS attive. Terminali ripristinati.
+**Note:** —
+
+-%-
+
+• [09/08/2021 08:30] — Destacker F: stack/destack simultanei
+
+**Descrizione:** Problema al destacker F legato a stack e destack simultanei. Impatto: destacker F bloccato.
+**Causa identificata:** Logica PLC non previene stack/destack contemporanei.
+**Soluzione / Workaround:** Discussione con PLC per prevenzione futura. Intervento manuale.
+**Note:** —
+
+-%-
+
+• [09/08/2021 09:31] — F destacker fermo dalle 07:09, blocca produzione
+
+**Descrizione:** F destacker fermo da ore. Impatto: produzione bloccata.
+**Causa identificata:** Pallet sotto lo stack da spostare. Sensore/posizione.
+**Soluzione / Workaround:** Spostato pallet di una posizione con CTOP. Messo in auto. Ripristinato.
+**Note:** —
+
+-%-
+
+• [09/08/2021 10:56] — Issue D152: pallet buffer non si muove verso source location
+
+**Descrizione:** Pallet vuoti nel buffer non si muovono verso la source location della pick station fino a quando il buffer non è pieno. Impatto: tempi di attesa aumentati, ~7-8 occorrenze/giorno.
+**Causa identificata:** Bug noto. Il pallet viene consegnato direttamente alla source invece che al buffer.
+**Soluzione / Workaround:** Workaround: liberare il buffer manualmente. Fix necessario.
+**Note:** Impatto stimato: 1,5 ore perse per pick station #8 in un turno.
+
+-%-
+
+• [09/08/2021 13:55] — Tutte le stazioni bloccate, nessuna richiesta pallet vuoti in OG525
+
+**Descrizione:** Nessuna richiesta pallet vuoti in OG525. Tutte le stazioni bloccate. Impatto: fermo totale picking.
+**Causa identificata:** Unpick station 7 bloccava il flusso dei pallet vuoti.
+**Soluzione / Workaround:** Bloccata stazione 7 per ripristinare flusso. Fix nella prossima build.
+**Note:** —
+
+-%-
+
+• [09/08/2021 14:38] — VPN non funzionante, SSI non può connettersi
+
+**Descrizione:** SSI non riesce a connettersi via VPN. Impatto: impossibilità di supporto remoto.
+**Causa identificata:** Cambio parametri VPN concordato ma non comunicato efficacemente.
+**Soluzione / Workaround:** Installato TeamViewer su un PC in impianto. Connessione ripristinata.
+**Note:** —
+
+-%-
+
+• [10/08/2021 05:48] — COD "wait for slaving", BP04 bloccata
+
+**Descrizione:** Pallet COD in "wait for slaving". Pick station BP04 bloccata. Impatto: stazione ferma.
+**Causa identificata:** Pallet COD logicamente su COD ma fisicamente altrove. Disallineamento.
+**Soluzione / Workaround:** Verifica fisica, rebooking, reset. Pallet X riposizionato sul sensore.
+**Note:** —
+
+-%-
+
+• [10/08/2021 16:05] — Tutti gli AGV fermi
+
+**Descrizione:** Tutti gli AGV non si muovono. Impatto: fermo totale movimentazione.
+**Causa identificata:** Combinazione di ordine con inspection + cancellazione TPO. Comportamento anomalo per l'operatore inspection.
+**Soluzione / Workaround:** Fix identificata. Ticket aperto: "Problematic gtp inspection order behavior during TPO cancelling". Issue A58.
+**Note:** —
+
+-%-
+
+• [11/08/2021 12:52] — Pallet dopo foiling non avanza
+
+**Descrizione:** Dopo la foiling line, il pallet non si muove. Impatto: blocco flusso.
+**Causa identificata:** Posizione logica errata in WAMAS (COD invece di COD).
+**Soluzione / Workaround:** Corretta la posizione.
+**Note:** —
+
+-%-
+
+• [11/08/2021 16:48] — Sistema molto lento, ghost su infeed, AGV fermi
+
+**Descrizione:** Sistema lento. TEMP6872 consegnato fisicamente ma ancora su ATX-15 in WAMAS. Dialog pick station lenti. Ghost su entrambe le infeed foiling. Impatto: performance degradata.
+**Causa identificata:** Database constraint disabilitato dall'ultimo deploy.
+**Soluzione / Workaround:** Constraint riabilitato.
+**Note:** —
+
+-%-
+
+• [13/08/2021 16:49] — Change clamp: test non riuscito, TPO non creati
+
+**Descrizione:** Test cambio clamp su pick station HBW12. TPO per le due LU non vengono creati. Impatto: cambio clamp non funzionante.
+**Causa identificata:** Possibile necessità di pallet D senza SO.
+**Soluzione / Workaround:** Risolto autonomamente.
+**Note:** —
+
+-%-
+
+• [13/08/2021 18:35] — EMS non prendono pallet in infeed
+
+**Descrizione:** Tutti gli EMS passano senza prendere il pallet. Impatto: infeed bloccato.
+**Causa identificata:** Pillar weight check. Differenza tra pillars oltre il 20%.
+**Soluzione / Workaround:** Permessa differenza del 30% tra pillars.
+**Note:** Verifica su W34 al rientro ferie.
+
+-%-
+
+• [23/08/2021 13:43] — Station 11 bloccata, TEMP fantasma su infeed Wuzzi
+
+**Descrizione:** TEMP0713 logicamente su infeed Wuzzi ma fisicamente assente. Impatto: capacità occupata, stazione bloccata.
+**Causa identificata:** Qualcuno ha rimosso manualmente il pallet.
+**Soluzione / Workaround:** Book to lost and found / black hole. Pulizia CU.
+**Note:** —
+
+-%-
+
+• [23/08/2021 17:54] — RM019: errore "Cannot generate LU label" per alcuni utenti
+
+**Descrizione:** Con RM019, alcuni utenti ricevono errore "Cannot generate LU label" mentre altri funzionano. Impatto: stampa etichette impossibile per alcuni.
+**Causa identificata:** L'utente non aveva accesso al dialog successivo.
+**Soluzione / Workaround:** Abilitato accesso. Riavvio desktop.
+**Note:** Cambio permanente.
+
+-%-
+
+• [24/08/2021 10:44] — Copertura forca AGV-21 collassata
+
+**Descrizione:** Parte della copertura inferiore della forca AGV-21 è collassata. Impatto: forche bloccate, AGV fuori servizio.
+**Causa identificata:** AGV arrivato con forche troppo basse; teste delle viti tranciate dalla protezione conveyor.
+**Soluzione / Workaround:** Riparazione meccanica. Proposta di tagliare la piastra frontale del conveyor di 3mm.
+**Note:** Suggerimento di tagliare la piastra frontale in corrispondenza dell'ingresso forche.
+
+-%-
+
+• [25/08/2021 15:20] — Pallet H fermo, nessuna location libera in S46
+
+**Descrizione:** Pallet H tipo COD fermo su COD. Nessuna location disponibile in S46. Impatto: pallet bloccato.
+**Causa identificata:** Location S46 occupate. Il sistema sceglieva location basandosi solo su altezza/peso, non sullo spazio ottimale.
+**Soluzione / Workaround:** Fix nella prossima build per scegliere location in base ai metri quadri ottimali. Creazione TPO per riallocare pallet D in location più piccole.
+**Note:** —
+
+-%-
+
+• [26/08/2021 10:48] — ART 21 data/ora errati, eventi non ricevuti
+
+**Descrizione:** ART 21 ha data e ora completamente errati. Cway non riceve eventi dal veicolo dalle 11:00. Impatto: AGV non tracciato.
+**Causa identificata:** Data/ora errati sul veicolo.
+**Soluzione / Workaround:** Spegnimento, rimozione batteria, riaccensione.
+**Note:** —
+
+-%-
+
+• [27/08/2021 06:20] — AGV bloccati dopo deploy, MFS non comunica con Rocla
+
+**Descrizione:** AGV non vanno alle pick stations. Tutte le stazioni bloccate. Impatto: fermo totale picking.
+**Causa identificata:** Refresh tra MFS e WMS down a causa di un Transport.
+**Soluzione / Workaround:** Fix del refresh. AGV ripartiti.
+**Note:** —
+
+-%-
+
+• [27/08/2021 09:46] — AGV in deadlock a catena vicino ai destacker
+
+**Descrizione:** Tutti gli AGV con pallet ma non si muovono vicino ai destacker. Blocco a catena. Impatto: flusso completamente fermo.
+**Causa identificata:** Deadlock tra AGV. Legato a fleet control.
+**Soluzione / Workaround:** Non risolto. Da investigare durante la settimana di ottimizzazione.
+**Note:** Il sistema AGV dovrebbe auto-risolvere queste situazioni.
+
+-%-
+
+• [27/08/2021 19:18] — COD TPO non trova route (printing/wrapping logic)
+
+**Descrizione:** Pallet COD non si muove. MFS non trova una route appropriata. Impatto: pallet bloccato.
+**Causa identificata:** Bug nella logica: pallet con solo printing (no wrapping) deve usare solo le corsie posteriori, ma un'altra condizione impedisce l'uso delle corsie posteriori per stazioni 7-12.
+**Soluzione / Workaround:** Fix programmata per la settimana successiva.
+**Note:** Bug confermato.
+
+-%-
+
+• [01/09/2021 07:38] — 5 pick stations in "wait for" dalle 5:30, vecchi utenti attivi
+
+**Descrizione:** Pick stations 2-3-5-9-12 in "wait for" dialog. Vecchi utenti "mmop**" ancora attivi. Impatto: 5 stazioni ferme da inizio turno.
+**Causa identificata:** Lock con "maintainance" nel nome. SRM2 in manutenzione bloccava anche SRM1 e SRM3.
+**Soluzione / Workaround:** SRM2 messo in maintenance mode. SRM1 e SRM3 ripristinati.
+**Note:** —
+
+-%-
+
+• [01/09/2021 08:17] — Pick Station 8 richiede pallet tipo 9 (non definito)
+
+**Descrizione:** Stazione 8 richiede pallet vuoto tipo 9. Impatto: stazione bloccata.
+**Causa identificata:** Master data errato.
+**Soluzione / Workaround:** Corretti master data. Cancellata richiesta tipo 9, modificata per tipo F.
+**Note:** —
+
+-%-
+
+• [03/09/2021 06:55] — Pick stations non lavorano, produttività bassa
+
+**Descrizione:** Pick stations non lavorano. Nessun AGV va a prendere pallet vuoti. Impatto: fermo picking.
+**Causa identificata:** Verifica in corso. Code e eventi nella norma.
+**Soluzione / Workaround:** Flusso ripreso autonomamente.
+**Note:** —
+
+-%-
+
+• [03/09/2021 08:51] — AGV 5 in User Stop, blocca route per AGV 10 e 4
+
+**Descrizione:** AGV 5 in User Stop. Si muove 5 minuti poi si blocca. Blocca la route per altri 2 AGV. -14% capacità. Impatto: capacità ridotta.
+**Causa identificata:** Problema ricorrente.
+**Soluzione / Workaround:** Rimosso dal sistema.
+**Note:** —
+
+-%-
+
+• [03/09/2021 09:25] — Pulsante MF266 premuto erroneamente, causa blocchi
+
+**Descrizione:** Un pulsante in MF266 è stato premuto per errore alle 20:19, causando problemi. Impatto: malfunzionamenti.
+**Causa identificata:** Pulsante in MF266 facilmente premibile per errore.
+**Soluzione / Workaround:** Richiesta di nascondere il pulsante.
+**Note:** —
+
+-%-
+
+• [03/09/2021 14:57] — LU COD e COD: TO non partono verso S48
+
+**Descrizione:** Due LU devono andare a S48 ma i TO non partono. Impatto: truck in attesa.
+**Causa identificata:** Bug già discusso.
+**Soluzione / Workaround:** Fix in corso.
+**Note:** Ticket già aperto.
+
+-%-
+
+• [06/09/2021 15:34] — Pick Station 3 bloccata: TPO finalizzato manualmente
+
+**Descrizione:** Una persona ha finalizzato il TPO manualmente. Un altro pallet aspetta. Impatto: stazione bloccata.
+**Causa identificata:** Intervento manuale su TPO.
+**Soluzione / Workaround:** OIL già aperto (IT1400016-3839). Fix in sviluppo (S15).
+**Note:** —
+
+-%-
+
+• [07/09/2021 10:37] — AGV 6 perde frequentemente la navigazione
+
+**Descrizione:** AGV 6 con frequenti disconnessioni di navigazione. Impatto: AGV inaffidabile.
+**Causa identificata:** Scanner di navigazione da verificare.
+**Soluzione / Workaround:** Richiesta verifica scanner.
+**Note:** —
+
+-%-
+
+• [08/09/2021 07:11] — COD "wait for storage failed", blocca infeed SRM3
+
+**Descrizione:** Pallet COD con errore "wait for storage failed" blocca l'infeed di SRM3. Impatto: SRM3 non operativo.
+**Causa identificata:** Tutte le location "big heights" in aisle 3 occupate. Un altro pallet ha preso l'ultima location disponibile mentre COD era in errore.
+**Soluzione / Workaround:** Forzato COD su un altro aisle disponibile.
+**Note:** —
+
+-%-
+
+• [09/09/2021 17:28] — D destacker vuoto, 151 stack cercano di andarci
+
+**Descrizione:** D destacker vuoto e 151 stack di D vuoti in HBW1 hanno tutti TPO verso il destacker. Impatto: tentativi continui, blocco.
+**Causa identificata:** COD bloccato. MFS ha provato con tutti gli stack. Lock sulla location.
+**Soluzione / Workaround:** Cancellati tutti i TPO verso COD. Sbloccato COD.
+**Note:** Ticket aperto. Discussione se il lock sia utile o meno.
+
+-%-
+
+• [10/09/2021 15:35] — Cubatura LU manipolata, SRM non riesce a prelevare
+
+**Descrizione:** Cubatura di LU COD manipolata con utente SSI. SRM non riesce a prelevare. Impatto: pallet non disponibile per picking.
+**Causa identificata:** Cubatura errata.
+**Soluzione / Workaround:** Ripristinata cubatura originale.
+**Note:** —
+
+-%-
+
+• [13/09/2021 12:39] — NO READ su COD, pallet non si muove
+
+**Descrizione:** Pallet con "NO READ" su COD non si muove. Impatto: pallet bloccato.
+**Causa identificata:** Verifica log in corso.
+**Soluzione / Workaround:** Pallet si è mosso. Causa da verificare.
+**Note:** —
+
+-%-
+
+• [14/09/2021 13:15] — Tutti gli AGV fermi nelle loro posizioni
+
+**Descrizione:** Nessun AGV lavora, tutti fermi. Impatto: fermo totale.
+**Causa identificata:** Crane 4 non funzionante. 21 ordini da esso.
+**Soluzione / Workaround:** Sblocco crane 4. AGV 8 e 6 ripartiti.
+**Note:** —
+
+-%-
+
+• [14/09/2021 16:13] — SRM01 non si muove: vede conveyor pieni ma sono vuoti
+
+**Descrizione:** SRM01 non si muove perché vede i conveyor di consegna pieni, ma sono vuoti. Impatto: SRM01 fermo.
+**Causa identificata:** Manual handling non resettato.
+**Soluzione / Workaround:** Reset manual handling. Necessario MF210.
+**Note:** Richiesta accesso a MF210.
+
+-%-
+
+• [15/09/2021 07:44] — Pallet su forche SRM08 blocca infeed conveyor
+
+**Descrizione:** Pallet sulle forche SRM08 blocca l'infeed conveyor quando i conveyor sono pieni. Issue di lunga data. Impatto: SRM bloccato senza segnale in Lighthouse.
+**Causa identificata:** TPO in errore. Il segnale arriva solo quando le pick station sono già bloccate (troppo tardi).
+**Soluzione / Workaround:** Resume TPO. Discussione interna per popup errori tempestivi.
+**Note:** —
+
+-%-
+
+• [15/09/2021 19:13] — COD TPO in errore, occupa ancora capacità DESTACKER_STANDALONE_AF
+
+**Descrizione:** COD pianificato per AF destacker ma TPO sempre in errore. Occupa ancora capacità. Impatto: capacità destacker ridotta.
+**Causa identificata:** TPO in errore non rilascia capacità.
+**Soluzione / Workaround:** Risolto autonomamente.
+**Note:** —
+
+-%-
+
+• [16/09/2021 06:49] — CU384: pallet fisicamente su CU384 ma logicamente su CU383
+
+**Descrizione:** Pallet fisicamente su CU384 ma WAMAS/LH li vedono su CU383. TPO in errore. Impatto: pallet non movimentabili.
+**Causa identificata:** Possibile correlazione con S48 pieno.
+**Soluzione / Workaround:** Verifica e correzione.
+**Note:** —
+
+-%-
+
+• [16/09/2021 09:47] — I/O Blocking su AGV, manutenzione printer
+
+**Descrizione:** I/O Blocking su più conveyor. Manutenzione printer in corso. Impatto: pick station 2 senza pallet.
+**Causa identificata:** Printer maintenance. Necessità di bloccare una uscita rear loading.
+**Soluzione / Workaround:** Bloccato COD da WH004. Ridotta capacità linea destra a 0. Pallet instradati via Wunderwuzzi.
+**Note:** —
+
+-%-
+
+• [16/09/2021 16:22] — Pick Station 12 sources vuote, SRM7 in manutenzione
+
+**Descrizione:** Pick station 12 con tutte le sources fisicamente vuote ma nessun pallet in arrivo. Impatto: stazione bloccata.
+**Causa identificata:** SRM7 in manutenzione.
+**Soluzione / Workaround:** Rimosso SRM7 da maintenance mode.
+**Note:** —
+
+-%-
+
+• [16/09/2021 18:55] — Pallet B-D split alla pick station, errore front/back
+
+**Descrizione:** Pallet B-D con D rotto. Utente rimuove il D. Il pallet B vuoto torna con errore front/back. Impatto: pallet bloccato.
+**Causa identificata:** MFS conosceva solo il tipo B (senza D). Shape control per tipo B. Pallet splittato.
+**Soluzione / Workaround:** Rimandato indietro una seconda volta ha funzionato.
+**Note:** Caso strano.
+
+-%-
+
+• [17/09/2021 09:59] — COD non si muove verso SH1, eccezione in coda MFM
+
+**Descrizione:** COD vuole andare a SH1 ma non si muove. Impatto: pallet bloccato.
+**Causa identificata:** Eccezione nella coda MFM.
+**Soluzione / Workaround:** Fix dell'eccezione. Ticket aperto.
+**Note:** —
+
+-%-
+
+• [17/09/2021 10:18] — COD whole LU bloccato per blocco linea centrale
+
+**Descrizione:** COD è whole LU e con la linea centrale bloccata MFS non può estrarlo. Impatto: pallet bloccato.
+**Causa identificata:** Blocco linea centrale. Route specializzate.
+**Soluzione / Workaround:** Disattivate route specializzate. Ticket aperto per fix.
+**Note:** —
+
+-%-
+
+• [20/09/2021 10:12] — Pick Station 10: pallet in buffer non viene consegnato
+
+**Descrizione:** Pallet nel buffer necessario per completare l'ordine non arriva. Impatto: stazione bloccata.
+**Causa identificata:** Ritardo nella consegna.
+**Soluzione / Workaround:** Risolto aspettando.
+**Note:** —
+
+-%-
+
+• [21/09/2021 07:37] — Pallet su location "narrow" al piano, blocchi AGV
+
+**Descrizione:** Ordini posizionati su location narrow al piano terra nonostante non dovrebbero. Impatto: blocchi AGV.
+**Causa identificata:** Location non rinominate. Malinteso.
+**Soluzione / Workaround:** Bloccate location narrow come "obsolete". Rerouting disattivato temporaneamente. Pallet non necessari inviati ad altre S46.
+**Note:** —
+
+-%-
+
+• [21/09/2021 09:12] — Pick Station 2 e 3: pallet in buffer non consegnati, TPO in errore
+
+**Descrizione:** Pallet in buffer non arrivano alle stazioni. TPO in errore "ERROR_SOURCE_NOT_AVAILABLE". Impatto: stazioni bloccate.
+**Causa identificata:** Location bloccate in HBW. WAMAS cancella la prenotazione ma non il TPO quando il rack è bloccato.
+**Soluzione / Workaround:** Rimosso blocco, resume TPO. Ticket aperto.
+**Note:** Sospetto: WAMAS cancella solo la prenotazione ma non il TPO.
+
+-%-
+
+• [22/09/2021 09:50] — COD su CU285 senza pulizia errori
+
+**Descrizione:** COD messo su 285 senza pulire gli errori. Foiling line 2 da verificare. Impatto: pallet non movimentabile.
+**Causa identificata:** Errori non puliti.
+**Soluzione / Workaround:** Risolto.
+**Note:** —
+
+-%-
+
+• [23/09/2021 07:28] — Tutte le pick stations in attesa, pallet non arrivano
+
+**Descrizione:** Tutte le picking stations aspettano pallet ma niente arriva. Impatto: fermo picking.
+**Causa identificata:** Non identificata chiaramente.
+**Soluzione / Workaround:** Verifica. Invito a discutere prima con manutenzione per escludere problemi meccanici.
+**Note:** —
+
+-%-
+
+• [24/09/2021 07:54] — AGV non completano consegna, ordini cancellati
+
+**Descrizione:** AGV 8, 9, 13 con TPO ma non completano la consegna. Messaggi di ordine cancellato. Impatto: pallet non consegnati, performance al 40%.
+**Causa identificata:** Legato ai preloads. Preload su RP 120.
+**Soluzione / Workaround:** Disattivato preload su 120. Ticket aperto. Monitoraggio.
+**Note:** Preload attivo dal 15/09, problema emerso dopo 9 giorni.
+
+-%-
+
+• [24/09/2021 10:57] — Nessun ordine assegnato alle pick stations, 947 ordini nel sistema
+
+**Descrizione:** 947 ordini nel sistema ma nessun ordine assegnato alle 10 pick stations. Impatto: fermo totale.
+**Causa identificata:** Cambio clamp tentato senza clamp disponibile. "Unable to process clamp handling".
+**Soluzione / Workaround:** Ripristinato cambio clamp. Ordini ripresi. Proposta di verifica disponibilità clamp prima del cambio.
+**Note:** Fix: aggiungere controllo disponibilità clamp + messaggio errore.
+
+-%-
+
+• [27/09/2021 07:51] — Sources non disponibili in HBW, crane dà errore
+
+**Descrizione:** Pallet in HBW con "source not available" per stazioni 9 e 10. Crane dà errore al prelievo. Impatto: pallet non disponibili.
+**Causa identificata:** Crane non riesce a prelevare. Situazione fisica da verificare.
+**Soluzione / Workaround:** Verifica in corso.
+**Note:** —
+
+-%-
+
+• [27/09/2021 14:44] — U destacker vuoto, F compatibile ma non inviato
+
+**Descrizione:** U destacker vuoto, nessun U nel sistema. F è compatibile con U ma il sistema non invia F. Pick station 1 senza pallet vuoti. Impatto: stazione bloccata.
+**Causa identificata:** Destinazioni piene. Retrieval time degli AGV.
+**Soluzione / Workaround:** Verifica.
+**Note:** —
+
+-%-
+
+• [28/09/2021 12:05] — Ordini in OG039 in calo significativo
+
+**Descrizione:** Ordini in OG039 in calo. Stazioni 1, 7, 9, 12 con un solo pick order. Impatto: produttività ridotta.
+**Causa identificata:** Non identificata. Ordini tornati normali senza intervento.
+**Soluzione / Workaround:** Monitoraggio.
+**Note:** —
+
+-%-
+
+• [28/09/2021 14:25] — Source LU non necessarie non vanno via dalle pick stations
+
+**Descrizione:** Dopo fine ordine, pallet source non necessari restano bloccati nelle posizioni. Impatto: stazioni 4, 7, 8, 12 con pallet fermi.
+**Causa identificata:** TPO verso location già occupate.
+**Soluzione / Workaround:** Cancellare TPO esistente, usare "move away".
+**Note:** —
+
+-%-
+
+• [29/09/2021 06:53] — AGV21 non preleva, MFS/Hive OK
+
+**Descrizione:** AGV21 non preleva pallet. Nessun problema visibile in MFS/Hive. Impatto: pallet non movimentato.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Risolto.
+**Note:** —
+
+-%-
+
+• [29/09/2021 13:54] — COD non su TPS crane 7, passo da cancellare
+
+**Descrizione:** COD non è più sul TPS del crane 7. Impatto: dati inconsistiti.
+**Causa identificata:** Pallet rimosso manualmente.
+**Soluzione / Workaround:** Cancellare passo per COD. Rebooking alla location originale.
+**Note:** —
+
+-%-
+
+• [30/09/2021 18:41] — Lighthouse non visibile, SCADA down
+
+**Descrizione:** Lighthouse/SCADA non visibile. Team "cieco". Impatto: nessun monitoraggio.
+**Causa identificata:** Servizio fermo.
+**Soluzione / Workaround:** Servizio riavviato.
+**Note:** Verifica approfondita il giorno dopo.
+
+-%-
+
+• [01/10/2021 11:14] — Etichette stampate capovolte
+
+**Descrizione:** Pallet ricevono etichette capovolte. Impatto: etichette non leggibili.
+**Causa identificata:** Applicatore #5 stampa capovolto. #4 corretto.
+**Soluzione / Workaround:** Verifica su Printer #5.
+**Note:** —
+
+-%-
+
+• [01/10/2021 15:11] — TPO finalizzato su conveyor, impossibile crearne uno nuovo
+
+**Descrizione:** TPO per COD finalizzato mentre il pallet era sul conveyor. Impossibile creare nuovo TPO. Impatto: pallet bloccato.
+**Causa identificata:** Finalizzazione manuale del TPO.
+**Soluzione / Workaround:** Finalizzare il pick order per permettere la creazione del TPO basata su FOG.
+**Note:** —
+
+-%-
+
+• [04/10/2021 07:39] — UDC bloccata su pick station 9, EMS STORAGE_SIGNAL_MISSING
+
+**Descrizione:** COD bloccato su pick station 9. EMS riporta STORAGE_SIGNAL_MISSING. Impatto: pallet non movimentabile.
+**Causa identificata:** Problema sensore o fisico EMS.
+**Soluzione / Workaround:** Forzato ordine EMS.
+**Note:** —
+
+-%-
+
+• [04/10/2021 13:52] — H destacker: sistema tenta prelievo nonostante destacker vuoto
+
+**Descrizione:** H destacker vuoto ma il sistema tenta ancora di prelevare con le braccia gialle. Impatto: pallet dietro non può entrare.
+**Causa identificata:** MFS chiaro. Possibile problema PLC.
+**Soluzione / Workaround:** Contattare PLC.
+**Note:** —
+
+-%-
+
+• [06/10/2021 19:13] — CU vicino foiling bloccano AGV con I/O blocking
+
+**Descrizione:** Tutti i CU vicino alla foiling bloccano gli AGV con I/O blocking. Impatto: AGV fermi.
+**Causa identificata:** I/O blocking non legato a MFS. Possibile problema rete o AGV.
+**Soluzione / Workaround:** Riavvio sistema. Nessun problema trovato in WAMAS/MFS/Hive.
+**Note:** —
+
+-%-
+
+• [07/10/2021 13:55] — TEMP8662: EMS TU_TYPE_MISMATCH
+
+**Descrizione:** TEMP8662 con errore. Impatto: pallet non movimentabile.
+**Causa identificata:** EMS ha riportato TU_TYPE_MISMATCH.
+**Soluzione / Workaround:** Reinvio ordine. Funzionato.
+**Note:** —
+
+-%-
+
+• [08/10/2021 19:27] — MF266 e MF200 non funzionanti, EMS si bloccano su CU268
+
+**Descrizione:** MF266 e MF200 non funzionanti. Tutti gli EMS che arrivano vicino a CU268 si bloccano. Impatto: EMS bloccati, movimentazione manuale.
+**Causa identificata:** Probabile trolley specifico che deve prendere il pallet su CU268.
+**Soluzione / Workaround:** Ordine EMS cancellato. Pallet spinto manualmente. Dopo 2 tentativi, EMS ha prelevato.
+**Note:** Se persiste, contattare EMS.
+
+-%-
+
+• [11/10/2021 11:57] — Destacker F problematico
+
+**Descrizione:** Destacker F con problemi ricorrenti. Impatto: flusso pallet F rallentato.
+**Causa identificata:** "A volte è un pallet". Frequenza maggiore nelle ultime settimane.
+**Soluzione / Workaround:** Verifica.
+**Note:** —
+
+-%-
+
+• [12/10/2021 14:48] — UDC 58991745 con errore non risolvibile
+
+**Descrizione:** UDC con errore non risolvibile dalle procedure standard. Impatto: pallet non movimentabile.
+**Causa identificata:** Database corrotto. Dati errati da un vecchio intervento manuale.
+**Soluzione / Workaround:** Fix database.
+**Note:** Non dovrebbe ripetersi.
+
+-%-
+
+• [12/10/2021 20:30] — 100 TPO creati verso QC inaspettatamente
+
+**Descrizione:** ~100 TPO creati verso QC. Pallet da non rimuovere. Impatto: confusione operativa.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Non rimuovere pallet. Verifica al mattino.
+**Note:** —
+
+-%-
+
+• [14/10/2021 07:47] — AGV non si muove, conveyor locked, ordine non reinviato
+
+**Descrizione:** AGV non si muove. Conveyor locked. Ordine non reinviato al PLC quando AGV spostato. Impatto: pallet bloccato.
+**Causa identificata:** Ordine non reinviato al PLC.
+**Soluzione / Workaround:** Fix. Verifica più approfondita.
+**Note:** —
+
+-%-
+
+• [15/10/2021 11:23] — 85138793 su CU281 con errori da ieri
+
+**Descrizione:** Pallet con errori su CU281 dalla sera prima. Impatto: AGV non passano.
+**Causa identificata:** Errori sul pallet.
+**Soluzione / Workaround:** Pulizia CU281. Pallet inviato a NOK. Errori puliti.
+**Note:** —
+
+-%-
+
+• [18/10/2021 11:21] — Pallet non avanza su conveyor, sensore difettoso
+
+**Descrizione:** Pallet non si muove nonostante ordine in PLC. Impatto: pallet bloccato.
+**Causa identificata:** Sensore non legge correttamente. Nessun errore in Lighthouse.
+**Soluzione / Workaround:** Sensore riparato.
+**Note:** —
+
+-%-
+
+• [18/10/2021 15:35] — COD blocca pallet, flag "ATTIVO SU MFS" anomalo
+
+**Descrizione:** COD blocca un altro pallet. Flag "ATTIVO SU MFS" strano in MF014. Impatto: pallet bloccato.
+**Causa identificata:** Ordine corrotto nel PLC.
+**Soluzione / Workaround:** Ricreato ordine nel PLC.
+**Note:** —
+
+-%-
+
+• [18/10/2021 19:55] — BP05 buffer: bug, pallet non si muove
+
+**Descrizione:** Pallet nel buffer BP05 non si muove. Impatto: pallet bloccato.
+**Causa identificata:** Bug. Fix nella prossima build.
+**Soluzione / Workaround:** Pallet replenished.
+**Note:** —
+
+-%-
+
+• [19/10/2021 14:41] — Load non chiudibile, picking attivo su 3 UDC
+
+**Descrizione:** Load *18396 non chiudibile. 3 UDC con picking attivo. Impatto: load non completabile.
+**Causa identificata:** Picking attivo su UDC.
+**Soluzione / Workaround:** Verifica e risoluzione.
+**Note:** —
+
+-%-
+
+• [19/10/2021 17:33] — Memory spike WAMASAPP, Lighthouse e mobili down
+
+**Descrizione:** Immagine Lighthouse e mobili non funzionanti. Memory spike. Impatto: monitoraggio e operatività ridotti.
+**Causa identificata:** Memory spike dovuto a uno script di memoria non funzionante.
+**Soluzione / Workaround:** Stop/start servizi replenishment/reporting per svuotare memoria. Script disabilitato.
+**Note:** Verifica log il giorno dopo.
+
+-%-
+
+• [21/10/2021 16:51] — Pick Station 4: dialog bloccato, "unknown error"
+
+**Descrizione:** Dialog pick station 4 bloccato. Anche con OK, reboot PC, reboot WAMAS. Impatto: stazione 4 completamente bloccata.
+**Causa identificata:** Non specificata chiaramente.
+**Soluzione / Workaround:** Intervento SSI.
+**Note:** —
+
+-%-
+
+• [21/10/2021 17:29] — 60762026: SRM riporta TU_TYPE_WRONG, dati corrotti
+
+**Descrizione:** SRM riporta tipo errato per il pallet. Impatto: pallet non movimentabile, crash controller SRM3.
+**Causa identificata:** Dati corrotti sul pallet.
+**Soluzione / Workaround:** Fix dati. Solo sviluppatori possono risolvere.
+**Note:** —
+
+-%-
+
+• [22/10/2021 05:05] — MF200 e MF266 non funzionanti
+
+**Descrizione:** MF200 e MF266 danno errore con tutti gli account. Impatto: impossibile operare.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Fix dopo ~40 minuti.
+**Note:** —
+
+-%-
+
+• [22/10/2021 06:04] — Stacker crane 3 bloccato, dati corrotti
+
+**Descrizione:** SRM3 bloccato. Non riparte. Impatto: SRM3 fermo.
+**Causa identificata:** Pallet 60762026 con dati corrotti crashava il controller SRM3.
+**Soluzione / Workaround:** Fix dati corrotti. Solo sviluppatori possono risolvere.
+**Note:** —
+
+-%-
+
+• [22/10/2021 07:02] — Pick Station 6: pallet su AGV ma non depositato
+
+**Descrizione:** Pallet fisicamente su AGV21 ma AGV ha confermato il deposito. Impatto: stazione non può iniziare.
+**Causa identificata:** AGV ha confermato il put down ma fisicamente non è avvenuto.
+**Soluzione / Workaround:** Verifica manuale.
+**Note:** —
+
+-%-
+
+• [22/10/2021 12:17] — Pick station 9: AGV ha recuperato pallet senza confermare, stazione bloccata
+
+**Descrizione:** AGV ha recuperato il pallet ma non ha confermato. Pick station bloccata. Impatto: stazione 9 ferma.
+**Causa identificata:** AGV non ha confermato il recupero.
+**Soluzione / Workaround:** Conferma "deposit" action forzata.
+**Note:** —
+
+-%-
+
+• [26/10/2021 12:50] — Location S46 fisicamente occupata ma libera in WAMAS
+
+**Descrizione:** Location sotto libera in WAMAS ma fisicamente occupata. ART non può depositare. Impatto: AGV bloccato.
+**Causa identificata:** Lock problema al mattino.
+**Soluzione / Workaround:** Rimozione pallet. Blocco location S46. Relocation pallet.
+**Note:** —
+
+-%-
+
+• [28/10/2021 16:55] — Crane 8 perde pallet da WAMAS, MF210 necessario
+
+**Descrizione:** Crane 8 perde tutti i pallet da WAMAS. Lighthouse non mostra UDC. Impatto: crane non operativo.
+**Causa identificata:** SRM in manual handling.
+**Soluzione / Workaround:** Reset con MF210.
+**Note:** —
+
+-%-
+
+• [28/10/2021 22:44] — AGV tamponate dietro S48/02
+
+**Descrizione:** AGV si sono tamponate dietro S48/02. Impatto: AGV danneggiati/bloccati.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Verifica.
+**Note:** —
+
+-%-
+
+• [29/10/2021 15:44] — Pick Station 5 bloccata, intervento manuale ha cancellato TPO
+
+**Descrizione:** Pick station 5 bloccata. Ticket aperto alle 14:48. Impatto: stazione ferma.
+**Causa identificata:** Intervento manuale: cancellato TPO ma AGV aveva già la missione salvata.
+**Soluzione / Workaround:** Sbloccata la stazione.
+**Note:** —
+
+-%-
+
+• [26/11/2021 18:59] — Patch K69 genera problemi K70 e A88 (blocker)
+
+**Descrizione:** La patch per issue K69 ha generato K70 e A88. Impossibile rilasciare OG buffer per load con pallet slaved in HBW1. Molti OBD al 90% non chiudibili. Impatto: blocco carichi, OBD non completabili.
+**Causa identificata:** Patch K69.
+**Soluzione / Workaround:** Richiesta rollback. Mail inviata con tempistiche deploy.
+**Note:** Urgenza: fix prima del lunedì.
+
+-%-
+
+• [29/11/2021 07:55] — Pick Station 3 bloccata, stock object bloccato per inventory
+
+**Descrizione:** Pick station 3 bloccata da 1,5 ore. Impatto: operatore fermo.
+**Causa identificata:** Stock object bloccato per inventory.
+**Soluzione / Workaround:** Sbloccato stock object.
+**Note:** Ticket D189 riaperto.
+
+-%-
+
+• [03/12/2021 08:06] — SRM8: disallineamento dopo intervento manuale
+
+**Descrizione:** Device Controller ha pallet su SRM ma MFS lo ha già. PLC e MFS disallineati. Impatto: SRM8 non operativo.
+**Causa identificata:** Intervento manuale. Transport finito ma già in processing.
+**Soluzione / Workaround:** Verifica fisica. Rimozione blocco da WH078. Allineamento.
+**Note:** —
+
+-%-
+
+• [15/12/2021 10:12] — Spontaneous TPO: terminali mobili si disconnettono
+
+**Descrizione:** Terminali mobili si disconnettono durante spontaneous. Impatto: operatori mobili bloccati.
+**Causa identificata:** Combinazione FOG-GoodsCategory errata (InDecori-MAV con "Decori" invece di "decori-mav"). La ricerca fallisce.
+**Soluzione / Workaround:** Fix della combinazione FOG-GoodsCategory.
+**Note:** Risolto il 15/12.
+
+-%-
+
+• [15/12/2021 15:17] — Discharge problem: quantità scaricata errata
+
+**Descrizione:** LU con 5 scatole ma ordered qty 20. Discharge di 15 scatole da cancellare. Impatto: OBD non chiudibile.
+**Causa identificata:** Discharge amount errato.
+**Soluzione / Workaround:** Rimosso discharge amount. OBDL da finalizzare manualmente.
+**Note:** —
+
+-%-
+
+• [21/12/2021 09:07] — Pick Station 4: show stopper
+
+**Descrizione:** Pick station 4 con problema show stopper. Impatto: stazione completamente bloccata.
+**Causa identificata:** Non specificata nella conversazione.
+**Soluzione / Workaround:** Risolto parzialmente in autonomia. Ticket inviato.
+**Note:** —
+
+-%-
+
+• [22/12/2021 13:55] — Carrellisti non possono entrare in WAMAS
+
+**Descrizione:** Forklift drivers non riescono ad accedere a WAMAS. Impatto: operazioni manuali bloccate.
+**Causa identificata:** Problema operatore telefonico.
+**Soluzione / Workaround:** Verifica.
+**Note:** —
+
+-%-
+
+• [29/12/2021 12:41] — SRM2 non mostra movimento in Lighthouse
+
+**Descrizione:** SRM2 non mostra movimento né errori in Lighthouse. Impatto: monitoraggio assente.
+**Causa identificata:** Errore di visualizzazione browser.
+**Soluzione / Workaround:** Pulizia browser/cookie. Riavvio LH.
+**Note:** —
+
+-%-
+
+• [30/12/2021 10:37] — Terminali mobili non si connettono al server
+
+**Descrizione:** Tutti i terminali mobili non si connettono. Carrellisti bloccati. Impatto: operazioni manuali ferme.
+**Causa identificata:** Stesso problema del martedì. Helpdesk chiamato.
+**Soluzione / Workaround:** Chiamato helpdesk.
+**Note:** —
+
+-%-
+
+• [30/12/2021 13:38] — COD: crane in stato corretto ma LH mostra "home"
+
+**Descrizione:** Lighthouse mostra COD in posizione "home" ma il crane è in stato funzionale corretto. Impatto: possibile disallineamento.
+**Causa identificata:** Non specificata.
+**Soluzione / Workaround:** Verifica.
+**Note:** —

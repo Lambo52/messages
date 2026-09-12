@@ -1,2 +1,5 @@
-[26/09/2023, 05:08] — AGV 11 fermo davanti a picking station 1
-Descrizione: AGV 11 bloccato. Causa identificata: Non specificata. Soluzione / Workaround: Sblocco crane 3 ha risolto. Note: —
+### [13/09/24, 10:09] — “could not load all LUs” e shipment LU perso blocca stazione
+**Descrizione:** Loading non carica tutte le LUs; shipment LU perso blocca stazione.  
+**Causa identificata:** Shipment LU perso durante report as full.  
+**Soluzione / Workaround:** Finalizzazione PO e release OBD; stazione riparte.  
+**Note:** Analizzare report as full.

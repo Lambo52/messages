@@ -1,2 +1,5 @@
-[30/05/2022, 10:14] — OBD con items "missing" nonostante stock presente
-Descrizione: 41 OBD di tipo "supermarket" con items mancanti pur avendo materiale disponibile. Causa identificata: WAMAS riservava WholeLU senza generare picking activities. Soluzione / Workaround: Ticket aperto. Note: —
+### [27/12/23 11:44] — Shutdown/start WAMAS, red bubbles, AGV non connessi/Rocla
+**Descrizione:** Durante spegnimento/riaccensione: red bubbles; AGV non connessi; Rocla services spenti e modalità manuale; picking source bloccate.  
+**Causa identificata:** Servizi Rocla spenti dopo cambio server; reset MFS/AGV.  
+**Soluzione / Workaround:** Rocla riattivato servizi e automatico; MFS caricato; stazioni ripristinate.  
+**Note:** Problema previsto per cambio server successivo.

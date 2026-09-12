@@ -1,2 +1,5 @@
-[24/07/2023, 11:55] — Problema area automatica e manuale prima del deploy
-Descrizione: Problema in area automatica (auto-risolto) e successivo problema manuale. Causa identificata: Non specificata. Soluzione / Workaround: Restart "allione" (non full deploy). Note: —
+### [05/08/24, 10:04] — Issue NCOD ricorrente
+**Descrizione:** Problema ricorrente NCOD; inviata email con spiegazione.  
+**Causa identificata:** In analisi.  
+**Soluzione / Workaround:** Documentazione e follow-up.  
+**Note:** Monitorare.

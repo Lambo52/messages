@@ -1,2 +1,5 @@
-[13/08/2021, 18:35] — EMS infeed "WAIT FOR STORAGE FAIL" (tolleranza peso pilastri)
-Descrizione: Tutti gli EMS transitano verso l'infeed senza prendere il pallet. Blocco produttivo. Causa identificata: Controllo peso sui pilastri HBW con tolleranza al 20%: troppo stringente. Soluzione / Workaround: Tolleranza aumentata dal 20% al 30%. Note: Da verificare nell'ambito del documento W34.
+### [13/04/22 08:52] — Pick station #12 bloccata per issue COD
+**Descrizione:** Issue COD marcata “need to be checked live”; picking station #12 bloccata.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Persona ha preso in carico.  
+**Note:** Ticket COD.

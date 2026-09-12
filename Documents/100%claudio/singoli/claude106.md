@@ -1,2 +1,5 @@
-[27/12/2023, 17:39] — AGV in I/O Blocking in zona Wuzzi
-Descrizione: AGV bloccato in zona wuzzi. Causa identificata: Non determinata. Soluzione / Workaround: Risolto tramite supporto Rocla nel corso della serata. Note: —
+### [11/03/25 12:26] — Ordine bloccato in shipping planning
+**Descrizione:** Ordine urgente non finalizzato; impossibile fare documenti; stato in shipping planning.  
+**Causa identificata:** Effetto collaterale di split; stato non cambiato a finished.  
+**Soluzione / Workaround:** Cambiato planning stage e recalc state.  
+**Note:** Verificare comportamento crossdocking.

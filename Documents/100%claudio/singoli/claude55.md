@@ -1,2 +1,5 @@
-[26/01/2022, 09:39] — Stazione 2: pick order non rilavorabile (flag "finalized")
-Descrizione: Pick order non rielaborabile per flag "finalized" non rimosso. Causa identificata: Flag non correttamente resettato. Soluzione / Workaround: Razvan ha rimosso il flag manualmente. Note: —
+### [24/06/22 14:34] — Accesso SQL WAMAS DB bloccato per troppe sessioni
+**Descrizione:** Accesso SQL al DB WAMAS non funzionava; troppe sessioni; limite 10 connessioni.  
+**Causa identificata:** Limite connessioni e sessioni multiple.  
+**Soluzione / Workaround:** Chiusura/kill sessione; accesso ripristinato.  
+**Note:** Discussione su copia dati/archivio/history server. Possibile correlazione con: performance DB.

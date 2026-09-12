@@ -1,2 +1,5 @@
-[22/06/2023, 10:26] — Quantità pianificate/consegnate disallineate su OBD
-Descrizione: Due linee OBD con quantità planned/delivered disallineate impedivano chiusura CT. Causa identificata: Non specificata. Soluzione / Workaround: Allineamento manuale delle quantità. Note: —
+### [02/08/24, 15:21] — Pick station bloccata da DAF/TEMP
+**Descrizione:** Pick station bloccata da DAF; cancellando TEMP la stazione riparte.  
+**Causa identificata:** DAF/TEMP bloccante.  
+**Soluzione / Workaround:** Cancellazione TEMP.  
+**Note:** Email inviata. Possibile correlazione con: TEMP/mismatch.

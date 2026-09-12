@@ -1,2 +1,5 @@
-[07/02/2022, 07:45] — RED ALARM: sole 2 pick station operative
-Descrizione: Soltanto 2 picking station funzionanti a inizio turno. Area automatizzata quasi ferma. Causa identificata: Non esplicitata. Soluzione / Workaround: Risolto da Support Technician 23 entro le 09:37. Note: —
+### [28/10/22 15:54] — Pick station in “loading...” / processo Msaccess
+**Descrizione:** Tutte le pick station bloccate in dialog “loading...”; necessario logout utente.  
+**Causa identificata:** Processo Msaccess su WAMASAPP.  
+**Soluzione / Workaround:** Chiuso processo; loading tornato normale.  
+**Note:** Ticket chiuso.

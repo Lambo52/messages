@@ -1,7 +1,19 @@
-Errore quantità anomala da operatore / Crash sistema calcolo peso
-Occorrenze: 10/01/2024, 12/01/2024
-Descrizione generale: L'operatore (stesso utente lp65) conferma quantità impossibili durante l'inventario (5.135 SC e 6.153 pezzi invece di 0). Il peso calcolato supera la soglia massima (~65.353 unità / ~104.000 kg), causando crash del sistema di calcolo peso MFS.
-Causa: Errore dell'operatore (possibilmente errore di scansione). Il sistema non aveva protezione contro valori impossibili.
-Soluzione / Workaround consolidato: Auto-ripristino del sistema. Contatto con l'operatore. Proposta protezione software: non consentire conferma di quantità > 2x pallet piena.
-Frequenza: 2 occorrenze documentate nel gennaio 2024 (stesso operatore).
-Note: La protezione software è stata proposta ma richiedeva modifiche estese al sistema. Si è deciso di affrontare il problema con l'operatore.
+## 26. Pallet D / baseleg / meccanica pallet/conveyor
+
+**Occorrenze principali:**  
+2021: 30/06, 06/07, 07/07, 24/08  
+
+**Descrizione generale:**  
+Pallet D con baseleg troppo larghi o fuori tolleranza; forche che toccano baseleg; rischio caduta; piastra frontale conveyor troppo bassa; coperture forche AGV danneggiate.
+
+**Causa ricorrente:**  
+Tolleranze pallet; geometria forche/conveyor; piastra frontale non tagliata; urti meccanici.
+
+**Soluzione / Workaround consolidato:**  
+Rimozione pallet; verifica provenienza; proposta taglio piastra; riparazione meccanica; discussione su modifiche non sempre adottate per costi.
+
+**Frequenza:**  
+Bassa: 4 occorrenze.
+
+**Note:**  
+Problema più meccanico che applicativo; impattava comunque affidabilità AGV/conveyor.

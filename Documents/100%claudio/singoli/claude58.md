@@ -1,2 +1,7 @@
-[15/02/2022, 17:13] — RED ALARM: TPO non creati per pallet in area automatizzata
-Descrizione: Nessun TPO generato per i pallet nell'area automatizzata. Impatto bloccante. Causa identificata: Non esplicitata. Soluzione / Workaround: Non documentata. Note: Segnalazione rimasta senza risposta documentata.
+## Anno 2023
+
+### [10/03/23 12:33] — Nuovo loading aid AI non utilizzabile
+**Descrizione:** OBD in stato active 15% senza avanzamento; nuovo loading aid AI non utilizzabile.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Nessuna definitiva nel file.  
+**Note:** Richiesta uso ASAP. Possibile correlazione con: configurazione loading aid.

@@ -1,2 +1,5 @@
-[05/04/2022, 10:05] — TOs manuali richiedono sistematicamente suspend+resume
-Descrizione: ~22 LU con TO che richiedevano suspend+resume per funzionare. Causa identificata: Mobile worker da riavviare. Soluzione / Workaround: Riavvio del mobile worker. Note: Correlato ai residui del deploy del 04/04.
+### [23/10/23 14:23] — F01 error, infeed line blocking e garbage data
+**Descrizione:** F01 con errori e red bubbles; pallet bloccati su infeed line; possibile “garbage data”.  
+**Causa identificata:** Errore/garbage data in area; fix necessario con deploy.  
+**Soluzione / Workaround:** Temporaneo ripristino; uso solo seconda linea infeed; deploy fix previsto.  
+**Note:** Possibile correlazione con: pending events/MFS.

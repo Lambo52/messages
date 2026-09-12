@@ -1,2 +1,5 @@
-[12/01/2022, 18:50] — TPO allocazione manuale bloccante / RF terminal non responsivo
-Descrizione: TPO in allocazione manuale blocca il terminale RF. Impossibilità di movimentare pallet interi alla vigilia di un giorno ad alto volume. Causa identificata: Fix precedente del TPO spontaneo aveva generato effetti collaterali. Soluzione / Workaround: Restart previo allineamento parametri. Sistema ripristinato entro le 21:56. Note: Problema stampante su LDF01C0522_LEFT come causa concorrente.
+### [07/06/22 13:18] — Post-deploy: StoCompAssemblage non creato / counters DB / unpicking station 9
+**Descrizione:** Errore “StoCompAssemblage couldn’t be created”; problemi su rilascio OG buffer e pick station #9 in unpicking mode.  
+**Causa identificata:** Counter in WAMAS non aggiornati correttamente per errore utente.  
+**Soluzione / Workaround:** Fix; riavvio WAMAS alle pick station; ripristinato.  
+**Note:** Patch incluse nel deploy. Possibile correlazione con: deploy.

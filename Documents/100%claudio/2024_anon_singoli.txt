@@ -1,0 +1,901 @@
+• [02/01/24, 11:57] — Problema AGV dopo riavvio VMs  
+Descrizione: dopo spegnimento e riavvio delle VMs/applicazioni, si ripresenta un problema AGV; l’operatività viene sospesa e viene coinvolto Helpdesk/Rocla.  
+Causa identificata: non emersa con certezza.  
+Soluzione / Workaround: restart AGV e intervento Rocla; AGVs ripristinati.  
+Note: verifiche anche su mqSender/mqReceiver.
+
+-%- 
+
+• [05/01/24, 17:55] — Disallineamento stock su LU / CSIA02 e missing items  
+Descrizione: valori di stock su LUs diversi da quelli richiesti dall’ordine; il campo CSIA02 risulta differente e causa “missing items”.  
+Causa identificata: disallineamento tra stock richiesto sull’ordine e stock presente sulle LUs.  
+Soluzione / Workaround: modifica dei campi csia sull’ordine e rilascio nuovamente l’ordine; stock non modificato.  
+Note: problema da verificare nuovamente, possibile ricorrenza.
+
+-%- 
+
+• [08/01/24, 17:52] — OBD con shipmentLU “Loading in progress”  
+Descrizione: due OBD hanno shipmentLU in Loading in progress per una loading order assegnata; il flusso di carico resta bloccato.  
+Causa identificata: flag/loading order assegnata.  
+Soluzione / Workaround: modifica manuale dello stato di loading.  
+Note: continuare il flusso e verificare.
+
+-%- 
+
+• [08/01/24, 18:08] — Inventario duplicato per stesso LU-ID  
+Descrizione: presence di inventory order per lo stesso LU-ID; la workstation non riparte correttamente.  
+Causa identificata: righe inventory duplicate.  
+Soluzione / Workaround: cancellazione degli inventory COD.  
+Note: verifica riavvio workstation.
+
+-%- 
+
+• [10/01/24, 08:57] — Blocco WAMAS per quantità errata e peso eccessivo  
+Descrizione: pezzi PREZZO su LU con quantità errata; WAMAS si blocca durante il calcolo del peso per MFS.  
+Causa identificata: valore di peso troppo alto rispetto al massimo accettato; possibile errore operatore.  
+Soluzione / Workaround: analisi SMCOD/OGCOD; spiegazione del crash per weight computation.  
+Note: valutare protezione per evitare crash da input errati.
+
+-%- 
+
+• [11/01/24, 08:47] — Pending event / pcs order su LU inesistente  
+Descrizione: LU non esistente in WAMAS genera pending event e pcs order.  
+Causa identificata: non chiara al momento.  
+Soluzione / Workaround: analisi in corso.  
+Note: root cause da approfondire.
+
+-%- 
+
+• [11/01/24, 18:29] — Blocco area automatica, reset  
+Descrizione: problema in area automatica; dopo reset il sistema sembra riprendere.  
+Causa identificata: non emersa.  
+Soluzione / Workaround: reset; verifica funzionamento.  
+Note: monitorare.
+
+-%- 
+
+• [12/01/24, 08:52] — Quantità elevata su pallet / PREZZO pieces, errore operatore  
+Descrizione: si ripete il caso di pezzi PREZZO con quantità anomala; WAMAS viene afectato da peso superiore alla soglia.  
+Causa identificata: stesso utente, stesso pick station; probabile input manuale errato.  
+Soluzione / Workaround: confronto con operatore e shift leader.  
+Note: valutare protezione su conferma quantità; discutere con operations.
+
+-%- 
+
+• [15/01/24, 08:57] — Problema mattutino per barcode pallet modificato  
+Descrizione: issue mattutina su ticket COD; qualcuno ha cambiato barcode del pallet.  
+Causa identificata: barcode modificato; problema già presente prima della sostituzione del lettore.  
+Soluzione / Workaround: problema risolto; feedback successivo.  
+Note: monitorare.
+
+-%- 
+
+• [16/01/24, 08:42] — Pending events per LU inesistente, destacker/TEMP barcode  
+Descrizione: si ripete issue con pending events per LU inesistente; possibile problema di matching tra pallet TEMP e barcode reale.  
+Causa identificata: sotto investigazione; possibile coinvolgimento destacker.  
+Soluzione / Workaround: cancellazione pending events.  
+Note: priorità alta, root cause non trovata.
+
+-%- 
+
+• [19/01/24, 09:42] — Quantità delivered errata e chiusura truck con IllegalStateException  
+Descrizione: delivered quantity errata su order lines; successivamente errore Java durante chiusura truck.  
+Causa identificata: quantità impostata errata; eccezione in ObdLoadInfoCalculator.  
+Soluzione / Workaround: modifica quantità su entrambe le linee; chiusura truck riuscita in seguito.  
+Note: root cause da investigare.
+
+-%- 
+
+• [22/01/24, 16:17] — Permessi profilo Manutenzione su MDCOD  
+Descrizione: profilo “Manutenzione” non può modificare MDCOD, necessario per area foiling.  
+Causa identificata: diritti non configurati.  
+Soluzione / Workaround: abilitazione accesso/edit per ruolo Manutenzione.  
+Note: verifica esito.
+
+-%- 
+
+• [22/01/24, 21:52] — Anomalia PCOD assignment without data su catenary traslo  
+Descrizione: catenary del traslo in input/output in errore “anomaly PCOD assignment without data”; alcune picking station e F01 coinvolte.  
+Causa identificata: non emersa.  
+Soluzione / Workaround: ripristino operatività; ritorno al lavoro senza ulteriori problemi.  
+Note: ticket chiuso.
+
+-%- 
+
+• [26/01/24, 08:42] — Blocco mfsPalQueue  
+Descrizione: blocco di mfsPalQueue; richiesta di prevenzione per il futuro.  
+Causa identificata: in analisi.  
+Soluzione / Workaround: verifica e feedback.  
+Note: possibile ricorrenza.
+
+-%- 
+
+• [06/02/24, 09:01] — Empty pallet request / WAMAS cerca spazio per ordine con pallet in HBW  
+Descrizione: AGVs portano empty pallet; WAMAS tenta di liberare spazio per ordine con tutti i pallet già in HBWCOD.  
+Causa identificata: empty pallet request per pick order con pallet in source locations.  
+Soluzione / Workaround: analisi del flusso.  
+Note: verificare logica empty request.
+
+-%- 
+
+• [06/02/24, 14:21] — Blocco area automatica per pending event TU inesistente / picking finalizzato  
+Descrizione: pending event con TU non esistente; LU su RPFCOD, picking order finalizzato e connessione non cancellata.  
+Causa identificata: cancellazione LU impedita da violazioni DB dopo finalizzazione picking order.  
+Soluzione / Workaround: scollegamento LU dall’ordine, cancellazione pending, ripristino.  
+Note: root cause da investigare.
+
+-%- 
+
+• [07/02/24, 13:44] — AGV offline dopo reboot Rocla, no comunicazione WMS-Rocla  
+Descrizione: dopo reboot del server Rocla, AGVs offline e nessuna missione su Cway; no comunicazione WMS-Rocla.  
+Causa identificata: server Rocla probabilmente non ripartito correttamente; risolto con ulteriore restart.  
+Soluzione / Workaround: restart Rocla/server; comunicazione ripristinata.  
+Note: Rocla non aveva fatto modifiche.
+
+-%- 
+
+• [12/02/24, 13:21] — Deploy pack con issue, rollback  
+Descrizione: il pack di deploy presenta un problema; si decide di ripristinare il pack precedente.  
+Causa identificata: issue nel pack; analisi successiva.  
+Soluzione / Workaround: deploy precedente e restart istanza; nessuna nuova funzionalità.  
+Note: nuovo deploy da pianificare dopo fix.
+
+-%- 
+
+• [12/02/24, 14:43] — Loading aid H non visibile perché discontinato  
+Descrizione: loading aid H non compare nella lista e non può essere usato per creare LU.  
+Causa identificata: H marcato come discontinued per errore da un utente.  
+Soluzione / Workaround: riattivazione H; verifica anche su altro sito.  
+Note: controllare “view changes” in MDCOD.
+
+-%- 
+
+• [14/02/24, 12:28] — LU riservati con PPLU/picking archiviati, ordini non rilasciati  
+Descrizione: numerosi LU riservati ma con PPLU/picking order archiviati; ordini non rilasciati.  
+Causa identificata: non trovata; presenti casi da dicembre e settembre.  
+Soluzione / Workaround: cancellazione ticket/riserve vecchie.  
+Note: controllo archived orders; root cause non chiara.
+
+-%- 
+
+• [26/02/24, 16:30] — PO activity non cancellata impedisce creazione TEMP per stack  
+Descrizione: pallet non può diventare TEMP per essere aggiunto allo stack; probabile stesso problema di ACOD.  
+Causa identificata: PO activity per il pallet non cancellata.  
+Soluzione / Workaround: fix previsto; pallet identificato nei pending events.  
+Note: verificare anche caso ACOD.
+
+-%- 
+
+• [29/02/24, 12:09] — OBD non cambia stato, pickingRelease crash  
+Descrizione: OBD non cambia stato; pickingRelease va in crash perché l’OBD risulta finito per motivo sconosciuto.  
+Causa identificata: non chiara; analisi lunga.  
+Soluzione / Workaround: cancellazione e ricreazione OBD; reimport e modifica flag wholeLU.  
+Note: monitorare ricorrenza.
+
+-%- 
+
+• [05/03/24, 15:33] — Distribuzione pallet su corsie LCOD troppo lenta  
+Descrizione: WAMAS indirizza molti pallet verso SIDE LCOD lenta invece di distribuirli sulle corsie più rapide.  
+Causa identificata: verifica capacità corsie nei log.  
+Soluzione / Workaround: analisi log; situazione variabile.  
+Note: monitorare.
+
+-%- 
+
+• [06/03/24, 10:43] — Recurrence distribuzione LCOD  
+Descrizione: il problema di distribuzione pallet sulle corsie si ripresenta.  
+Causa identificata: in verifica.  
+Soluzione / Workaround: raccolta screenshot/log.  
+Note: follow-up.
+
+-%- 
+
+• [08/03/24, 09:01] — LCOD capacità/pallet mancanti e instradamenti finali  
+Descrizione: LCOD con capacità disponibile ma nessun pallet; shipment LU inviate a corsie diverse alla fine.  
+Causa identificata: WAMAS alla fine ha lavorato correttamente; query DB per verificare lane.  
+Soluzione / Workaround: analisi query e mapping location-lane.  
+Note: utile campo lane per analisi.
+
+-%- 
+
+• [19/03/24, 08:52] — Post-deploy sistema lento, TPO non su Cway  
+Descrizione: dopo deploy sistema molto lento; TPO creati su WAMAS ma non su Cway; pallet fermi alle picking station.  
+Causa identificata: indagine su routing/AGV; possibile problema MFS.  
+Soluzione / Workaround: verifica e fix in corso.  
+Note: monitorare.
+
+-%- 
+
+• [19/03/24, 09:02] — Empty LU request duplicate / CR report as full  
+Descrizione: PO con due empty request per pallet, anche se non idoneo a CR Report as full; stazioni rallentate.  
+Causa identificata: empty request generate per PO full e per PO con richieste; possibile bug CR.  
+Soluzione / Workaround: analisi configurazione MDCOD/FWCOD.  
+Note: richiesto fix software.
+
+-%- 
+
+• [19/03/24, 09:30] — LU non instradato a foiling  
+Descrizione: LU non può essere routato verso foiling; nessuna missione AGV.  
+Causa identificata: trasporto/PO su AGV pool; root cause non chiara.  
+Soluzione / Workaround: reset trasporto/ordine e rilancio.  
+Note: monitorare.
+
+-%- 
+
+• [19/03/24, 10:52] — CR allocate user: impossibile assegnare utente Desktop  
+Descrizione: non è possibile assegnare a PPLU un utente con terminal kind “Desktop”.  
+Causa identificata: selezione opzioni disabilitata; necessaria modifica software + deploy.  
+Soluzione / Workaround: workaround creando utente Mobile ma locked; deploy successivo per fix.  
+Note: fix pianificato.
+
+-%- 
+
+• [21/03/24, 10:41] — Bug CR allocate user, PPLU assegnato a stazione senza utente  
+Descrizione: condizione errata assegnava PPLU anche a stazioni senza utente loggato.  
+Causa identificata: bug logico nella condizione.  
+Soluzione / Workaround: fix e test interno.  
+Note: verificare in campo.
+
+-%- 
+
+• [22/03/24, 08:45] — Errore esecuzione empty LU request a pick station #COD  
+Descrizione: problema su esecuzione empty LU request; due TEMP eseguiti quasi simultaneamente, uno dei due va in errore.  
+Causa identificata: conflitto tra empty LU request e location disponibile.  
+Soluzione / Workaround: analisi log; email con dettagli.  
+Note: monitorare.
+
+-%- 
+
+• [28/03/24, 15:27] — Pick station #COD bloccata da due empty pallet per stesso PO  
+Descrizione: due destination occupate da empty pallet per lo stesso pick order; stazione bloccata e negative picking in attesa su AGV.  
+Causa identificata: empty request duplicate su possibili target.  
+Soluzione / Workaround: cancellazione empty request per sbloccare.  
+Note: analisi su invio empty LU request.
+
+-%- 
+
+• [08/04/24, 07:55] — Archiving riempie database  
+Descrizione: archiving ha riempito il database; sistema non gira normalmente per grandi quantità di dati.  
+Causa identificata: retention archiving troppo lunga / dati in eccesso.  
+Soluzione / Workaround: liberato spazio; riduzione retention e possibile truncate dati protocollo.  
+Note: pianificare History server e pulizia.
+
+-%- 
+
+• [12/04/24, 12:33] — Quantità delivered PO errata  
+Descrizione: quantità delivered su PO non corretta; atteso valore diverso.  
+Causa identificata: quantità inserita per chiudere l’ordine.  
+Soluzione / Workaround: modifica pick order alla quantità corretta.  
+Note: verificare chiusura/finalize.
+
+-%- 
+
+• [12/04/24, 16:07] — Database enorme per archiving/protocol, richiesta compattazione/riduzione retention  
+Descrizione: DB molto grande per dati di archiving/protocollo e cambi; impatto su spazio e performance.  
+Causa identificata: retention troppo lunga e dati garbage.  
+Soluzione / Workaround: riduzione retention period su SECOD/OMCOD; cleanup worker.  
+Note: attenzione a perdere archived OBD; History server non pronto.
+
+-%- 
+
+• [17/04/24, 10:33] — Crane COD con TEMPCOD su fork ma vuota  
+Descrizione: crane vuota su fork COD ma MFCOD mostra TEMPCOD; necessario cancellare.  
+Causa identificata: non chiara.  
+Soluzione / Workaround: intervento e ritorno normale.  
+Note: ticket chiuso.
+
+-%- 
+
+• [17/04/24, 11:22] — TPO crash/kick mobile in loading/manual/QC/foiling  
+Descrizione: operatori espulsi dal dialog WAMAS durante TPO; TPO spontanei danno “no TPO planned”; LU dichiarati senza TPO anche se presenti.  
+Causa identificata: DcMobile worker processava transport order inesistenti.  
+Soluzione / Workaround: restart DcMobile worker; TPO ripristinati.  
+Note: investigare root cause.
+
+-%- 
+
+• [17/04/24, 15:59] — Configurazione/cubature HA/DA e creazione stack  
+Descrizione: impossibile creare stack HA/DA; cubature non definite correttamente e locazioni non configurate.  
+Causa identificata: configurazione loading aid/cubature incompleta.  
+Soluzione / Workaround: aggiunte cubature; verifica completa configurazione.  
+Note: continuare test.
+
+-%- 
+
+• [18/04/24, 02:17] — Anomalia pCOD assignment without data  
+Descrizione: sistema fermo per errore “anomaly pCOD assignment without data”.  
+Causa identificata: non emersa.  
+Soluzione / Workaround: ripristino automatico; sistema ok.  
+Note: ticket chiuso.
+
+-%- 
+
+• [18/04/24, 11:28] — Cubature B_DA/B_D errate e slaving errato su stack DA/HA  
+Descrizione: operatori slavavano D ma WAMAS creava B_DA invece di B_D; errori contour su infeed.  
+Causa identificata: cubature B_D e B_DA identiche; scelta alfabetica errata.  
+Soluzione / Workaround: modifica cubature e correzione DB.  
+Note: monitorare ricorrenza.
+
+-%- 
+
+• [18/04/24, 15:28] — MFS non vede nuovi LA HA/DA, richiesto restart  
+Descrizione: HA/DA non riconosciuti da MFS senza restart; test destacker bloccati.  
+Causa identificata: nuovi loading aid aggiunti dopo deploy non visibili a MFS.  
+Soluzione / Workaround: restart MFS con AGV fermati.  
+Note: coordinare stop produzione.
+
+-%- 
+
+• [19/04/24, 09:51] — Rocla deposita stack DA in locazione HA per mapping errato  
+Descrizione: AGV ATX deposita stack DA in locazione HA; destinazione errata.  
+Causa identificata: conversione/mapping location errato lato Rocla.  
+Soluzione / Workaround: Rocla corregge mapping; test riprende.  
+Note: verificare entrambe le destacker location.
+
+-%- 
+
+• [19/04/24, 16:34] — Ultimo pallet non movimentato per parametro replenish messo false troppo presto  
+Descrizione: ultimo pallet non movimentato; parametro replenish disattivato prima del completamento.  
+Causa identificata: intervento manuale anticipato.  
+Soluzione / Workaround: riattivazione/attesa; analisi debug.  
+Note: continuare test lunedì.
+
+-%- 
+
+• [22/04/24, 09:09] — Pick station #COD bloccata da TPO empty LU / priorità esecuzione  
+Descrizione: station bloccata perché WAMAS crea empty LU request con TPO verso station e TPO verso SCOD; priorità di esecuzione non consente sblocco.  
+Causa identificata: priorità esecuzione AGV e attesa posizione.  
+Soluzione / Workaround: rimozione manuale e cancellazione empty request; sistema riparte.  
+Note: valutare aumento priorità esecuzione empty out.
+
+-%- 
+
+• [22/04/24, 12:32] — Deploy/PLC update, DA/HA non riconosciuti da PLC crane  
+Descrizione: dopo deploy WAMAS/PLC, cranes non riconoscono nuovi SOC ID HA/DA; rischio deposito errato.  
+Causa identificata: PLC crane non aggiornato per nuovi tipi pallet.  
+Soluzione / Workaround: blocco infeed HA/DA; richiesto deploy PLC cranes.  
+Note: coordinare PLC e Rocla.
+
+-%- 
+
+• [22/04/24, 13:11] — AGV offline per porta HIVE->ROCLA bloccata  
+Descrizione: dopo restart/deploy, AGVs offline; HIVE non comunica con Rocla; porta occupata/bloccata.  
+Causa identificata: porta di comunicazione bloccata su server Rocla.  
+Soluzione / Workaround: restart AGV server; porta rilasciata.  
+Note: possibile firewall/porta COD:COD.
+
+-%- 
+
+• [23/04/24, 09:15] — DA stack deattivato e empty request solo DA senza D  
+Descrizione: empty request generata solo con DA perché stack DA bloccato; manca D e la stazione si blocca.  
+Causa identificata: configurazione MDCOD/FWCOD e stack bloccati.  
+Soluzione / Workaround: modifica configurazione D-D e parametri; test picking DA/HA.  
+Note: necessaria gestione true/false per DA/HA.
+
+-%- 
+
+• [23/04/24, 10:11] — Contour error HA su infeed  
+Descrizione: stack HA in errore contour left/right/rear su infeed.  
+Causa identificata: in verifica; possibile errore dimensionale/PLC.  
+Soluzione / Workaround: test ripetuti e modifiche PLC.  
+Note: continuare test.
+
+-%- 
+
+• [23/04/24, 15:23] — AGV deposita HA in locazione M/L errata  
+Descrizione: AGV deposita HA in ATLAS_AGV_M/L_COD * invece della prima M/L.  
+Causa identificata: probabile dipendenza da dimensioni/location.  
+Soluzione / Workaround: analisi in corso.  
+Note: verificare mapping.
+
+-%- 
+
+• [24/04/24, 09:37] — Stack DA con dimensioni errate dopo test manuali  
+Descrizione: stack DA con quantità pallet errata; empty request manuali cancellate senza aggiornare stack.  
+Causa identificata: test manuali e cancellazioni non riallineate.  
+Soluzione / Workaround: analisi e correzione.  
+Note: continuare test.
+
+-%- 
+
+• [24/04/24, 15:30] — DA stack non idoneo a locazione destacker per cubatura B_DA  
+Descrizione: WAMAS segnala locazione non idonea per stack DA perché B_DA troppo grande.  
+Causa identificata: cubatura B_DA errata.  
+Soluzione / Workaround: modifica cubatura B_DA temporanea.  
+Note: fix definitivo con PLC cranes.
+
+-%- 
+
+• [24/04/24, 17:13] — TPO mobile bloccati dopo modifica tipo locazione destacker  
+Descrizione: problemi TPO in manual area/loading; utenti espulsi; errore su mobile.  
+Causa identificata: configurazione location type destacker errata.  
+Soluzione / Workaround: restart DcMobile; TPO ripristinati.  
+Note: evitare modifiche config non coordinate.
+
+-%- 
+
+• [29/04/24, 08:29] — Impossibile creare TPO per stack H/D, spazio HBW esaurito  
+Descrizione: stack H e D non riescono ad entrare in HBWCOD; H stack vuoto e pick station bloccate.  
+Causa identificata: nessuno spazio per pallet grandi; compartment occupati/reserved.  
+Soluzione / Workaround: gestione manuale TPO e storage parziale.  
+Note: necessario ampliare/liberare locazioni per H/D.
+
+-%- 
+
+• [30/04/24, 17:21] — Ordini in approval in progress, CPU DB alta  
+Descrizione: più di COD ordini in “approval in progress”; CPU wamasdb alta; approvazione molto lenta.  
+Causa identificata: non chiara; jobs regolari.  
+Soluzione / Workaround: attesa; CPU diminuita e problema rientrato.  
+Note: ricorrente; monitorare volumi dati.
+
+-%- 
+
+• [14/05/24, 07:16] — Messaggio bloccato in coda mfsPal, TPO fermi  
+Descrizione: messaggio in coda mfsPal blocca avvio di altri TPO.  
+Causa identificata: sotto investigazione.  
+Soluzione / Workaround: sistema ripristinato; verifica.  
+Note: root cause da trovare.
+
+-%- 
+
+• [11/06/24, 10:05] — Impossibile scaricare quantità QCOD per LUs non in buffer  
+Descrizione: utente non riesce a scaricare quantità perché LU non in area buffer.  
+Causa identificata: solo alcune aree permettono discharge; LU non in SCOD/HBW.  
+Soluzione / Workaround: spostamento LU in SCOD PCOD e discharge.  
+Note: chiarire aree abilitate.
+
+-%- 
+
+• [12/06/24, 09:24] — MFS cambia destinazione stack HA/DA su aisle  
+Descrizione: MFS modifica destinazione su EMS; pallet inviato ad aisle errato.  
+Causa identificata: gestione EMS/MFS della destinazione.  
+Soluzione / Workaround: intervento manuale EMS e poi aggiornamento PLC cranes.  
+Note: testare retrieval dopo update.
+
+-%- 
+
+• [12/06/24, 14:35] — Errore discharge ObdFinalizer / broken boxes  
+Descrizione: errore Java in ObdFinalizer durante discharge; check broken boxes errato.  
+Causa identificata: bug nel check broken boxes.  
+Soluzione / Workaround: workaround flag broken boxes e discharge manuale.  
+Note: fix previsto.
+
+-%- 
+
+• [13/06/24, 14:34] — Impossibile scaricare COD, workaround broken boxes  
+Descrizione: utente non può scaricare COD; errore su discharge.  
+Causa identificata: check broken boxes e pezzi da HOST.  
+Soluzione / Workaround: workaround broken boxes; aggiustamento pezzo su HOST.  
+Note: gestire discharge da mobile.
+
+-%- 
+
+• [17/06/24, 10:50] — Configurazione DA/HA picking mancante  
+Descrizione: DA non attivo per picking perché MDCOD modificato in D per evitare crane non funzionanti.  
+Causa identificata: configurazione temporanea D al posto di DA.  
+Soluzione / Workaround: ripristino DA/D e HA/H.  
+Note: verificare dopo deploy.
+
+-%- 
+
+• [17/06/24, 14:58] — Utenti non visibili dopo deploy  
+Descrizione: dopo deploy non si vedono utenti su alcune stazioni; solo HBWCOD visibili.  
+Causa identificata: utenti non attivi su stazione dopo deploy.  
+Soluzione / Workaround: attivazione su station; verifica al prossimo login.  
+Note: controllare deploy successivi.
+
+-%- 
+
+• [18/06/24, 08:59] — Troppi TPO verso HBWCOD  
+Descrizione: numero eccessivo di TPO verso HBWCOD; cancellazione per monitorare.  
+Causa identificata: possibile effetto deploy/ottimistic replenishment.  
+Soluzione / Workaround: cancellazione TPO in stato NEW.  
+Note: monitorare side effects.
+
+-%- 
+
+• [19/06/24, 12:22] — Pallet D slaved con B_DA, cubatura errata  
+Descrizione: pallet D con slave B_DA; cubatura non calcolata correttamente.  
+Causa identificata: cubature B_D/B_DA non corrette.  
+Soluzione / Workaround: modifica cubature; ticket aperto.  
+Note: verificare log.
+
+-%- 
+
+• [20/06/24, 12:30] — LU creato su CU*COD errato  
+Descrizione: WAMAS crea LU su CU*COD errato; problema segnalato con screenshot.  
+Causa identificata: in verifica.  
+Soluzione / Workaround: LU inviato a NOK per sicurezza.  
+Note: ticket aperto.
+
+-%- 
+
+• [01/07/24, 17:16] — Pick order non parte per station kind EXPRESS_COURIER / utente lpCOD  
+Descrizione: stazione EXPRESS_COURIER, item normale; picking order non parte; utente lpCOD assegnato ma non in sito.  
+Causa identificata: station kind/utente assegnato.  
+Soluzione / Workaround: tentativi di cambio station kind e assegnazione utente; problema persistente.  
+Note: verificare log e assegnazione.
+
+-%- 
+
+• [10/07/24, 09:21] — Mobile terminal “no transport order” su pallet con TPO  
+Descrizione: utente mobile tenta di movimentare pallet con TPO ma WAMAS risponde “no transport order”.  
+Causa identificata: non chiara; problema rientrato.  
+Soluzione / Workaround: monitoraggio.  
+Note: verificare se ricorrente.
+
+-%- 
+
+• [10/07/24, 12:43] — Pick station COD bloccata da empty request HA residuo  
+Descrizione: empty request HA residuo dei test CR non consumato blocca sequenza PICKCOD_TARGET e TUs.  
+Causa identificata: empty request non cancellata dopo test.  
+Soluzione / Workaround: cancellazione empty request; stazione riparte.  
+Note: controllare altre stazioni per residui.
+
+-%- 
+
+• [11/07/24, 01:27] — Sorgenti non escono dalle pick station, mfsPalQueue stuck  
+Descrizione: tutte le sorgenti non riescono a uscire dalle pick station; mfsPalQueue bloccata.  
+Causa identificata: mfsPalQueue bloccata.  
+Soluzione / Workaround: ripristino automatico; ticket chiuso.  
+Note: non chiara prevenzione.
+
+-%- 
+
+• [11/07/24, 12:12] — AF pallet inviato in HBWCOD e usato per negative picking, crash MFS  
+Descrizione: empty AF inviato in HBWCOD e usato per negative picking; MFS crasha.  
+Causa identificata: errore su negative picking con AF; parametro mancante.  
+Soluzione / Workaround: aggiunto parametro per evitare crash MFS.  
+Note: AF non dovrebbe andare in HBWCOD né essere usato per negative picking.
+
+-%- 
+
+• [12/07/24, 10:02] — TPO non funzionanti, pallet D marcato DA  
+Descrizione: TPO bloccati in loading; pallet D presente in HBWCOD come DA, non movimentabile.  
+Causa identificata: probabile errore operatore o bug ACOD.  
+Soluzione / Workaround: modifica manuale DA→D; fix ACOD da deployare.  
+Note: verificare dopo patch.
+
+-%- 
+
+• [15/07/24, 14:55] — Peso PO arrotondato impedisce empty request DA;D  
+Descrizione: PO con peso sotto soglia non riceve empty request DA;D ma solo D.  
+Causa identificata: arrotondamento peso calcolato > COD kg.  
+Soluzione / Workaround: analisi calcolo peso.  
+Note: verificare logica peso.
+
+-%- 
+
+• [16/07/24, 10:40] — TPO su WAMAS ma nessuna missione Cway, AGV non assegnato  
+Descrizione: LUs su BPCOD D01/D02 con TPO su WAMAS ma nessuna missione su Cway; AGV non assegnato.  
+Causa identificata: telegramma strano; possibile cancellazione richiesta AGV.  
+Soluzione / Workaround: cancellazione/ricreazione TPO; test in corso.  
+Note: root cause parziale.
+
+-%- 
+
+• [16/07/24, 17:44] — TPO bloccati in manual/loading/foiling, coda mobile bloccata da LU  
+Descrizione: TPO non funzionanti in manual area, loading e foiling; utenti espulsi da mobile.  
+Causa identificata: LU in automatic area bloccava messaging queue mobile.  
+Soluzione / Workaround: movimentazione manuale LU; code ripristinate.  
+Note: investigare come LU automatico blocchi coda mobile.
+
+-%- 
+
+• [17/07/24, 11:12] — Locazioni FHCOD/FHCOD sbloccate causano destinazione sconosciuta AGV  
+Descrizione: PLC reparto ha sbloccato FHCOD; HIVE non ha location, AGV destinazione sconosciuta, automazione ferma.  
+Causa identificata: sblocco locazioni non presenti in HIVE.  
+Soluzione / Workaround: bloccare le locazioni non fisiche; verificare con PLC.  
+Note: evitare sblocchi non coordinati.
+
+-%- 
+
+• [18/07/24, 09:08] — Utenti espulsi da mobile terminal  
+Descrizione: utenti espulsi dal mobile terminal durante riconoscimento/carico LU; problema generale.  
+Causa identificata: possibile network issue.  
+Soluzione / Workaround: ripristino; monitoraggio.  
+Note: verificare WiFi.
+
+-%- 
+
+• [19/07/24, 10:29] — Incompatibilità HA/Z a pick station #COD  
+Descrizione: a pick station #COD c’è HA ma source Z; WAMAS non permette cambio target per incompatibilità.  
+Causa identificata: HA non compatibile con Z.  
+Soluzione / Workaround: modifica HA in AF logicamente, richiesta F, poi cambio load aid.  
+Note: investigare comportamento.
+
+-%- 
+
+• [22/07/24, 18:35] — Pick station bloccate, finalizzare PO e scollegare LU  
+Descrizione: due pick station bloccate; LU collegato a ordine/PO sbagliato.  
+Causa identificata: connessione LU-ordine non corretta.  
+Soluzione / Workaround: finalizzare PO, cancellare collegamento LU, lost and found, release OBD.  
+Note: investigare.
+
+-%- 
+
+• [23/07/24, 17:25] — Ordini in errore, possibile legame goods category GRANDILASTRE  
+Descrizione: cancellazione/ricreazione ordini non risolve; problema sembra legato a goods category GRANDILASTRE.  
+Causa identificata: sotto investigazione; possibile bug su FOG/goods category.  
+Soluzione / Workaround: test con OBD singoli; analisi codice.  
+Note: follow-up.
+
+-%- 
+
+• [24/07/24, 12:17] — TPO spontanei e utenti espulsi, lentezza; sospetto network  
+Descrizione: problemi con TPO spontanei, utenti espulsi dal mobile, lentezza generale in manual/loading.  
+Causa identificata: probabile problema di rete/WiFi.  
+Soluzione / Workaround: verifica rete; problema rientrato.  
+Note: monitorare.
+
+-%- 
+
+• [27/07/24, 19:41] — Sistema lento, AGV non prendono missioni  
+Descrizione: sistema molto lento e AGV non prendono missioni.  
+Causa identificata: non emersa.  
+Soluzione / Workaround: non indicata.  
+Note: monitorare.
+
+-%- 
+
+• [31/07/24, 20:29] — Cross docking/stock object su station COD  
+Descrizione: PO assegnato con pallet in station; stock object non collegato a ordine.  
+Causa identificata: sotto investigazione.  
+Soluzione / Workaround: analisi log.  
+Note: root cause non chiara.
+
+-%- 
+
+• [01/08/24, 18:32] — DA stack in HBW con TPO NEW “WAIT FOR ROUTE NOT FOUND”  
+Descrizione: ultimo stack DA in HBWCOD con TPO in stato NEW e errore “WAIT FOR ROUTE NOT FOUND”.  
+Causa identificata: route non trovata.  
+Soluzione / Workaround: analisi.  
+Note: problema su ultimo stack DA.
+
+-%- 
+
+• [02/08/24, 15:21] — Pick station #COD bloccata da DAF COD  
+Descrizione: pick station #COD bloccata da DAF COD; cancellando TEMPCOD la stazione riparte.  
+Causa identificata: DAF/TEMP bloccante.  
+Soluzione / Workaround: cancellazione TEMPCOD.  
+Note: email inviata.
+
+-%- 
+
+• [05/08/24, 10:04] — Issue NCOD ricorrente  
+Descrizione: problema ricorrente NCOD; inviata email con spiegazione.  
+Causa identificata: in analisi.  
+Soluzione / Workaround: documentazione e follow-up.  
+Note: monitorare.
+
+-%- 
+
+• [08/08/24, 11:02] — LU in wait for storage failed nonostante locazioni vuote  
+Descrizione: LU in attesa di storage fallisce anche con locazioni idonee disponibili; blocco carico truck.  
+Causa identificata: non chiara.  
+Soluzione / Workaround: cambio destinazione location manuale.  
+Note: ticket aperto.
+
+-%- 
+
+• [26/08/24, 15:49] — NullPointerException finalize order line con broken boxes  
+Descrizione: errore NullPointerException in OG002FinalizeOutboundDeliveryLineAction durante finalize con broken boxes.  
+Causa identificata: bug nel check broken boxes.  
+Soluzione / Workaround: rimozione flag broken boxes; fix previsto al deploy successivo.  
+Note: testare altri casi.
+
+-%- 
+
+• [27/08/24, 02:24] — Pult COD auto off, red light, sensore/ASi  
+Descrizione: pult COD in auto off con luce rossa ma nessun errore su lighthouse; AGV/area bloccata.  
+Causa identificata: problema su plug/modulo ASi su motore sotto picking bay COD.  
+Soluzione / Workaround: intervento PLC/manutenzione; area ripristinata.  
+Note: coinvolgere PLC.
+
+-%- 
+
+• [27/08/24, 09:02] — MQSender non partito, no comunicazione WAMAS-HOST  
+Descrizione: nessuna comunicazione WAMAS-HOST; righe DICOD in Converted non inviate.  
+Causa identificata: MQSender non partito correttamente dopo restart notturno.  
+Soluzione / Workaround: restart MQ lato HOST e WAMAS; MQSender riavviato.  
+Note: fix per avvio corretto.
+
+-%- 
+
+• [10/09/24, 12:33] — Link KCOD locked / mobile “could not load all LUs”  
+Descrizione: link KCOD bloccato; su mobile non è possibile “load all LUs” senza scan shipping LU.  
+Causa identificata: metodo richiede shipment LU; flusso utente non compatibile.  
+Soluzione / Workaround: analisi flusso mobile.  
+Note: verificare esempio live.
+
+-%- 
+
+• [11/09/24, 09:53] — ACOD su pick station #COD, empty request in loop  
+Descrizione: pick station #COD bloccata; WAMAS genera empty request in loop per PO COD e TPO verso SCOD.  
+Causa identificata: PO finalizzato senza empty request/TPO per source LUs; priorità.  
+Soluzione / Workaround: finalizzazione PO; stazione riparte.  
+Note: analisi priorità picking order.
+
+-%- 
+
+• [13/09/24, 10:09] — “could not load all LUs” e shipment LU perso blocca stazione  
+Descrizione: loading non carica tutte le LUs; shipment LU perso blocca stazione dalle COD AM.  
+Causa identificata: shipment LU perso durante report as full.  
+Soluzione / Workaround: finalizzazione PO e release OBD; stazione riparte.  
+Note: analizzare report as full.
+
+-%- 
+
+• [18/09/24, 15:13] — Utente espulso dal load  
+Descrizione: utente mmontanariCOD espulso immediatamente dal load quando inserisce LU.  
+Causa identificata: profilo utente in verifica.  
+Soluzione / Workaround: analisi.  
+Note: follow-up.
+
+-%- 
+
+• [24/09/24, 11:50] — Esempio SCOD, funziona con un utente ma non con altro  
+Descrizione: caso SCOD; con un utente funziona, con altro no.  
+Causa identificata: non chiara; possibile profilo/permessi.  
+Soluzione / Workaround: monitoraggio e nuovo esempio.  
+Note: follow-up.
+
+-%- 
+
+• [25/09/24, 15:07] — TPO in errore per source locations bloccate  
+Descrizione: TPO cambiati in errore perché source locations bloccate.  
+Causa identificata: locazioni bloccate non considerate.  
+Soluzione / Workaround: verifica locazioni SCOD.  
+Note: controllare blocchi.
+
+-%- 
+
+• [01/10/24, 16:42] — Pick station #COD loop AGV/TPO, empty HA non arriva  
+Descrizione: AGV deposita pallet, WAMAS crea TPO, altro AGV rimuove in loop; empty HA non arriva.  
+Causa identificata: empty LU request non gestita correttamente.  
+Soluzione / Workaround: finalizzazione PO; analisi empty request manuale.  
+Note: verificare source inviato.
+
+-%- 
+
+• [05/10/24, 11:50] — Ordine finito con linea attiva e HA senza TPO  
+Descrizione: ordine apparentemente finito ma con linea attiva; HA in destination senza transport order.  
+Causa identificata: possibile attesa altro picking order.  
+Soluzione / Workaround: continuare flusso e verificare lunedì.  
+Note: monitorare.
+
+-%- 
+
+• [07/10/24, 13:13] — Check-in message too small/rejected dopo deploy  
+Descrizione: messaggio check-in XCOD rifiutato perché troppo corto; dopo deploy lunghezza aumentata.  
+Causa identificata: lunghezza messaggio non conforme; problema IT/supplier.  
+Soluzione / Workaround: intervento IT e patch in pochi minuti.  
+Note: verificare specifica lunghezze.
+
+-%- 
+
+• [07/10/24, 14:51] — Accesso a tabelle DB rimosso dopo data migration  
+Descrizione: dopo deploy alcuni accessi a tabelle DB non disponibili; struttura tabella load modificata.  
+Causa identificata: data migration e nuovi campi.  
+Soluzione / Workaround: script per ripristinare accessi; verifica tabelle.  
+Note: chiedere email preventiva su modifiche DB.
+
+-%- 
+
+• [10/10/24, 05:24] — Pick station senza materiale, picking plan missing items, station kind GTP Inventory  
+Descrizione: station senza materiale alle sorgenti; picking plan missing items; station COD impostata su GTP Inventory invece di GTP Picking.  
+Causa identificata: station kind errato e stock insufficiente per extra-size.  
+Soluzione / Workaround: correzione station kind; attendere carico stock/PPLU.  
+Note: non era issue WAMAS.
+
+-%- 
+
+• [14/10/24, 13:35] — Pending event bloccato su SRM COD  
+Descrizione: pending event bloccato sulla coda SRM COD; crane non lavora e picking bay bloccate.  
+Causa identificata: pending event in coda SRM.  
+Soluzione / Workaround: sblocco; crane ripristinata.  
+Note: monitorare.
+
+-%- 
+
+• [18/10/24, 09:59] — TPO automatic area bloccati da TPO con destinazione=origine  
+Descrizione: TPO in automatic area bloccati; code non processate.  
+Causa identificata: TPO editati manualmente con destinazione uguale a origine.  
+Soluzione / Workaround: cancellazione TPO problematici; code ripristinate.  
+Note: parlare con utente.
+
+-%- 
+
+• [18/10/24, 10:22] — F pallet instradato in HBWCOD errato dopo NOK foiling  
+Descrizione: pallet F da NOK foiling inviato a HBWCOD errato invece del corretto HBWCOD.  
+Causa identificata: possibile modifica manuale destinazione o errore durante queue bloccata.  
+Soluzione / Workaround: analisi log; ticket.  
+Note: verificare flusso release LU da NOK.
+
+-%- 
+
+• [18/10/24, 21:05] — Pick bay COD: visibile subLU e non master  
+Descrizione: su lighthouse visibile UDC del pallet B e non D con materiale; WAMAS mostra solo D sopra B.  
+Causa identificata: non chiara.  
+Soluzione / Workaround: analisi.  
+Note: ticket aperto.
+
+-%- 
+
+• [22/10/24, 10:50] — BPCOD bloccata per negative picking e source full  
+Descrizione: BPCOD non procede per PO con negative picking; source e buffer pieni, empty pallet non assegnata.  
+Causa identificata: deadlock spazio/empty LU.  
+Soluzione / Workaround: finalizzazione PO per liberare spazio.  
+Note: analizzare empty LU non inviata.
+
+-%- 
+
+• [22/10/24, 12:43] — Pick COD bloccata per buffer location bloccata da operatore  
+Descrizione: pick COD ferma; TPO in WAIT_FOR_CAPACITY_ZONE_PICKCOD.  
+Causa identificata: operatore aveva bloccato buffer location e dimenticato di rimuovere il blocco.  
+Soluzione / Workaround: rimozione blocco; stazione riparte.  
+Note: attenzione a blocchi temporanei.
+
+-%- 
+
+• [23/10/24, 15:58] — BPCOD bloccata ACOD, empty LU request non cancellata  
+Descrizione: empty LU request per PO in loop; negative picking finito ma empty request non cancellata.  
+Causa identificata: mancata cancellazione empty request dopo source LU uscito.  
+Soluzione / Workaround: cancellazione manuale empty request; nuova request creata.  
+Note: test locale per fix.
+
+-%- 
+
+• [24/10/24, 10:16] — Buffer quantity errata ACOD, consolidamento LU buffer/non buffer  
+Descrizione: buffer quantity su OBD errata; consolidamento da LU buffer a LU non buffer non decrementa quantità.  
+Causa identificata: consolidamento stock da buffer a non buffer non aggiorna buffer qty.  
+Soluzione / Workaround: correzione manuale quantità.  
+Note: fix necessaria su consolidamento.
+
+-%- 
+
+• [28/10/24, 18:43] — Operatore non conferma picking su dCOD  
+Descrizione: operatore non riesce a confermare picking su dCOD; workstation bloccata.  
+Causa identificata: LU da rilasciare e login stazione.  
+Soluzione / Workaround: release LU e retry login; problema rientrato.  
+Note: monitorare.
+
+-%- 
+
+• [30/10/24, 10:12] — Pick station #COD bloccata, empty request senza LU assegnata  
+Descrizione: empty LU request presente ma WAMAS non assegna LU; stazione bloccata.  
+Causa identificata: non chiara.  
+Soluzione / Workaround: dopo tentativi LU assegnata; stazione riparte.  
+Note: monitorare.
+
+-%- 
+
+• [07/11/24, 08:31] — Pallet su TPS SRM COD con TPO cancellato  
+Descrizione: pallet su TPS per SRM COD; TPO verso station cancellato.  
+Causa identificata: TPO cancellato.  
+Soluzione / Workaround: nuovo TPO per storage; problema risolto.  
+Note: verificare altri casi.
+
+-%- 
+
+• [14/11/24, 16:39] — Pallet logico su SRMCODFCOD, contour sensor  
+Descrizione: pallet logico su SRMCODFCOD ma fisicamente assente; errore contour/sensore.  
+Causa identificata: probabile pallet troppo grande o sensore su conveyor/SRM.  
+Soluzione / Workaround: movimentazione manuale; verifica sensore.  
+Note: coinvolgere PLC se persiste.
+
+-%- 
+
+• [19/12/24, 18:16] — Inventory station BPCOD bloccate da TPO storage  
+Descrizione: stazioni inventory BPCOD e BPCOD bloccate; LU con TPO verso storage impediscono assegnazione.  
+Causa identificata: inventory order create per LU in COD con TPO storage.  
+Soluzione / Workaround: rimozione righe inventory e completamento TPO.  
+Note: creare inventory solo da storage, non da COD.
+
+-%- 
+
+• [20/12/24, 10:22] — Network issue e storage block impediscono inventory  
+Descrizione: problemi di rete lato IT, impossibilità connessione server; storage block su COD impedisce inventory.  
+Causa identificata: network issue e storage block non compatibile con inventory.  
+Soluzione / Workaround: ripristino rete; fix necessario con deploy previsto per l’anno successivo.  
+Note: preparare patch.

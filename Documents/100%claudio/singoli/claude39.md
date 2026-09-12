@@ -1,2 +1,7 @@
-[14/07/2021, 10:40] — Bug: pulsante "Full Pallet"/"Box Full" non funziona con OBD line in stato "New"
-Descrizione: Con Crane 8 down, una linea OBD in stato "New" impedisce il funzionamento del pulsante "Full Pallet" / "Box Full". Causa identificata: Bug: il pulsante non verifica se la linea è completabile. Soluzione / Workaround: Finalizzazione manuale della riga bloccata da SSI. Note: Ticket aperto. Necessita fix del codice.
+## Anno 2022
+
+### [04/01/22 09:39] — COD in errore su Lighthouse / Fine Positioning Error
+**Descrizione:** COD in errore su Lighthouse ma non visibile; Fine Positioning Error; valore cinematico lifting ridotto manualmente.  
+**Causa identificata:** Non emersa con chiarezza.  
+**Soluzione / Workaround:** Riduzione manuale del valore cinematico; il sistema ha poi funzionato.  
+**Note:** Possibile correlazione con: Lighthouse/red bubbles.

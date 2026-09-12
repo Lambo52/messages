@@ -1,7 +1,23 @@
-Coda mfsPalQueue / mfArea bloccata — blocco totale TPO
-Occorrenze: 25/01/2024, 14/05/2024, 20/06/2024, 11/07/2024, 28/12/2023, 29/04/2025
-Descrizione generale: Un messaggio si blocca nella coda mfsPalQueue o mfArea, impedendo l'avvio di qualsiasi nuovo TPO. Tutte le picking station si fermano, le sorgenti non possono lasciare le stazioni, l'area automatica e manuale si bloccano completamente.
-Causa: (1) Interruzioni della connessione al database (JdbcConnectionException) causate da brevi operazioni IT sul DB. (2) Messaggi con problemi che bloccano la coda di elaborazione. (3) Root cause spesso non determinata con precisione.
-Soluzione / Workaround consolidato: Sblocco manuale della coda da parte del supporto SSI. In alcuni casi auto-ripristino notturno.
-Frequenza: 6 occorrenze documentate tra 2023 e 2025.
-Note: In almeno 2 casi il blocco è avvenuto durante la notte e si è risolto autonomamente. La causa radice strutturale non è mai stata completamente identificata. Workaround da implementare per evitare l'interruzione della comunicazione WMS-MFS è stato incluso in deploy successivi.
+## 5. TPO bloccati, non creati, non attivi, senza missione Cway
+
+**Occorrenze principali:**  
+2021: 13/07, 03/08, 03/09, 17/09, 27/08  
+2022: 07/01, 04/04, 05/04, 10/05, 26/04, 27/06, 01/07, 04/07  
+2023: 23/02, 09/05, 29/08  
+2024: 19/03, 16/07, 18/10, 01/08  
+2025: 08/01, 10/02, 24/07, 26/07  
+
+**Descrizione generale:**  
+Transport order creati ma non eseguiti, TPO in stato NEW invece di ACTIVE, TPO senza missione su Cway, “wait for routing lock MFS”, TPO manuali non funzionanti, utenti mobile che vedono “no transport order”, pallet fermi nonostante ordine.
+
+**Causa ricorrente:**  
+Mobile worker/cache; comunicazione WMS-MFS; route non trovata; modifiche manuali; DB lento; problemi post-deploy; code bloccate; ordini Hive/Rocla non consumati.
+
+**Soluzione / Workaround consolidato:**  
+Restart mobile/DcMobile worker; suspend+resume TPO; cancellazione e ricreazione TPO; reset/refresh; restart MFS; fix software; rollback; pulizia ordini Hive/Cway.
+
+**Frequenza:**  
+Alta: circa 25 occorrenze, tutti gli anni.
+
+**Note:**  
+Spesso compare dopo deploy, riavvii, interventi manuali o congestione DB. La soluzione è stata frequentemente il workaround, mentre la root cause ha richiesto analisi specifiche.

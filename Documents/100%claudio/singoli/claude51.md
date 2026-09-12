@@ -1,2 +1,5 @@
-[25/11/2021, 07:55] — PS7 bloccata con "unknown error" per ore
-Descrizione: PS7 bloccata dalla sera precedente. 1,5 ore di produzione perse. Causa identificata: Documentata nel ticket di risposta SSI. Soluzione / Workaround: Sblocco stazione da parte del supporto. Note: Problema di risposta helpdesk in orari non standard evidenziato da Milo.
+### [30/05/22 09:22] — COD non registra movimenti dalle 06:00
+**Descrizione:** Nessun dato registrato in COD dalle 06:00; sistema “cieco”.  
+**Causa identificata:** Sospetta dimensione tabella COD; non confermata.  
+**Soluzione / Workaround:** Verificato che COD registrava; ticket aperto.  
+**Note:** Richiesta esplicita di non tagliare dati storici. Possibile correlazione con: performance DB.

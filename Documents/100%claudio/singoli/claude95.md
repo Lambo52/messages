@@ -1,2 +1,5 @@
-[06/09/2023, 17:46] — "Red bubbles", bug divisione per zero (CR02)
-Descrizione: Numerose red bubbles. Pallet non in movimento. Reset inefficace. Causa identificata: Stock object con quantità = 0 causava divisione per zero nella logica CR02. Soluzione / Workaround: Eliminazione stock object con qty 0. Note: Ticket aperto per fixare il caso stock con qty 0.
+### [25/09/24, 15:07] — TPO in errore per source locations bloccate
+**Descrizione:** TPO cambiati in errore perché source locations bloccate.  
+**Causa identificata:** Locazioni bloccate non considerate.  
+**Soluzione / Workaround:** Verifica locazioni.  
+**Note:** Controllare blocchi. Possibile correlazione con: TPO/location.

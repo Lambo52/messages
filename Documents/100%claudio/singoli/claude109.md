@@ -1,2 +1,5 @@
-[28/12/2023, 12:38] — LU 59046657 non scaricabile (flag partOfAnActiveOrder)
-Descrizione: LU non può essere scaricata per flag partOfAnActiveOrder=true. Causa identificata: Caso legacy pre-CR "redirect shipLU in HBW1 if S46 full". Soluzione / Workaround: Spostamento manuale in area buffer appropriata. Note: Comportamento da specifica.
+### [24/06/25 08:57] — Follow-up barcode e search stock dopo modifica
+**Descrizione:** Dopo cambio larghezza barcode, scanning funziona; search stock funziona solo per alcuni terminali.  
+**Causa identificata:** Selezione stock non automatica su alcuni terminali; bug applicativo.  
+**Soluzione / Workaround:** Barcode risolto; search stock da investigare e fixare in deploy successivo.  
+**Note:** Possibile correlazione con: label/barcode/mobile.

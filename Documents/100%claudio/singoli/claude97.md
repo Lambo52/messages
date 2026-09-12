@@ -1,2 +1,5 @@
-[17/10/2023, 12:30] — Deploy con multipli problemi critici, rollback
-Descrizione: Labeler senza dati, crash terminali per colonna DB rinominata, parametri non visibili. Causa identificata: Configurazione stampante mancante, rinomina colonna senza aggiornamento client. Soluzione / Workaround: Rollback. Note: Problemi post-rollback nelle ore notturne (F01 in errore, picking station bloccate, pallet con doppio stock).
+### [18/10/24, 10:22] — F pallet instradato in HBW errato dopo NOK foiling
+**Descrizione:** Pallet F da NOK foiling inviato a HBW errato invece del corretto.  
+**Causa identificata:** Possibile modifica manuale destinazione o errore durante queue bloccata.  
+**Soluzione / Workaround:** Analisi log; ticket.  
+**Note:** Verificare flusso release LU da NOK.

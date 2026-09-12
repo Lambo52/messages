@@ -1,2 +1,5 @@
-[19/05/2022, 11:37] — Source pallets instradati a Wunderwuzzi invece di HBW1
-Descrizione: Tutti i source pallets dalle picking station venivano indirizzati a Wunderwuzzi anziché HBW1. Causa identificata: HBW1 pieno (nessuna location disponibile dopo controllo pillar). Soluzione / Workaround: Cancellazione manuale dei TPO di replenishment. Note: Segnalato come potenziale bug: il sistema dovrebbe auto-proteggersi e instradare a QC. HBW1 non ampliabile prima del 2024.
+### [18/12/23 15:06] — PO già picked ma finalizzato manualmente
+**Descrizione:** PO già picked ma rimasto attivo; finalizzato manualmente perché WAMAS non lo puliva.  
+**Causa identificata:** Non esplicitata.  
+**Soluzione / Workaround:** Finalizzazione manuale.  
+**Note:** Possibile correlazione con: OBD/finalizzazione.

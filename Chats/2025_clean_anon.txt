@@ -1,0 +1,2844 @@
+08/01/25, 16:02 - Persona: Hello! Haappy new year! ✨
+08/01/25, 16:03 - Persona: I need your help because is happening issue COD
+08/01/25, 16:03 - Persona: ‎IMG-20250108-WA0008.jpg (file allegato)
+08/01/25, 16:03 - Persona: It is "need to be checked live"... Could you please check it asap? It is blocking COD...
+08/01/25, 16:04 - Persona: In detail there is LU COD (empty DA pallet) on location COD with TPO towards COD D*
+08/01/25, 16:05 - Persona: ‎IMG-20250108-WA0009.jpg (file allegato)
+08/01/25, 16:05 - Persona: but no mission on Cway
+08/01/25, 16:05 - Persona: ‎IMG-20250108-WA0010.jpg (file allegato)
+08/01/25, 16:06 - Persona: Do you have time to take a look or we have to fix it by ourselves?
+08/01/25, 16:07 - Persona: just to know how we can proceed to unlock COD :)
+08/01/25, 16:29 - Persona: we restart pick station 07 :(
+09/01/25, 15:43 - Persona: Happy New Year!
+09/01/25, 16:29 - Persona: Dear All, I have already sent an email regarding recurrent issue COD that is happening now and I marked it "need to be checked live"
+09/01/25, 16:29 - Persona: Do you have time to take a look? otherewise I will try to fix it
+09/01/25, 16:30 - Persona: as i remember there is an issue
+09/01/25, 16:31 - Persona: TPO for 2ns stack is created when 1st stack is new handover to AGV
+09/01/25, 16:31 - Persona: related with yesterday issue ...
+09/01/25, 16:32 - Persona: ‎IMG-20250109-WA0003.jpg (file allegato)
+09/01/25, 16:34 - Persona: when stack reached DAD location , real barcode is destroyed and a temp LU is created ... after that 8 temp LUs are created until a new stack is comming ...
+09/01/25, 16:34 - Persona: but operator booked a real LU in a DAD location with a full stack ...
+09/01/25, 16:35 - Persona: destacking works fine until the last LU from stack ... when it could not be taken because it was unexpected to be another LU in the location
+09/01/25, 16:35 - Persona: maybe the issue is related to issue reported today
+09/01/25, 16:36 - Persona: 2nd stack was lost and booked by operator to DAD location - though physically was not possible
+09/01/25, 16:37 - Persona: i dont know yet if COD was a stack of DA and WAMAS generates by mistake a TPO for it to go to the saame stacker as issue reported today
+09/01/25, 16:39 - Persona: yes sure we know
+09/01/25, 16:39 - Persona: but COD was booked in that location
+09/01/25, 16:39 - Persona: no the today issue is differente
+09/01/25, 16:39 - Persona: based on COD
+09/01/25, 16:40 - Persona: COD maybe was a stack sent to destacker but it was already full
+09/01/25, 16:40 - Persona: yes, maintenance guy find the stack with LU COD and booked it in *DAD location
+09/01/25, 16:40 - Persona: and operator to fix issue for COD
+09/01/25, 16:40 - Persona: yes but this was yesterday
+09/01/25, 16:41 - Persona: why to booked it ... it has somethign inside logically
+09/01/25, 16:41 - Persona: maybe he booked it inside DAD location because it found on AGV ready to deposit it… and he didn't realize it was in lost and found
+09/01/25, 16:42 - Persona: but now is differente...
+09/01/25, 16:42 - Persona: :)
+09/01/25, 16:43 - Persona: there is a stack of HA inside *DAH 01 (created by WAMAS), deposited by AGV and immediately wamas created another TPO for another stack of HA pallet that is now on ATX 2
+09/01/25, 17:09 - Persona: ‎IMG-20250109-WA0004.jpg (file allegato)
+09/01/25, 17:10 - Persona: here are tpo for master LU - 6 and sub LU 5 has tpo when it is on COD <Questo messaggio è stato modificato>
+09/01/25, 17:11 - Persona: the second analyze and the same issue
+09/01/25, 17:12 - Persona: tpo for 2nd stack is created after some seconds when TPo for master is finished and TPO for sub LU is creared (COD, COD) - 2nd stack tpois created (COD, COD)
+09/01/25, 17:12 - Persona: oh
+09/01/25, 17:13 - Persona: COD - 1st stack has tpo crated at 15:21:40
+09/01/25, 17:13 - Persona: okay… it is an issue...
+09/01/25, 17:13 - Persona: COD 2nd stack has tpo created at 15:43:14
+09/01/25, 17:13 - Persona: but it does not Always happen
+09/01/25, 17:14 - Persona: it is depending og job running to create TPO from HBW to destacker
+09/01/25, 17:14 - Persona: in this period ... stack on the way is not visible by mfs ... consider destackr empty and nothing towards it
+09/01/25, 17:15 - Persona: and MFS creates TPO for a new stack from HBW .... having 2nd stack sent to a full stacker
+09/01/25, 17:16 - Persona: we needs to check this situation
+09/01/25, 17:16 - Persona: not great….
+09/01/25, 17:16 - Persona: 😭😭
+09/01/25, 17:16 - Persona: everything clear now
+09/01/25, 17:16 - Persona: we know ... but we need to fix it
+09/01/25, 17:16 - Persona: yes please
+09/01/25, 17:16 - Persona: this is the reason ... maybe of issue from yesterday
+09/01/25, 17:16 - Persona: 2nd stack and destacker was full ... somehow was booked to lost and found and latr in stacker
+09/01/25, 17:17 - Persona: okay okay
+09/01/25, 17:17 - Persona: thank you for your explanation
+09/01/25, 17:17 - Persona: but root cause is 2nd stack sent to a full stacjet
+09/01/25, 17:17 - Persona: exactly
+09/01/25, 17:17 - Persona: yesterday was its side effect+ operator action
+09/01/25, 17:17 - Persona: yes..
+09/01/25, 17:19 - Persona: now I will release ATX 02 with the 2nd stack
+09/01/25, 17:19 - Persona: pls fix it
+09/01/25, 17:19 - Persona: yes
+10/01/25, 09:43 - Persona: Hello, are you doing something on WAMAS?
+10/01/25, 09:59 - Persona: hello
+10/01/25, 09:59 - Persona: only investigation ... nothing more
+10/01/25, 10:04 - Persona: what is the issue?
+10/01/25, 10:41 - Persona: exit COD was freezing for some minutes… but I do not why and it resumed by itself
+10/01/25, 10:42 - Persona: Now we have again the issue of Yesterday on COD... do you want to check?
+10/01/25, 10:42 - Persona: ‎IMG-20250110-WA0000.jpg (file allegato)
+10/01/25, 10:45 - Persona: COD daf 01
+COD atx 07
+10/01/25, 11:11 - Persona: to reduce occurence there is only one way ... to increase time interval of job running to 5-10 minutes ...
+10/01/25, 11:11 - Persona: until a fix is done and deployed.
+10/01/25, 11:12 - Persona: there is some milliseconds when there is no TPO for DA/HA destacker when TPO for master LU is finished and TPO for sub LU (HA/DA) is created.
+10/01/25, 11:13 - Persona: this time was an AF stack
+10/01/25, 11:13 - Persona: in case job is running in this moment ... a new TPO is created unfortunately ...
+10/01/25, 11:13 - Persona: now we fix it…
+10/01/25, 11:13 - Persona: AF is on master LU
+10/01/25, 11:13 - Persona: no
+10/01/25, 11:15 - Persona: AF is not stored as a standalone stack in COD it is on a master LU as i know ...
+10/01/25, 11:15 - Persona: in that case it is similar with DA/HA
+10/01/25, 11:15 - Persona: i will take a look at theis situation too
+10/01/25, 11:15 - Persona: maybe it is another case ...
+10/01/25, 11:15 - Persona: Stack of AF pallet is not on master LU and it is store in COD
+10/01/25, 11:17 - Persona: empty AF pallet and AF pallet with items on it are not stored in COD... whereas stack of AF pallet are stored in COD...
+10/01/25, 11:20 - Persona: sorry .. i dont know all rules (i suppoed the same case) .. i checked and they are stored as standalone stacks ... you are right <Questo messaggio è stato modificato>
+10/01/25, 11:21 - Persona: i will checked this new case for AF
+10/01/25, 11:25 - Persona: don't worry ;) thank you very much!
+10/01/25, 13:06 - Persona: more and less ... again WAMAS considers replenishment of empty stacks allowed and tpo is created ...
+10/01/25, 13:07 - Persona: we are working to fix it ...
+10/01/25, 15:50 - Persona: thank you so much!
+11/01/25, 08:03 - Persona: Good morning! Persona is going to send you an email with file
+11/01/25, 08:03 - Persona: good morning
+11/01/25, 08:03 - Persona: everything is stopped in automatic area
+11/01/25, 08:05 - Persona: k
+11/01/25, 08:06 - Persona: Let us know when you start the procedure
+11/01/25, 08:06 - Persona: 1. import brute data for analyze ... is in progress
+11/01/25, 08:08 - Persona: do you want to join us in a meeting?
+11/01/25, 08:08 - Persona: If yes I will send us the link
+11/01/25, 09:14 - Persona: do you make any tests after WAMAS restart?
+11/01/25, 09:15 - Persona: WAMAS was restarted, only final checks remain to be done ...
+11/01/25, 09:15 - Persona: yes, I think I can do it
+11/01/25, 09:15 - Persona: what kind of test I can do it?
+11/01/25, 09:16 - Persona: restart was done
+11/01/25, 09:16 - Persona: because there are not production today but I can do tests with maitenance guys
+11/01/25, 09:16 - Persona: tests = normal work ...
+11/01/25, 09:16 - Persona: k
+11/01/25, 09:16 - Persona: okay
+11/01/25, 09:16 - Persona: when production will start again?
+11/01/25, 09:17 - Persona: manual area Tomorrow morning, automatic area on monday
+11/01/25, 09:22 - Persona: Could you please run the job that send us the email with differences of stock?
+11/01/25, 09:23 - Persona: they were extracted by me from database
+11/01/25, 09:23 - Persona: all stock imported from your excel file
+11/01/25, 09:23 - Persona: it is not a job
+11/01/25, 09:24 - Persona: ‎IMG-20250111-WA0000.jpg (file allegato)
+11/01/25, 09:24 - Persona: this one
+11/01/25, 09:24 - Persona: i will check it
+11/01/25, 09:26 - Persona: i will trigger it right now ...
+11/01/25, 09:26 - Persona: trigger was done
+11/01/25, 09:27 - Persona: thank you
+11/01/25, 09:28 - Persona: so a new mail is going to be send right?
+11/01/25, 09:28 - Persona: i will check what it does
+11/01/25, 09:42 - Persona: job is running right now
+11/01/25, 09:42 - Persona: it was finsijed
+11/01/25, 09:42 - Persona: please check if email was received
+11/01/25, 09:43 - Persona: Yes I have already received it
+11/01/25, 09:43 - Persona: thanks
+11/01/25, 09:43 - Persona: k
+11/01/25, 09:44 - Persona: you're welcome
+11/01/25, 09:46 - Persona: Start some picking
+13/01/25, 10:16 - Persona: Hello! We sent you an email with two issues about COD New COD Transport Area
+13/01/25, 10:17 - Persona: k
+13/01/25, 11:13 - Persona: Why Whole SHIPPING LUs from COD pointing COD MAV instead of COD/COD ?
+13/01/25, 11:13 - Persona: ‎IMG-20250113-WA0000.jpg (file allegato)
+13/01/25, 11:15 - Persona: All these LUs are outcoming goods and they are pointing COD MAV instead of COD/COD 😪
+13/01/25, 11:18 - Persona: for this issue we can't print shipping label and packing list
+13/01/25, 12:06 - Persona: @Persona any news about this issue?
+13/01/25, 12:19 - Persona: no yet
+13/01/25, 12:19 - Persona: we are testing the case inhouse
+13/01/25, 12:35 - Persona: ‎IMG-20250113-WA0001.jpg (file allegato)
+Similar to the COD MAV, Wamas is creating REPLENISHMENT TPOs for SLAVING locations for whole OG pallets coming from Azienda. This is incorrect; the TPO should be OG for COD/COD locations. The logic is that full pallets coming from Azienda do not need to pass through the HBW.
+13/01/25, 12:35 - Persona: agree
+13/01/25, 12:38 - Persona: we need to fix it as soon as possible (perhaps organizing a deploy as soon as you ready) because it is generating confusion among operators
+13/01/25, 12:39 - Persona: k
+13/01/25, 12:40 - Persona: let us know as soon as you have updates
+13/01/25, 13:52 - Persona: it is a configuration issue
+13/01/25, 13:52 - Persona: we will do some tests locally and later on add configuration in prod
+13/01/25, 13:53 - Persona: and solve tpos
+13/01/25, 14:00 - Persona: we tested locally and it work
+13/01/25, 14:00 - Persona: the issue is related to OG Area calculation ...
+13/01/25, 14:01 - Persona: we will start to configure OG area assignment  in production for Azienda
+13/01/25, 14:06 - Persona: deploy is needed?
+13/01/25, 14:06 - Persona: no
+13/01/25, 14:06 - Persona: only configuration
+13/01/25, 14:07 - Persona: OG area assignment for Azienda is not defined
+13/01/25, 14:07 - Persona: did you finalize tpos from Azienda for shipment LUs?
+13/01/25, 14:07 - Persona: there is only one in this moment ...
+13/01/25, 14:08 - Persona: Yes, we changed the destination manually
+13/01/25, 14:09 - Persona: ‎IMG-20250113-WA0002.jpg (file allegato)
+13/01/25, 14:10 - Persona: COD was defined ... we will continue with COD-COD.
+13/01/25, 14:11 - Persona: we will annoounce when all are done
+13/01/25, 14:16 - Persona: ok
+13/01/25, 14:24 - Persona: Perfect
+13/01/25, 14:25 - Persona: COD, COD, COD are already defined ...
+13/01/25, 14:28 - Persona: So this fix is related only to the TPOs of shipping LUs or also for the fact that WAMAS takes stock LU from COD/COD/COD for HBW replenishment?
+13/01/25, 14:28 - Persona: fix is related to shipment LUs to create properly TPOs for OG buffer
+13/01/25, 14:29 - Persona: related to replenishment to HBW ... it is based on optimum
+13/01/25, 14:29 - Persona: it is generated in case there is not enough stock on a specific batch
+13/01/25, 14:29 - Persona: in COD
+13/01/25, 14:33 - Persona: Yes I agree with you but this morning created tpos from COD instead of COD/COD
+
+EXAMPLE
+COD     1 COD=
+
+ there is availability in COD/COD , but WAMAS created 2 replenishment tpos from COD
+
+
+COD       COD COD <Questo messaggio è stato modificato>
+13/01/25, 14:35 - Persona: Persona wrote in the email he sent to you this morning (point 2)
+13/01/25, 14:46 - Persona: configuration was defined ...
+13/01/25, 14:46 - Persona: we need to check why ... because it seems stock was enough in COD at the first glance
+13/01/25, 15:05 - Persona: This works!
+13/01/25, 15:05 - Persona: yes please
+13/01/25, 15:06 - Persona: One question: how often does the job that creates replenishment run?
+13/01/25, 16:44 - Persona: please let us know :)
+13/01/25, 16:46 - Persona: at every 3 minutes for optimum LU for HBW
+13/01/25, 16:46 - Persona: related to replenishment from COD to HBW though there are LUs in COD/COD is under investigation
+13/01/25, 16:47 - Persona: based on LU only stock from COD was available (it is needed to be check deeper)
+13/01/25, 16:47 - Persona: not reproduced locally ... locally it is generated from COD/COD ..
+13/01/25, 17:22 - Persona: db will be exported and imported locally to test exactly issue with repl from COD vs COD/COD <Questo messaggio è stato modificato>
+13/01/25, 17:22 - Persona: thank you very much!
+13/01/25, 17:39 - Persona: ‎IMG-20250113-WA0004.jpg (file allegato)
+Could you please check why for PPLU of COD ATLAU8H	C COD is not create a replenishment tpo from COD?
+13/01/25, 17:39 - Persona: ‎IMG-20250113-WA0005.jpg (file allegato)
+It has been active since 14:59...
+13/01/25, 17:40 - Persona: ‎IMG-20250113-WA0006.jpg (file allegato)
+15 boxes of ATLAU8H   C COD are in COD COD but without TPOs towards COD MAV...
+14/01/25, 07:13 - Persona: optimum LU to HBW it blocked due to quality C (it is not allowed in HBW) -> solution is to create manual TPO for the moment
+14/01/25, 07:15 - Persona: issue was found ... optimum LU job is done for every FOG and there are FOGs for some items only on Azienda ... and optimum LUs check only stock from HBW (not on conveyor) and WAMAS consider replenishment is needed ...
+14/01/25, 07:16 - Persona: related to issues we will try to find solution for both of them
+14/01/25, 07:16 - Persona: for the moment it is important to keep system running and to help to manage TPOs from Azienda
+14/01/25, 07:35 - Persona: there are some shipments LUs: COD
+COD
+COD
+COD
+COD
+14/01/25, 07:37 - Persona: no TPO for them , please create from COD for them -> all shipment LUs have TPO created to OG area
+14/01/25, 08:36 - Persona: no need replenishment from Azienda to manual areas ...
+14/01/25, 08:36 - Persona: so it is important to fix replenishment from Azienda to COD
+14/01/25, 08:58 - Persona: I missed this part you are right and wamas works correctly… I talked with Operations manager and they always fix them manually.. so please consider it not an issue
+14/01/25, 08:59 - Persona: 1. shipment LUs - is solved (please filter shipment LU in Azienda (COD*) and no TPO and create manually (there are/were 4-5 cases).
+14/01/25, 08:59 - Persona: 2. no need yet replenishment from Azienda to pViazza/pCanaletto
+14/01/25, 09:00 - Persona: 3. Optimum LU for quality not used in HBW - it needs to be solved manually
+14/01/25, 09:00 - Persona: ooh clear… I did not know about this… So if we have item COD batch 1 fog COD and item COD batch 1 fog COD for WAMAS they are different?
+14/01/25, 09:00 - Persona: 4. optimum LUs for HBW - issue found working on differebt
+14/01/25, 09:01 - Persona: for is decided based on COD (maybe the import script set FOG in another way)
+14/01/25, 09:02 - Persona: it depends on IG area + others ...
+14/01/25, 09:03 - Persona: I do not have COD
+14/01/25, 09:03 - Persona: but it is possible to have different fogs ...
+14/01/25, 09:03 - Persona: oh yes sure
+14/01/25, 09:03 - Persona: ‎IMG-20250114-WA0001.jpg (file allegato)
+14/01/25, 09:03 - Persona: you mean the FOG right?
+14/01/25, 09:04 - Persona: now you can have an image of WAMAS configuration to set/.proposed the fog for an LU
+14/01/25, 09:04 - Persona: ‎IMG-20250114-WA0002.jpg (file allegato)
+14/01/25, 09:05 - Persona: InFONDIMAVNOR(1-2-3) there are 3 FOGs
+14/01/25, 09:06 - Persona: difference is IG area to decide the fog and each fog defined storage areas
+14/01/25, 09:06 - Persona: yes I read...
+14/01/25, 09:06 - Persona: COD PED - COD whereas the Others COD
+14/01/25, 09:06 - Persona: i will check all open TPOs from Azienda for not shipment LUs - based on optimum LU
+14/01/25, 09:07 - Persona: and COD in case IG areas != IG defined (*)
+14/01/25, 09:09 - Persona: yes sure
+14/01/25, 09:11 - Persona: But why WAMAS consider FOG for optimum LU instead of just item and batch? <Questo messaggio è stato modificato>
+14/01/25, 09:12 - Persona: Hai eliminato questo messaggio.
+14/01/25, 09:25 - Persona: this is wamas implementation
+14/01/25, 09:25 - Persona: it works excepting some cases for Azienda
+14/01/25, 09:30 - Persona: Okay… Is it possibile to make in manner that WAMAS consider FOG like "InFONDIMAVNOR*" instead of "COD/ COD/ COD"?
+14/01/25, 09:32 - Persona: so we wouldn't have this problem anymore… what do you think?
+14/01/25, 09:34 - Persona: it works for sure ... but we will analyze a solution
+14/01/25, 09:58 - Persona: Okay please let us know
+14/01/25, 10:04 - Persona: We found another "issue" for us that is trasnport type for "*OUT-RIF-SAL*"... now it is "tAzienda" but it is possible to change it in "*tVERSO-MAV*"? Like "CAMION-MAV" <Questo messaggio è stato modificato>
+14/01/25, 10:05 - Persona: ‎IMG-20250114-WA0003.jpg (file allegato)
+14/01/25, 10:24 - Persona: we will check it
+14/01/25, 10:24 - Persona: Thank you!
+14/01/25, 10:25 - Persona: please let us know if it is possibile to change it without deploy :) <Questo messaggio è stato modificato>
+14/01/25, 11:29 - Persona: I forgot to ask if you can add COD to "DIRETTORE TECNICO", can't you? <Questo messaggio è stato modificato>
+14/01/25, 14:51 - Persona: I'm sorry for disturbing you but do you have any news?
+14/01/25, 14:52 - Persona: we are testing a fix for optimum LU from Azienda <Questo messaggio è stato modificato>
+14/01/25, 14:53 - Persona: related to rights ... we will provide this week
+14/01/25, 14:55 - Persona: ‎IMG-20250114-WA0010.jpg (file allegato)
+14/01/25, 14:56 - Persona: great thank you!
+14/01/25, 14:56 - Persona: thanks again!
+14/01/25, 14:57 - Persona: suuuper thank you!
+15/01/25, 08:47 - Persona: @Persona I provided the rights
+15/01/25, 08:47 - Persona: great! thank you!
+15/01/25, 10:18 - Persona: @Persona I confirm you that I can access to COD
+15/01/25, 10:28 - Persona: We are thinking about optimum LU and I have a question for you… based on how it works now if we have COD with optimumLU = 6 and inside storage locations there are COD/COD/COD and COD/COD/COD, WAMAS will create 6 TPOs for COD/COD/COD and 6 TPOs for COD/COD/COD (towards COD if there aren't LUs inside) even if they are the same thing… this is an issue also for the old storage locations and not only Azienda locations….
+please let me know if I understood correctly
+15/01/25, 10:35 - Persona: :)
+15/01/25, 10:37 - Persona: 6 LUs per item/batch (in case of batch handling) per HBW aisle ... = 48 = 6 x 8 LUs overall in HBW.
+15/01/25, 10:38 - Persona: so ... COD/COD = 48 LUs (fog is not related)
+15/01/25, 10:39 - Persona: computation is done based on FOG ... and a fix was tested already in house to not send pallets from Azienda anymore in case there are pallets in COD,...,COD (manual areas).
+15/01/25, 10:40 - Persona: Due to WAMAS implementation by FOG , system sends LUs from Azienda though there are pallets in manual areas (we already fixed to not take in consideration LUs from Azienda in case there are other LUs in manual areas)
+15/01/25, 10:42 - Persona: the issue was ... WAMAS takes for FOG1 (having LUs from COD) and WAMAS checks needed for HBW ... and send them to HBW ... and for FOG2 (LUs from manual areas) - no send no need ...
+15/01/25, 11:01 - Persona: mmh is not 6 LUs of COD/COD for all COD?
+15/01/25, 11:15 - Persona: I'm not quite understand :( … supposing we have:
+- optimumLU COD = *6* 
+- inside COD there are not LUs with COD
+- in manual areas (COD...COD) there are *5* LUs COD/COD/COD, *6* LUs COD/COD/COD, *8* LUs COD/COD/COD
+- no LUs in Azienda
+- based on how it works, WAMAS will create *6* tpos for COD/COD/COD and *6* tpos for COD/COD/COD towards COD as replenishment
+
+Right?
+15/01/25, 11:16 - Persona: soory but I'm getting confused 😓
+15/01/25, 13:25 - Persona: for optimum LU item1 = 6 per batch (wh502)
+15/01/25, 13:25 - Persona: WAMAS will move 6 LUs per item1/batch/fog
+15/01/25, 13:26 - Persona: conclusing: yes
+15/01/25, 13:27 - Persona: i checked again software implementation to confirm properly (it is based on 3 criteria ITEM, BATCH and FOG)
+15/01/25, 13:28 - Persona: this is the reason of replenishment of LUs from Azienda though there are stock in manual areas (different FOG)
+15/01/25, 14:10 - Persona: we prepared a solution to exclude LUs from Azienda for replenishment in case there are LUs from manual areas
+15/01/25, 14:36 - Persona: So also in manual area WAMAS will move 6 LUs per item1/batch/fog? Going back to my example WAMAS will create from manual areas to HBW the following tpos:
+- 6 LUs with COD/COD/COD
+- 6 LUs with COD/COD/COD
+even if phisically are the same ITEM/BATCH but for WAMAS are different because FOG is different
+15/01/25, 14:37 - Persona: Am I understand correctly?
+15/01/25, 14:37 - Persona: yes
+15/01/25, 14:38 - Persona: 6 for combination item/batch/fog
+15/01/25, 14:38 - Persona: okay good so is it possible to remove FOG from this combination?
+15/01/25, 14:39 - Persona: off off ... FOG has information about optimum LUs ...
+15/01/25, 14:39 - Persona: this is the reason of using FOG ... we will analyze a solution ...
+15/01/25, 14:41 - Persona: this is the reason to use it ... any fog has its optimum LUs defined ...
+15/01/25, 14:41 - Persona: your expectation was/is to have 6 LUs per item/batch, right? <Questo messaggio è stato modificato>
+15/01/25, 14:41 - Persona: yes exactly <Questo messaggio è stato modificato>
+15/01/25, 14:41 - Persona: :)
+15/01/25, 14:42 - Persona: COD
+COD
+COD
+Have their optimum LUs?
+15/01/25, 14:43 - Persona: even if they are part of goods category "FONDI MAV NORMAL SIZE" ?
+15/01/25, 14:44 - Persona: it is possible but in your project inherits from inHBW fog.
+15/01/25, 14:45 - Persona: the idea is to have optimum LU per item and batch in HBW ... (not on item/batch and fog)
+15/01/25, 14:45 - Persona: 100 FOG = 600 LUs ... in HBW
+15/01/25, 14:51 - Persona: exactly…….😓 <Questo messaggio è stato modificato>
+15/01/25, 14:51 - Persona: yes
+15/01/25, 14:52 - Persona: and it is possible to goods category instead of FOG? <Questo messaggio è stato modificato>
+15/01/25, 14:53 - Persona: because all items have one goods category (not more than one as for FOGs)
+15/01/25, 14:56 - Persona: implementation is starting from FOG ... because it has information about optimum LUs ...
+15/01/25, 14:57 - Persona: anyhow we will analyze ...
+15/01/25, 14:57 - Persona: 😖😖
+15/01/25, 14:58 - Persona: okay but I have one more question :)
+15/01/25, 15:01 - Persona: let's take goods category "FONDI MAV NORMAL SIZE" as an example: if we change FOGs of all LUs with items beloging to "FONDI MAV NORMAL SIZE" by putting COD and delete in COD the Others?
+15/01/25, 15:01 - Persona: ‎IMG-20250115-WA0003.jpg (file allegato)
+15/01/25, 15:02 - Persona: By doing so (if it works) we would have/use only one FOG for goods category = FONDI MAV NORMAL SIZE, and so on with the Others goods categories
+15/01/25, 15:03 - Persona: what do you think?
+15/01/25, 15:03 - Persona: :)
+15/01/25, 16:25 - Persona: a solution is to have one for per goods category -> one fog per item
+15/01/25, 16:25 - Persona: COD - change + update fog in the system ... no deploy
+15/01/25, 16:26 - Persona: we have a solution implemented and already tested
+15/01/25, 16:26 - Persona: to not care about FOGs ...
+15/01/25, 16:27 - Persona: optimum lu is based on item/batch and replenishment is done 1stly from manual areas and later from Azienda
+15/01/25, 16:27 - Persona: in next 2 days we will clarify the solution
+15/01/25, 16:29 - Persona: exactly!
+15/01/25, 16:29 - Persona: okay, we will wait your feedback! 🤞🏻🤞🏻
+15/01/25, 16:30 - Persona: thanks!
+15/01/25, 16:55 - Persona: ‎IMG-20250115-WA0004.jpg (file allegato)
+15/01/25, 16:56 - Persona: LUs from Azienda to manual areas (demand based).
+15/01/25, 16:57 - Persona: the open issue is related to optimum LUs ... old issue -> affects replenishment from Azienda before manual area (fog issue).
+15/01/25, 18:46 - Persona: correct!
+16/01/25, 09:33 - Persona: Hello
+Mobile terminals are working better now?
+16/01/25, 09:42 - Persona: Hello, I'm asking it
+16/01/25, 10:14 - Persona: It seems that mobile terminals work a little better.. Have you done something?
+16/01/25, 10:14 - Persona: just restart the DC mobile worker
+16/01/25, 10:15 - Persona: it seems related with transport area change for *OUT-RIF-SAL*... 2 days ago
+16/01/25, 10:16 - Persona: this issue?
+16/01/25, 10:16 - Persona: 👀
+16/01/25, 10:17 - Persona: some configuration change for locations affects mobile terminals
+16/01/25, 10:17 - Persona: oh… okay…
+16/01/25, 10:19 - Persona: and for fix this "issue" we need to change again the trasport type?
+16/01/25, 10:19 - Persona: we did a restart of DC Mobile
+16/01/25, 10:19 - Persona: to load again the data
+16/01/25, 10:19 - Persona: ooooh okay
+16/01/25, 10:20 - Persona: sorry I did not understand that the restart of DC mobile fixed the issue
+16/01/25, 10:20 - Persona: so great!
+16/01/25, 10:20 - Persona: thank you1
+16/01/25, 10:20 - Persona: !*
+16/01/25, 15:12 - Persona: ‎IMG-20250116-WA0000.jpg (file allegato)
+Hello, Wamas do not create TPOs from Azienda IG area to COD*
+16/01/25, 15:13 - Persona: ‎IMG-20250116-WA0001.jpg (file allegato)
+16/01/25, 15:17 - Persona: i will take a look
+16/01/25, 15:26 - Persona: ‎IMG-20250116-WA0002.jpg (file allegato)
+16/01/25, 15:27 - Persona: old issue ... :)
+16/01/25, 15:27 - Persona: F/H are not defined
+16/01/25, 15:32 - Persona: please fix them and let us know
+16/01/25, 15:37 - Persona: item COD (on X in COD SAL1) has stack info C1 - not defined too
+16/01/25, 15:37 - Persona: clear?
+16/01/25, 15:38 - Persona: Yes, clear
+16/01/25, 15:38 - Persona: the same issue as in December ...
+16/01/25, 15:38 - Persona: thank you
+16/01/25, 15:38 - Persona: Yes clear
+16/01/25, 15:39 - Persona: My fault because I forgot to add it and then forgot this issue ..... :)......
+16/01/25, 15:42 - Persona: too many configuration but a lot of options (needed and unneeded)
+16/01/25, 15:44 - Persona: A lot of things to remember :)
+16/01/25, 16:11 - Persona: i sent an email about possible next deply date to fix optimum LU
+16/01/25, 16:12 - Persona: please check with production ... and let us know
+16/01/25, 16:12 - Persona: Yes absolutely
+16/01/25, 16:12 - Persona: On monday we would have time to do it
+16/01/25, 16:12 - Persona: But I will answer your email
+16/01/25, 16:13 - Persona: thx
+16/01/25, 16:13 - Persona: In the email please write also how do you fix optimum lu
+16/01/25, 16:16 - Persona: LUs are filtered by FOG/item ... we will remove FOG being filtered by item ... in this way all LUs are involved in computation
+16/01/25, 16:20 - Persona: Great! 🙌🏻
+16/01/25, 16:21 - Persona: So from item/batch/fog to item/batch, right? <Questo messaggio è stato modificato>
+16/01/25, 16:37 - Persona: Other question: from 12:40 to 13:10 is enough?
+16/01/25, 17:03 - Persona: that'yes
+16/01/25, 17:03 - Persona: it is a standard deply
+16/01/25, 17:03 - Persona: yes
+16/01/25, 17:06 - Persona: at deploy more time is needed to prepare system for stop and checks after deploy (real deploy takes 2-3 minutes). The system is started after deploy and we confirmed after x minutes (at least 10 minutes)
+16/01/25, 17:06 - Persona: to finish all checks and MFS to be started too (it takes about 2 minutes to start to load LUs in cache).
+16/01/25, 17:10 - Persona: Okay perfect! I'm going to confirm deploy by email
+16/01/25, 17:12 - Persona: Sorry, do you have time to check the ticket COD?
+16/01/25, 18:44 - Persona: Could you please check the ticket please?
+17/01/25, 08:09 - Persona: load is closed (it was marked as totem ... it had a draft OBD and a normal OBD) <Questo messaggio è stato modificato>
+17/01/25, 08:10 - Persona: i chnaged load type to normal, remove draft OBD (by explorer) and close the load
+17/01/25, 08:11 - Persona: being a totem load ... during close there is a simple action to remove OBDs expecting all to be draft and normal OBD can not be deleted simple as draft OBD and ... normal OBD could not be removed as draft OBD ... generated the error message)
+17/01/25, 08:12 - Persona: now it is fixed ...
+17/01/25, 08:45 - Persona: I'm not sure to understand.. I could have done something to resolve it?
+17/01/25, 08:46 - Persona: no
+17/01/25, 08:47 - Persona: load has 2 OBDs: one normal and one for totem (draft) and load has marked as for totem ...
+17/01/25, 08:47 - Persona: in this situation load can not be closed by you
+17/01/25, 08:47 - Persona: i dont know why in the same load had mixed OBDs
+17/01/25, 08:49 - Persona: Ok, understood, thank you!
+20/01/25, 08:51 - Persona: Good morning! do we need to cancel all replenishment TPOs before deploy?
+20/01/25, 08:52 - Persona: good morning
+20/01/25, 08:53 - Persona: after depkoy i will cancel extra TPOs based on optimum LU
+20/01/25, 08:53 - Persona: not all of them
+20/01/25, 08:53 - Persona: only extra TPOs ...
+20/01/25, 08:55 - Persona: okay thank you! So we do not have to do anything because you will do it after deploy
+20/01/25, 08:55 - Persona: thank you!
+20/01/25, 12:20 - Persona: Hello I am working on the new ticket opened regarding the slowness of mobile terminals can this wait for the deploy we will restart the mobile worker then
+20/01/25, 12:24 - Persona: This seems to be a network issue can you try in a different area till we deploy
+20/01/25, 12:24 - Persona: yes sure!
+20/01/25, 12:25 - Persona: it is on the error screen - network
+20/01/25, 12:25 - Persona: ‎IMG-20250120-WA0000.jpg (file allegato)
+20/01/25, 12:25 - Persona: but we have it only when user does discharge
+20/01/25, 12:26 - Persona: for all terminals?
+20/01/25, 12:26 - Persona: it is important to be in another area ... to not be related to network
+20/01/25, 12:27 - Persona: the main goal is to try in another area where network is better
+20/01/25, 12:27 - Persona: I have to check
+20/01/25, 12:27 - Persona: okay I will say it to operator
+20/01/25, 12:27 - Persona: try a spontaneous tpo ... with this terminal and with another one
+20/01/25, 12:27 - Persona: in case there are differences ... it is network issue
+20/01/25, 12:28 - Persona: after deploy I will do it
+20/01/25, 12:28 - Persona: k
+20/01/25, 12:29 - Persona: I set agvDisable = true
+20/01/25, 12:34 - Persona: Ok
+20/01/25, 12:42 - Persona: you can start with deploy
+20/01/25, 12:42 - Persona: Ok
+20/01/25, 12:43 - Persona: please let us know when we can start working again :)
+20/01/25, 12:49 - Persona: Sure
+20/01/25, 13:11 - Persona: everything okay?
+20/01/25, 13:19 - Persona: I'm sorry but… what's happening?
+20/01/25, 13:19 - Persona: deploy in progress
+20/01/25, 13:19 - Persona: i will check the status
+20/01/25, 13:20 - Persona: yes please… because we are late
+20/01/25, 13:23 - Persona: we blocked the loads until 13:15...
+20/01/25, 13:32 - Persona: ‎VID-20250120-WA0002.mp4 (file allegato)
+please let me know what is happening….
+20/01/25, 13:32 - Persona: MFS is not loading priperly yet
+20/01/25, 13:33 - Persona: we are working on it
+20/01/25, 13:33 - Persona: Can we rollback and update it another time?
+20/01/25, 13:34 - Persona: I'm so sorry but we have a queue of trucks to load 😓
+20/01/25, 13:34 - Persona: we are 20 minutes late…
+20/01/25, 13:34 - Persona: ‎IMG-20250120-WA0003.jpg (file allegato)
+20/01/25, 13:35 - Persona: 😓😓
+20/01/25, 13:41 - Persona: ??
+20/01/25, 13:42 - Persona: We are tryin last time to start it
+20/01/25, 13:43 - Persona: It started
+20/01/25, 13:43 - Persona: please check if everything is okay
+20/01/25, 13:43 - Persona: we will prepare a fix for this issue
+20/01/25, 13:44 - Persona: what was the issue?
+20/01/25, 13:46 - Persona: MFS did not load LUs from automatic area
+20/01/25, 13:46 - Persona: it tries to load them many times ... without success
+20/01/25, 13:46 - Persona: 🫠🫠
+20/01/25, 13:46 - Persona: and at the end, LUs were loaded ...
+20/01/25, 13:46 - Persona: is it for the change of optimum LUs?
+20/01/25, 13:47 - Persona: nothing related to deploy changes
+20/01/25, 13:47 - Persona: that's good 🙏🏻
+20/01/25, 13:47 - Persona: it is pure MFS starting <Questo messaggio è stato modificato>
+20/01/25, 13:47 - Persona: oh… First time I think
+20/01/25, 13:47 - Persona: it has never happened
+20/01/25, 13:47 - Persona: it seems a very old issue
+20/01/25, 13:47 - Persona: this kind of issue I mean
+20/01/25, 13:47 - Persona: :)
+20/01/25, 13:48 - Persona: Persona for sure knows
+20/01/25, 13:48 - Persona: oh ...
+20/01/25, 13:48 - Persona: probably…
+20/01/25, 13:48 - Persona: it does not happen in the last 6 months ... but today it was a bad day (not lucky day)
+20/01/25, 13:48 - Persona: anyhow we will have a fix which will be included at next deploy
+20/01/25, 13:49 - Persona: it's blue monday …...
+20/01/25, 13:49 - Persona: WAMAS knows it
+20/01/25, 13:50 - Persona: okay great! Good to hear it
+20/01/25, 13:51 - Persona: everything seems working
+20/01/25, 13:51 - Persona: Deploy si done everything is working
+20/01/25, 13:52 - Persona: perfect!
+20/01/25, 13:52 - Persona: thank you very much for your work and help!
+20/01/25, 13:53 - Persona: Thank you for the patience?
+20/01/25, 13:54 - Persona: and sorry if I put pressure on you but we can't delay too long 😓
+20/01/25, 14:18 - Persona: Any new regarding the slowness?
+20/01/25, 15:06 - Persona: I Have not asked yet the operator to try discharging
+20/01/25, 17:00 - Persona: No extra TPO from Azienda to COD
+20/01/25, 17:00 - Persona: we will monitor next days
+20/01/25, 17:01 - Persona: related to other manual area we removed some TPOs but not all of them
+20/01/25, 17:01 - Persona: system lloks better...
+20/01/25, 17:02 - Persona: COD;COD;COD - was checked ...
+20/01/25, 17:13 - Persona: i removed cancelled other TPOs and now system looks clean related to TPOs from locations COD, COD and COD
+20/01/25, 17:15 - Persona: okay great!
+21/01/25, 09:03 - Persona: Hello, we tried the discharge in another area and I confim you that is very slow
+21/01/25, 09:08 - Persona: and another thing we noticed is that now for any discharging wamas suggests COD locations (Azienda)… whereas before the deploy of Azienda locations (december) the discharging suggested COD, COD, COD, ...
+21/01/25, 09:09 - Persona: we will analyze the case ...
+21/01/25, 09:09 - Persona: maybe slowness is related to Azienda changes
+21/01/25, 09:09 - Persona: okay thank you… do you need an example for this?
+21/01/25, 09:10 - Persona: mmh I do not think so because it has Always been slow and now we would like to fix it permanently
+21/01/25, 11:11 - Persona: discharge was slow and becomes slower ... we will find a solution to improve it ...
+21/01/25, 11:14 - Persona: okay thank you 🙏🏻
+operators will be very happy!
+22/01/25, 14:56 - Persona: Hello! We have problems with mobile terminal… they are very very slow...
+22/01/25, 14:56 - Persona: and kick users out of WAMAS
+22/01/25, 14:58 - Persona: could you please check if there are any problems? I don't know if it is a network issue because it doesn't appear that kind of message on mobile terminal
+22/01/25, 15:10 - Persona: hello. I can check
+22/01/25, 15:10 - Persona: yes thank you
+22/01/25, 15:12 - Persona: when the user is kicked out, what's the message shown on terminal?
+22/01/25, 15:12 - Persona: can you give me a terminal ID or a recent user that was kicked out, to check the logs for that terminal?
+22/01/25, 15:15 - Persona: anything to identify problematic terminals
+22/01/25, 15:16 - Persona: yes I'm asking
+22/01/25, 15:17 - Persona: and regarding the slowness ?
+22/01/25, 15:17 - Persona: no idea, need to check a problematic terminal to see what's happening
+22/01/25, 15:17 - Persona: okay
+22/01/25, 15:18 - Persona: In what dialogs is the slowness? All dialogs or only certain dialogs (like spontaneous transport/stock management/etc)?
+22/01/25, 15:22 - Persona: COD
+22/01/25, 15:22 - Persona: COD
+22/01/25, 15:22 - Persona: COD
+22/01/25, 15:22 - Persona: i am connected
+22/01/25, 15:22 - Persona: COD
+22/01/25, 15:22 - Persona: with simulator of mobile terminal
+22/01/25, 15:22 - Persona: i will simulate a spontaneous tpo
+22/01/25, 15:23 - Persona: and put back in the same location
+22/01/25, 15:23 - Persona: no real movement only to check speed of application
+22/01/25, 15:24 - Persona: COD wroks normally
+22/01/25, 15:24 - Persona: automatic allocation
+22/01/25, 15:25 - Persona: it works
+22/01/25, 15:25 - Persona: what area?
+22/01/25, 15:25 - Persona: i am on sl
+22/01/25, 15:28 - Persona: COD
+22/01/25, 15:31 - Persona: it takes 1-2 seonds
+22/01/25, 15:31 - Persona: we will check database
+22/01/25, 15:32 - Persona: okay thank you!
+22/01/25, 15:57 - Persona: what is current stituation?
+22/01/25, 15:57 - Persona: let me ask
+22/01/25, 15:58 - Persona: did you find anything strange?
+22/01/25, 15:58 - Persona: db server load
+22/01/25, 15:58 - Persona: piking is slow on mobile?
+22/01/25, 15:58 - Persona: automatic allocation is slow?
+22/01/25, 16:00 - Persona: it is better than before
+22/01/25, 16:01 - Persona: now it is faster than a few minutes ago
+23/01/25, 17:24 - Persona: 🆘 ⚠Dear All, I'm sorry for disturbing you but we are observing a lot of strange behavior of the system:
+1. Mobile terminal go slows at least twice in a day 
+2. WAMAS take a long time to turn PPLU into PO with priority 9 (COD)
+3. WAMAS sometimes crashes when we change orders priorities
+These behaviors started after data migration on 11.01 (but first day of prod was 13.01)
+Could you please check if there is something wrong?
+
+Thanks in advance for your help <Questo messaggio è stato modificato>
+23/01/25, 18:46 - Persona: Hello @Persona regarding the slow we found the problem but it needs a deploy
+23/01/25, 18:51 - Persona: Right now we can restart the worker but the slowness will comeback
+23/01/25, 18:53 - Persona: great to know that you found the issue
+23/01/25, 18:54 - Persona: what is it?
+23/01/25, 18:54 - Persona: yes please
+23/01/25, 18:55 - Persona: The query that searches for discharge location takes the Azienda locations so we are a lot slower <Questo messaggio è stato modificato>
+23/01/25, 18:55 - Persona: Tomorrow I'm going to talk with Operations manager and shipping manager to organize a deploy on Monday 27.01
+23/01/25, 18:55 - Persona: oh okay…..
+23/01/25, 18:56 - Persona: let them know I will restart the worker and kill the sessions
+23/01/25, 18:56 - Persona: thank you
+23/01/25, 18:56 - Persona: so until Tomorrow morning we are safe
+23/01/25, 18:58 - Persona: we reported this thing…. because we noticed it
+23/01/25, 18:59 - Persona: I restarted the worker Now I will kill the sessions
+23/01/25, 19:00 - Persona: Not sure we will be able to deploy then , we did not discus internally a deploy date
+23/01/25, 19:01 - Persona: I killed the sessions let me know how the mobile terminals are moving now
+23/01/25, 19:01 - Persona: okay
+23/01/25, 19:02 - Persona: so every time mobile terminal are slow down I will let you know
+23/01/25, 19:02 - Persona: Ok
+23/01/25, 19:02 - Persona: and you will do a restart
+23/01/25, 19:03 - Persona: please Tomorrow let me know when you will be able to perform a deploy so we can organize
+23/01/25, 19:03 - Persona: Regarding this problems can they wait for Monday or you need me to check them tomorrow
+23/01/25, 19:03 - Persona: Tomorrow is a national holiday in Romania <Questo messaggio è stato modificato>
+23/01/25, 19:04 - Persona: I think you can do it on Monday
+23/01/25, 19:05 - Persona: Ok
+23/01/25, 19:05 - Persona: if it gets worse, Tomorrow I will call helpdesk
+23/01/25, 19:06 - Persona: okay so on Monday NO deploy, but you will let me know when you are ready to perform it
+23/01/25, 19:07 - Persona: Maybe we can do it on Monday not sure need to speak with @Persona
+23/01/25, 19:07 - Persona: yes yes I know
+23/01/25, 19:07 - Persona: but if Tomorrow is back Holiday I don't think Persona will let me know Tomorrow :)
+23/01/25, 19:08 - Persona: bank*
+23/01/25, 19:08 - Persona: No he is not on call 😁
+23/01/25, 19:08 - Persona: On Monday he will respond
+23/01/25, 19:08 - Persona: great thanks
+23/01/25, 19:08 - Persona: If it occurs again I will call immediately helpdesk
+23/01/25, 19:09 - Persona: Ok
+27/01/25, 09:31 - Persona: 🆘⚠Hello! Mobile terminals are slow… could you please do something?
+27/01/25, 09:31 - Persona: hello
+27/01/25, 09:31 - Persona: all flows or a specific flow?
+27/01/25, 09:32 - Persona: all flow
+27/01/25, 09:33 - Persona: for the moment i stop generation of transport orders from Azienda to manual areas
+27/01/25, 09:33 - Persona: related to discharge a fix is already prepared to exclude Azienda locations
+27/01/25, 09:34 - Persona: and we will prepare another solutions for transport orders from Azienda to manual area
+27/01/25, 09:34 - Persona: because also these transports generate problems?
+27/01/25, 09:34 - Persona: on remote station automatic allocation is instant
+27/01/25, 09:34 - Persona: generate load on database ...
+27/01/25, 09:35 - Persona: as you observed during last analyze
+27/01/25, 09:35 - Persona: we change it to run at every hour ... but now it is stopped
+27/01/25, 09:35 - Persona: ... there is a very small number of TPOs form COD to manual areas in this mommnet
+27/01/25, 09:35 - Persona: the goal is to prepare a new deploy as soon as possible
+27/01/25, 09:36 - Persona: deadline is tomorrow (but i hope to finalize deploy today)
+27/01/25, 09:36 - Persona: please check form this moment ...
+27/01/25, 09:36 - Persona: the status of mobile terminals
+27/01/25, 09:36 - Persona: --------------------------------------------------
+27/01/25, 09:37 - Persona: please provide me a status
+27/01/25, 09:40 - Persona: I'm asking
+27/01/25, 09:41 - Persona: please provide a tpo which is slow ...
+27/01/25, 09:42 - Persona: not discharge .. because it is slowly for sure due to COD locations and stock
+27/01/25, 10:02 - Persona: They work
+27/01/25, 10:21 - Persona: outgoing goods (COD - COD)
+27/01/25, 10:30 - Persona: <Media omessi>
+27/01/25, 10:31 - Persona: i tested with mobile client emulator from PC COD
+27/01/25, 10:31 - Persona: and it works fine
+27/01/25, 10:32 - Persona: anyhow ...
+27/01/25, 10:33 - Persona: ‎IMG-20250127-WA0002.jpg (file allegato)
+27/01/25, 10:33 - Persona: ‎IMG-20250127-WA0003.jpg (file allegato)
+27/01/25, 10:33 - Persona: now we have this error message in Azienda
+27/01/25, 10:33 - Persona: i will heck
+27/01/25, 10:34 - Persona: thank you
+27/01/25, 10:37 - Persona: this issue has been around for an hour
+27/01/25, 10:38 - Persona: Deposit location COD CAMION0 is not a staging location.
+27/01/25, 10:38 - Persona: i have to check why it is not buffer defined in system
+27/01/25, 10:38 - Persona: COD CAMION0
+27/01/25, 10:42 - Persona: It is okay, COD CAMION0 doesn't have to be a staging location
+27/01/25, 10:43 - Persona: It's not defined as a staging area
+27/01/25, 10:43 - Persona: whereas COD A* LOCATIONS? <Questo messaggio è stato modificato>
+27/01/25, 10:44 - Persona: No location with s97 is defined as staging area
+27/01/25, 10:45 - Persona: ‎IMG-20250127-WA0004.jpg (file allegato)
+27/01/25, 10:46 - Persona: but it is okay that COD* and COD* are not defined as staging area
+27/01/25, 10:47 - Persona: whereas COD SCARICO and COD EX SCARICO have to be defined as staging area (so it is okay)
+27/01/25, 10:49 - Persona: this morning everything was working
+27/01/25, 10:50 - Persona: it has been like this for 1 hour
+27/01/25, 10:52 - Persona: ⚠one more issue… the terminal no longer prints the shipping label
+27/01/25, 11:04 - Persona: COD;COD has an issue or not?
+27/01/25, 11:06 - Persona: yes, user can't deposit them inside COD CAMION0
+27/01/25, 11:06 - Persona: ‎IMG-20250127-WA0006.jpg (file allegato)
+27/01/25, 11:06 - Persona: OG tpo was finalized to COD CAMION0
+27/01/25, 11:06 - Persona: it means they are in buffer area
+27/01/25, 11:09 - Persona: the opperator would like to move them from COD CAMION0 to COD A00?
+27/01/25, 11:10 - Persona: printing is not workikg in general or it is a specific lu involved?
+27/01/25, 11:11 - Persona: ‎IMG-20250127-WA0007.jpg (file allegato)
+user from desktop finalized them
+27/01/25, 11:17 - Persona: I did a test with LU COD and I did it… I put it in COD CAMION0
+27/01/25, 11:17 - Persona: It works…
+27/01/25, 11:17 - Persona: Hai eliminato questo messaggio.
+27/01/25, 11:17 - Persona: now
+27/01/25, 11:17 - Persona: :)
+27/01/25, 11:17 - Persona: i need to check why user did ...
+27/01/25, 11:18 - Persona: because message was location is not stagging (COD CAMION0 is buffer location)
+27/01/25, 11:18 - Persona: it seems application expected a stagging location not a buffer location
+27/01/25, 11:18 - Persona: very strange….
+27/01/25, 11:19 - Persona: i need to understand what operator did
+27/01/25, 11:21 - Persona: Mobile terminal - transport > manual allocation > recognized LUs > print label > deposit > try to put LUs inside COD CAMION0
+27/01/25, 11:35 - Persona: now it is working
+27/01/25, 11:36 - Persona: ‎VID-20250127-WA0008.mp4 (file allegato)
+27/01/25, 12:00 - Persona: we are working for new deploy:
+27/01/25, 12:01 - Persona: 1. COD - slowness of discharge action (ready for final tests)
+27/01/25, 12:01 - Persona: 2. inventory issue - blocked storage - ready for final tests
+27/01/25, 12:01 - Persona: 3. cross docking - release buffer is not allwed in case there is pronti pallet not identified - ready for deploy <Questo messaggio è stato modificato>
+27/01/25, 12:02 - Persona: 4. mfs loading issue - ready for final tests
+27/01/25, 12:03 - Persona: 5. replenishment on demand from Azienda to manual area (some minor changes + testing query in priduciton in progrees)
+27/01/25, 12:03 - Persona: the goal is to finished them as soon as possible
+27/01/25, 12:05 - Persona: Okay perfect! Please let me know when you are going to be ready so we can organize deploy
+27/01/25, 14:29 - Persona: 1, 2 and 3 - are ready for deploy ...
+27/01/25, 14:41 - Persona: okay perfect
+27/01/25, 14:42 - Persona: If you are agree I think it is better to do all above points in a unique deploy (if it is possible)
+27/01/25, 14:42 - Persona: yes ... this is the scope
+27/01/25, 14:43 - Persona: mfsloading is in tests rights now
+27/01/25, 14:43 - Persona: and later point 5 ...
+27/01/25, 14:43 - Persona: okay great!
+27/01/25, 17:46 - Persona: 4. done
+27/01/25, 17:46 - Persona: 5. minor changes done ... tesitng in progress
+27/01/25, 18:36 - Persona: all are ready for deploy
+27/01/25, 18:38 - Persona: starting with tomorrow afternoon deploy is possible ...
+27/01/25, 19:08 - Persona: Tomorrow I will talk with my collegues
+27/01/25, 19:08 - Persona: Thank you!
+28/01/25, 08:51 - Persona: Good morning! I'm discussing with my collegues regarding deploy date
+28/01/25, 08:52 - Persona: in the meantime I kindly ask you to restart mobile terminal because they are very slow
+28/01/25, 09:06 - Persona: please 🙏🏻
+28/01/25, 09:34 - Persona: Hello I will restart the mobile terminals
+28/01/25, 09:37 - Persona: thank you
+28/01/25, 09:38 - Persona: The restart is done
+28/01/25, 09:40 - Persona: ‎VID-20250128-WA0001.mp4 (file allegato)
+28/01/25, 09:40 - Persona: This was the situation a few minutes ago
+28/01/25, 09:40 - Persona: Thank you
+28/01/25, 09:41 - Persona: I will ask users how it goes
+28/01/25, 10:06 - Persona: <Media omessi>
+28/01/25, 10:07 - Persona: this happens now...
+28/01/25, 10:13 - Persona: I can do a restart again
+28/01/25, 10:15 - Persona: yes please..
+28/01/25, 10:27 - Persona: Did it
+28/01/25, 10:29 - Persona: thanks
+28/01/25, 12:39 - Persona: may i change connection data for stock comparison? <Questo messaggio è stato modificato>
+28/01/25, 12:39 - Persona: right now ...?
+28/01/25, 14:51 - Persona: Hai eliminato questo messaggio.
+28/01/25, 14:55 - Persona: I'm sorry I was at lunch
+28/01/25, 14:56 - Persona: I read your email and I'm going to talk with my IT dept
+28/01/25, 15:11 - Persona: I have already sent an email regarding issue COD because it is happening now and I marked "need to be checked live"
+28/01/25, 15:12 - Persona: do you have time to take a look or I can fix it?
+28/01/25, 16:00 - Persona: Can you show us in  cc15 the LU
+28/01/25, 16:00 - Persona: Previous location/current location
+28/01/25, 16:02 - Persona: ‎IMG-20250128-WA0008.jpg (file allegato)
+28/01/25, 16:02 - Persona: 3 LUs in 2 places of fork
+28/01/25, 16:02 - Persona: yes because it was slaved
+28/01/25, 16:03 - Persona: ‎IMG-20250128-WA0009.jpg (file allegato)
+28/01/25, 16:04 - Persona: but it was on COD
+28/01/25, 16:04 - Persona: physically?
+28/01/25, 16:04 - Persona: or logically?
+28/01/25, 16:04 - Persona: ‎IMG-20250128-WA0010.jpg (file allegato)
+28/01/25, 16:04 - Persona: logically
+28/01/25, 16:04 - Persona: it seems a PLC issue at the first glance
+28/01/25, 16:05 - Persona: mmh okay...
+28/01/25, 16:05 - Persona: no physically in that place and it is inside .. seems PLC information was not updated properly ... though it was inside
+28/01/25, 16:07 - Persona: exactly
+28/01/25, 17:01 - Persona: What kind of error did you get?
+28/01/25, 17:02 - Persona: I'm talking with IT dept and they asked my the type of error
+28/01/25, 17:14 - Persona: let me know
+29/01/25, 07:30 - Persona: good morning
+29/01/25, 07:30 - Persona: i will check the logs and reply on email
+29/01/25, 08:20 - Persona: !!! i starting archiving for protocol data !!!
+29/01/25, 08:20 - Persona: it was locked due to an erorr
+29/01/25, 08:20 - Persona: it will take time (about 4-5 hours or more to finish to move all data from production to archiving)
+29/01/25, 08:23 - Persona: data from 19.12.2024 ...
+29/01/25, 08:29 - Persona: What kind of error? ...
+29/01/25, 08:29 - Persona: Oh not good....
+29/01/25, 08:30 - Persona: i dont know ... but in case of strange error job is marked locked and it is not runing anymore until it is unlock manually
+29/01/25, 08:43 - Persona: Okay clear
+29/01/25, 08:43 - Persona: it will take some time ... but data are moved ...
+29/01/25, 08:44 - Persona: maybe some picking orders remain in finished longer
+29/01/25, 08:44 - Persona: Would we have noticed?
+29/01/25, 08:44 - Persona: Perfect
+29/01/25, 08:52 - Persona: would we have noticed this job error?
+29/01/25, 08:53 - Persona: i dont know if you have rights for dialog
+29/01/25, 08:53 - Persona: what is the name of the dialog?
+29/01/25, 09:38 - Persona: ??
+29/01/25, 09:39 - Persona: COD
+29/01/25, 09:40 - Persona: we have it
+29/01/25, 09:40 - Persona: ‎IMG-20250129-WA0000.jpg (file allegato)
+29/01/25, 14:55 - Persona: with logistica job is running right now
+29/01/25, 14:55 - Persona: :)
+29/01/25, 14:57 - Persona: I have already answered to your email :)
+29/01/25, 14:57 - Persona: Do you think it could be the fault of special character? "_"
+29/01/25, 15:06 - Persona: I will provide you a pw without special characters
+29/01/25, 15:37 - Persona: did you try with:
+USER: COD
+pw: COD <Questo messaggio è stato modificato>
+29/01/25, 15:38 - Persona: i did it
+29/01/25, 15:38 - Persona: Okay…
+29/01/25, 15:38 - Persona: i did it ... the same result
+29/01/25, 15:38 - Persona: 😭😭😭
+29/01/25, 15:39 - Persona: let me think
+29/01/25, 15:39 - Persona: COD - edit stock job
+29/01/25, 15:39 - Persona: set new values and schedule ... in case it is locked unlocked and save and schedule again
+29/01/25, 15:39 - Persona: it takes 1-2 minutes ...
+29/01/25, 15:40 - Persona: no work - job is locked immediately (10 seconds)
+29/01/25, 15:40 - Persona: work - not locked in 10 seconds :)
+29/01/25, 15:41 - Persona: COD - jobs running and status (in case you have access) <Questo messaggio è stato modificato>
+29/01/25, 15:42 - Persona: archiving: COD deleted	COD to be deleted ...
+29/01/25, 15:43 - Persona: until tomorrow all will be archived
+29/01/25, 17:11 - Persona: @Persona There a lot of orders in COD not archived….
+29/01/25, 17:11 - Persona: i know ...
+29/01/25, 17:11 - Persona: okay okay
+29/01/25, 17:11 - Persona: i will stop archiving activity protocol
+29/01/25, 17:11 - Persona: staet arhivr prodcutive data
+29/01/25, 17:11 - Persona: and reschedule activeity protocol
+29/01/25, 17:13 - Persona: ‎IMG-20250129-WA0010.jpg (file allegato)
+29/01/25, 17:13 - Persona: i did it ...
+29/01/25, 17:13 - Persona: obd will be archived ...
+29/01/25, 17:13 - Persona: and after that archiving protocol until is finished
+29/01/25, 17:14 - Persona: COD deleted >	COD to be deleted
+29/01/25, 17:15 - Persona: 3.24 mil rows ...
+29/01/25, 17:15 - Persona: 10 hours left ... after these hours archiving ill run normally agaon
+29/01/25, 17:15 - Persona: i stopped it 2-3 times today and start archiving for obds, pos and so on ...
+29/01/25, 17:16 - Persona: 08:00 will be back to normal - as an estimation'
+29/01/25, 17:17 - Persona: great! thank you very much!
+30/01/25, 07:44 - Persona: archiving is back to normal ...
+30/01/25, 07:44 - Persona: *good morning
+30/01/25, 08:33 - Persona: Good morning! Super
+31/01/25, 11:22 - Persona: Hello, I kindly ask you to restart mobile terminal because they are very slow🙏🏻
+31/01/25, 11:27 - Persona: I've already sent an email
+31/01/25, 11:28 - Persona: Hello I will do it
+31/01/25, 11:28 - Persona: ok thanks
+31/01/25, 11:31 - Persona: Done
+31/01/25, 11:32 - Persona: ok, I will ask my colleagues for feedback on the speed of mobile terminals and I will tell you
+31/01/25, 11:55 - Persona: It seems better
+31/01/25, 11:55 - Persona: what flow were affected?
+31/01/25, 11:55 - Persona: all flows or discharge action?
+31/01/25, 11:56 - Persona: all flows
+03/02/25, 11:04 - Persona: Hello, ready for deploy?
+03/02/25, 11:05 - Persona: hello, at 12:40, yes
+03/02/25, 11:05 - Persona: Yes, at 12:30 I will set agvDisable = true
+03/02/25, 12:30 - Persona: I have set agvDisable = true
+03/02/25, 12:30 - Persona: I'll let you know when you can start
+03/02/25, 12:39 - Persona: you can start!
+03/02/25, 12:42 - Persona: Ok, thanks
+03/02/25, 13:12 - Persona: Adding locations
+03/02/25, 13:12 - Persona: ok
+03/02/25, 13:19 - Persona: Have you almost done?
+03/02/25, 13:25 - Persona: locations were added (stagging configuration is progress)
+03/02/25, 13:25 - Persona: WAMAS will be start soon
+03/02/25, 13:38 - Persona: deploy is done (staing configuration is still in progress)
+03/02/25, 13:38 - Persona: so ready to use the system
+03/02/25, 13:39 - Persona: ok good thank you
+03/02/25, 14:36 - Persona: all locations were configured
+03/02/25, 14:42 - Persona: we notice that the locations COD CA-PZV* have a different 'transport area' from COD CA-TET*. What consequences does this have?
+03/02/25, 14:45 - Persona: we will check it and decide next step
+03/02/25, 14:51 - Persona: Ok
+03/02/25, 14:56 - Persona: all are in the same transport area tCaricoTET
+03/02/25, 15:02 - Persona: ok, so nothing changes, right?
+03/02/25, 15:02 - Persona: i set them as is was requested
+03/02/25, 15:03 - Persona: maybe it is needed a mobile restart in case there are some problems are reported
+03/02/25, 15:03 - Persona: but it takes around 2-3 minutes a restart and only mobile terminals are affected (no need so far)
+03/02/25, 15:03 - Persona: transport area is used to be able to assigned automatic transport order
+03/02/25, 15:03 - Persona: based on area selected
+03/02/25, 15:04 - Persona: basically ...
+03/02/25, 15:08 - Persona: ‎IMG-20250203-WA0002.jpg (file allegato)
+03/02/25, 15:08 - Persona: ‎IMG-20250203-WA0003.jpg (file allegato)
+03/02/25, 15:08 - Persona: I think that my colleague Persona asked you to deploy the new locations COD CA-PZV* equal to COD CA-TET*, but I saw that the transport area are different..
+03/02/25, 15:08 - Persona: i will take a llok
+03/02/25, 15:09 - Persona: do you mean that tCanaletto is like tCaricoTET?
+03/02/25, 15:15 - Persona: thx, change too
+03/02/25, 15:15 - Persona: i changed to tCaricoTET
+03/02/25, 15:16 - Persona: Good, thank you
+03/02/25, 15:16 - Persona: in case we observer something strange let us know and we will try to fix as soon as possible
+03/02/25, 15:17 - Persona: we have a problem, my collegues told me taht the mobile terminal are slow in all kind of action...
+03/02/25, 15:17 - Persona: restart will be done right now
+03/02/25, 15:21 - Persona: restart of mobile terminals done
+03/02/25, 15:22 - Persona: please let us know in case the slowness persists
+03/02/25, 15:22 - Persona: to analyze deeper what is the issue
+03/02/25, 15:22 - Persona: now locations were added and changed
+03/02/25, 15:22 - Persona: discharge action is not related to Azienda locations
+03/02/25, 15:23 - Persona: Ok
+03/02/25, 16:20 - Persona: Unfortunately the mobile terminals are slow yet..
+03/02/25, 16:20 - Persona: what flow?
+03/02/25, 16:20 - Persona: i need to test it
+03/02/25, 16:20 - Persona: i have mobile application open on remote PC (COD)
+03/02/25, 16:20 - Persona: please tell me a flow
+03/02/25, 16:20 - Persona: they told me that they are slow in all flow
+03/02/25, 16:21 - Persona: there are 6500 TPOs ...
+03/02/25, 16:21 - Persona: please let me know the flow and i will transport it with mobile terminal
+03/02/25, 16:21 - Persona: try with full pallets
+03/02/25, 16:21 - Persona: give me a transport unit and i will move iot to destination and inform you
+03/02/25, 16:22 - Persona: allocation is instantly
+03/02/25, 16:22 - Persona: COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+COD
+03/02/25, 16:22 - Persona: give me one id to move it by myself logically
+03/02/25, 16:23 - Persona: what flow is used
+03/02/25, 16:23 - Persona: manual tpo
+03/02/25, 16:23 - Persona: or OG with all LUs moved in one steps
+03/02/25, 16:23 - Persona: i proposed a short meeting on teams
+03/02/25, 16:24 - Persona: to try to the same same steps on PC
+03/02/25, 16:24 - Persona: to check real it is slowly
+03/02/25, 16:24 - Persona: automatic allocation for these
+03/02/25, 16:24 - Persona: i will do it ...
+03/02/25, 16:24 - Persona: i will assign them to me
+03/02/25, 16:25 - Persona: COD;COD;COD;COD;COD;COD;COD;COD;COD;COD;COD;COD;COD;COD
+03/02/25, 16:26 - Persona: COD
+COD
+COD
+03/02/25, 16:26 - Persona: others are for pl162
+03/02/25, 16:28 - Persona: you can delete the ssignment
+03/02/25, 16:31 - Persona: i moved them (COD;COD;COD) instandly
+03/02/25, 16:31 - Persona: by manual TPO
+03/02/25, 16:32 - Persona: they were not allocated to me
+03/02/25, 16:33 - Persona: ‎IMG-20250203-WA0004.jpg (file allegato)
+03/02/25, 16:33 - Persona: This mobile terminal in Azienda is blocked 
+in this page
+03/02/25, 16:34 - Persona: not possible to select the printer?
+03/02/25, 16:34 - Persona: not possible to move down?
+03/02/25, 16:34 - Persona: yes
+03/02/25, 16:35 - Persona: please try again
+03/02/25, 16:35 - Persona: reset the terminal and login again
+03/02/25, 16:37 - Persona: i moved pallet COD to COD Y00 (instantly and select 2nd printer from the list)
+03/02/25, 16:37 - Persona: ‎IMG-20250203-WA0005.jpg (file allegato)
+03/02/25, 16:37 - Persona: this is my terminal
+03/02/25, 16:38 - Persona: ‎IMG-20250203-WA0006.jpg (file allegato)
+03/02/25, 16:38 - Persona: ‎VID-20250203-WA0008.mp4 (file allegato)
+03/02/25, 16:39 - Persona: this terminal is in loading in progress..
+03/02/25, 16:45 - Persona: we have problem also with the load of the trucks 😰
+03/02/25, 16:50 - Persona: are you checking?
+03/02/25, 16:51 - Persona: so ...
+03/02/25, 16:59 - Persona: COD i moved to current location COD Y00
+03/02/25, 17:42 - Persona: any feedback related to mobile terminal
+03/02/25, 17:42 - Persona: ?
+03/02/25, 17:44 - Persona: I confirm you that is a internet connection problem
+03/02/25, 17:45 - Persona: also other factories of concorde group have the same problem
+03/02/25, 17:45 - Persona: so no WAMAS problem
+03/02/25, 18:10 - Persona: please contact call center
+03/02/25, 18:10 - Persona: in case we need our support ...
+03/02/25, 18:11 - Persona: ok, thank you Persona
+03/02/25, 18:11 - Persona: for your support
+05/02/25, 23:31 - Persona: Hello
+05/02/25, 23:35 - Persona: Regarding the prio A ticket, we have a pallet with 5.297 quantity on it
+05/02/25, 23:36 - Persona: In which conveyor?
+05/02/25, 23:37 - Persona: Should be on COD COD, LUID: COD
+05/02/25, 23:37 - Persona: What have i to do?
+05/02/25, 23:38 - Persona: I don't know how to modify the quantity on a pallet
+05/02/25, 23:39 - Persona: ‎IMG-20250205-WA0037.jpg (file allegato)
+It's empty🤣
+05/02/25, 23:40 - Persona: Tell me what do you want me to do with it, and I can do it for you
+05/02/25, 23:40 - Persona: For me you can delete the pallet and i Will put It away
+05/02/25, 23:40 - Persona: Okk
+05/02/25, 23:40 - Persona: Give me a second
+05/02/25, 23:41 - Persona: Yes no problem
+05/02/25, 23:43 - Persona: Done
+05/02/25, 23:44 - Persona: How is the system looking?
+05/02/25, 23:45 - Persona: I'm checking but It seems ok from lighthouse
+05/02/25, 23:45 - Persona: I will wait for your feedback
+05/02/25, 23:47 - Persona: Did you cancel the LUID of the pallet COD?
+05/02/25, 23:47 - Persona: Or only the material on It?
+05/02/25, 23:47 - Persona: Deleted the entire LU
+05/02/25, 23:48 - Persona: So, it's no longer in the system
+05/02/25, 23:48 - Persona: It appears on the COD on lighthouse
+05/02/25, 23:49 - Persona: ‎IMG-20250205-WA0038.jpg (file allegato)
+05/02/25, 23:50 - Persona: Can i delete It?
+05/02/25, 23:50 - Persona: Yes
+05/02/25, 23:57 - Persona: I delated It and i don't see It anyway
+05/02/25, 23:58 - Persona: The picking bay Is working well now, so everything has restarted🎊🎊🎊
+05/02/25, 23:58 - Persona: Good, I will close the ticket then
+05/02/25, 23:58 - Persona: Have a nice evening
+05/02/25, 23:59 - Persona: Thanks, to you too
+10/02/25, 11:51 - Persona: 🆘Dear All, we have problems with TPOs in automatic area
+10/02/25, 11:52 - Persona: All TPOs are in status NEW instead of ACTIVE (similar to the case of 18/10/2024)
+10/02/25, 11:52 - Persona: I sent an email in order to open a ticket
+10/02/25, 11:53 - Persona: Now also mobile terminal in manual area are not working
+10/02/25, 11:55 - Persona: ‎VID-20250210-WA0001.mp4 (file allegato)
+10/02/25, 12:07 - Persona: hi
+10/02/25, 12:07 - Persona: what is current status?
+10/02/25, 12:07 - Persona: We found the issueeeee
+10/02/25, 12:07 - Persona: ‎IMG-20250210-WA0002.jpg (file allegato)
+this LU
+10/02/25, 12:07 - Persona: what is the issue?
+10/02/25, 12:07 - Persona: I supposed….
+10/02/25, 12:07 - Persona: Could you please check?
+10/02/25, 12:08 - Persona: Currently it seems working..
+10/02/25, 12:08 - Persona: we unblockd the system
+10/02/25, 12:08 - Persona: ah
+10/02/25, 12:08 - Persona: 😅
+10/02/25, 12:08 - Persona: it was an issue with communication between WMS and MFS
+10/02/25, 12:08 - Persona: we will check the logs
+10/02/25, 12:09 - Persona: I thought it was LU COD pointed COD from COD
+10/02/25, 12:09 - Persona: maybe this issue cause the communication issue between wms and mfs?
+10/02/25, 12:09 - Persona: I don't know
+10/02/25, 12:10 - Persona: ‎IMG-20250210-WA0003.jpg (file allegato)
+Could you please cancel them?
+10/02/25, 12:10 - Persona: I can't do it due to "obsolete data"
+10/02/25, 12:16 - Persona: thank you!
+10/02/25, 12:22 - Persona: Could you please check LU COD?
+10/02/25, 12:22 - Persona: It is on COD COD and we can't send it back to COD because TPO is in error
+10/02/25, 12:34 - Persona: We are working on it
+10/02/25, 12:34 - Persona: Waiting for a plc
+10/02/25, 13:34 - Persona: The position is clean pallet left for the hbw
+10/02/25, 14:26 - Persona: suuper
+10/02/25, 14:26 - Persona: What was the communication issue WMS - MFS?
+10/02/25, 14:28 - Persona: We are still looking into it
+10/02/25, 14:29 - Persona: okay thank you!
+10/02/25, 14:58 - Persona: a workaround was done to not stop communication between WMS and MFS (it will be included in next deploy)
+10/02/25, 14:59 - Persona: it is the same case as of 18.10.2024 (no fix on 18.10.2024 only resume the system, it seems a very old a very rare issue but block the automatization)
+10/02/25, 15:01 - Persona: we fixed for the moment its effect not its root cause ...
+10/02/25, 15:04 - Persona: okay clear...
+10/02/25, 15:05 - Persona: clear as crystal, you will fix its root cause with deploy
+10/02/25, 15:05 - Persona: Is it possible to do a deploy next Monday 17/02? If you have this patch ready and Others too
+10/02/25, 15:13 - Persona: yes ...
+10/02/25, 15:14 - Persona: great! Do you want to confirm it to me Tomorrow afternoon/Wednesday morning?
+10/02/25, 15:14 - Persona: i will check how many fixes are ready
+10/02/25, 15:15 - Persona: but one of goal is to offer and fix user deallocation for TPO started in san lorenzo in case of temporary depozit
+10/02/25, 15:15 - Persona: we are working for solution/offer ... and i hope to get feedback tomorrow at least ...
+10/02/25, 15:16 - Persona: suuuuper 🤩 thank you!
+10/02/25, 15:16 - Persona: perfect! thank you
+10/02/25, 15:17 - Persona: I will mark deploy on Monday, then we will update
+11/02/25, 13:44 - Persona: COD <COD>
+11/02/25, 13:45 - Persona: please use this email address for the future .. to reach all people involved in project/customer service - IT Romania side
+11/02/25, 15:07 - Persona: Okay thank you!
+17/02/25, 12:26 - Persona: Hello!
+17/02/25, 12:27 - Persona: I'm going to set agvDisable = true
+17/02/25, 12:27 - Persona: I will let you know when you can start with deploy
+17/02/25, 12:31 - Persona: you can start with deploy!
+17/02/25, 12:31 - Persona: Hello ok tahnk you
+17/02/25, 12:32 - Persona: Please let us know as soon as finished
+17/02/25, 12:40 - Persona: we have until 13:10
+17/02/25, 12:44 - Persona: We finished the adding of locations
+17/02/25, 12:44 - Persona: Now we do the normal deploy
+17/02/25, 12:49 - Persona: great!
+17/02/25, 13:02 - Persona: Deploy done
+17/02/25, 13:03 - Persona: @Persona please let us know if any issue apears regarding the fixes/locations
+17/02/25, 13:03 - Persona: ok, thank you
+17/02/25, 15:40 - Persona: ‎IMG-20250217-WA0002.jpg (file allegato)
+17/02/25, 15:41 - Persona: We can't put pallets from COD CAMION to new ocations
+17/02/25, 15:41 - Persona: ‎IMG-20250217-WA0003.jpg (file allegato)
+17/02/25, 15:44 - Persona: Hello I will check
+17/02/25, 15:44 - Persona: Thank you
+17/02/25, 15:45 - Persona: Now LU is on COD
+17/02/25, 15:49 - Persona: I can't update it in another location
+17/02/25, 15:49 - Persona: ‎IMG-20250217-WA0005.jpg (file allegato)
+17/02/25, 15:52 - Persona: Now LU is in COD and I tested another LU
+17/02/25, 15:55 - Persona: It works
+17/02/25, 15:57 - Persona: So its working now?
+17/02/25, 15:58 - Persona: It seems yes manual allocation...
+17/02/25, 15:58 - Persona: spontaneous no
+17/02/25, 15:58 - Persona: ‎IMG-20250217-WA0006.jpg (file allegato)
+17/02/25, 15:59 - Persona: It says that COD is not a buffer location
+17/02/25, 15:59 - Persona: Can you try COD SAL1
+17/02/25, 16:00 - Persona: But it is not the same location like COD
+17/02/25, 16:03 - Persona: The error message tells us that COD is not a staging area
+17/02/25, 16:04 - Persona: okay… we need to switch into staging area...
+17/02/25, 16:04 - Persona: And we only configured the COD locations to be staging areas
+17/02/25, 16:05 - Persona: Mybe I was wrong to suggest you type of location for COD*
+17/02/25, 16:08 - Persona: I am checking now to see exaclty what was asked for COD*
+17/02/25, 16:08 - Persona: I would like to use COD* as a location for outgoing goods coming from COD/COD (Azienda area)
+17/02/25, 16:10 - Persona: LUs from Azienda are in COD CAMION*
+17/02/25, 16:10 - Persona: from COD CAMION* I would like to deposit them in COD* (both with manual allocation and spontaneous)
+17/02/25, 16:11 - Persona: then from COD* I will put LUs inside COD or COD
+17/02/25, 16:11 - Persona: So, if I understood well… COD* should be a staging area right?
+17/02/25, 16:12 - Persona: Yea, that is what i found in the code
+17/02/25, 16:12 - Persona: okay clear
+17/02/25, 16:13 - Persona: So I was wrong to write you the type of locations
+17/02/25, 16:13 - Persona: 😓
+17/02/25, 16:14 - Persona: ‎IMG-20250217-WA0007.jpg (file allegato)
+could you please put it in COD? I can't do it...
+17/02/25, 16:15 - Persona: Do we have a location that is already configured like you want COD to work?
+17/02/25, 16:18 - Persona: mmh I think not… because It should work with OutSide and OutRear (as a FOG)
+17/02/25, 16:18 - Persona: COD A* is similar but IT works with only OutSide <Questo messaggio è stato modificato>
+17/02/25, 16:30 - Persona: I'm thinking
+17/02/25, 16:31 - Persona: It is needed to analyze your request in case locations are changed
+17/02/25, 16:31 - Persona: Sometimes it is needed a deploy for them
+17/02/25, 16:33 - Persona: okay clear… but is it possible to make in manner that in COD* we can deposit both Outrear/OutSide with manual and spontaneous?
+17/02/25, 16:34 - Persona: We have to check source code and to come with a feedback
+17/02/25, 16:34 - Persona: okay thank you
+17/02/25, 16:34 - Persona: I'm sorry for my misunderstanding
+17/02/25, 16:34 - Persona: 😓
+17/02/25, 16:41 - Persona: No problem
+17/02/25, 17:52 - Persona: Hai eliminato questo messaggio.
+17/02/25, 17:52 - Persona: Hai eliminato questo messaggio.
+19/02/25, 16:44 - Persona: Hello for ticket COD can this waith till tomrow to be investigated or its a issue right now?
+19/02/25, 16:45 - Persona: yes sure
+19/02/25, 16:45 - Persona: Ok I will decrease it to C and put it on hold tomorrow morning I will look into it
+19/02/25, 16:46 - Persona: ‎~ Persona ha abbandonato.
+20/02/25, 10:12 - Persona: Hello regarding the new ticket for load ,we cant more the consignment do to a pending action on the load
+20/02/25, 10:13 - Persona: @Persona do you have a load on where I can manually move the wrong consignments?
+20/02/25, 10:22 - Persona: No.... because they are booked for tomorrow so we do not have a truck...
+20/02/25, 10:23 - Persona: Is it not possible to remove them?
+20/02/25, 10:25 - Persona: I can do that too
+20/02/25, 10:26 - Persona: Done they are no longer on the load
+20/02/25, 10:27 - Persona: Great thank you
+20/02/25, 10:29 - Persona: Can you delete the truck load?
+20/02/25, 10:29 - Persona: Even if there are pending actions?
+20/02/25, 10:30 - Persona: It is old and it is a draft
+20/02/25, 10:30 - Persona: I can delete the pending actions and after the load
+20/02/25, 10:30 - Persona: Yes please
+20/02/25, 10:30 - Persona: We have 2 load update request
+20/02/25, 10:31 - Persona: Done
+20/02/25, 10:40 - Persona: Perfect thank you!
+24/02/25, 08:37 - Persona: @Persona can you provide a new example for ticket COD I did not get the chance to look at it till today and we don't have any more logs from the 19th
+24/02/25, 08:47 - Persona: Hello @Persona! Oh no 😓…… I will let you know as soon as it is occur again...
+24/02/25, 08:47 - Persona: I will mark the issue "need to be checked live"
+24/02/25, 08:49 - Persona: Ok thank sorry for the inconvenience 😅
+07/03/25, 07:34 - Persona: Can you check the ticket COD?
+07/03/25, 07:39 - Persona: Hello I am checking
+07/03/25, 07:41 - Persona: Is the pallet COD there?
+07/03/25, 07:43 - Persona: And is the srm full?
+07/03/25, 07:45 - Persona: @Persona
+07/03/25, 07:47 - Persona: Hi, now the system is ok, all line in and out of SRM was in error with assignment without data P1
+07/03/25, 07:48 - Persona: Oh ok I only see an error on srm4 for pallet COD
+07/03/25, 07:53 - Persona: When the system was in error I can't saw nothing strange.... only the red bubble on lighthouse, I tried to search on wamas the problem without success
+07/03/25, 07:55 - Persona: Usually  this is connected to MFS; some pending event did not get consumed by MFS; you can't see  them in WAMAS
+07/03/25, 08:08 - Persona: I tried 👉🏼👈🏼
+08/03/25, 09:56 - Persona: Hello @Persona I deleted the inventory line for order COD We will investigate why this happened on Monday
+10/03/25, 08:50 - Persona: hello! okay thank you!
+11/03/25, 12:26 - Persona: Hello! I have already sent an email regarding URGENT | COD	COD
+11/03/25, 12:27 - Persona: could you please check it asap? we need to do documents
+11/03/25, 12:27 - Persona: hi
+11/03/25, 12:27 - Persona: we will check it
+11/03/25, 12:27 - Persona: thank you!
+11/03/25, 12:33 - Persona: it is finished now ...
+11/03/25, 12:34 - Persona: what did you do? 🥲
+11/03/25, 12:34 - Persona: i changed its planning stage from shipping planning  to picking planning
+11/03/25, 12:34 - Persona: + recalculat state
+11/03/25, 12:35 - Persona: mmmh… okay
+11/03/25, 12:35 - Persona: we will check why it remains in shipping planing (it was crossdocking order)
+11/03/25, 12:35 - Persona: and what was the issue?
+11/03/25, 12:36 - Persona: i dont know yet ... status was not changed to finished due to shipping planning (making to pikcing status changed to finished)
+11/03/25, 12:36 - Persona: only status was not changed to finsihed
+11/03/25, 12:36 - Persona: all others data were ok <Questo messaggio è stato modificato>
+11/03/25, 12:38 - Persona: oh strange….
+11/03/25, 12:42 - Persona: it seems as side effect of splitting: COD was split from COD
+11/03/25, 12:45 - Persona: oh okay…
+20/03/25, 15:49 - Persona: Hello! Could you please check ticket COD? <Questo messaggio è stato modificato>
+20/03/25, 16:56 - Persona: Hello
+20/03/25, 16:57 - Persona: ‎IMG-20250320-WA0000.jpg (file allegato)
+20/03/25, 17:04 - Persona: yes, but LU COD will stand still until COD D02 or D01 is empty
+20/03/25, 17:04 - Persona: now COD is on AGV towards COD D02
+20/03/25, 17:05 - Persona: COD D01 is empty, so WAMAS can send another pallet in target location (empty LU or for negative pick)
+20/03/25, 17:06 - Persona: Hai eliminato questo messaggio.
+20/03/25, 17:06 - Persona: and now COD has TPO in status active because COD is on AGV <Questo messaggio è stato modificato>
+20/03/25, 17:08 - Persona: I restarted the order for *COD
+20/03/25, 17:08 - Persona: it's on EMS now
+20/03/25, 17:09 - Persona: hmm, but you said TPO was already in status active when I restarted
+20/03/25, 17:09 - Persona: ‎IMG-20250320-WA0001.jpg (file allegato)
+at 17:06 it got picked up by srm
+20/03/25, 17:09 - Persona: let's check other POs
+20/03/25, 17:10 - Persona: and at 17:06 ATX picked up LU from pick 12
+20/03/25, 17:10 - Persona: ‎IMG-20250320-WA0002.jpg (file allegato)
+20/03/25, 17:10 - Persona: I think I remember this case
+20/03/25, 17:11 - Persona: It happened when we tested HA and DA pallet last year <Questo messaggio è stato modificato>
+20/03/25, 17:11 - Persona: oh yeah
+20/03/25, 17:11 - Persona: correct
+20/03/25, 17:11 - Persona: 😏😏
+20/03/25, 17:11 - Persona: then what happened was that we had an empty request for this location
+20/03/25, 17:11 - Persona: but I can't do anything 🥲
+20/03/25, 17:11 - Persona: yes
+20/03/25, 17:14 - Persona: maybe an empty request that is blocking…. but from my side everything seems okay...
+20/03/25, 17:14 - Persona: ‎IMG-20250320-WA0003.jpg (file allegato)
+we have two targets now to COD
+20/03/25, 17:16 - Persona: yaaassss
+20/03/25, 17:17 - Persona: what did you do?
+20/03/25, 17:17 - Persona: i canceled an empty req
+20/03/25, 17:17 - Persona: ‎IMG-20250320-WA0004.jpg (file allegato)
+20/03/25, 17:18 - Persona: last two days we had only 2 TUs on COD D02
+20/03/25, 17:18 - Persona: yes...
+20/03/25, 17:19 - Persona: from where? Could I do it too?
+20/03/25, 17:19 - Persona: I did it from ACX gui
+20/03/25, 17:19 - Persona: but I think COD also works
+20/03/25, 17:20 - Persona: which was?
+20/03/25, 17:20 - Persona: didn't save it unfortunately
+20/03/25, 17:21 - Persona: but was something old
+20/03/25, 17:21 - Persona: okay…..
+20/03/25, 17:21 - Persona: around 15.03
+20/03/25, 17:23 - Persona: probably… shift leader said that pick #12 had been working with 1 target location for a week
+20/03/25, 17:23 - Persona: thank you very much!
+20/03/25, 17:24 - Persona: ‎IMG-20250320-WA0005.jpg (file allegato)
+20/03/25, 17:24 - Persona: yes, around this time
+20/03/25, 17:26 - Persona: ‎IMG-20250320-WA0006.jpg (file allegato)
+this Request for COD looks a bit weird also
+20/03/25, 17:27 - Persona: if you can monitor it and make sure it doesn't get stuck for a long time here
+20/03/25, 17:27 - Persona: ‎IMG-20250320-WA0007.jpg (file allegato)
+20/03/25, 17:27 - Persona: do you have  send cancel to mfs?
+20/03/25, 17:28 - Persona: yes I have it
+20/03/25, 17:30 - Persona: I'm just speculating. I see that it got assigned a temp, so it's ok
+20/03/25, 17:30 - Persona: Let me know if station gets blocked again
+20/03/25, 17:30 - Persona: Thanks for the help :)
+20/03/25, 17:30 - Persona: yes sure, but now it is working ;)
+20/03/25, 17:31 - Persona: thank you for fixing it
+24/03/25, 10:07 - Persona: Hello! Is today's deploy confirmed?
+24/03/25, 10:48 - Persona: Hello. Yes
+24/03/25, 12:29 - Persona: I set AgvDisable = true
+24/03/25, 12:30 - Persona: I will let you know when you can start
+24/03/25, 12:40 - Persona: you can start with deploy
+24/03/25, 12:41 - Persona: Ok, thanks
+24/03/25, 13:01 - Persona: Deploy is done
+24/03/25, 13:02 - Persona: okay great!
+24/03/25, 13:02 - Persona: Everything okay?
+24/03/25, 13:03 - Persona: For us, yes. Now it's your turn 🤣
+24/03/25, 13:15 - Persona: super!
+24/03/25, 14:48 - Persona: I tested COD* locations
+24/03/25, 14:48 - Persona: ‎IMG-20250324-WA0000.jpg (file allegato)
+24/03/25, 14:49 - Persona: ‎IMG-20250324-WA0001.jpg (file allegato)
+24/03/25, 14:49 - Persona: patch is not working
+24/03/25, 14:49 - Persona: COD	COD CAMION0
+24/03/25, 14:55 - Persona: please try again
+24/03/25, 15:18 - Persona: okay
+24/03/25, 15:19 - Persona: now it works 🤩
+24/03/25, 15:53 - Persona: it sounds good
+24/03/25, 15:53 - Persona: so CR for new locations will be closed ...
+24/03/25, 15:54 - Persona: we would like to change all COD* location to the H3 compartment
+24/03/25, 15:54 - Persona: ticket COD
+24/03/25, 16:29 - Persona: is it included in  COD?
+25/03/25, 09:11 - Persona: yes
+25/03/25, 09:11 - Persona: we checked locations yesterday
+25/03/25, 09:12 - Persona: thank you!
+07/04/25, 12:31 - Persona: Hello! I set agvDisable = true
+07/04/25, 12:37 - Persona: Can we start?
+07/04/25, 12:38 - Persona: now yes
+07/04/25, 12:38 - Persona: Thanks
+07/04/25, 13:08 - Persona: Deploy is done
+07/04/25, 13:08 - Persona: okay, everything okay?
+07/04/25, 13:09 - Persona: Everything looks fine
+07/04/25, 13:09 - Persona: You can start checking on your side too
+07/04/25, 13:26 - Persona: great!
+14/04/25, 16:02 - Persona: Hello, could you please take a look at ticket 	COD?
+14/04/25, 16:03 - Persona: WAMAS is not sending record 30 to host… so we have inventory mismatches between wamas and host side….
+14/04/25, 16:36 - Persona: is there someone available? 🥺
+14/04/25, 16:42 - Persona: i will check
+14/04/25, 16:52 - Persona: thank you
+14/04/25, 16:53 - Persona: let me know if you need more examples
+14/04/25, 16:54 - Persona: how did he remove?
+14/04/25, 16:55 - Persona: I think he went to sm22 and edited a stock. do you know why?
+14/04/25, 16:56 - Persona: Yeah, COD -> edit -> COD pops up-> do stuff -> save -> COD pops up
+14/04/25, 16:57 - Persona: yes
+14/04/25, 16:58 - Persona: he not only deleted but also added
+14/04/25, 16:59 - Persona: for example LU COD he added 2 boxes of COD <Questo messaggio è stato modificato>
+14/04/25, 17:01 - Persona: also LU COD he added 1 piece of COD
+14/04/25, 17:04 - Persona: Is this normal flow, to edit from COD?
+14/04/25, 17:05 - Persona: I think yes
+14/04/25, 17:05 - Persona: It is important sequence of actions
+14/04/25, 17:05 - Persona: As i remember <Questo messaggio è stato modificato>
+14/04/25, 17:07 - Persona: To edit is normal but to add and edit … or reverse order can be a problem
+14/04/25, 17:07 - Persona: Both actions in sm028
+14/04/25, 17:08 - Persona: but it has Always worked
+14/04/25, 17:11 - Persona: user told me that today he used COD for adding and removing quantities from LUs
+14/04/25, 17:18 - Persona: Ok, understood
+14/04/25, 17:18 - Persona: another example: COD
+14/04/25, 17:18 - Persona: ‎IMG-20250414-WA0003.jpg (file allegato)
+14/04/25, 17:18 - Persona: it's ok, I think I found something
+14/04/25, 17:19 - Persona: oh great!
+14/04/25, 17:32 - Persona: can I take a stockobject to test some stuff
+14/04/25, 17:32 - Persona: to add/subtract some quantities
+14/04/25, 17:34 - Persona: basically I will add 5 subtract 5, so the quantity doesnt change
+14/04/25, 17:34 - Persona: okok
+14/04/25, 17:36 - Persona: can I take any stockobject from HRA or you give me a luid?
+14/04/25, 17:36 - Persona: LU COD <Questo messaggio è stato modificato>
+14/04/25, 17:39 - Persona: can't edit it, I think it s because it's ship lu
+14/04/25, 17:39 - Persona: I will take COD
+14/04/25, 17:40 - Persona: Okay
+14/04/25, 17:40 - Persona: weird, in COD I don't have the SV option to change
+14/04/25, 17:40 - Persona: 🤨🤨
+14/04/25, 17:40 - Persona: ah, when you add it's one posting key
+14/04/25, 17:41 - Persona: when you subtract, you have another
+14/04/25, 17:41 - Persona: oh yes
+14/04/25, 17:41 - Persona: SV remove
+PV add <Questo messaggio è stato modificato>
+14/04/25, 17:47 - Persona: Ok, so I changed something, we had a difference confirmation created, it was processed, but no OutSpm (Prj30Ack) was sent
+14/04/25, 17:47 - Persona: Is there a parameter about this?
+14/04/25, 17:48 - Persona: I think yes…
+14/04/25, 17:48 - Persona: y
+14/04/25, 17:48 - Persona: ‎IMG-20250414-WA0004.jpg (file allegato)
+14/04/25, 17:48 - Persona: yes
+14/04/25, 17:49 - Persona: ‎IMG-20250414-WA0005.jpg (file allegato)
+14/04/25, 17:49 - Persona: 🫠
+14/04/25, 17:49 - Persona: 😳😳😳
+14/04/25, 17:50 - Persona: because of this flag no Ack30 was sent in the last 7 hours. Even though the difference confirmation was created, Wamas didn't convert it into Ack30 because the flag was set to false.
+14/04/25, 17:50 - Persona: ‎IMG-20250414-WA0006.jpg (file allegato)
+14/04/25, 17:51 - Persona: I don't know if this was intended also
+14/04/25, 17:51 - Persona: Should I check the send stockadj?
+14/04/25, 17:53 - Persona: I'm sorry I scolded the user!!! 😡
+14/04/25, 17:53 - Persona: No… he was wrong….
+14/04/25, 17:54 - Persona: what do you mean?
+14/04/25, 17:54 - Persona: I meant to check the box
+14/04/25, 17:54 - Persona: but you already did it
+14/04/25, 17:54 - Persona: Currently I flag them again
+14/04/25, 17:54 - Persona: Ok, now I don't know how to re-send the ones that were not sent
+14/04/25, 17:55 - Persona: ‎IMG-20250414-WA0007.jpg (file allegato)
+14/04/25, 17:55 - Persona: One option would be to set the already confirmed difference confirmations to unconfirmed
+14/04/25, 17:55 - Persona: so wamas reprocesses them
+14/04/25, 17:55 - Persona: do you have a way to sync the stock on host side with wamas?
+14/04/25, 17:56 - Persona: i think no
+14/04/25, 17:56 - Persona: we have a query in which we check the stock differences
+14/04/25, 17:56 - Persona: can you give it to me?
+14/04/25, 17:57 - Persona: these are the items COD;COD;COD;COD;COD;COD;COD;
+14/04/25, 17:58 - Persona: ‎IMG-20250414-WA0008.jpg (file allegato)
+ok, now 30's are being sent
+14/04/25, 17:58 - Persona: I manually edited something
+14/04/25, 17:58 - Persona: ‎IMG-20250414-WA0009.jpg (file allegato)
+14/04/25, 17:59 - Persona: suuper 😎
+14/04/25, 18:01 - Persona: do you think it is possible to re-send record 30 automatically? Or we have to do manually one by one?
+14/04/25, 18:03 - Persona: I think we can do it automatically
+14/04/25, 18:03 - Persona: but my question is, do you know what happens if we send the same 30 two times?
+14/04/25, 18:04 - Persona: we will double the quantities
+14/04/25, 18:05 - Persona: example: if you send 2 record 30 regarding 5 boxing with posting key PV (add quantity), you will send + 10 boxes on host side instead of 5 boxes
+14/04/25, 18:06 - Persona: Ok, can you generate now a report of stock difference
+14/04/25, 18:06 - Persona: no, but you can do it
+14/04/25, 18:06 - Persona: :D
+14/04/25, 18:06 - Persona: Ok, did it
+14/04/25, 18:06 - Persona: Please check if you received the mail
+14/04/25, 18:07 - Persona: so we have a picture of the stock difference at this moment
+14/04/25, 18:07 - Persona: I will try to re-send the diff confs and generate then a new stock difference and see where we at
+14/04/25, 18:07 - Persona: no email
+14/04/25, 18:09 - Persona: maybe it takes a bit
+14/04/25, 18:12 - Persona: done
+14/04/25, 18:15 - Persona: did youget it?
+14/04/25, 18:15 - Persona: yess
+14/04/25, 18:15 - Persona: now
+14/04/25, 18:16 - Persona: Ok, can you forward it to me please?
+14/04/25, 18:16 - Persona: I sent it to you
+14/04/25, 18:16 - Persona: yes yes
+14/04/25, 18:16 - Persona: these are the items
+14/04/25, 18:17 - Persona: I see more items in the excel
+14/04/25, 18:17 - Persona: yes but don't worry… we have someone who every week check the quantity
+14/04/25, 18:18 - Persona: whereas the items I sent to you are those of today
+14/04/25, 18:19 - Persona: ‎IMG-20250414-WA0010.jpg (file allegato)
+Ok, so basically we need to check all the diffconfs in between 11:11:39 and 17:57:44
+14/04/25, 18:20 - Persona: yes
+14/04/25, 18:29 - Persona: did you succeed?
+14/04/25, 18:31 - Persona: not yet, I have to be careful
+14/04/25, 18:31 - Persona: don't worry
+14/04/25, 18:31 - Persona: we will do it manually tomorrow
+14/04/25, 18:31 - Persona: okay?
+14/04/25, 18:35 - Persona: Okay, if you want to do it manually sure
+14/04/25, 18:36 - Persona: If you want, you can check in COD all the difference confirmations between
+
+LU-id
+COD;COD;1	14.04.2025 11:11:33		COD
+
+COD;COD;1	14.04.2025 17:57:39		COD
+
+These are the diffconfs for the outspm (COD) :
+
+ID
+COD	30		Finished	14.04.2025 17:57:44		14.04.2025 17:57:45
+COD	30		Finished	14.04.2025 11:11:39		14.04.2025 11:11:39 <Questo messaggio è stato modificato>
+14/04/25, 18:37 - Persona: all that have stock object as a normal LU-ID and not like 'COD' (that's the qty managed stock, for what I see that we don't send stockAdj)
+14/04/25, 18:38 - Persona: I talked with user and he will do it tomorrow
+14/04/25, 18:38 - Persona: punishment 😅
+14/04/25, 18:38 - Persona: Ok then, thank you
+14/04/25, 18:39 - Persona: thank you for your help!
+14/04/25, 18:40 - Persona: have a nice evening!
+15/04/25, 01:29 - Persona: Hi, i have the same error again. All these 29 orders must go to foiling but, although they're empty, this orders remain in *wait for capacity zone foil* non missions are created for the agv; it is currently slowing down the picking work having this problem on all pstations
+15/04/25, 01:30 - Persona: ‎IMG-20250415-WA0000.jpg (file allegato)
+15/04/25, 01:30 - Persona: ‎IMG-20250415-WA0001.jpg (file allegato)
+15/04/25, 01:31 - Persona: ‎IMG-20250415-WA0002.jpg (file allegato)
+15/04/25, 03:25 - Persona: @Persona I check the system and I don t see any problem we release the pallets one by one when we have the capacity for it
+15/04/25, 09:48 - Persona: Hello please do not create TPOs for pallets  in s46 to be stored in hbw2 by hand we are investigating an issue regarding the problem from last night
+15/04/25, 09:49 - Persona: This are the Lus
+15/04/25, 09:49 - Persona: COD;COD;COD;COD;COD;COD
+15/04/25, 09:52 - Persona: Hello!
+15/04/25, 09:52 - Persona: Okay
+let us know when we can start again
+15/04/25, 09:53 - Persona: did you find the root cause?
+15/04/25, 11:35 - Persona: Hai eliminato questo messaggio.
+15/04/25, 11:37 - Persona: I understand what was the issue last night...
+15/04/25, 11:53 - Persona: We have 3 different SetUp for AGVs:
+1. SetUp "0" - AGVs can do any kind of TPOs (empty LUs, shipLUs, etc..)
+2. SetUp1 - ARTs cannot bring empty pallets to pick stations (from destacker, whereas can bring empty LU from COD)
+3. SetUp2 - ARTs cannot bring empty pallets to pick stations (from destacker, whereas can bring empty LU from COD) and cannot bring LUs at foiling area
+
+Yesterday night we had SetUp2, so ARTs couldn't take LUs from COD to foiling area…. there were active TPOs from COD towards foiling that block TPOs from pick stations to foiling because ARTs were inhibited….
+15/04/25, 11:53 - Persona: ‎IMG-20250415-WA0011.jpg (file allegato)
+15/04/25, 11:54 - Persona: these 6 TPOs blocked the other TPOs from pick stations to foiling…
+15/04/25, 11:55 - Persona: Yes
+15/04/25, 11:55 - Persona: That is what i saw to so the problem is the wrond mod of the agvs?
+15/04/25, 11:56 - Persona: yes and no…
+15/04/25, 11:57 - Persona: We left SetUp2 during the night because we didn't know about LUs from COD to foiling
+15/04/25, 11:57 - Persona: and on the other side the user didn't know there was SetUp2
+15/04/25, 11:57 - Persona: What is the mode of the agvs now?
+15/04/25, 11:57 - Persona: SetUp2
+15/04/25, 11:58 - Persona: Because we need ARTs at loading area (exit COD or rear loading)
+15/04/25, 11:59 - Persona: So we can consider this a wrong configuration of agvs and no longer investigate?
+15/04/25, 12:26 - Persona: @Persona
+15/04/25, 12:32 - Persona: It is not a wrong configuration of AGVs
+15/04/25, 12:33 - Persona: You can consider a manul handling without the correct configuration of AGVs
+15/04/25, 12:43 - Persona: Ok
+15/04/25, 12:52 - Persona: Thank you very much for your help!
+16/04/25, 09:21 - Persona: Hello
+16/04/25, 09:21 - Persona: We restarted lighthouse, now should be working
+16/04/25, 09:22 - Persona: hello, yes it works!
+16/04/25, 09:22 - Persona: thank you
+16/04/25, 09:28 - Persona: You're welcome. I will close the ticket
+22/04/25, 09:15 - Persona: Hello! As Always at 12:30 I will set agvDisable = true and I will let you know when you can start with deploy ;)
+22/04/25, 12:32 - Persona: I set agvDisable = true
+22/04/25, 12:32 - Persona: I will let you know when you can start
+22/04/25, 12:33 - Persona: Ok, thanks
+22/04/25, 12:56 - Persona: you can start!
+22/04/25, 12:57 - Persona: Sorry for being late but we encountered some difficulties…
+22/04/25, 12:58 - Persona: Don't worry, it's ok
+22/04/25, 12:59 - Persona: I'll try to hurry so we keep the schedule 😅
+22/04/25, 13:09 - Persona: don't worry
+22/04/25, 13:25 - Persona: Done, looks good on our side
+22/04/25, 13:26 - Persona: Please let us know if you find any problems with the system
+22/04/25, 13:26 - Persona: great!
+22/04/25, 13:26 - Persona: Yes sure
+22/04/25, 13:38 - Persona: So far everything id good
+22/04/25, 13:38 - Persona: in the afternoon we are going to test patches
+22/04/25, 13:38 - Persona: Thank you very much!
+22/04/25, 13:39 - Persona: You're welcome
+24/04/25, 19:46 - Persona: @Persona sorry for late reply but it is okay to do update tomorrow at 11 (italian time)
+24/04/25, 19:47 - Persona: It was a busy day with AGVs... i read your email and forgot to answer 😓
+24/04/25, 20:27 - Persona: No problem we will be ready for tomorrow @Persona
+25/04/25, 10:32 - Persona: Good morning!
+25/04/25, 10:33 - Persona: All AGVs are in charging and I set agvDisable = true
+25/04/25, 10:33 - Persona: Good morning
+25/04/25, 10:33 - Persona: you can start whenever you want, but please inform me before perform the update
+25/04/25, 10:33 - Persona: after the update do not release AGVs
+25/04/25, 10:33 - Persona: i will do it from COD
+25/04/25, 10:34 - Persona: I wont touch wams we will update only the hive and lighthouse
+25/04/25, 10:34 - Persona: super!
+25/04/25, 10:36 - Persona: I am checking with my coleague that is doing the lighthouse if we can start early
+25/04/25, 10:37 - Persona: @Persona I will stop the hive right now
+25/04/25, 10:38 - Persona: okay
+25/04/25, 10:40 - Persona: The changes on lighthouse are starting
+25/04/25, 10:45 - Persona: Deploy is done please check
+25/04/25, 10:50 - Persona: You need to clean the browser by deletin the saved data in the cookis to see the changes on lighthouse @Persona
+25/04/25, 10:55 - Persona: ‎IMG-20250425-WA0004.jpg (file allegato)
+25/04/25, 10:55 - Persona: 😎😎
+25/04/25, 11:07 - Persona: did you update everything?
+25/04/25, 11:10 - Persona: Yes
+25/04/25, 11:13 - Persona: great!
+25/04/25, 11:13 - Persona: thank you
+25/04/25, 11:16 - Persona: Thank you let us know if you find any problems
+25/04/25, 12:02 - Persona: yes sure
+25/04/25, 13:04 - Persona: Please let us know if LH displays AGV in charger position
+25/04/25, 15:07 - Persona: Yes yes
+25/04/25, 15:07 - Persona: It works
+25/04/25, 15:13 - Persona: ‎IMG-20250425-WA0005.jpg (file allegato)
+28/04/25, 07:19 - Persona: Hi All! Could you please check WAMAS?
+28/04/25, 07:20 - Persona: Something is not working
+28/04/25, 07:31 - Persona: It seems that there is no connection from WAMAS side
+28/04/25, 07:32 - Persona: now AGVs are okay
+28/04/25, 07:34 - Persona: WAAMS is down
+28/04/25, 07:34 - Persona: everything in automatic area is blocked
+28/04/25, 07:37 - Persona: 🙏🏻🙏🏻🙏🏻🙏🏻
+28/04/25, 07:45 - Persona: ????
+28/04/25, 07:46 - Persona: COD
+28/04/25, 07:46 - Persona: Ticket number
+28/04/25, 08:05 - Persona: Hi can you check agv 2
+28/04/25, 08:05 - Persona: It should have an empty pallet on it
+28/04/25, 08:11 - Persona: what about hive?
+28/04/25, 08:19 - Persona: The hive is back online but we cant connect with the agvs
+28/04/25, 08:20 - Persona: AGVs are offline?
+28/04/25, 08:21 - Persona: ‎IMG-20250428-WA0001.jpg (file allegato)
+it happened a similar case on 22/04/2024
+28/04/25, 08:21 - Persona: Yes
+28/04/25, 08:23 - Persona: please check the port
+28/04/25, 08:28 - Persona: ‎IMG-20250428-WA0002.jpg (file allegato)
+28/04/25, 08:29 - Persona: ‎IMG-20250428-WA0003.jpg (file allegato)
+28/04/25, 08:35 - Persona: please restart agv server
+28/04/25, 08:35 - Persona: We checked on our side everything is looking good
+28/04/25, 08:35 - Persona: hive can not communicate on COD with agv
+28/04/25, 08:38 - Persona: ‎IMG-20250428-WA0005.jpg (file allegato)
+28/04/25, 08:39 - Persona: Persona is trying with COD
+28/04/25, 08:40 - Persona: Let my IT dept to check on wamasapp
+28/04/25, 08:41 - Persona: he is opening port COD
+28/04/25, 08:41 - Persona: COD is configured on our side
+28/04/25, 08:41 - Persona: but Persona is using COD
+28/04/25, 08:42 - Persona: no changes on our side
+28/04/25, 08:44 - Persona: we will do it
+28/04/25, 08:46 - Persona: could you please check if the COD is open?
+28/04/25, 08:53 - Persona: ‎IMG-20250428-WA0008.jpg (file allegato)
+28/04/25, 08:53 - Persona: ‎IMG-20250428-WA0009.jpg (file allegato)
+28/04/25, 08:56 - Persona: Persona Technician is going to restart server
+28/04/25, 08:58 - Persona: Did he not do it until now?
+28/04/25, 08:59 - Persona: the issue appeared at 6:20 first time <Questo messaggio è stato modificato>
+28/04/25, 09:00 - Persona: I am on wamasapp
+28/04/25, 09:00 - Persona: k
+28/04/25, 09:00 - Persona: He is doing now
+28/04/25, 09:01 - Persona: ‎IMG-20250428-WA0011.jpg (file allegato)
+28/04/25, 09:02 - Persona: COD is used by us
+28/04/25, 09:02 - Persona: ‎IMG-20250428-WA0013.jpg (file allegato)
+28/04/25, 09:03 - Persona: let us know when rocla did the restart to be able to connect on server to start hive
+28/04/25, 09:04 - Persona: restart only the system or the whole server?
+28/04/25, 09:04 - Persona: the system
+28/04/25, 09:04 - Persona: the application of rocla
+28/04/25, 09:04 - Persona: the application ... not OS
+28/04/25, 09:07 - Persona: did it
+28/04/25, 09:07 - Persona: we will connect on server
+28/04/25, 09:07 - Persona: okay
+28/04/25, 09:11 - Persona: then could you please check if COD is working on your side?
+28/04/25, 09:16 - Persona: Now its woking
+28/04/25, 09:16 - Persona: it works
+28/04/25, 09:16 - Persona: Did you do anything?
+28/04/25, 09:16 - Persona: no action on your side
+28/04/25, 09:17 - Persona: please ask rocla?
+28/04/25, 09:17 - Persona: we started hive and no communication and it started to work nomrally
+28/04/25, 09:18 - Persona: after 10 minutes ...
+28/04/25, 09:18 - Persona: no action on our side ...
+28/04/25, 09:22 - Persona: COD communication works (debug port) and COD communication did not work
+28/04/25, 09:23 - Persona: Persona did a restart of server and nothing else
+28/04/25, 09:23 - Persona: The correct port is COD?
+28/04/25, 09:23 - Persona: Now we see missions but no agvs are moving
+28/04/25, 09:24 - Persona: Is hive working?
+28/04/25, 09:24 - Persona: ask rocla why they are not moving
+28/04/25, 09:25 - Persona: there are 2 ports: COD and COD (debug port)
+28/04/25, 09:25 - Persona: He is chekcing
+28/04/25, 09:25 - Persona: hive is working
+28/04/25, 09:25 - Persona: and hive communicates with rocla <Questo messaggio è stato modificato>
+28/04/25, 09:27 - Persona: @Persona are the agv moving ?
+28/04/25, 09:27 - Persona: there are orders allocatd to agvs but not moving on LH <Questo messaggio è stato modificato>
+28/04/25, 09:29 - Persona: Now they are moving
+28/04/25, 09:29 - Persona: :)
+28/04/25, 09:29 - Persona: ‎IMG-20250428-WA0016.jpg (file allegato)
+28/04/25, 09:30 - Persona: Only the agv 22 is waiting an okay from wamas
+28/04/25, 09:30 - Persona: LH is working?
+28/04/25, 09:31 - Persona: We deleted the order from the pool bescuse it had an errro
+28/04/25, 09:31 - Persona: Oh okay
+28/04/25, 09:32 - Persona: We remove it from rocla
+28/04/25, 09:32 - Persona: We can do a restart but I dont see any movment on the agvs
+28/04/25, 09:32 - Persona: Try
+28/04/25, 09:32 - Persona: Now they are moving
+28/04/25, 09:34 - Persona: Wamas is working?
+28/04/25, 09:35 - Persona: agv 24
+28/04/25, 09:35 - Persona: ‎IMG-20250428-WA0018.jpg (file allegato)
+28/04/25, 09:35 - Persona: It is waiting a wamas confirmation
+28/04/25, 09:36 - Persona: Delete it and we will try to create again
+28/04/25, 09:36 - Persona: Restart done
+28/04/25, 09:36 - Persona: Okay, is it work?
+28/04/25, 09:37 - Persona: Not sure I dont see any movment
+28/04/25, 09:39 - Persona: We don t have anything for this agv
+28/04/25, 09:40 - Persona: Now it seems work
+28/04/25, 09:40 - Persona: Working
+28/04/25, 09:40 - Persona: 🙃
+28/04/25, 09:40 - Persona: I don't know if I want cry or laugh
+28/04/25, 09:40 - Persona: No it is not workingggg
+28/04/25, 09:41 - Persona: ‎IMG-20250428-WA0020.jpg (file allegato)
+28/04/25, 09:41 - Persona: Agv 24
+28/04/25, 09:41 - Persona: ‎IMG-20250428-WA0022.jpg (file allegato)
+28/04/25, 09:41 - Persona: ask rocla ...
+28/04/25, 09:42 - Persona: ‎IMG-20250428-WA0024.jpg (file allegato)
+28/04/25, 09:42 - Persona: WAMAS sends orders to Persona using Hive as communication layer
+28/04/25, 09:42 - Persona: Waiting confirmation message
+28/04/25, 09:42 - Persona: allocation of orders is on Persona side
+28/04/25, 09:42 - Persona: ask rocla to manage it ...
+28/04/25, 09:43 - Persona: Please delete the orders
+28/04/25, 09:43 - Persona: what orders?
+28/04/25, 09:44 - Persona: Sorry it is for rocal Technician
+28/04/25, 09:44 - Persona: :)
+28/04/25, 09:46 - Persona: we checked history for ART-24 ... the last movement was on 25.04.2025
+28/04/25, 09:46 - Persona: COD
+28/04/25, 09:46 - Persona: at 16:49:30
+28/04/25, 09:46 - Persona: seeing on WAMAS side
+28/04/25, 09:49 - Persona: agvs are moving physically?
+28/04/25, 09:52 - Persona: yes
+28/04/25, 09:58 - Persona: Could you olease check turning table?
+28/04/25, 09:58 - Persona: At foiling
+28/04/25, 09:58 - Persona: COD
+28/04/25, 09:58 - Persona: could you please check turning table at foiling?
+28/04/25, 09:58 - Persona: *3001
+28/04/25, 09:59 - Persona: COD has to go inside COD but it is not moving
+28/04/25, 09:59 - Persona: Will check
+28/04/25, 09:59 - Persona: @Persona did you check if the lighthouse was working after deploy on Friday?
+28/04/25, 10:00 - Persona: yes and it works
+28/04/25, 10:00 - Persona: we checked it until Friday afternoon
+28/04/25, 10:01 - Persona: we tested the system in the afternoon and it worked
+28/04/25, 10:02 - Persona: ‎IMG-20250428-WA0026.jpg (file allegato)
+28/04/25, 10:04 - Persona: something is not working
+28/04/25, 10:04 - Persona: stacker cranes are not moving
+28/04/25, 10:04 - Persona: foiling is blocked
+28/04/25, 10:04 - Persona: COD is not working
+28/04/25, 10:05 - Persona: All tpos are in "wai for route not found" <Questo messaggio è stato modificato>
+28/04/25, 10:06 - Persona: we are checking the logs
+28/04/25, 10:06 - Persona: great
+28/04/25, 10:08 - Persona: I informed @Persona that testerday morning one of the two server shut down due to power off
+28/04/25, 10:16 - Persona: Any news?
+28/04/25, 10:20 - Persona: COD are in autmatic on?
+28/04/25, 10:21 - Persona: they are not available?
+28/04/25, 10:21 - Persona: YES
+28/04/25, 10:21 - Persona: they are available
+28/04/25, 10:22 - Persona: they are not available ...
+28/04/25, 10:22 - Persona: we try to turn off and turn on
+28/04/25, 10:22 - Persona: k
+28/04/25, 10:24 - Persona: now it starting to work again
+28/04/25, 10:25 - Persona: now they are available for MFS
+28/04/25, 10:26 - Persona: I SEE
+28/04/25, 10:27 - Persona: ❤❤❤❤
+28/04/25, 10:27 - Persona: all 4 SRMs were not available on MFS
+28/04/25, 10:27 - Persona: But why?
+28/04/25, 10:27 - Persona: we will check
+28/04/25, 10:29 - Persona: But 1, 2, 3, 4, 8 were not working this mornign
+28/04/25, 10:29 - Persona: morning
+28/04/25, 10:29 - Persona: 8 is not available in this moment
+28/04/25, 10:30 - Persona: yes because it is in maintenance mode now
+28/04/25, 10:31 - Persona: this morning you mean? or Yesterday morning?
+28/04/25, 10:36 - Persona: did you restart the applications?
+28/04/25, 10:38 - Persona: they (COD) are not worked today ...
+28/04/25, 10:38 - Persona: No
+28/04/25, 10:38 - Persona: we sync with machine ... and started to work
+28/04/25, 10:39 - Persona: and maybe your restart (turn off/on) in the same time
+28/04/25, 10:39 - Persona: no….
+28/04/25, 10:39 - Persona: 10:24 sync was done
+28/04/25, 10:39 - Persona: and they become available for MFS and route was found ...
+28/04/25, 10:40 - Persona: route not found was due to SRMs were not available for MFS.
+28/04/25, 10:40 - Persona: what was the root cause?
+28/04/25, 10:41 - Persona: The devices were not avaliable for the mfs
+28/04/25, 10:42 - Persona: okay clear
+28/04/25, 10:42 - Persona: but what caused this problem?
+28/04/25, 10:42 - Persona: it seems related with power outage
+28/04/25, 10:43 - Persona: okay… but it was related on only one server
+28/04/25, 11:08 - Persona: I canceled TPO for COD
+28/04/25, 11:08 - Persona: because no AGVs were going to pick up it...
+28/04/25, 11:09 - Persona: could you please create a TPO towards COD D01?
+28/04/25, 11:10 - Persona: @Persona spoke with Persona and due to the powert outage we stop de availability of the srms so we don't lose any telegrams between the mfs and the device controller , it needs a manul synchronization between mfs and device contrller when the problem is solved
+28/04/25, 11:19 - Persona: okay… so this issue was due to the power outage becasue after that it needs a manual sync… Am I understand correctly?
+28/04/25, 11:20 - Persona: it is important to check ...
+28/04/25, 11:22 - Persona: ‎IMG-20250428-WA0030.jpg (file allegato)
+28/04/25, 11:22 - Persona: can we avoid it? I mean… make in manner that it is not need a manual sync...
+28/04/25, 11:22 - Persona: mf210
+28/04/25, 11:22 - Persona: it is necessary only in special cases ...
+28/04/25, 11:23 - Persona: Yes the manual sync is to check the cranes/mfs to be sure that everything is ok , we maybe had an order did not work or maybe the crane  still has the pallet on ,
+28/04/25, 11:25 - Persona: Could I do it with "reset manual Handling"?
+28/04/25, 11:25 - Persona: right click on one srm and click on "reset manual Handling"?
+28/04/25, 11:26 - Persona: please check also this LU... It has to go to COD D01
+28/04/25, 11:27 - Persona: because this morning we tried to do it but without success…
+28/04/25, 11:30 - Persona: @Persona
+28/04/25, 11:32 - Persona: Ok I will look
+28/04/25, 11:33 - Persona: I did a mess.....
+28/04/25, 11:34 - Persona: Why we need it at bp04 ?
+28/04/25, 11:35 - Persona: Ok I see its a negativ picking
+28/04/25, 11:36 - Persona: ‎IMG-20250428-WA0031.jpg (file allegato)
+28/04/25, 11:38 - Persona: Could you please udpate the pallet on B04 D*?
+28/04/25, 11:39 - Persona: we will put phyisically
+28/04/25, 11:39 - Persona: I can did you move it by hand?
+28/04/25, 11:39 - Persona: I tried to move it from mfs
+28/04/25, 11:40 - Persona: I will book it on COD 01
+28/04/25, 11:40 - Persona: @Persona done
+28/04/25, 11:41 - Persona: yes please
+28/04/25, 11:42 - Persona: COD D02
+28/04/25, 11:42 - Persona: becasue COD D01 is occupied
+28/04/25, 11:44 - Persona: Ok
+28/04/25, 11:44 - Persona: I will move it
+28/04/25, 12:16 - Persona: @Persona are you working on server?
+28/04/25, 12:18 - Persona: better, let me know when my IT can check on wamasapp
+28/04/25, 14:08 - Persona: No only with sync with soc
+28/04/25, 14:48 - Persona: yes, Persona told me on the phone :)
+28/04/25, 14:48 - Persona: thank you!
+28/04/25, 16:44 - Persona: now or tomorrow morning
+28/04/25, 16:45 - Persona: Okay let me know
+28/04/25, 16:45 - Persona: Because it dept wants to check something
+28/04/25, 17:21 - Persona: please do it
+28/04/25, 17:22 - Persona: Okay thank you
+29/04/25, 12:17 - Persona: hello
+29/04/25, 12:17 - Persona: what is the issue onsite?
+29/04/25, 12:18 - Persona: Hello
+29/04/25, 12:18 - Persona: The system is slow
+29/04/25, 12:18 - Persona: what part?
+29/04/25, 12:18 - Persona: It takes minutes to create tpos
+29/04/25, 12:19 - Persona: what tpos?
+29/04/25, 12:19 - Persona: No messages of pallet pronti to Host
+29/04/25, 12:21 - Persona: Pick plan LU is very slow
+29/04/25, 12:21 - Persona: there are 8 DDTs ...
+29/04/25, 12:21 - Persona: There are 212 orders that still in approvation
+29/04/25, 12:23 - Persona: All of them
+29/04/25, 12:23 - Persona: Users can't close ddt on COD
+29/04/25, 12:24 - Persona: i will try to do it
+29/04/25, 12:24 - Persona: Okay thank you
+29/04/25, 12:24 - Persona: 4164
+29/04/25, 12:24 - Persona: Did you do?
+29/04/25, 12:26 - Persona: User COD closed it <Questo messaggio è stato modificato>
+29/04/25, 12:27 - Persona: hi, for example COD, approved for picking at 9:49, still in waiting
+29/04/25, 12:50 - Persona: @Persona any news?
+29/04/25, 12:58 - Persona: we are still analyze the slowness on wamas side
+29/04/25, 13:00 - Persona: Okay
+29/04/25, 13:14 - Persona: Please let us know as soon as you find something
+29/04/25, 13:51 - Persona: i would like to confirm all LUs from in pronti viazza 1
+29/04/25, 13:51 - Persona: it seems lus affect storage search
+29/04/25, 13:52 - Persona: 😯😯
+29/04/25, 14:11 - Persona: We still have problems...
+29/04/25, 14:11 - Persona: we are still searching the issue
+29/04/25, 14:11 - Persona: hi, this order is very urgent; COD	COD. Can you help us?
+29/04/25, 14:16 - Persona: gather statistics solved ig511
+29/04/25, 14:16 - Persona: in some seconds i closed 2 dtts
+29/04/25, 14:16 - Persona: i will check ... release pplu
+29/04/25, 14:16 - Persona: Okay 🙏🏻
+29/04/25, 14:16 - Persona: solved pbd
+29/04/25, 14:16 - Persona: solved obd
+29/04/25, 14:17 - Persona: it is released
+29/04/25, 14:17 - Persona: oracle issue ... changes execution plan and gather statistics force it to recompute exectuion plan
+29/04/25, 14:18 - Persona: Oh okay.... the same issue we had months ago
+29/04/25, 14:19 - Persona: 😓😓
+29/04/25, 14:19 - Persona: Or not?
+29/04/25, 14:20 - Persona: yes
+29/04/25, 16:12 - Persona: ‎IMG-20250429-WA0008.jpg (file allegato)
+🆘POTENTIAL BLOCK🆘
+29/04/25, 16:13 - Persona: Could you please take a look asap^
+29/04/25, 16:13 - Persona: ?
+29/04/25, 16:14 - Persona: F01 completely blocked
+29/04/25, 16:14 - Persona: Hello I will check
+29/04/25, 16:14 - Persona: thank you
+29/04/25, 16:19 - Persona: @Persona everything should be running now
+29/04/25, 16:19 - Persona: it seems yes
+29/04/25, 16:19 - Persona: what happened?
+29/04/25, 16:21 - Persona: A pending event for a tpo got stuck
+29/04/25, 16:21 - Persona: Now I'm looking into it
+29/04/25, 16:24 - Persona: okay ….
+29/04/25, 16:56 - Persona: lp61 found a fortune ... :)
+29/04/25, 16:57 - Persona: ‎IMG-20250429-WA0012.jpg (file allegato)
+29/04/25, 16:57 - Persona: please fix it to not crash again...
+29/04/25, 16:57 - Persona: @Persona
+29/04/25, 16:58 - Persona: I don't believe it…..
+29/04/25, 16:58 - Persona: ‎VID-20250429-WA0013.mp4 (file allegato)
+29/04/25, 16:58 - Persona: at once
+07/05/25, 18:18 - Hai aggiunto Persona, Progetto Lavoro.
+07/05/25, 18:37 - Persona: Hello, we have a problem with the system.. while we are using wamas, some pages are stuck..
+07/05/25, 18:37 - Persona: for example:
+07/05/25, 18:37 - Persona: ‎IMG-20250507-WA0018.jpg (file allegato)
+07/05/25, 18:37 - Persona: ‎IMG-20250507-WA0019.jpg (file allegato)
+07/05/25, 18:39 - Persona: another example: I tried to disconnect the fd33 and wamas frozes
+07/05/25, 18:39 - Persona: ‎IMG-20250507-WA0020.jpg (file allegato)
+07/05/25, 18:44 - Persona: This seems to be a issue with the database
+07/05/25, 18:46 - Persona: also the forkliftdrivers have a problems with TPOs
+07/05/25, 18:47 - Persona: the automatic area works for now
+07/05/25, 18:50 - Persona: Can you disconnect the user FD33, please?
+07/05/25, 18:51 - Persona: this user is on an urgent order
+07/05/25, 18:54 - Persona: are you checking?
+07/05/25, 18:55 - Persona: Yes
+07/05/25, 18:56 - Persona: I will try
+07/05/25, 19:02 - Persona: Its not working I already ran  the gather statistics no improvement...
+07/05/25, 19:03 - Persona: can't you disconnect the user?
+07/05/25, 19:04 - Persona: No even on the server i get timeout
+07/05/25, 19:06 - Persona: could be the order linked to this user the problem?
+07/05/25, 19:06 - Persona: the ordernumber is COD
+07/05/25, 19:11 - Persona: I dont see anything for this order in the logs or the querys on database
+07/05/25, 19:12 - Persona: ‎IMG-20250507-WA0021.jpg (file allegato)
+07/05/25, 19:12 - Persona: ‎IMG-20250507-WA0022.jpg (file allegato)
+07/05/25, 19:14 - Persona: The server dose not look bad
+07/05/25, 19:20 - Persona: what can we check?
+07/05/25, 19:22 - Persona: I can try to kill the sessions that are waiting for more then 10 sec
+07/05/25, 19:23 - Persona: ok
+07/05/25, 19:28 - Persona: I see the most of the long querys are for updating some tpos
+07/05/25, 19:30 - Persona: this is an example of LU blocked: COD
+07/05/25, 19:31 - Persona: another one: COD
+07/05/25, 19:33 - Persona: neither the forklift drive or the pc user can't move these LUs
+07/05/25, 19:33 - Persona: Questo messaggio è stato eliminato.
+07/05/25, 19:35 - Persona: ‎IMG-20250507-WA0024.jpg (file allegato)
+Page blocked
+07/05/25, 19:36 - Persona: If the database is not responsive all dialogs are not working
+07/05/25, 19:36 - Persona: so what can we do?
+07/05/25, 19:38 - Persona: I am trying to find what the issue is but from what i can see the querys that are waiting are all update so not sure why we recive timeout
+07/05/25, 19:45 - Persona: please, try to move these LUs (COD;COD) in COD R01 <Questo messaggio è stato modificato>
+07/05/25, 19:49 - Persona: Can you restart the mobile terminal for user fd33?
+07/05/25, 19:49 - Persona: 5*201 is already on the forklift
+07/05/25, 19:51 - Persona: I get the freez even with explore....
+07/05/25, 19:51 - Persona: I know it, the problem is that we can't move it from the forklift. plese try to put it in COD R01
+07/05/25, 19:52 - Persona: It sounds not good..
+07/05/25, 19:55 - Persona: the user fd33 is not actually connect on the mobile terminal, he's only freez
+07/05/25, 19:56 - Persona: Can you restart that terminal?
+07/05/25, 19:56 - Persona: We can try a wamas restart
+07/05/25, 19:57 - Persona: But this dose not seems like a wamas issue...
+07/05/25, 19:57 - Persona: do you want to restart the application or db?
+07/05/25, 19:58 - Persona: I'm not agree doing the restart...
+07/05/25, 19:58 - Persona: automatic area is working
+07/05/25, 19:59 - Persona: I just tried and disconnected a user from the remote and its woking
+07/05/25, 20:00 - Persona: For one of our users
+07/05/25, 20:01 - Persona: and with fd33 it doesn't work?
+07/05/25, 20:01 - Persona: No
+07/05/25, 20:01 - Persona: Is there another user that i can try to disconnect?
+07/05/25, 20:02 - Persona: please try to do these
+07/05/25, 20:02 - Persona: try with COD
+07/05/25, 20:02 - Persona: Did it
+07/05/25, 20:03 - Persona: Do we have a user on mobile?
+07/05/25, 20:03 - Persona: Will try user COD on mul 3
+07/05/25, 20:03 - Persona: try with one fd*
+07/05/25, 20:04 - Persona: Only fd33 is connected to mobile..
+07/05/25, 20:04 - Persona: I'm checking
+07/05/25, 20:05 - Persona: For this one is working
+07/05/25, 20:05 - Persona: So the issue seems to be fd33
+07/05/25, 20:05 - Persona: Did you try ro restart the mobile terminal
+07/05/25, 20:05 - Persona: Ok it worked
+07/05/25, 20:06 - Persona: @Persona everything seems to be back to normal
+07/05/25, 20:06 - Persona: Now the creation of tpo from sm23 worked
+07/05/25, 20:06 - Persona: Did not recive timeout
+07/05/25, 20:06 - Persona: Can you try ro move the pallets?
+07/05/25, 20:07 - Persona: did you disconnect fd33?
+07/05/25, 20:07 - Persona: Yes
+07/05/25, 20:08 - Persona: good, we'll try to move some LUs
+07/05/25, 20:08 - Persona: 5*950 has tpo created by me
+07/05/25, 20:09 - Persona: We no longer have queys that are stuck on db so its back to normal...
+07/05/25, 20:11 - Persona: Why this happend i can t tell you we will look into it tomorrow
+07/05/25, 20:12 - Persona: ok
+07/05/25, 20:12 - Persona: we're checking that all is working
+07/05/25, 20:22 - Persona: @Persona status?
+07/05/25, 20:22 - Persona: All seems ok
+07/05/25, 20:23 - Persona: Ok we will check if we can find the root cause tomorrow
+07/05/25, 20:23 - Persona: Ok!
+07/05/25, 20:23 - Persona: Thank you
+07/05/25, 20:30 - Persona: I think one time when this happened, atlas_cust did some reports (or some stuff) and slowed the db
+07/05/25, 20:30 - Persona: If you know if something was done from atlas_cust
+07/05/25, 22:01 - Persona: I did a query at around about 17:30 in sql developer with user atlas_prod_cust
+07/05/25, 22:01 - Persona: I checked the table reportarchive and others
+07/05/25, 22:01 - Persona: But nothing else
+07/05/25, 22:02 - Persona: A query shouldn't be the problem
+07/05/25, 22:02 - Persona: I think so
+07/05/25, 22:02 - Persona: Other reports run at night
+07/05/25, 22:02 - Persona: At around about 3 am
+07/05/25, 22:03 - Persona: We'll check more tomorrow then, but everything sohuld be safe now
+07/05/25, 22:03 - Persona: Okay 💪🏻 finger cross
+08/05/25, 08:53 - Persona: Hello, when you'll have some information about the root cause of yesterday, let us know
+09/05/25, 10:15 - Persona: Hello, any news?
+09/05/25, 10:16 - Persona: Hello sory for late response we can't say for sure what caused the db to be slow or what was the fix for the issue..
+12/05/25, 12:32 - Persona: Hello, are you going to let us know when we can start with the deploy?
+12/05/25, 12:32 - Persona: Hello! We have already set agvDisable = true
+12/05/25, 12:33 - Persona: I will let you know when you can start ;)
+12/05/25, 12:33 - Persona: Thanks!
+12/05/25, 12:37 - Persona: you can start 🚀
+12/05/25, 12:56 - Persona: Deploy is done. Everything looks good on our side
+12/05/25, 12:56 - Persona: Okay great!
+12/05/25, 13:01 - Persona: One issue
+12/05/25, 13:01 - Persona: COD is blocked near labeler of foiling area
+12/05/25, 13:01 - Persona: with SOC-ID broken
+12/05/25, 13:02 - Persona: ‎IMG-20250512-WA0007.jpg (file allegato)
+12/05/25, 13:02 - Persona: and TPO in status error
+12/05/25, 13:02 - Persona: Give me a sec to check
+12/05/25, 13:02 - Persona: ‎IMG-20250512-WA0008.jpg (file allegato)
+12/05/25, 13:02 - Persona: yes sure
+12/05/25, 13:09 - Persona: did you find the issue?
+12/05/25, 13:14 - Persona: we have to release the conveyor...
+12/05/25, 13:16 - Persona: I think the problem is related the status broken in COD
+12/05/25, 13:22 - Persona: it moved
+12/05/25, 13:23 - Persona: It is ok now?
+12/05/25, 13:23 - Persona: yes
+12/05/25, 13:30 - Persona: ‎IMG-20250512-WA0012.jpg (file allegato)
+12/05/25, 13:31 - Persona: is loading list sorted properly?
+12/05/25, 13:31 - Persona: cliente, nr ordine and locazione
+12/05/25, 14:41 - Persona: ‎IMG-20250512-WA0014.jpg (file allegato)
+12/05/25, 14:42 - Persona: Field "Vett" is completely cut...
+12/05/25, 14:42 - Persona: i saw
+12/05/25, 14:46 - Persona: Regarding this topic for me it is okay but I'm waiting a feedback from my colleagues
+12/05/25, 14:50 - Persona: it is exactly width 900 and start 15, 20
+12/05/25, 14:50 - Persona: solution maybe it is to change backfeed sequence ...
+12/05/25, 14:51 - Persona: in that case before label is printed, it is moved back and after that printing is starting
+12/05/25, 14:52 - Persona: okay, like in the test...
+12/05/25, 14:52 - Persona: it can be reprinted directly ... from wamas on the same printer
+12/05/25, 14:53 - Persona: do you think change some parameters?
+12/05/25, 15:10 - Persona: https://www.youtube.com/watch?v=lWzaibb-ueM
+12/05/25, 15:10 - Persona: it is included in template now ...
+12/05/25, 15:11 - Persona: it is related to movement of paper in printer ...
+12/05/25, 15:11 - Persona: it is normal now ...
+12/05/25, 15:14 - Persona: we are checking
+12/05/25, 15:14 - Persona: it is overwriten by label
+12/05/25, 15:14 - Persona: ‎IMG-20250512-WA0019.jpg (file allegato)
+12/05/25, 15:14 - Persona: it looks better
+12/05/25, 15:14 - Persona: Now it is like in the photo
+12/05/25, 15:15 - Persona: but packing list is not okay
+12/05/25, 15:17 - Persona: ‎IMG-20250512-WA0020.jpg (file allegato)
+12/05/25, 15:18 - Persona: COD is okay 💪🏻
+12/05/25, 15:18 - Persona: I have received a feedback and it is okay
+12/05/25, 15:18 - Persona: i can reprint with backfeed sequnece set to allign label before ...
+12/05/25, 15:19 - Persona: to see if both label ae ok ...
+12/05/25, 15:20 - Persona: it is one printer that prints both labels
+12/05/25, 15:20 - Persona: it is the one at foiling
+12/05/25, 15:21 - Persona: it is possible to make a test ... to reprint both for COD
+12/05/25, 15:21 - Persona: ?
+12/05/25, 15:21 - Persona: yes sure
+12/05/25, 15:21 - Persona: i need about 2-3 minutes to change layout in data an to reprint them
+12/05/25, 15:21 - Persona: i started to change layout
+12/05/25, 15:21 - Persona: give me 5 min I'm going to the printer
+12/05/25, 15:22 - Persona: don't worry
+28/05/25, 14:46 - Persona: ‎IMG-20250528-WA0005.jpg (file allegato)
+28/05/25, 14:46 - Persona: ‎IMG-20250528-WA0006.jpg (file allegato)
+28/05/25, 14:46 - Persona: ‎IMG-20250528-WA0007.jpg (file allegato)
+28/05/25, 14:46 - Persona: Hello! Could you please check why it is happening?
+28/05/25, 14:47 - Persona: If you have time you can check now
+28/05/25, 14:47 - Persona: If not we will send LUs
+28/05/25, 14:47 - Persona: 😓
+28/05/25, 14:55 - Persona: AGV with stacks arrived at already occupied stacker?
+28/05/25, 14:56 - Persona: Yes
+28/05/25, 14:56 - Persona: ‎IMG-20250528-WA0008.jpg (file allegato)
+28/05/25, 14:56 - Persona: checking
+28/05/25, 14:56 - Persona: thanks
+28/05/25, 14:57 - Persona: check the location
+28/05/25, 14:57 - Persona: there is a temp
+28/05/25, 14:57 - Persona: COD
+28/05/25, 14:58 - Persona: and there is another stack on ATX 08
+28/05/25, 14:58 - Persona: aah, right, blackhole is ok, when stack is stored we create temp
+28/05/25, 14:58 - Persona: COD
+This is on atx? <Questo messaggio è stato modificato>
+28/05/25, 15:01 - Persona: exaclty
+28/05/25, 15:01 - Persona: yes
+28/05/25, 15:02 - Persona: issue COD
+28/05/25, 15:07 - Persona: It's something different, the stacker was already there from 2 PM today <Questo messaggio è stato modificato>
+28/05/25, 15:22 - Persona: Yes and wamas send another one
+28/05/25, 15:22 - Persona: more or less at the same time
+28/05/25, 15:22 - Persona: LU COD at 14.30 arrived on COD
+28/05/25, 15:30 - Persona: did you find something?
+28/05/25, 15:32 - Persona: Yeah, you are right
+28/05/25, 15:33 - Persona: 2025-05-28 14:21:18.054 [ptyStackDeamon-mfsPal-205][f57dfd] - AGVDestacker (isReplenishAllowed) agvDestacker=S46A09X003Y01Z1
+At this time Wamas saw this destacker is empty and allowed replenish
+28/05/25, 15:33 - Persona: "2025-05-28 14:21:18.026","STARTED","COD","COD",,"COD"
+at this time COD order was started to destacker
+28/05/25, 15:36 - Persona: okay… so WAMAS created another TPO but there was already a stack towards COD
+28/05/25, 15:36 - Persona: the stack was COD
+28/05/25, 15:46 - Persona: can we release the ATX 08? 😅
+28/05/25, 15:47 - Persona: Yes
+30/05/25, 15:58 - Persona: Hello
+30/05/25, 15:58 - Persona: I sent an email regarding issue COD
+30/05/25, 15:58 - Persona: could you please take a look asap?
+30/05/25, 16:32 - Persona: @Persona can you guys do the tpo for LUS *9603 and *0297
+30/05/25, 16:33 - Persona: This Lus were connected to the obd but got discharged
+30/05/25, 16:34 - Persona: I'm checking
+30/05/25, 16:35 - Persona: can you please send me all number of LUs? 😅
+30/05/25, 16:35 - Persona: COD & COD
+30/05/25, 16:38 - Persona: ‎IMG-20250530-WA0007.jpg (file allegato)
+I can see only one LU
+30/05/25, 16:38 - Persona: and it is already out of the order
+30/05/25, 16:38 - Persona: so I don't think they are a problem... <Questo messaggio è stato modificato>
+30/05/25, 16:44 - Persona: Well they are still connected to the obd through ogludata I just wanted to see if the quantity gets update if we move them
+30/05/25, 16:44 - Persona: I can try by moving COD
+30/05/25, 16:45 - Persona: But COD no because there isn't in the system
+30/05/25, 16:45 - Persona: take a look at my photo <Questo messaggio è stato modificato>
+30/05/25, 16:45 - Persona: Hai eliminato questo messaggio.
+30/05/25, 16:46 - Persona: I moved it in COD PR2
+30/05/25, 16:47 - Persona: nothing changed
+30/05/25, 16:52 - Persona: Order is updated we will try to reproduce
+30/05/25, 16:53 - Persona: did you do it?
+30/05/25, 16:53 - Persona: Yes
+30/05/25, 16:54 - Persona: thank you very much🙏🏻
+30/05/25, 16:54 - Persona: You need to confirm the load
+30/05/25, 16:59 - Persona: We can't confirm the load
+30/05/25, 16:59 - Persona: ‎IMG-20250530-WA0008.jpg (file allegato)
+30/05/25, 17:01 - Persona: I meant to close the truck sory
+30/05/25, 17:02 - Persona: oh okay
+30/05/25, 17:03 - Persona: perfect! it worked
+30/05/25, 17:03 - Persona: thanks for your help!
+03/06/25, 10:10 - Persona: Hello!
+03/06/25, 10:11 - Persona: I have already sent an email (open a ticket) --> COD - "Getting error “TPO has been cancelled contemporarily” while picking up one LU only and exit from auto-allocation mode transports (similar to COD)"
+03/06/25, 10:12 - Persona: have you have time to check it now or not? Because otherwise I will move the LUs in the right place (now they are on COD)
+03/06/25, 11:08 - Persona: Is anyone available?
+03/06/25, 11:09 - Persona: ticket COD
+03/06/25, 11:20 - Persona: hello
+03/06/25, 11:20 - Persona: someone will take of it soon
+03/06/25, 11:27 - Persona: okay perfect thank you!
+03/06/25, 11:27 - Persona: I won't touch the 2 LUs
+03/06/25, 12:20 - Persona: ‎IMG-20250603-WA0003.jpg (file allegato)
+03/06/25, 12:20 - Persona: COD;COD;COD;COD
+03/06/25, 12:20 - Persona: please check LUs on 6589
+03/06/25, 12:21 - Persona: they are booked on the same device
+03/06/25, 12:22 - Persona: i dont know where thwy are to book them and to create again tpos for them
+03/06/25, 15:07 - Persona: I did not follow you….
+03/06/25, 15:44 - Persona: my idea to is manage them manually these 4 pallets ... confirm TPO ... and move them to destination ... we will see if the issue persists (i see an exception in logs but root case was not found yet)
+03/06/25, 15:45 - Persona: oh okat
+03/06/25, 15:45 - Persona: okay
+03/06/25, 15:45 - Persona: I can confirm TPO
+03/06/25, 15:47 - Persona: oh wait… we have to print the label… for the two tpos in active
+03/06/25, 15:47 - Persona: whereas i have already confirmed manually the two tpos in status new
+03/06/25, 15:48 - Persona: og002 -> shipment LU print shippng label
+03/06/25, 15:48 - Persona: 👍🏻
+03/06/25, 15:55 - Persona: I did it
+04/06/25, 10:17 - Persona: hello, could you please check ticket #COD?
+04/06/25, 10:20 - Persona: Hello @Persona I am checking the issue
+04/06/25, 10:21 - Persona: thank you!
+04/06/25, 10:25 - Persona: @Persona seems that the  obd was splited
+04/06/25, 10:33 - Persona: the obd or the order?
+04/06/25, 10:39 - Persona: The obd
+04/06/25, 10:40 - Persona: The user manually split the shipment lus but i see that we no loger have the lus and the quantity is discharged
+04/06/25, 10:42 - Persona: Not sure what the user actually did
+04/06/25, 10:42 - Persona: me too….
+04/06/25, 10:42 - Persona: I'm thinking… but I have no idea
+04/06/25, 10:42 - Persona: I see some lus are loaded , some are splited
+04/06/25, 10:43 - Persona: 70 boxes were discharge
+04/06/25, 10:43 - Persona: and 70 boxes loaded
+04/06/25, 10:43 - Persona: I see that he moved 2 lus to obd COD
+04/06/25, 10:45 - Persona: Do we know if the lus that are loaded are the ones on the load?
+04/06/25, 10:45 - Persona: yes yes we are sure
+04/06/25, 10:46 - Persona: ‎IMG-20250604-WA0000.jpg (file allegato)
+04/06/25, 10:46 - Persona: The issue seems to be the fact that the obd got finished by the user actions
+04/06/25, 10:47 - Persona: mmh… i don't know why...
+04/06/25, 10:48 - Persona: I changed some states on the obd to make it avaliable again
+04/06/25, 10:49 - Persona: which OBD?
+04/06/25, 10:49 - Persona: The one the ticket
+04/06/25, 10:49 - Persona: COD is still finalized
+04/06/25, 10:49 - Persona: Yea but the state is not to be deleted so that is good for now
+04/06/25, 10:50 - Persona: I am checking now every condition to activate the close truck action
+04/06/25, 10:51 - Persona: oh okay
+04/06/25, 10:51 - Persona: sorry
+04/06/25, 10:53 - Persona: The load is closed
+04/06/25, 10:54 - Persona: @Persona can you check?
+04/06/25, 11:03 - Persona: yes it is closed
+04/06/25, 11:16 - Persona: nono wait
+04/06/25, 11:16 - Persona: you did not close the truck
+04/06/25, 11:17 - Persona: you deleted it...
+04/06/25, 11:17 - Persona: :(
+04/06/25, 11:18 - Persona: COD is empty…. without LUs
+04/06/25, 11:18 - Persona: the two LUs that we loaded this morning
+04/06/25, 11:28 - Persona: I pressed fhe close truck button
+04/06/25, 11:29 - Persona: 😓😓😓
+04/06/25, 11:31 - Persona: now LUs no longer exist :( <Questo messaggio è stato modificato>
+04/06/25, 11:33 - Persona: You want to open the truck back and add them?
+04/06/25, 11:34 - Persona: yes please…
+04/06/25, 11:34 - Persona: and put them in COD because they were loaded...
+04/06/25, 11:34 - Persona: COD;COD
+04/06/25, 12:46 - Persona: COD was discharged
+04/06/25, 13:53 - Persona: @Persona we cant update the load we connected the lu's to the obd in og070
+04/06/25, 14:15 - Persona: only 70 boxes out of 140
+04/06/25, 14:16 - Persona: okay thank you
+04/06/25, 14:16 - Persona: it is okay
+04/06/25, 14:24 - Persona: We will test to try to reproduce the case
+04/06/25, 15:19 - Persona: okay thank you
+23/06/25, 12:03 - Persona: Hello! At 12:30 we are going to set agvDiasble = true <Questo messaggio è stato modificato>
+23/06/25, 12:27 - Persona: you can start with deploy
+23/06/25, 12:29 - Persona: Ok, thanks
+23/06/25, 12:54 - Persona: Deploy is done
+23/06/25, 12:54 - Persona: Everything looks good from our side. If you have any problems, please let us know
+23/06/25, 12:57 - Persona: okay thank you!
+23/06/25, 13:16 - Persona: please check shipping labels ...
+23/06/25, 13:16 - Persona: yes yes
+23/06/25, 13:38 - Persona: @Persona
+23/06/25, 13:38 - Persona: The barcode is not working
+23/06/25, 13:38 - Persona: 😓😓😓
+23/06/25, 13:38 - Persona: If I try to scan it nothing happened
+23/06/25, 13:41 - Persona: we will check
+23/06/25, 13:43 - Persona: It seems foiling works <Questo messaggio è stato modificato>
+23/06/25, 13:44 - Persona: I tried with mobile terminal and it doesn't work
+23/06/25, 13:49 - Persona: At foiling works!
+23/06/25, 13:49 - Persona: Maybe it is a configuration of labels near pick 1 and 2
+23/06/25, 13:51 - Persona: Maybe not all the barcode is printed
+23/06/25, 13:59 - Persona: Another problem 😓
+23/06/25, 14:00 - Persona: ‎VID-20250623-WA0002.mp4 (file allegato)
+23/06/25, 14:00 - Persona: User is kicked out if he tries to search for stock
+23/06/25, 14:00 - Persona: please barcode
+23/06/25, 14:01 - Persona: Photo?
+23/06/25, 14:02 - Persona: wait
+23/06/25, 14:05 - Persona: related to shipping label we will prepare a new update ... for the moment type the value
+23/06/25, 14:05 - Persona: it will be ready in about 1-2 hours
+23/06/25, 14:05 - Persona: but to fix this issue on stock too
+23/06/25, 14:09 - Persona: okay thank you
+23/06/25, 14:17 - Persona: i tested and it works
+23/06/25, 14:17 - Persona: search stock from COD
+23/06/25, 14:18 - Persona: please let me know the version
+23/06/25, 14:18 - Persona: oh okay
+23/06/25, 14:18 - Persona: main menu (incoming, ...)
+23/06/25, 14:19 - Persona: F1 -< user infor (F4 as option)
+23/06/25, 14:19 - Persona: verssion ..
+23/06/25, 14:19 - Persona: okay
+23/06/25, 14:19 - Persona: let me check
+23/06/25, 14:20 - Persona: ‎IMG-20250623-WA0003.jpg (file allegato)
+23/06/25, 14:20 - Persona: COD as version
+23/06/25, 14:21 - Persona: Hai eliminato questo messaggio.
+23/06/25, 14:23 - Persona: it is the same?
+23/06/25, 14:25 - Persona: I'm waiting an user
+23/06/25, 14:26 - Persona: ‎IMG-20250623-WA0007.jpg (file allegato)
+23/06/25, 14:27 - Persona: COD
+23/06/25, 14:27 - Persona: Is it the same user that had the problem?
+23/06/25, 14:28 - Persona: COD
+23/06/25, 14:28 - Persona: yes
+23/06/25, 14:30 - Persona: on mobile terminal is not working
+23/06/25, 14:31 - Persona: search for stock is not working on mobile terminal, whereas on my pc is working
+23/06/25, 14:31 - Persona: we will check
+23/06/25, 14:32 - Persona: ‎IMG-20250623-WA0014.jpg (file allegato)
+23/06/25, 14:33 - Persona: another thing related to shpiing buffer
+23/06/25, 14:33 - Persona: there is PZV on labels but it is not correct
+23/06/25, 14:34 - Persona: it is fixed value
+23/06/25, 14:34 - Persona: no
+23/06/25, 14:34 - Persona: it is fixed in our implementation
+23/06/25, 14:34 - Persona: it is not fixed
+23/06/25, 14:35 - Persona: i need to check specification becuase it was no in initial spec
+23/06/25, 14:35 - Persona: that field will be valued as soon as we wiil have the integration between waams and mercareon
+23/06/25, 14:35 - Persona: it is empty?
+23/06/25, 14:35 - Persona: so now wamas does not have the information so it should be empty
+23/06/25, 14:35 - Persona: yes
+23/06/25, 14:36 - Persona: i will remove it .. for the moment ... and fix the issue
+23/06/25, 14:36 - Persona: anyhow
+23/06/25, 14:36 - Persona: perfect! thank yoy
+23/06/25, 14:36 - Persona: you
+23/06/25, 14:43 - Persona: so do you think that in 1 or 2 hour you can solve the issue?
+23/06/25, 14:44 - Persona: yes
+23/06/25, 14:44 - Persona: super
+23/06/25, 14:55 - Persona: do you need to stop everything, right?
+23/06/25, 15:02 - Persona: yes
+23/06/25, 15:02 - Persona: please make a new test with another mobile termimal
+23/06/25, 15:02 - Persona: COD
+23/06/25, 15:03 - Persona: and if you can record from start to finish
+23/06/25, 15:04 - Persona: the steps you mean?
+23/06/25, 15:04 - Persona: yes
+23/06/25, 15:04 - Persona: after you login, all the buttons the user presses
+23/06/25, 15:05 - Persona: okok
+23/06/25, 15:16 - Persona: ‎VID-20250623-WA0016.mp4 (file allegato)
+23/06/25, 15:17 - Persona: Before you press F7 - Search for stock, can you try to click on the stock
+23/06/25, 15:18 - Persona: ‎IMG-20250623-WA0017.jpg (file allegato)
+23/06/25, 15:18 - Persona: click here, to see if we can get the stock selected, with yellow background
+23/06/25, 15:19 - Persona: ‎IMG-20250623-WA0018.jpg (file allegato)
+something like this is what we have on our mobile simulator
+23/06/25, 15:20 - Persona: me too
+23/06/25, 15:21 - Persona: on my pc works
+23/06/25, 15:21 - Persona: but on mobile terminal no
+23/06/25, 15:21 - Persona: so if you click on mobile terminal on the stock, it isn't highlighted?
+23/06/25, 15:21 - Persona: maybe not yellow, grey or something
+23/06/25, 15:22 - Persona: no wait sorry I missed your previous messages
+23/06/25, 15:22 - Persona: the thing is we try to get from COD info from "selectedStockObject"
+23/06/25, 15:22 - Persona: maybe on mobile simulator the selection is done automatically
+23/06/25, 15:22 - Persona: but on the mobile terminal, the selection is not automatically
+23/06/25, 15:22 - Persona: okay clear give me 10 min and I will try again
+23/06/25, 15:30 - Persona: I talked with an user and he confirmed that for the other mobile terminal (the small one) works! because the stock is highlighted
+23/06/25, 15:30 - Persona: as you wrote
+23/06/25, 15:31 - Persona: let me try again with the other mobile terminal
+23/06/25, 15:32 - Persona: Ok
+23/06/25, 15:39 - Persona: we prepare the pack for deploy
+23/06/25, 15:40 - Persona: okay
+23/06/25, 15:40 - Persona: I have to ask first to my colleagues
+23/06/25, 15:42 - Persona: it takes 60 minutes ...
+23/06/25, 15:43 - Persona: 60 min of deploy?
+23/06/25, 15:44 - Persona: pack creation
+23/06/25, 15:44 - Persona: deploy will be maximum 15-20 minutes ...
+23/06/25, 15:45 - Persona: oh okay clear
+23/06/25, 15:45 - Persona: so it will be readu in 60 min right?
+23/06/25, 15:45 - Persona: ready
+23/06/25, 15:45 - Persona: yeap ...
+23/06/25, 15:45 - Persona: okay
+23/06/25, 15:45 - Persona: there are some internal steps before pack is crrated
+23/06/25, 15:45 - Persona: let me organize with my colleagues
+23/06/25, 15:45 - Persona: 1. find and fix the issue.
+23/06/25, 15:45 - Persona: okay okay
+23/06/25, 15:46 - Persona: 2. save ionternally and run an internal build
+23/06/25, 15:46 - Persona: 3. full bulild locally with last changes
+23/06/25, 15:46 - Persona: 4. geenrat the pack
+23/06/25, 15:46 - Persona: 5. copy and server and install it
+23/06/25, 15:46 - Persona: 6. - activation (it is what we did today),
+23/06/25, 15:46 - Persona: okay clear
+23/06/25, 15:52 - Persona: RAZAVAAAN
+23/06/25, 15:53 - Persona: ‎VID-20250623-WA0021.mp4 (file allegato)
+23/06/25, 15:53 - Persona: It works if you select the item.
+23/06/25, 15:53 - Persona: 🙃
+23/06/25, 15:55 - Persona: It is almost correct... in case you have more than one item to check
+23/06/25, 15:56 - Persona: But if there is only one item it should be highlithed automatically
+23/06/25, 15:58 - Persona: Ok, thanks for confirming
+23/06/25, 15:58 - Persona: You are welcome
+23/06/25, 16:03 - Persona: step 4 is in progress
+23/06/25, 16:04 - Persona: okay thanks
+23/06/25, 16:21 - Persona: step 5 done
+23/06/25, 16:21 - Persona: step 6 in progress
+23/06/25, 16:28 - Persona: copy on the server in progress
+23/06/25, 16:40 - Persona: step 6 - install is in progress
+23/06/25, 16:40 - Persona: after this we are ready for activsation ...
+23/06/25, 16:40 - Persona: okay
+23/06/25, 16:40 - Persona: it means today steps ...
+23/06/25, 16:40 - Persona: let me know when I can disable AGV
+23/06/25, 16:46 - Persona: step 6 is done
+23/06/25, 16:46 - Persona: now ...
+23/06/25, 16:49 - Persona: okay I set agv disable = true
+23/06/25, 16:58 - Persona: Persona will manage next steps ... as at lunch time
+23/06/25, 16:58 - Persona: okay great
+23/06/25, 16:58 - Persona: yyou can proceed with deploy
+23/06/25, 17:14 - Persona: is deploy done?
+23/06/25, 17:14 - Persona: Yeah
+23/06/25, 17:14 - Persona: Are there some errors?
+23/06/25, 17:14 - Persona: yes..
+23/06/25, 17:14 - Persona: Can you fix them or you want me to check?
+23/06/25, 17:15 - Persona: ‎IMG-20250623-WA0024.jpg (file allegato)
+23/06/25, 17:15 - Persona: did you do something?
+23/06/25, 17:15 - Persona: becasue errors disappeared :)
+23/06/25, 17:16 - Persona: I did nothing
+23/06/25, 17:16 - Persona: But let me check
+23/06/25, 17:16 - Persona: Something is not right
+23/06/25, 17:16 - Persona: 😓😓
+23/06/25, 17:17 - Persona: what kind of thing?
+23/06/25, 17:19 - Persona: Is it back to normal?
+23/06/25, 17:19 - Persona: Looks good for me, now
+23/06/25, 17:20 - Persona: yes yes
+23/06/25, 17:20 - Persona: now we have to test again
+23/06/25, 17:20 - Persona: I did nothing, there was some problems with the orders for pallets
+23/06/25, 17:20 - Persona: But they reseted automatically
+23/06/25, 17:20 - Persona: oh okay
+23/06/25, 17:20 - Persona: good
+23/06/25, 17:20 - Persona: hope that was nothing important
+23/06/25, 17:21 - Persona: No no, it happens sometimes after a restart, but if it got back to normal by itself is all good
+23/06/25, 17:21 - Persona: oooh okay now clear :)
+23/06/25, 17:23 - Persona: I m here for the tests, let me know how they go
+23/06/25, 17:23 - Persona: What do you want to test first?
+23/06/25, 17:34 - Persona: great!
+23/06/25, 17:35 - Persona: Users called me and they said that now barcode works 😁
+23/06/25, 17:35 - Persona: also search for stock
+23/06/25, 17:35 - Persona: So label is ok
+23/06/25, 17:35 - Persona: it is not higlighted but it works
+23/06/25, 17:36 - Persona: Can you try some search for stock from the mobile, but for an LU with multiple stock?
+23/06/25, 17:36 - Persona: And search for the first one
+23/06/25, 17:36 - Persona: Just for test purpose
+23/06/25, 17:37 - Persona: yes yes we are searching LU
+23/06/25, 17:43 - Persona: it works now for the type "rugged"
+23/06/25, 17:43 - Persona: and not for the Others
+23/06/25, 17:44 - Persona: What do you mean with type rugged?
+23/06/25, 17:44 - Persona: ‎VID-20250623-WA0016.mp4 (file allegato)
+23/06/25, 17:45 - Persona: this one
+23/06/25, 17:45 - Persona: Hm, ok...let me check please
+23/06/25, 17:46 - Persona: For this type now works
+23/06/25, 17:47 - Persona: ‎VID-20250623-WA0025.mp4 (file allegato)
+Whereas for this no
+23/06/25, 17:47 - Persona: Also my mobile terminal on pc
+23/06/25, 17:48 - Persona: ‎VID-20250623-WA0026.mp4 (file allegato)
+23/06/25, 17:48 - Persona: Because all items are highlighted
+23/06/25, 17:49 - Persona: While on this type the user can select items and check stock
+23/06/25, 17:50 - Persona: This is a bug and you can fix it with another deploy (not today)
+23/06/25, 17:51 - Persona: Now it works so you can check by taking your time... the system is not blocked anymore (due to search for stock and barcode)
+23/06/25, 17:52 - Persona: Yes yes, of course. The deploy was more for the shipping labels. We just thought we couls fix the search stock also. But i guess it needs more investigation
+23/06/25, 17:53 - Persona: thank you very much!
+23/06/25, 17:53 - Persona: We will check this further in the next days and find a fix
+23/06/25, 17:53 - Persona: perfect
+23/06/25, 17:53 - Persona: Thank you for the support, too!
+24/06/25, 07:08 - Persona: Questo messaggio è stato eliminato.
+24/06/25, 08:57 - Persona: we changed the width of bars from barcode to avoid to not print all of them on some printers
+24/06/25, 09:00 - Persona: you mean that on some printers (I supposed in manual area) not all the bars of the barcode are printed?
+24/06/25, 09:01 - Persona: you told us scanning is not working -> we checked and found the barcode is not printed completed on the label (this is the reason of no scanning) <Questo messaggio è stato modificato>
+24/06/25, 09:02 - Persona: I supposed
+24/06/25, 09:02 - Persona: we decreased from 6 to 5 a value to be able to print all barcode
+24/06/25, 09:03 - Persona: we checked label on simulation tool and barcode is not printed (but it depends on the printer configuration)
+24/06/25, 09:03 - Persona: sorry I understand now
+24/06/25, 09:03 - Persona: now it is smaller and it is printed all of them <Questo messaggio è stato modificato>
+24/06/25, 09:03 - Persona: you reduce the font of the barcode
+24/06/25, 09:03 - Persona: yes yes
+24/06/25, 09:04 - Persona: It works so no more label issue
+24/06/25, 09:05 - Persona: but at foiling worked because the dimension of the barcode was smaller than in the other printers?
+24/06/25, 09:16 - Persona: the label maybe it is a liltte bigger and printer configuration
+24/06/25, 09:17 - Persona: all labels had the same value for barcode initially, after deploy and no scanning we changed all of them (width of bars from barcode)
+24/06/25, 09:46 - Persona: related to stock search ... please try again
+24/06/25, 09:46 - Persona: we checked and there is no other stock available in manual area
+24/06/25, 09:46 - Persona: only in automatisation or shipment LU
+24/06/25, 09:47 - Persona: please try again and let us know for multiple items on LU
+24/06/25, 09:47 - Persona: Okay I will try on both type of mobile terminal
+24/06/25, 09:47 - Persona: or any other cases ... the goal is to find the issue and to fix it
+24/06/25, 09:47 - Persona: Give me 10 min
+24/06/25, 09:47 - Persona: thx
+24/06/25, 09:47 - Persona: it is not urgent
+24/06/25, 09:47 - Persona: Exactly
+24/06/25, 15:42 - Persona: user is filled in message #30
+24/06/25, 15:42 - Persona: i checked in COD/COD + COD
+24/06/25, 15:42 - Persona: and message is processed by host (no issue reported)
+24/06/25, 15:48 - Persona: Yes sorry
+24/06/25, 15:48 - Persona: Yesterday I forgot to tell you that it works
+24/06/25, 15:49 - Persona: My IT dept checked on Host side
+24/06/25, 16:21 - Persona: thx
+26/06/25, 06:15 - Persona: Good morning, we have the SRM03 stopped without error, ticket n°COD, we have a logical issue, on it we don't have any pallet physically but on wamas page COD can we see the pallet COD, can you clean the logical memorie of SRM? 🙃
+26/06/25, 06:15 - Persona: Hello
+26/06/25, 06:16 - Persona: Yes, I see the pending event for that pallet
+26/06/25, 06:16 - Persona: I will delete it
+26/06/25, 06:16 - Persona: I Don’t find the pallet anymore in the system
+26/06/25, 06:18 - Persona: Should be ok now
+26/06/25, 06:19 - Persona: Yes, now is perfect 👌🏼
+26/06/25, 06:19 - Persona: The pallet was a slave
+26/06/25, 11:30 - Persona: Hi, we have another issue on SRM03
+26/06/25, 11:30 - Persona: Ticket n°COD
+26/06/25, 11:31 - Persona: null
+26/06/25, 11:31 - Persona: ‎IMG-20250626-WA0005.jpg (file allegato)
+26/06/25, 11:31 - Persona: ‎IMG-20250626-WA0006.jpg (file allegato)
+26/06/25, 11:31 - Persona: Now on the crane we have a pallet physically
+26/06/25, 11:32 - Persona: On COD page I can see this error
+26/06/25, 11:46 - Persona: I will check
+26/06/25, 11:58 - Persona: Now the crane has started working
+26/06/25, 11:58 - Persona: Yes, I see. I deleted the stuck message as before
+26/06/25, 12:00 - Persona: What happened? Why are you having these problems?
+26/06/25, 12:02 - Persona: ‎IMG-20250626-WA0010.jpg (file allegato)
+26/06/25, 12:02 - Persona: The exit of SRM03
+26/06/25, 12:02 - Persona: ‎IMG-20250626-WA0011.jpg (file allegato)
+26/06/25, 12:04 - Persona: This time was something different than this morning
+26/06/25, 12:06 - Persona: But this morning before the ticket the issue was the same, we had a SRM03 with physically pallet on it and crane stopped without error
+26/06/25, 12:08 - Persona: issue from COD was because the pallet COD was manually booked from SRM03 to COD, the pallet remained logically on SRM, I had to clean that
+26/06/25, 12:08 - Persona: This time I am not sure what was it, I need to check
+26/06/25, 12:13 - Persona: Yes before the manually booked the crane was block at the same mode
+26/06/25, 12:14 - Persona: But now we have the last 2 pallet delivered lock on conveyors
+26/06/25, 12:16 - Persona: what pallets?
+26/06/25, 12:17 - Persona: ‎IMG-20250626-WA0015.jpg (file allegato)
+26/06/25, 12:17 - Persona: ‎IMG-20250626-WA0016.jpg (file allegato)
+26/06/25, 12:17 - Persona: On this conveyors
+26/06/25, 12:18 - Persona: With this error
+26/06/25, 12:18 - Persona: ok, will check
+26/06/25, 12:18 - Persona: 😊
+26/06/25, 12:23 - Persona: I reset the orders, should be ok now
+26/06/25, 12:25 - Persona: Ok thanks, can you explain the issue why was blocked the crane the second time? <Questo messaggio è stato modificato>
+26/06/25, 12:27 - Persona: I will have to check the logs first. I will lower the priority of the ticket and if the issue occur again you can contact us until we finish with our analysis
+26/06/25, 12:27 - Persona: is that ok?
+26/06/25, 12:29 - Persona: Yes, it's perfect🫡 I wait your analysis for my curiosity 😂
+26/06/25, 12:30 - Persona: And for my knowledge 🤓
+30/06/25, 12:25 - Persona: Hello, are you going to let us know when we can start with the deploy?
+30/06/25, 12:25 - Persona: Hello!
+30/06/25, 12:25 - Persona: No deploy today 😅
+30/06/25, 12:26 - Persona: next Monday
+30/06/25, 12:27 - Persona: Oh, ok. Persona told me we would do one today 😅 but now I saw the mails that says 7/7
+30/06/25, 12:29 - Persona: yes exactly
+30/06/25, 12:29 - Persona: 😁
+30/06/25, 13:48 - Persona: I have already opened a ticket because we are testing how to work on August during the assembly of COD and closed conveyor loop nokfoiling <Questo messaggio è stato modificato>
+30/06/25, 13:49 - Persona: We want to work only with loop1 and loop 2 of ems, so we made in manner that loop3 is out
+30/06/25, 13:50 - Persona: then we opened the safety door and ems vehicles immediately stopped pick up and deposit pallets on CU
+30/06/25, 13:50 - Persona: ‎IMG-20250630-WA0001.jpg (file allegato)
+this is the "waiting message" of TPOs
+30/06/25, 13:51 - Persona: I have already talked with Pentanova/eisenmann technician and he said that the problem is the wms
+30/06/25, 13:53 - Persona: it is not okay that wms blocks all tpos as soon as I open the safety door or loop3
+30/06/25, 13:53 - Persona: it should block only TPOs of loop3
+30/06/25, 13:54 - Persona: if someone is available to check in live you have time until 15 (italian time)…
+30/06/25, 13:55 - Persona: now we closed safety door to let users work on COD - COD
+30/06/25, 13:55 - Persona: ticket COD
+30/06/25, 13:56 - Persona: if there is someone to check we will reopen the door
+30/06/25, 13:56 - Persona: please let me know
+30/06/25, 14:05 - Persona: ‎VID-20250630-WA0002.mp4 (file allegato)
+30/06/25, 14:11 - Persona: ‎VID-20250630-WA0003.mp4 (file allegato)
+30/06/25, 14:12 - Persona: Hello
+30/06/25, 14:12 - Persona: 😎
+30/06/25, 14:13 - Persona: let me check
+30/06/25, 14:13 - Persona: yes thank you
+30/06/25, 14:13 - Persona: let me know if I have to explain better or you need our help
+30/06/25, 14:13 - Persona: (something that we can do on site)
+30/06/25, 14:14 - Persona: ‎IMG-20250630-WA0004.jpg (file allegato)
+this is loop 3?
+30/06/25, 14:14 - Persona: yes
+30/06/25, 14:14 - Persona: we open the door again
+30/06/25, 14:14 - Persona: so you can check what happens
+30/06/25, 14:15 - Persona: ok, let me know when yo open
+30/06/25, 14:15 - Persona: you will see a red bubble between pick 8 and 9
+30/06/25, 14:15 - Persona: more or less
+30/06/25, 14:15 - Persona: sorry, 9 and 10
+30/06/25, 14:16 - Persona: the door is open
+30/06/25, 14:16 - Persona: Ok
+30/06/25, 14:16 - Persona: Problem is that EMS is seen as a single device controller
+30/06/25, 14:17 - Persona: so when door opens, the whole device controller stops
+30/06/25, 14:17 - Persona: ‎IMG-20250630-WA0005.jpg (file allegato)
+30/06/25, 14:17 - Persona: 😩😩
+30/06/25, 14:18 - Persona: not good
+30/06/25, 14:19 - Persona: what can we do?
+30/06/25, 14:19 - Persona: I would say there is no fast solution
+30/06/25, 14:20 - Persona: If we would split this into 3 different EMSes, that would require some analysis and most likely a CR
+30/06/25, 14:20 - Persona: 😫😫
+30/06/25, 14:20 - Persona: A workaround would be to stop these 4 stations
+30/06/25, 14:20 - Persona: to make sure nothing comes here, to loop 3
+30/06/25, 14:21 - Persona: yes but if operators have to work phisically inside loop3, loop3 should be safe
+30/06/25, 14:21 - Persona: so we need to open safety door
+30/06/25, 14:22 - Persona: EMS acts as a whole. It would require a change in how MFS communicates with the EMS, the EMS device should be split in 3 (all with different IPs)
+30/06/25, 14:24 - Persona: I would like to cry… 🥲
+30/06/25, 14:25 - Persona: can we think of a faster Solutions?
+30/06/25, 14:26 - Persona: Well anything that involves opening the door will block the EMS
+30/06/25, 14:26 - Persona: And I understand you need to door open to ensure safety
+30/06/25, 14:29 - Persona: yes
+30/06/25, 14:31 - Persona: give me some minutes, to confer with the council of the elders😅
+30/06/25, 14:32 - Persona: no problem 😂
+30/06/25, 14:47 - Persona: ok then wms should ignore status messages from loop 3 and keep status normal. Or ems should stop sending status messages and errors from loop 3.
+30/06/25, 14:48 - Persona: A suggestion from ems technician
+30/06/25, 14:50 - Persona: Ok, you ignore it, but then what do you do with pallets that go to loop 3
+30/06/25, 14:50 - Persona: if a pallet decides at the junction point that it wants to reroute itself to loop 3
+30/06/25, 14:53 - Persona: So at the moment I cannot give you a solution. We will talk internally and come back with a solution
+30/06/25, 14:54 - Persona: only for a period
+30/06/25, 14:54 - Persona: so only for August
+30/06/25, 14:54 - Persona: then we can decide a permanent solution
+30/06/25, 14:56 - Persona: ok, I cannot give you an answer on the spot
+30/06/25, 14:56 - Persona: I saw you created a ticket, we will talk more and come back with a possible workaround
+30/06/25, 14:57 - Persona: to think of what we need to do
+30/06/25, 14:57 - Persona: yes yes sure
+30/06/25, 14:58 - Persona: maybe we have to talk all together with ems technician
+01/07/25, 16:34 - Persona: Hello! Sorry for disturbing you but regarding yesterday's ticket COD we have an open issue (it has been opend since 28.01.2022), that is issue COD "Switching off voltage on monorail maintenance track results in "no-retrieve" of all vehicles working in the loops"
+01/07/25, 16:35 - Persona: ‎IMG-20250701-WA0001.jpg (file allegato)
+01/07/25, 16:35 - Persona: (FYI)
+02/07/25, 11:14 - Persona: Hello! COD has the issue COD
+02/07/25, 11:15 - Persona: I have already sent an email
+I kindly ask you to fix it and check what is the issue
+02/07/25, 16:09 - Persona: Any news about ticket COD?
+02/07/25, 16:09 - Persona: It is urgent
+02/07/25, 17:29 - Persona: ‎VID-20250630-WA0003.mp4 (file allegato)
+02/07/25, 17:35 - Persona: Can it wait until tomorrow or do you need it today?
+02/07/25, 18:09 - Persona: is there anyone available?
+03/07/25, 10:09 - Persona: Hello, could anyone fix the quantity of this OBD, please?
+03/07/25, 10:11 - Persona: Hi, working on it03/07/25, 10:15 - Persona: So, just to make sure
+03/07/25, 10:16 - Persona: You want all quantities to be 1120?
+03/07/25, 10:16 - Persona: Released, planned and delivered?
+03/07/25, 10:20 - Persona: yes, right
+03/07/25, 10:22 - Persona: Give me a second to check something please
+03/07/25, 10:25 - Persona: ok
+03/07/25, 10:32 - Persona: I changed them, can you check now?
+03/07/25, 10:38 - Persona: sorry, also 'loaded quantity' has to be changed
+03/07/25, 10:45 - Persona: Ok, changed loaded quantity to 1120 and staged quantity to 0
+03/07/25, 10:50 - Persona: ok, thank you
+03/07/25, 14:45 - Persona: ‎IMG-20250703-WA0003.jpg (file allegato)
+Hello,  I don't know what happens but now the quantities of the order are different.. Can you fix it agan?
+03/07/25, 14:46 - Persona: Give me a moment please
+03/07/25, 14:46 - Persona: I will let you know when it's done
+03/07/25, 17:18 - Persona: Have you done something?
+03/07/25, 17:22 - Persona: Should be fixed now, sorry I have another incident I had to work on
+03/07/25, 18:32 - Persona: yes, it is ok now. thank you
+07/07/25, 09:11 - Persona: Can you check the crane 3?Ticket n°COD now is locked in the same mode
+07/07/25, 09:22 - Persona: We have 3 picking station stopped from Crane 3, can you check the issue? Please🙏🏼
+07/07/25, 09:40 - Persona: Hellooooo🫣
+07/07/25, 09:41 - Persona: Hi! Is there someone available to fix this issue?
+07/07/25, 09:42 - Persona: it is a recurrent issue and we want to fix it once and for all
+07/07/25, 09:43 - Persona: this is the third times this has happened in a week
+07/07/25, 09:44 - Persona: I kindly ask you to check and fix ASAP
+07/07/25, 09:44 - Persona: thank you!
+07/07/25, 09:45 - Persona: Hello I will check
+07/07/25, 09:45 - Persona: 🔝
+07/07/25, 09:45 - Persona: thank you very much!!! 🤩
+07/07/25, 09:48 - Persona: Is something on the crane now?
+07/07/25, 09:49 - Persona: I see an error for COD
+07/07/25, 09:50 - Persona: Yes, it's correct
+07/07/25, 09:50 - Persona: I can't see the error
+07/07/25, 09:52 - Persona: Its on mfs
+07/07/25, 09:53 - Persona: So the crane is empty now?
+07/07/25, 09:53 - Persona: ‎VID-20250707-WA0000.mp4 (file allegato)
+07/07/25, 09:53 - Persona: No the pallet is on the forks
+07/07/25, 09:56 - Persona: The smr should work now
+07/07/25, 09:58 - Persona: @Persona @Persona can you check?
+07/07/25, 10:15 - Persona: Yes, now the crane works
+07/07/25, 10:16 - Persona: It is possible for us to check this issue on wamas?
+07/07/25, 10:22 - Persona: Its only on mfs
+07/07/25, 10:26 - Persona: ‎VID-20250707-WA0001.mp4 (file allegato)
+07/07/25, 11:04 - Persona: Deploy is scheduled in 90 mins, correct? <Questo messaggio è stato modificato>
+07/07/25, 11:04 - Persona: Yes, at 12:40
+07/07/25, 11:05 - Persona: at 12:30 I'm going to set AgvDisable = true
+07/07/25, 11:05 - Persona: and I will let you know when you can start deploy
+07/07/25, 11:05 - Persona: ok
+07/07/25, 12:25 - Persona: @Persona please after deploy send me the final list
+07/07/25, 12:25 - Persona: final list of changes included?
+07/07/25, 12:25 - Persona: yes
+07/07/25, 12:26 - Persona: should be the same one that Persona sent, the pack was done on 27 June
+07/07/25, 12:27 - Persona: -	COD (new labels)
+-	Fix record A5
+?
+07/07/25, 12:29 - Persona: Is the issue sent by my colleague on 30/06 included?
+07/07/25, 12:30 - Persona: <Media omessi>
+07/07/25, 12:30 - Persona: ‎IMG-20250707-WA0008.jpg (file allegato)
+07/07/25, 12:31 - Persona: I don't know
+07/07/25, 12:31 - Persona: let me check
+07/07/25, 12:31 - Persona: yes
+07/07/25, 12:32 - Persona: All AGVs are in charging so you can start with deploy
+07/07/25, 12:37 - Persona: let me know when you can start
+07/07/25, 12:38 - Persona: starting now
+07/07/25, 12:47 - Persona: This is not included yet
+07/07/25, 12:49 - Persona: okok thank you
+07/07/25, 12:49 - Persona: please take into account for next deploy
+07/07/25, 12:58 - Persona: ‎IMG-20250707-WA0009.jpg (file allegato)
+You know about this EMS?
+07/07/25, 13:00 - Persona: @Persona @Persona
+07/07/25, 13:00 - Persona: can you please check ems?
+07/07/25, 13:01 - Persona: Ok, deploy done
+07/07/25, 13:01 - Persona: Yes we go to confirm the error
+07/07/25, 13:01 - Persona: parameters set, all ready to go
+07/07/25, 13:02 - Persona: okay great!
+07/07/25, 13:02 - Persona: Looks like this, only these two
+07/07/25, 13:04 - Persona: okay thanks
+07/07/25, 13:04 - Persona: Thanks aswell. Let us know if something is not working :)
+07/07/25, 16:01 - Persona: there is something that is not working with record A5
+07/07/25, 16:02 - Persona: ‎IMG-20250707-WA0018.jpg (file allegato)
+07/07/25, 16:02 - Persona: there are 3 messages in error with "post-elaboration error"...
+07/07/25, 16:02 - Persona: Could you please check?
+07/07/25, 16:03 - Persona: I will check
+07/07/25, 16:09 - Persona: thank you
+07/07/25, 16:35 - Persona: The issue is that we found multiple obds with the same obdno
+07/07/25, 16:39 - Persona: But you have to consider order not obd
+07/07/25, 16:43 - Persona: So, if WAMAS finds OBD (for the first time) it will send A5 without error… whereas if WAMAS finds OBD (that is not the first time) it will send A5 with error?
+07/07/25, 16:43 - Persona: For example the last A5 you  sent has 2 obds for the order number
+07/07/25, 16:44 - Persona: Right now if the query that checks the order number finds more then one obd for it it will give an errror
+07/07/25, 16:45 - Persona: why?
+07/07/25, 16:45 - Persona: it is not correct
+07/07/25, 16:45 - Persona: That is how was implemented
+07/07/25, 16:45 - Persona: but I didn't ask for this
+07/07/25, 16:45 - Persona: I already made a fix right now to allow more resutls but it will need a deploy <Questo messaggio è stato modificato>
+07/07/25, 16:46 - Persona: oh okay
+07/07/25, 16:46 - Persona: so order = obd --> no error message
+order = obd1, obd2, obd3 --> no error message for obd1, whereas obd2 and obd3 yes
+?
+07/07/25, 16:47 - Persona: did I understand correctly?
+07/07/25, 16:47 - Persona: No you will get an error if the order has more then 1
+07/07/25, 16:47 - Persona: order = obd --> no error message
+order = obd1, obd2, obd3 --> error message
+07/07/25, 16:47 - Persona: ?
+07/07/25, 16:47 - Persona: Yes
+07/07/25, 16:47 - Persona: okay…
+07/07/25, 16:48 - Persona: not okay but okay 🙃
+07/07/25, 16:48 - Persona: And one more thing if we find an obd that has a diffrent client we will return an error is thst ok?
+07/07/25, 16:50 - Persona: correct! From specs:
+• As soon as the WMS receipt the record type A5, it will update the related data of order header. The WMS must reject the record type A5 if:
+o The order does not exist on WMS
+o The order exist on WMS, but the customer name is different from the one specified on record A5
+07/07/25, 16:51 - Persona: Ok so only the multiple orders is the problem
+07/07/25, 16:51 - Persona: no there is another issue
+07/07/25, 16:51 - Persona: Ok
+07/07/25, 16:51 - Persona: another problem is that the value of Rif Cl (if there is) is not returned in the label
+07/07/25, 16:52 - Persona: ‎IMG-20250707-WA0020.jpg (file allegato)
+07/07/25, 16:52 - Persona: ‎IMG-20250707-WA0021.jpg (file allegato)
+07/07/25, 16:52 - Persona: Ok I will check that too
+07/07/25, 16:52 - Persona: thank you!
+07/07/25, 16:53 - Persona: Can you try an A5 with only one obd to be sure that everything else is working?
+07/07/25, 16:54 - Persona: yes, this is it
+07/07/25, 16:54 - Persona: order *79168
+07/07/25, 16:55 - Persona: ‎IMG-20250707-WA0022.jpg (file allegato)
+07/07/25, 16:59 - Persona: Last  A5 worked for *42535 <Questo messaggio è stato modificato>
+07/07/25, 17:00 - Persona: okay but it is the same as *79168
+07/07/25, 17:00 - Persona: it worked for it
+07/07/25, 17:00 - Persona: but no Rif Cl on label
+07/07/25, 17:01 - Persona: as you can see from my photo
+07/07/25, 17:01 - Persona: I will look to see what the problem is
+07/07/25, 17:02 - Persona: WAMAS should have print on label what is written in the field "prjreferenceorderclient"
+07/07/25, 17:03 - Persona: for example order *79168 --> PROVA RIF.CLIENTE
+07/07/25, 17:03 - Persona: But on the label the field "Rif Cl" is empty
+07/07/25, 17:03 - Persona: Ok
+07/07/25, 17:03 - Persona: if you want I can try to print label for *42535 <Questo messaggio è stato modificato>
+07/07/25, 17:04 - Persona: No need
+07/07/25, 17:04 - Persona: ok
+07/07/25, 17:04 - Persona: If it did not work for *79168 it wont work for *42535
+07/07/25, 17:05 - Persona: I will check it tomorrow and let you know most likely we can deploy the fix next Monday
+07/07/25, 17:05 - Persona: But I will need to discuss with Persona
+07/07/25, 17:05 - Persona: Okay sure
+07/07/25, 17:06 - Persona: take your time in order to solve these issues once and for all :)
+07/07/25, 17:07 - Persona: Record A5 has to behave as record 05 <Questo messaggio è stato modificato>
+07/07/25, 17:07 - Persona: ok?
+07/07/25, 17:08 - Persona: Ok
+07/07/25, 17:09 - Persona: because fields refer to the order header
+10/07/25, 18:04 - Persona: @Persona Have you had time to discuss it with Persona? just to know if we have organize a deploy… <Questo messaggio è stato modificato>
+11/07/25, 08:10 - Persona: Hello sory for late response Persona was on holiday till today so we did not get the chance to speak, most likely we will inform you next week regarding a deploy date
+11/07/25, 08:55 - Persona: Good morning! Okay thank you
+14/07/25, 12:35 - Persona: good morning
+14/07/25, 12:36 - Persona: A5 message handling and label issues (4 will be fixed this week and feedback with tests will be provided)
+21/07/25, 10:01 - Persona: Hello, we'll be in touch later for the deploy
+21/07/25, 12:31 - Persona: I've set AGV = disable
+21/07/25, 12:31 - Persona: Please let me know when we can start with the deploy
+21/07/25, 12:32 - Persona: yes
+21/07/25, 12:48 - Persona: you can start
+21/07/25, 13:10 - Persona: Deploy is done
+21/07/25, 13:10 - Persona: System seems to be working fine. If you have any problems, please let us know
+21/07/25, 13:12 - Persona: ok, thank you
+21/07/25, 13:34 - Persona: please check labels ...
+21/07/25, 13:54 - Persona: ‎IMG-20250721-WA0000.jpg (file allegato)
+There are overlapped text in the label from manual  area
+21/07/25, 14:16 - Persona: it is necessary a new deploy
+21/07/25, 14:16 - Persona: it will take about 1hour
+21/07/25, 14:16 - Persona: i increased the font and ther eis not enough space
+21/07/25, 14:16 - Persona: what is the biggest value?
+21/07/25, 14:45 - Persona: ‎IMG-20250721-WA0001.jpg (file allegato)
+21/07/25, 16:25 - Persona: i will preapre a deploy for tomorrow
+21/07/25, 16:28 - Persona: We have to talk internally
+21/07/25, 16:29 - Persona: localita is the issue
+21/07/25, 16:29 - Persona: i increased the font and its a block which was to be increased
+21/07/25, 16:29 - Persona: but it is possible 15 characters and it is 20 ...
+21/07/25, 16:29 - Persona: i will check indirizzo
+21/07/25, 16:30 - Persona: ‎IMG-20250721-WA0002.jpg (file allegato)
+21/07/25, 16:30 - Persona: 28 indirizo
+21/07/25, 16:31 - Persona: 15 localita
+21/07/25, 16:31 - Persona: with current font ...
+21/07/25, 16:31 - Persona: i have to reduce the font to be able 35 indirizo and 20 locatlita
+21/07/25, 16:34 - Persona: ‎IMG-20250721-WA0003.jpg (file allegato)
+21/07/25, 16:34 - Persona: i reduced width of font
+21/07/25, 16:36 - Persona: i will prepare the changes ...
+21/07/25, 16:36 - Persona: fix is prepared but ...
+21/07/25, 17:10 - Persona: what happened?
+21/07/25, 17:10 - Persona: Font was increased
+21/07/25, 17:11 - Persona: Localita had a space allocated and it is too small and zebra printed from the begging of space
+21/07/25, 17:13 - Persona: It was a request to increase font in that area and tests were done with short data for localita
+21/07/25, 17:14 - Persona: Now i tested all with longest value
+21/07/25, 17:15 - Persona: Pack generation takes 60 minutes al least before the deploy + time of today deploy
+21/07/25, 17:16 - Persona: My idea is to do it asap starting from tomorrow … pack will be ready today
+21/07/25, 17:19 - Persona: okay
+21/07/25, 17:19 - Persona: deploy will take 20 minutes?
+21/07/25, 17:19 - Persona: as usual?
+21/07/25, 18:48 - Persona: ‎IMG-20250721-WA0004.jpg (file allegato)
+21/07/25, 18:48 - Persona: yes
+21/07/25, 18:49 - Persona: i made the last changes ... because description, carrier issue (move next to right a tiltle) and order height issue (decreased)
+21/07/25, 18:49 - Persona: yes, as usual (20 minutes)
+21/07/25, 18:51 - Persona: we will prepare the pack for deploy (no installation, it will be on server side -> 5-10 minutes to install before to stop WAMAS, normally steps are done by us before but we will do it after your approval for deploy this time) ... and it will be up to you to decide deploy date
+21/07/25, 19:00 - Persona: Okay thanks
+21/07/25, 19:00 - Persona: Tomorrow I will let you know
+21/07/25, 19:00 - Persona: Have a nice evening!
+22/07/25, 18:23 - Hai rimosso Persona.
+23/07/25, 08:56 - Persona: Good morning, who should I contact on SSI side or can you ask them to add AGV 28 to system?
+
+AGV 28 is going to Fetch pallet, but do not receive S-message from Host (without this AGV can not continue to Fetch)
+23/07/25, 08:57 - Persona: Hello! This message is from Persona technician…
+23/07/25, 08:57 - Persona: Is there anyone available to talk with him? and fix this issue?
+23/07/25, 08:58 - Persona: it is regarding new ART 28
+23/07/25, 09:17 - Persona: it is urgent 🙂
+23/07/25, 09:38 - Persona: Hello
+23/07/25, 09:38 - Persona: We will look
+23/07/25, 09:40 - Persona: Can I send to him your phone numer?
+23/07/25, 09:41 - Persona: Questo messaggio è stato eliminato.
+23/07/25, 09:41 - Persona: but we will need a ticket for this
+23/07/25, 09:45 - Persona: I'm opening it (by sending an email) <Questo messaggio è stato modificato>
+23/07/25, 09:45 - Persona: give me 5 min <Questo messaggio è stato modificato>
+23/07/25, 09:47 - Persona: it seems the HIVE restart was not done
+23/07/25, 09:47 - Persona: *hello
+23/07/25, 09:47 - Persona: 🫠🫠
+23/07/25, 09:47 - Persona: solution is to:
+23/07/25, 09:48 - Persona: 1. agv diable
+23/07/25, 09:48 - Persona: 2. exectue orders
+23/07/25, 09:48 - Persona: 3. hive restart
+23/07/25, 09:48 - Persona: 4. agv enable
+23/07/25, 09:48 - Persona: no WAMAS restart (AGVs are affected for about 5-10 minutes) <Questo messaggio è stato modificato>
+23/07/25, 09:48 - Persona: Clear...
+23/07/25, 09:49 - Persona: please let us know when AGV disable is setup ... to check hive orders ... and no order we will restart it ...
+23/07/25, 09:49 - Persona: and change it by us to enable the AGV
+23/07/25, 09:53 - Persona: okay
+23/07/25, 09:53 - Persona: I put agvDisable = true
+23/07/25, 09:55 - Persona: Persona will make restart after current orders are executed ...
+23/07/25, 09:55 - Persona: and announce here (restart + enable AGVs) when it is done <Questo messaggio è stato modificato>
+23/07/25, 09:58 - Persona: you can start
+23/07/25, 10:00 - Persona: ok
+23/07/25, 10:03 - Persona: done
+23/07/25, 10:04 - Persona: okay great
+23/07/25, 10:04 - Persona: AGV 28 now is in hive
+23/07/25, 10:04 - Persona: suuuper fast <Questo messaggio è stato modificato>
+23/07/25, 10:04 - Persona: but looks like it's disconnected/inactive
+23/07/25, 10:04 - Persona: yes yes
+23/07/25, 10:04 - Persona: don't worry about it
+23/07/25, 10:04 - Persona: the technician is working on it
+23/07/25, 10:04 - Persona: Ok, understood
+23/07/25, 10:05 - Persona: change back the parameter when you want
+23/07/25, 10:05 - Persona: done
+23/07/25, 10:05 - Persona: let me know if you need more help
+23/07/25, 10:06 - Persona: yes thanks <Questo messaggio è stato modificato>
+23/07/25, 10:08 - Persona: no ticket right?
+23/07/25, 10:09 - Persona: no
+23/07/25, 10:09 - Persona: it was only a short ntervention ...
+23/07/25, 10:09 - Persona: okay thank you!
+23/07/25, 10:09 - Persona: we will do it .. in case the issue persists
+23/07/25, 10:10 - Persona: I hope not 🙃
+23/07/25, 10:10 - Persona: I will let you know
+23/07/25, 11:30 - Persona: do you have any estimation when ART-28 will be tested?
+23/07/25, 11:31 - Persona: I will let you know
+23/07/25, 17:29 - Persona: Agv 28 did her first order fully automatic
+23/07/25, 17:30 - Persona: They grow up so fast 😭
+23/07/25, 17:30 - Persona: Reallyyy😭😂 <Questo messaggio è stato modificato>
+24/07/25, 08:24 - Persona: good morning ...
+24/07/25, 08:25 - Persona: i checked tpo executed by art-28 and 4 were done and no issue found
+24/07/25, 08:26 - Persona: it seems agv 28 is functional -> CR will be closed this month in case there is no issues reported until the end of month
+24/07/25, 09:31 - Persona: Good morning! yes it seems working well
+24/07/25, 09:33 - Persona: If it is okay for you I think it is better to close CR not at the end of this month but at around about the middle of August
+24/07/25, 09:33 - Persona: just because it will be 100% operational from 01/08
+24/07/25, 09:34 - Persona: k
+24/07/25, 14:42 - Persona: @Persona printing date (time zone of contractee)? it means 7/24/2025 in Italy and marchall island is 7/ *25* /2025?
+24/07/25, 14:42 - Persona: right?
+24/07/25, 14:43 - Persona: i though all the time is italian date ... as on old packing time
+24/07/25, 14:44 - Persona: the date format should be "day/month/year (YYYY)" but I mean that it should consider the timezone, so if it is 23/08/2025 23:30 UTC it is already 24/08/2025 Italian Time
+24/07/25, 14:45 - Persona: clear .. i will check it ...
+24/07/25, 14:45 - Persona: thanks
+24/07/25, 15:10 - Persona: guys! it seems there is issue COD in progress...
+24/07/25, 15:11 - Persona: waste bin COD has TPO towards COD but no mission on Cway
+24/07/25, 15:11 - Persona: ‎IMG-20250724-WA0000.jpg (file allegato)
+24/07/25, 15:11 - Persona: I marked this issue "need to be checked live"
+24/07/25, 15:12 - Persona: is there anyone available? otherwise i will try to solve it my self
+24/07/25, 15:13 - Persona: since Yesterday early in the morning <Questo messaggio è stato modificato>
+24/07/25, 15:14 - Persona: ‎IMG-20250724-WA0001.jpg (file allegato)
+24/07/25, 15:22 - Persona: please feedback 🥺
+24/07/25, 15:23 - Persona: ‎IMG-20250724-WA0002.jpg (file allegato)
+24/07/25, 15:34 - Persona: wait 15 minutes
+24/07/25, 15:34 - Persona: i will try to get data to find root cause
+24/07/25, 15:38 - Persona: okay thank you! 🙌🏻
+24/07/25, 15:48 - Persona: there is an order on hive from 22.07
+24/07/25, 15:48 - Persona: but no logs for comm hive - rocla (maybe to be checked on rocla too)
+24/07/25, 15:51 - Persona: we deleted hive order and it was resent automatically and it was already assignmed to agv
+24/07/25, 15:51 - Persona: please inform rocla to check on their side
+24/07/25, 15:52 - Persona: I'm going to do it immediately
+24/07/25, 15:52 - Persona: thank you for checking!
+24/07/25, 15:52 - Persona: Now it is on ART-22
+24/07/25, 15:52 - Persona: I will let you know
+24/07/25, 15:56 - Persona: normally hive order was created properly but no communication log with hive -> rocla
+24/07/25, 15:57 - Persona: please ask rocla to check ...
+24/07/25, 15:57 - Persona: after deleting in about 2-3 seconds hive order was created and agv was assigned too very fast
+24/07/25, 15:57 - Persona: but the idea is rocla to check on 22.07 13:40
+24/07/25, 15:58 - Persona: maybe it was an issue on rocla side
+24/07/25, 15:58 - Persona: there is logs for about a couple of hours
+24/07/25, 15:58 - Persona: yes exactly
+24/07/25, 15:59 - Persona: okay
+24/07/25, 15:59 - Persona: give me 5 min
+24/07/25, 15:59 - Persona: ‎IMG-20250724-WA0003.jpg (file allegato)
+24/07/25, 15:59 - Persona: hive order from 22.07 marked in yellow
+24/07/25, 16:00 - Persona: the idea is to delete old orders from hive maybe they are recreated if there is tpo on MFS side
+24/07/25, 16:01 - Persona: 4 very old +other 3 (one was solved)
+24/07/25, 16:01 - Persona: i dont if you have access to dialog ...
+24/07/25, 16:01 - Persona: what dialog?
+24/07/25, 16:02 - Persona: from the picture above
+24/07/25, 16:02 - Persona: it is Hive
+24/07/25, 16:02 - Persona: right?
+24/07/25, 16:02 - Persona: yes
+24/07/25, 16:02 - Persona: I have never used Hive
+24/07/25, 16:02 - Persona: there are some trasnport untis (7) to be checked ...
+24/07/25, 16:03 - Persona: a cleaning of hive orders needs to be done ...
+24/07/25, 16:03 - Persona: are they old?
+24/07/25, 16:03 - Persona: please send email and someone will check them and decide with you what to do ... to have hive uptodate
+24/07/25, 16:03 - Persona: from april and 2-3 days ago
+24/07/25, 16:04 - Persona: okay sorry I was checking the green ones
+24/07/25, 16:04 - Persona: ‎IMG-20250724-WA0004.jpg (file allegato)
+24/07/25, 16:04 - Persona: yes yes I saw
+24/07/25, 16:04 - Persona: first column is the creation time
+24/07/25, 16:04 - Persona: yes
+24/07/25, 16:04 - Persona: an email to helpdesk?
+24/07/25, 16:05 - Persona: please yes ...
+24/07/25, 16:05 - Persona: to check old order of hive
+24/07/25, 16:05 - Persona: first I would like to check the first one with rocla
+24/07/25, 16:05 - Persona: than I will send an email
+24/07/25, 16:05 - Persona: k
+24/07/25, 16:05 - Persona: or can I check on wamas and then delete on Hive?
+24/07/25, 16:06 - Persona: I have never used Hive because I'm afraid of doing messes
+24/07/25, 16:06 - Persona: for today example it is needd to check on rocla if it was an order or not
+24/07/25, 16:06 - Persona: open ticket and we will check on wamas side and fix them (now maybe there only 6 ... on some cases it is enopugh to delete them form hive)
+24/07/25, 16:07 - Persona: as we did, order was deleted and executed ... wwe will see for each order ...
+24/07/25, 16:08 - Persona: please ask the rocla to check marked hive order (to be sure it is not an issue on their side)
+24/07/25, 16:10 - Persona: based hive orders agv5 has an order from monday
+24/07/25, 16:34 - Persona: old orders are deleted ...
+24/07/25, 16:35 - Persona: i found 3 pallets delivered ...managed by operators
+24/07/25, 16:35 - Persona: now there are orders only from today
+24/07/25, 16:39 - Persona: Okay thank you
+24/07/25, 16:39 - Persona: I investigated with rocla but he did not find anything
+24/07/25, 16:39 - Persona: 😓
+24/07/25, 16:40 - Persona: Perfect
+24/07/25, 16:40 - Persona: please talk to operators to inform us
+24/07/25, 16:40 - Persona: as soon as possible
+24/07/25, 16:40 - Persona: About this issue?
+24/07/25, 16:40 - Persona: there are communication logs hive rocla for a couple of hours
+24/07/25, 16:40 - Persona: in case missing cway orders
+24/07/25, 16:41 - Persona: Okay
+24/07/25, 16:41 - Persona: the idea is to see if order was sent or not to rocla (becuase it was on hive)
+24/07/25, 16:41 - Persona: I will inform operators to inform you as soon as they doesn't receive a pallet or other
+24/07/25, 16:41 - Persona: Okay clear
+24/07/25, 16:48 - Persona: @Persona label was saved in database (utc) : 23-JUL-25 10.11.54 PM (yesterday) and date on label was 24/07/2025 (today as printing time) <Questo messaggio è stato modificato>
+24/07/25, 16:49 - Persona: COD - LU ID <Questo messaggio è stato modificato>
+24/07/25, 16:49 - Persona: so no issue related to printing date ... it is correct as italian time
+24/07/25, 18:08 - Persona: perfect
+26/07/25, 00:30 - Persona: Hello guys we have a problem. There Is a pallet on the conveyor *COD that has to go out in COD but there isn't the mission for AGVs. The COD's locations aren't occuped.
+26/07/25, 00:31 - Persona: ‎IMG-20250726-WA0000.jpg (file allegato)
+26/07/25, 00:31 - Persona: ‎IMG-20250726-WA0001.jpg (file allegato)
+26/07/25, 00:32 - Persona: ‎IMG-20250726-WA0002.jpg (file allegato)
+The pallet Is delegated tò the conveyor and not to AGVs
+26/07/25, 00:33 - Persona: ‎IMG-20250726-WA0003.jpg (file allegato)
+The fetching points are 221 and 231 but the mission there isn't
+26/07/25, 00:34 - Persona: Usually It restarts With refresh and reset, but benedetta told US to report to you if the issue happens
+26/07/25, 00:40 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:40 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:40 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:40 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:40 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:41 - Persona: Questo messaggio è stato eliminato.
+26/07/25, 00:55 - Persona: Can i do refresh and reset tò unlock It or are you checking It?
+26/07/25, 01:13 - Persona: Questo messaggio è stato eliminato.
+28/07/25, 09:07 - Persona: Good morning, I will send you a message when we are ready for the deploy.
+28/07/25, 12:25 - Persona: Hello. I will handle deploy. Let me know when you set parameter and when we can start deploy
+28/07/25, 12:27 - Persona: agvDisable = True
+28/07/25, 12:28 - Persona: I'll tell you when we are ready
+28/07/25, 12:37 - Persona: You can start
+28/07/25, 12:40 - Persona: Ok
+28/07/25, 12:50 - Persona: Can you tell us something when you start?
+28/07/25, 12:53 - Persona: This was my signal for starting 😀
+28/07/25, 12:54 - Persona: Ah ok, because I saw lighthouse still green.. I was not sure if you started
+28/07/25, 12:54 - Persona: thank you
+28/07/25, 12:54 - Persona: Yeah, no problem, it's ongoing, Will let you know when I'm done
+28/07/25, 13:07 - Persona: Does the deploy include only the label changes, or is there anything else?
+28/07/25, 13:08 - Persona: Ok, deploy done
+28/07/25, 13:08 - Persona: @Persona can help you with what's in the deploy
+28/07/25, 13:09 - Persona: But I'm guessing the deploy includes only what was agreed
+28/07/25, 14:02 - Persona: Guys!
+28/07/25, 14:02 - Persona: Me and technician of need your help
+28/07/25, 14:03 - Persona: we are testing "Switching off voltage on a part of monorail	(ex. loop 3, maintenance track,	) results in "no-retrieve" of all vehicles working in the loops"
+28/07/25, 14:04 - Persona: technician of Pentanova remove messages but wamas is still not see available the ems
+28/07/25, 14:14 - Persona: is there anyone available?
+28/07/25, 14:38 - Persona: hello
+28/07/25, 14:38 - Persona: we did not make any change
+28/07/25, 14:39 - Persona: we will check the device if it is connected or not
+28/07/25, 14:39 - Persona: I know
+28/07/25, 14:39 - Persona: Pentanova did it
+28/07/25, 14:39 - Persona: but without success
+28/07/25, 14:40 - Persona: it is SOC not available on our side
+28/07/25, 14:40 - Persona: Pentanova is not sending error messages
+28/07/25, 14:40 - Persona: EMS is not available MFS
+28/07/25, 14:40 - Persona: I know but why?
+28/07/25, 14:40 - Persona: Pentanova is not sending error messages
+28/07/25, 14:41 - Persona: so why from your side EMS is not available?
+28/07/25, 14:44 - Persona: ‎IMG-20250728-WA0010.jpg (file allegato)
+28/07/25, 14:45 - Persona: i need to check with developers and PLC ...to clarify this topic
+28/07/25, 14:45 - Persona: maybe it is needed some software changes
+28/07/25, 14:45 - Persona: 😓😓😓
+28/07/25, 14:46 - Persona: i dont know what means if loop is not reachable ...
+28/07/25, 14:46 - Persona: with picking orders and transports for that stations
+28/07/25, 14:46 - Persona: so remove error messages from Pentanova side is not enough?
+28/07/25, 14:47 - Persona: it seems not enough
+28/07/25, 14:47 - Persona: maybe because we open a safety door or some other Emergency cas
+28/07/25, 14:47 - Persona: case
+28/07/25, 14:47 - Persona: yes
+28/07/25, 14:47 - Persona: the pentanova sends to mFS more information
+28/07/25, 14:48 - Persona: yes yes
+28/07/25, 14:48 - Persona: besides info stopped ...
+28/07/25, 14:48 - Persona: and MFS considered EMS only one devicde ... not 3 devices as 8 cranes
+28/07/25, 14:48 - Persona: yes yes I know
+28/07/25, 14:48 - Persona: Persona explained me last time
+28/07/25, 14:48 - Persona: and it is needed adaptation to not retrieve pallets in case a device is not available
+28/07/25, 14:49 - Persona: first we need to find a workaround for next week...
+28/07/25, 14:52 - Persona: i dont know if it is possible
+28/07/25, 14:52 - Persona: we need to find something…..
+28/07/25, 14:52 - Persona: maybe to close the staitons
+28/07/25, 14:53 - Persona: now they are already closed
+28/07/25, 14:53 - Persona: from 7 to 12
+28/07/25, 14:53 - Persona: not from 1 to 6
+28/07/25, 14:53 - Persona: and normally monorails no need to travel in tha tarea
+28/07/25, 14:53 - Persona: loop 3?
+28/07/25, 14:54 - Persona: loop 3 has station 7-12
+28/07/25, 14:55 - Persona: yes
+28/07/25, 14:55 - Persona: we closed all pick stations from 7 to 12
+28/07/25, 14:55 - Persona: fix the emrgency stop
+28/07/25, 14:55 - Persona: how?
+28/07/25, 14:56 - Persona: close the door
+28/07/25, 14:56 - Persona: no
+28/07/25, 14:56 - Persona: we need to leave the door open
+28/07/25, 14:56 - Persona: emegenci stop means to stop
+28/07/25, 14:56 - Persona: it is needed to not send us door is open temporary and station to be closed <Questo messaggio è stato modificato>
+28/07/25, 14:57 - Persona: Pentanova tried to do it
+28/07/25, 14:58 - Persona: close the door to see if system is up and opne the door ,..
+28/07/25, 14:58 - Persona: how do you get emergency stop status? thru which message?
+28/07/25, 14:58 - Persona: i need to check message exchanged
+28/07/25, 14:58 - Persona: okya… now it is close, we are opening again
+28/07/25, 14:58 - Persona: just to test message from pentanova
+28/07/25, 14:59 - Persona: it seems bit for door open is still sent
+28/07/25, 15:01 - Persona: the door is controlled by EMS?
+28/07/25, 15:01 - Persona: do you know asking Pentanova?
+28/07/25, 15:02 - Persona: in case it is controlled somehow by SSI, Pentanova changes are useless
+28/07/25, 15:04 - Persona: I'm asking <Questo messaggio è stato modificato>
+28/07/25, 15:05 - Persona: yes the doors are controlled by ems
+28/07/25, 15:06 - Hai aggiunto Persona.
+28/07/25, 15:06 - Persona: @Persona here is @Persona from ems
+28/07/25, 15:06 - Persona: @Persona @Persona now the door is opened
+28/07/25, 15:09 - Persona: what did you do?
+28/07/25, 15:09 - Persona: it seems working now
+28/07/25, 15:09 - Persona: i made another change
+28/07/25, 15:09 - Persona: great
+28/07/25, 15:10 - Persona: can you check on wamas if there is still emergency stop status on ems?
+28/07/25, 15:10 - Persona: now all LUs are waiting for EMS transfer 😍
+28/07/25, 15:10 - Persona: @Persona
+28/07/25, 15:15 - Persona: I forced the emergency stop status to zero in message COD <Questo messaggio è stato modificato>
+28/07/25, 15:16 - Persona: ‎IMG-20250728-WA0016.jpg (file allegato)
+28/07/25, 15:16 - Persona: now it is available
+28/07/25, 15:16 - Persona: i get 2 messages with 00000...01
+28/07/25, 15:16 - Persona: okay greta
+28/07/25, 15:16 - Persona: yes that is master control status 1 <Questo messaggio è stato modificato>
+28/07/25, 15:16 - Persona: great
+28/07/25, 15:17 - Persona: ‎IMG-20250728-WA0017.jpg (file allegato)
+28/07/25, 15:17 - Persona: 1st is emergency stop the others are with no emergency stop
+28/07/25, 15:17 - Persona: should I reverse the changes for errors to lighthouse I did before?
+28/07/25, 15:17 - Persona: i dont know when it was chanegd
+28/07/25, 15:18 - Persona: yes from my point of view ... but ask customer too
+28/07/25, 15:18 - Persona: by putting as it was before your change?
+28/07/25, 15:19 - Persona: Persona I will roll back the errors to wamas, then we will see
+28/07/25, 15:19 - Persona: yes
+28/07/25, 15:19 - Persona: yes please!
+28/07/25, 15:19 - Persona: thank you
+28/07/25, 15:19 - Persona: ok give me a moment
+28/07/25, 15:19 - Persona: now door is open ?
+28/07/25, 15:19 - Persona: yes, it is still open
+28/07/25, 15:20 - Persona: soc is available :)
+28/07/25, 15:20 - Persona: super, workaround works!
+28/07/25, 15:21 - Persona: workaround - door sensor to make it to report door closed with open phycically open :)
+28/07/25, 15:22 - Persona: ahahah I don't like 😅
+28/07/25, 15:23 - Persona: because we would still have electricity on loop3🫠
+28/07/25, 15:24 - Persona: with door open there isn't electric current on loop 3
+28/07/25, 15:24 - Persona: ok i reversed changes, can you check messages on wamas? <Questo messaggio è stato modificato>
+28/07/25, 15:24 - Persona: yessss
+28/07/25, 15:24 - Persona: red dot on scada + error messages
+28/07/25, 15:24 - Persona: like it was before
+28/07/25, 15:25 - Persona: and ems still available for mfr?
+28/07/25, 15:25 - Persona: yes
+28/07/25, 15:25 - Persona: trolleys getting paletts
+28/07/25, 15:25 - Persona: LH is only visualisation
+28/07/25, 15:25 - Persona: yess
+28/07/25, 15:26 - Persona: ok great
+28/07/25, 15:26 - Persona: i know in fact i was checking direclty on wamas
+28/07/25, 15:26 - Persona: ‎IMG-20250728-WA0018.jpg (file allegato)
+28/07/25, 15:26 - Persona: no waiting messages
+28/07/25, 15:26 - Persona: k
+28/07/25, 15:27 - Persona: should I leave it so Benedatta?
+28/07/25, 15:27 - Persona: ‎IMG-20250728-WA0019.jpg (file allegato)
+28/07/25, 15:27 - Persona: or roll back and then activate right before needed next week?
+28/07/25, 15:27 - Persona: please check other doors
+28/07/25, 15:28 - Persona: to be sure only this door is affected in case there are more
+28/07/25, 15:28 - Persona: it is only an idea ...
+28/07/25, 15:28 - Persona: what could be the side effects?
+28/07/25, 15:29 - Persona: this is general now, affects all estops
+28/07/25, 15:30 - Persona: okay
+28/07/25, 15:30 - Persona: I need to go deeper to isolate only door in fg3 and other to leave active
+28/07/25, 15:31 - Persona: but this message is only for wamas, right?
+28/07/25, 15:32 - Persona: this is for mfr only, yes
+28/07/25, 15:32 - Persona: safety is not affected
+28/07/25, 15:32 - Persona: yes exactly MFS, what is the reason to stop pick up/delivery pallets between conveyor and ems?
+28/07/25, 15:33 - Persona: but if you open the door in fg1 or fg2, mfr will not know
+28/07/25, 15:33 - Persona: and it will not block picking up
+28/07/25, 15:34 - Persona: and for us it is okay
+28/07/25, 15:35 - Persona: regarding pick up/delivery pallet
+28/07/25, 15:36 - Persona: ok, then I will leave it so till you tell me to reverse to normal
+28/07/25, 15:36 - Persona: We tried another door
+28/07/25, 15:37 - Persona: ‎IMG-20250728-WA0020.jpg (file allegato)
+28/07/25, 15:40 - Persona: so, workaround WORKS 😍
+28/07/25, 15:40 - Persona: I'm very happy (I was like 😖 20 min ago aahahah)
+28/07/25, 15:41 - Persona: thank you @Persona @Persona for your support
+28/07/25, 15:41 - Persona: ok you can go on with reconstruction in fg3
+28/07/25, 15:41 - Persona: yes exactly
+28/07/25, 15:41 - Persona: when are you starting exactly, next week?
+28/07/25, 15:42 - Persona: on 06/08 at 8 am
+28/07/25, 15:45 - Hai rimosso Persona.

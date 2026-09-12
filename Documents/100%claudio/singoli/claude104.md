@@ -1,2 +1,5 @@
-[27/12/2023, 12:05] — Red Bubbles F01 / Fault LDF01C0522_RIGHT prima dello shutdown
-Descrizione: Fault sul labeler prima dello shutdown pianificato. Causa identificata: Fault labeler/printer. Soluzione / Workaround: Reset manuale. Red bubbles spariti dopo ~20 minuti. Note: —
+### [05/02/25 23:35] — Pallet con quantità 5.297 ma vuoto
+**Descrizione:** Pallet con quantità elevata risultava vuoto; bloccava picking bay.  
+**Causa identificata:** Disallineamento quantità/LU.  
+**Soluzione / Workaround:** Eliminata intera LU; picking bay riparte.  
+**Note:** Ticket chiuso. Possibile correlazione con: mismatch/dati.

@@ -1,7 +1,23 @@
-CPU WAMASDB elevata / Blocco totale sistema per sovraccarico database Oracle
-Occorrenze: 05/05/2022, 01/07/2022, 20/07/2022, 22/07/2022, 08/08/2022, 16/09/2022, 20/04/2023, 10/05/2023, 12/05/2023, 19/05/2023, 04/12/2023, 30/04/2024, 29/04/2025, 07/05/2025
-Descrizione generale: La CPU del server WAMASDB sale oltre il 90-99%, rendendo WAMAS inutilizzabile su desktop e terminali mobili. Le aree automatica e manuale si bloccano. Gli OBD restano in stato "release in progress" o "approval in progress" per ore. I terminali mobili vengono espulsi. In alcuni casi il sistema richiede riavvio completo della VM o dell'istanza Oracle.
-Causa: Molteplici fattori convergenti: (1) Tabelle di protocollo/logging (activityprotocol, change data, OG002/OG025) che crescono a dismisura (fino a 161 milioni di righe per activityprotocol) per retention time eccessivo (fino a 865 giorni invece dei 4 mesi raccomandati). (2) Job di archiviazione bloccati o insufficienti. (3) Sessioni zombie non terminate dopo deploy o riavvii. (4) Oracle che cambia autonomamente il proprio execution plan dopo gather stats, impattando le query di produzione. (5) Errore Oracle ORA-00600 (KGL-heap-size-exceeded) per Library Cache Object troppo grande per la SGA (22/07/2022). (6) Sessioni DB inattive di utenti su picking station che causano lock a cascata.
-Soluzione / Workaround consolidato: (1) Esecuzione manuale di gather statistics per forzare ricalcolo del piano di esecuzione Oracle. (2) Terminazione di sessioni zombie o inattive. (3) Riavvio istanza Oracle e/o VM WAMASDB nei casi più gravi. (4) Sblocco manuale dei job di archiviazione. (5) Aggiunta temporanea di spazio al tablespace. (6) Riduzione progressiva del retention period.
-Frequenza: 14 occorrenze documentate tra 2022 e 2025.
-Note: Problema strutturale mai risolto definitivamente. Fin dal 2022 è stata proposta la creazione di un History Server per separare dati di produzione da dati storici, ma al 2025 il progetto era ancora in ritardo. La necessità di eseguire gather stats periodiche (giornaliere o settimanali) è stata ribadita più volte senza implementazione automatica stabile. Il forzamento dell'execution plan Oracle è stato necessario ripetutamente. La tabella activityprotocol è stata identificata come principale responsabile del degrado prestazionale.
+## 1. Deploy / patch / rollback con regressione o configurazione mancante
+
+**Occorrenze principali:**  
+2021: 27/07, 04/08, 11/08, 27/08, 26/11  
+2022: 31/01, 01/02, 04/04, 02/05, 09/05, 23/05, 01/07, 23/09  
+2023: 06/02, 01/08, 28/08, 29/08, 17/10, 23/10, 13/11, 04/12, 07/12  
+2024: 12/02, 19/03, 22/04, 17/06, 07/10  
+2025: 20/01, 24/03  
+
+**Descrizione generale:**  
+Dopo un deploy o una patch si sono verificati blocchi funzionali, regressioni, mancanza di configurazioni, permessi non allineati, client non aggiornati, problemi a stampanti, labeler, mobile terminal, TPO, OBD, comunicazioni host o DB. L’impatto operativo è stato spesso elevato: stazioni ferme, area automatica rallentata o bloccata, utenti espulsi, necessitá di rollback.
+
+**Causa ricorrente:**  
+Pack di deploy incompleti o con bug; script di grants/migrazione non eseguiti o obsoleti; parametri non visibili o non migrati; versioni client non aggiornate; modifiche DB non allineate; configurazioni locali perse.
+
+**Soluzione / Workaround consolidato:**  
+Rollback alla versione precedente; restart servizi/istanza; esecuzione script di grants; ripristino configurazioni stampanti/parametri/permessi; aggiornamento PC/client; fix successivo con nuovo deploy.
+
+**Frequenza:**  
+Molto alta: circa 30+ occorrenze, tutti gli anni.
+
+**Note:**  
+È una delle cause trasversali più rilevanti. Spesso il deploy ha introdotto o rivelato problemi di permessi, master data, stampanti, mobile terminal, DB e comunicazioni. In più occasioni è stato necessario rollback in giornata o deploy correttivo serale.

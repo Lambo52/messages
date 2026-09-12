@@ -1,7 +1,22 @@
-Ghost pallets / Disallineamento posizione fisica-logica
-Occorrenze: 25/06/2021 (AGV 7 ghost presence), 28/06/2021 (CU042/CU044 mismatch), 29/06/2021 (destacker D), 06/04/2022, 01/07/2022 (post-riavvio VM), 22/07/2022 (post-riavvio), 28/02/2023, 19/10/2022 (post-spegnimento non controllato), 07/03/2023
-Descrizione generale: I pallet risultano in posizioni logiche diverse da quelle fisiche. WAMAS e il conveyor vedono il pallet su location differenti. Si creano occupancy multiple incoerenti. Ghost pallets appaiono sulle infeed o su SLF. Gli AGV si bloccano incapaci di completare le missioni.
-Causa: (1) Interventi manuali senza aggiornamento del sistema logico. (2) Spegnimenti non controllati dell'impianto con SRM in movimento. (3) Riavvii VM che lasciano stati inconsistenti. (4) Pallet spinto fisicamente in avanti troppo velocemente.
-Soluzione / Workaround consolidato: (1) Eliminazione occupancy incoerenti da CTOP. (2) Restart mfsPal per allineare i dati. (3) Posizionamento manuale su location corretta + reset conveyor. (4) Correzione manuale di tutte le posizioni fisico/logiche dopo ogni riavvio.
-Frequenza: 9+ occorrenze documentate tra 2021 e 2023.
-Note: Necessaria sincronizzazione fisica-logica dopo ogni intervento manuale sull'area. L'uso della tab "Details" in LH è stato raccomandato per verificare la posizione esatta del pallet. Problema ricorrente dopo ogni riavvio VM o deploy.
+## 19. Permessi / utenti / profili / diritti di accesso
+
+**Occorrenze principali:**  
+2021: 23/08, 22/12  
+2022: 23/09  
+2023: 06/02, 01/08  
+2024: 22/01, 19/03, 21/03, 17/06, 18/09, 24/09  
+
+**Descrizione generale:**  
+Utenti senza accesso a dialog/tabelle; profili non abilitati; utenti non visibili dopo deploy; impossibilità di assegnare utente Desktop; differenze tra utenti; permessi insufficienti dopo migrazioni/deploy.
+
+**Causa ricorrente:**  
+Grants non generati dopo deploy; ruoli mancanti; configurazione stazione/utente errata; bug su assegnazione utente; profili non aggiornati.
+
+**Soluzione / Workaround consolidato:**  
+Assegnazione grants; attivazione utente su stazione; correzione ruolo; workaround con utente mobile locked; fix software; verifica permessi.
+
+**Frequenza:**  
+Media: circa 11 occorrenze.
+
+**Note:**  
+Ricorre spesso dopo deploy o modifiche DB. È un punto debole della procedura di rilascio.

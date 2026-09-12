@@ -1,2 +1,7 @@
-[07/06/2022, 13:18] — Post-deploy: "StoCompAssemblage couldn't be created" in IG511
-Descrizione: Errore alla identificazione pallet in IG511 dopo deploy. Causa identificata: Contatori WAMAS non aggiornati durante il deploy (errore manuale SSI). Soluzione / Workaround: Correzione manuale contatori. Proposta aggiunta alla checklist deploy. Note: —
+## Anno 2024
+
+### [05/01/24, 17:55] — Disallineamento stock su LU / CSIA02 e missing items
+**Descrizione:** Valori di stock su LU diversi da quelli richiesti dall’ordine; campo CSIA02 differente causa “missing items”.  
+**Causa identificata:** Disallineamento tra stock richiesto e stock presente sulle LU.  
+**Soluzione / Workaround:** Modifica campi csia sull’ordine e rilascio nuovamente l’ordine; stock non modificato.  
+**Note:** Possibile ricorrenza. Possibile correlazione con: OBD/stock.

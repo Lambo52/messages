@@ -1,2 +1,5 @@
-[28/12/2023, 08:57] — mqReceiver non legge messaggi da AS400 / Truck loading bloccato
-Descrizione: 124 messaggi in coda. Caricamento camion bloccato. Causa identificata: mqReceiver non partito correttamente; necessario riavviare anche mqSender. Soluzione / Workaround: Riavvio mqSender e mqReceiver. Sistema ripreso alle 09:48. Note: L'utente non ha permessi per riavviare autonomamente (solo SE015, non SE038).
+### [03/06/25 10:10] — Errore “TPO has been cancelled contemporarily” su picking LU
+**Descrizione:** Durante picking e uscita da auto-allocation, errore TPO cancellato contemporaneamente.  
+**Causa identificata:** Eccezione nei log; root cause non trovata.  
+**Soluzione / Workaround:** Conferma manuale TPO, stampa label, movimento manuale.  
+**Note:** Monitorare persistenza.

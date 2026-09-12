@@ -1,2 +1,5 @@
-[28/06/2021, 06:56] — BP02/03/04/06 bloccate per ~30 minuti
-Descrizione: Quattro stazioni di picking bloccate contemporaneamente per oltre mezz'ora. Causa identificata: Correlata ai problemi di conveyor/occupancy (CU042/CU044 mismatch). Soluzione / Workaround: Risolto in parallelo con la fix su CU044. Note: —
+### [12/10/2021 20:30] — Circa 100 TPO creati verso QC inaspettatamente
+**Descrizione:** Creati ~100 TPO verso QC; pallet da non rimuovere.  
+**Causa identificata:** Non specificata.  
+**Soluzione / Workaround:** Non rimuovere pallet; verifica al mattino.  
+**Note:** Possibile correlazione con: TPO bloccati/non creati.

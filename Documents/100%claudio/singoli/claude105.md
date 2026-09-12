@@ -1,2 +1,5 @@
-[27/12/2023, 15:42] — App Server lento dopo migrazione su server temporaneo
-Descrizione: MFS impiega 10-15 min invece di 1-2 min al caricamento. Causa identificata: VM su host temporaneo con prestazioni inferiori. Soluzione / Workaround: Attesa. Ritorno al server originale pianificato per 02/01. Note: —
+### [20/02/25 10:12] — Load con consignment pendenti non modificabili
+**Descrizione:** Impossibile spostare consignment per pending action sulla load.  
+**Causa identificata:** Pending action sulla load.  
+**Soluzione / Workaround:** Rimosse consignment; cancellate pending action e load draft.  
+**Note:** Risolto manualmente.

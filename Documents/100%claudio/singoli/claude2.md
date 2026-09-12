@@ -1,7 +1,21 @@
-Terminali mobili bloccati / lenti / disconnessi
-Occorrenze: 04/08/2021, 07/08/2021, 30/12/2021, 21/01/2022, 05/02/2022, 16/01/2025, 20/01/2025, 21/01/2025, 22/01/2025, 27/01/2025, 31/01/2025, 03/02/2025, 18/07/2024, 24/07/2024
-Descrizione generale: I terminali mobili RF mostrano errori "CONNECTION TIME OUT" o "Retry connection request", espellono gli utenti, o diventano estremamente lenti su tutti i flussi (discharge, picking manuale, TPO). L'area manuale risulta completamente bloccata, con impossibilità di movimentare pallet.
-Causa: Cause multiple: (1) Deploy tardivi o non comunicati che lasciano sessioni WAMAS non allineate. (2) Modifiche parametri rete/VPN (Vodafone, infrastruttura WiFi magazzino). (3) Cache mobile non aggiornata dopo deploy. (4) Query di discharge che includono location non necessarie (es. San Lorenzo post-migrazione 01/2025), aumentando drasticamente i tempi di risposta. (5) Carico elevato su database server. (6) Problemi di connettività WiFi in aree specifiche del magazzino.
-Soluzione / Workaround consolidato: (1) Disconnessione forzata delle sessioni WAMAS attive da parte di SSI. (2) Riavvio del DC Mobile Worker. (3) Riavvio dei terminali. (4) Fix delle query lente (esclusione location non necessarie). (5) Verifica infrastruttura WiFi.
-Frequenza: 14+ occorrenze documentate tra 2021 e 2025. Particolarmente concentrato nel periodo gennaio-febbraio 2025 dopo la migrazione dati San Lorenzo.
-Note: Nel 2025 il problema si è intensificato dopo l'aggiunta delle location San Lorenzo, che causava rallentamento sistematico delle query di discharge. Il fix richiedeva deploy ma veniva temporaneamente gestito con riavvio del mobile worker. Il problema di rete WiFi è stato segnalato più volte come causa indipendente da WAMAS.
+## 2. Gestione stack / destacker / loading aid speciali D-F-H-U-DA-HA
+
+**Occorrenze principali:**  
+2021: 29/06, 09/08, 09/09, 27/09, 04/10, 11/10  
+2024: 17/04, 18/04, 19/04, 22/04, 23/04, 24/04, 29/04, 12/06, 17/06, 19/06, 12/07, 15/07  
+2025: 09/01, 10/01, 28/05  
+
+**Descrizione generale:**  
+Problemi legati a stack di pallet, destacker, loading aid D/F/H/U e soprattutto DA/HA: stack non riconosciuti, cubature errate, TPO verso stacker già occupati, AGV che depositano stack in location errate, empty request incoerenti, MFS o PLC non aggiornati, incompatibilità tra loading aid e stazione/flusso.
+
+**Causa ricorrente:**  
+Configurazione cubature errata o mancante; mapping location errato lato Rocla/MFS; PLC crane non aggiornato; finestra temporale in cui il destacker risulta libero mentre una stack è già in transito; loading aid non correttamente abilitati; parametri di replenishment o slaving errati.
+
+**Soluzione / Workaround consolidato:**  
+Correzione cubature; allineamento mapping Rocla; aggiornamento PLC crane; restart MFS; rilascio manuale ATX/stack; cancellazione empty request/TPO errati; aumento intervallo job per evitare creazione TPO duplicati; modifica configurazioni MD/FW; fix software pianificati.
+
+**Frequenza:**  
+Alta: circa 25-30 occorrenze, con picco nel 2024 e ricorrenze nel 2025.
+
+**Note:**  
+Nel 2024 il tema DA/HA è stato uno dei più impattanti. Nel 2025 è stata individuata con maggiore precisione la root cause sulla creazione della seconda stack verso stacker occupato, ma spesso il fix definitivo è rimasto pianificato o parziale.

@@ -1,2 +1,5 @@
-[25/06/2021, 08:01] — Interruzione energia monofase: E-Stop foiling + stacker cranes down
-Descrizione: Due guasti su una singola fase dell'alimentazione elettrica a 15 minuti di distanza, causando picco di tensione. Foiling F02 in E-Stop, 8 crane in errore/down. Causa identificata: Guasto su singola fase dell'alimentazione elettrica esterna + spike di tensione. Il sistema Profinet ha attivato E-Stop di sicurezza sulle macchine di foiling. Soluzione / Workaround: Reset degli stacker cranes (ciclo Automatico Off/On + "routine di ascensione"). Crane 1 temporaneamente ridotto al 70% di velocità. Note: F01 e EMS su circuiti più robusti, non interessati.
+### [09/08/2021 14:38] — VPN non funzionante, SSI non può connettersi
+**Descrizione:** Supporto remoto impossibile.  
+**Causa identificata:** Cambio parametri VPN non comunicato efficacemente.  
+**Soluzione / Workaround:** Installato TeamViewer su PC in impianto.  
+**Note:** Possibile correlazione con: VPN/supporto remoto.

@@ -1,2 +1,0 @@
-[28/04/2025, 07:34] — WAMAS down: power outage su server
-Descrizione: WAMAS non raggiungibile. AGV offline. SRM09-12 non disponibili. Causa identificata: Power outage. SRM messi in stato non disponibile per evitare perdita telegram. Soluzione / Workaround: Sincronizzazione manuale MFS (MF210). Riavvio Rocla. Comunicazione HIVE-Rocla ripristinata. Note: Sincronizzazione manuale necessaria dopo power outage.

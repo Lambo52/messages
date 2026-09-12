@@ -1,2 +1,5 @@
-[27/07/2021, 06:20] — Blocco totale impianto: "Wait until job available"
-Descrizione: All'apertura turno, tutte le stazioni mostrano "Wait until job available". Intero impianto fermo (12 operatori pagati senza produrre). 31 ordini attivi. Causa identificata: Il refresh tra MFS e WMS interrotto da un Transport problematico + TPO in S48 non "Active for MFS" (residuo deploy del giorno precedente). Soluzione / Workaround: Hotfix alle 09:00. MFS riavviato. TPO recuperate con suspend + resume. Note: Issue D145 identificata e fix pianificato.
+### [12/02/22 07:20] — Pallet in errore su COD D01
+**Descrizione:** Pallet con errore su COD D01.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Immagine allegata.

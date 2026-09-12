@@ -1,2 +1,0 @@
-[29/04/2024, 08:29] — H e D stacks senza TPO: nessuna location compartimento disponibile
-Descrizione: Impossibile creare TPO per stacks H/D. Pick station extra-size bloccate. Causa identificata: Tutti i compartimenti ATLAS_HBW1_2X_1550 occupati o prenotati. Soluzione / Workaround: Cancellazione TPO in eccesso. Stack creati manualmente. Note: 2000 location disponibili, ma specifiche per pallet grande dimensione esaurite.

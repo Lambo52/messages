@@ -1,2 +1,5 @@
-[14/07/2021, 14:40] — Bug D142: Pick Order marcato "Finalized" con picking activity ancora attiva
-Descrizione: La finalizzazione di una singola picking activity causa la marcatura "Finalized" dell'intero PO, anche con altre attività attive. Causa identificata: Bug nella logica di finalizzazione del PO. Soluzione / Workaround: Rimozione manuale del flag "Finalized" da parte di SSI. Note: Issue D142 aperta con priorità.
+### [12/01/22 18:50] — TPO in manual allocation: errore e blocco terminale RF
+**Descrizione:** In manual allocation, dopo pick di una LU, uscendo per stampare etichette l’utente riceveva errore e il terminale RF richiedeva reboot.  
+**Causa identificata:** Non chiara; sospetto legame con interventi TPO spontanei.  
+**Soluzione / Workaround:** Pianificato restart sistema; test TPO dopo restart; esito non confermato.  
+**Note:** Situazione critica per volume spedizioni.

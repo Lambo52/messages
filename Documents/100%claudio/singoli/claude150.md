@@ -1,2 +1,0 @@
-[20/12/2024, 09:44] — Inventario bloccato: storage block impedisce uscita LU da HBW
-Descrizione: Storage block su HBW04 (incidente fisico crane) impediva uscita LU per inventario. Causa identificata: Il sistema non distingue il tipo di blocco ai fini del movimento. Soluzione / Workaround: Fix pianificato per deploy anno successivo. Nessun workaround possibile. Note: Il blocco HBW04 era permanente per crane danneggiato.

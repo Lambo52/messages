@@ -1,2 +1,5 @@
-[07/03/2023, 11:01] — DB spike, pallet logicamente su location errata, sessione DB bloccata
-Descrizione: Due pallet sulla stessa location CU118. WAMAS lento. Problemi anche in area manuale. Causa identificata: Sessione DB inattiva dell'utente clodesani su picking station #4 causava lock a cascata. Inventory orders creati in triplice copia dallo stesso Demand. Soluzione / Workaround: Terminazione sessione DB. Annullamento inventory orders anomali. Note: Bug WAMAS: creazione multipla di Inventory Orders dallo stesso Demand.
+### [10/07/24, 09:21] — Mobile terminal “no transport order” su pallet con TPO
+**Descrizione:** Utente mobile tenta di movimentare pallet con TPO ma WAMAS risponde “no transport order”.  
+**Causa identificata:** Non chiara; problema rientrato.  
+**Soluzione / Workaround:** Monitoraggio.  
+**Note:** Possibile correlazione con: TPO/mobile.

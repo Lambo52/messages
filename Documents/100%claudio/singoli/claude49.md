@@ -1,2 +1,5 @@
-[23/08/2021, 18:05] — Stampa LU label (RM019): errore per utenti specifici
-Descrizione: Utenti "Manutenzione" e "Responsabile EXT" non riescono a stampare etichette LU da RM019. Causa identificata: Diritti incompleti (accesso al dialog successivo mancante). Soluzione / Workaround: Completamento configurazione permessi + restart desktop. Note: Modifica permanente confermata.
+### [15/04/22 17:25] — Pick station #9 bloccata per issue COD
+**Descrizione:** Stessa issue COD; picking station #9 bloccata; richiesta log live.  
+**Causa identificata:** Non emersa.  
+**Soluzione / Workaround:** Non riportata.  
+**Note:** Ticket COD.

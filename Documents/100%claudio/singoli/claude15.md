@@ -1,7 +1,22 @@
-Issue A138: Doppio TPO verso destacker già occupato
-Occorrenze: 09/01/2025, 10/01/2025, 28/05/2025
-Descrizione generale: WAMAS crea un TPO per un secondo stack verso il destacker mentre il primo stack è ancora in transito. L'AGV arriva con il secondo stack su una posizione già occupata.
-Causa: Finestra temporale in cui MFS non vede il TPO attivo per lo stack master mentre quello per la sub-LU è in creazione. Se il job di replenishment gira in quel momento, genera un secondo TPO verso un destacker già pieno.
-Soluzione / Workaround consolidato: Rilascio manuale dell'ATX con il secondo stack. Proposta di aumentare l'intervallo del job a 5-10 minuti come misura temporanea.
-Frequenza: 3 occorrenze documentate nel 2025. Issue A138 ancora aperta.
-Note: Il caso si applica sia a stack DA che AF. Fix strutturale necessario ma non ancora implementato al luglio 2025.
+## 15. Stampanti / labeler / label / barcode / printing service
+
+**Occorrenze principali:**  
+2021: 01/10, 16/09  
+2022: 12/01, 24/02  
+2023: 02/03, 28/08, 17/10, 04/12, 28/12  
+2025: 12/05, 23/06, 21/07  
+
+**Descrizione generale:**  
+Stampanti non responsive, “no printing data”, labeler in bypass/unreachable, etichette capovolte, campi tagliati, barcode non scansionabile, layout errati, printing service che blocca conveyor.
+
+**Causa ricorrente:**  
+Configurazione stampante mancante/dopo deploy; printing service in errore; template/layout errati; IP/stampante non raggiungibile; larghezza barcode/font errati.
+
+**Soluzione / Workaround consolidato:**  
+Ripristino configurazione; restart/bypass stampante; fix template; riduzione barcode/font; test reprint; correzione printing service.
+
+**Frequenza:**  
+Media: circa 13 occorrenze.
+
+**Note:**  
+Molti episodi sono comparsi dopo deploy o modifiche template. In alcuni casi la stampante guasta bloccava flussi di uscita/foiling.
